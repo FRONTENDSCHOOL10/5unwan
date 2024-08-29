@@ -11,21 +11,22 @@
     "lint": "eslint \"./src/**\" --ext ts,tsx,js,jsx --max-warnings 0 --report-unused-disable-directives --ignore-pattern .gitignore"
   },
   "dependencies": {
+    "pocketbase": "0.21.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@types/node": "22.1.0",
-    "@types/react-dom": "^18.3.0",
     "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "9.x",
+    "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.9",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint": "9.x",
     "globals": "^15.8.0",
     "typescript": "^5.2.2",
     "vite": "^5.3.5"
