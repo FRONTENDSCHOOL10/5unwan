@@ -11,9 +11,13 @@
     "lint": "eslint \"./src/**\" --ext ts,tsx,js,jsx --max-warnings 0 --report-unused-disable-directives --ignore-pattern .gitignore"
   },
   "dependencies": {
+    "localforage": "1.10.0",
+    "match-sorter": "6.3.4",
     "pocketbase": "0.21.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "6.26.1",
+    "sort-by": "1.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
