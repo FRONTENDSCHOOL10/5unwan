@@ -57,6 +57,15 @@ export async function createUser(newUser: NewUser) {
   return createdUser;
 }
 
+export type LoginInfo = {
+  email: string;
+  password: string;
+};
+
+export async function loginWithPassword({ email, password }: LoginInfo) {
+  await pb.collection("users").authWithPassword(email, password);
+}
+
 export async function kakaoSignUpOrLogin() {
   await pb.collection("users").authWithOAuth2({ provider: "kakao" });
 }
