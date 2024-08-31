@@ -10,8 +10,8 @@ export default function Login() {
     },
   });
 
-  function kakaoLogin() {
-    kakaoSignUpOrLoginMutation.mutate();
+  async function kakaoLogin() {
+    await kakaoSignUpOrLoginMutation.mutateAsync();
   }
 
   return (

@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthModel } from "pocketbase";
 import { Spinner } from "@/components/Spinner";
 import { useCurrentUserQuery } from "@/hooks/user";
+import { User } from "@/api/pocketbase";
 
 export type UserContext = {
-  user: AuthModel;
+  user: User;
 };
 
 export default function PrivateRoute() {
@@ -14,6 +14,6 @@ export default function PrivateRoute() {
   ) : user ? (
     <Outlet context={{ user }} />
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/start" />
   );
 }

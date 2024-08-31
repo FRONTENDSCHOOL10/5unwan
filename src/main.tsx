@@ -8,10 +8,20 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "@/routes/Login";
 import Home from "@/routes/Home";
 import PrivateRoute from "@/routes/PrivateRoute";
+import Start from "@/routes/Start";
+import Register from "@/routes/Register";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
+  {
+    path: "/start",
+    element: <Start />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
   {
     path: "/login",
     element: <Login />,
