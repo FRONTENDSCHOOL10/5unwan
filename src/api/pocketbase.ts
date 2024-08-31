@@ -18,7 +18,7 @@ export async function currentUser() {
   }
   return null;
 }
-export async function initiateKakaoSignUp() {
+export async function kakaoSignUpOrLogin() {
   await pb.collection("users").authWithOAuth2({ provider: "kakao" });
 }
 export function logout() {

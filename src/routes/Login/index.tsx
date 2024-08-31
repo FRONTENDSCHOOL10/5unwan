@@ -1,11 +1,19 @@
-import { initiateKakaoSignUp } from "@/api/pocketbase";
+import { kakaoSignUpOrLogin as kakaoSignUpOrLogin } from "@/api/pocketbase";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
-  async function kakaoLogin() {
-    await initiateKakaoSignUp();
-    navigate("/");
+  const kakaoSignUpOrLoginMutation = useMutation({
+    mutationFn: kakaoSignUpOrLogin,
+    onSuccess: () => {
+      navigate("/");
+    },
+  });
+
+  function kakaoLogin() {
+    kakaoSignUpOrLoginMutation.mutate();
   }
+
   return (
     <>
       <div>
