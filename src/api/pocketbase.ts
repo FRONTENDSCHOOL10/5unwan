@@ -5,24 +5,26 @@ const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 export type User = {
   id: string;
   username: string;
+  nickname: string;
   email: string;
   avatar: string;
   dob: string;
-  gender: string;
+  gender: "" | "F" | "M";
   height: number;
   weight: number;
-  interested: string[];
+  interests: string[];
 };
 
 export type NewUser = {
   username?: string;
+  nickname?: string;
   email: string;
   avatar?: string;
   dob?: string;
-  gender?: string;
+  gender?: "" | "F" | "M";
   height?: number;
   weight?: number;
-  interested?: string[];
+  interests?: string[];
   password: string;
   passwordConfirm: string;
 };
@@ -55,6 +57,20 @@ export async function createUser(newUser: NewUser) {
   // pb.collection("users").requestVerification(newUser.email);
 
   return createdUser;
+}
+
+export async function updateCurrentUser({
+  userId,
+  userValues,
+}: {
+  userId: string;
+  userValues: Partial<User>;
+}) {
+  const updatedUser = (await pb
+    .collection("users")
+    .update(userId, userValues)) as User;
+
+  return updatedUser;
 }
 
 export type LoginInfo = {

@@ -7,7 +7,7 @@ export default function Login() {
   const kakaoSignUpOrLoginMutation = useMutation({
     mutationFn: kakaoSignUpOrLogin,
     onSuccess: () => {
-      navigate("/");
+      navigate("/onboarding");
     },
   });
 
