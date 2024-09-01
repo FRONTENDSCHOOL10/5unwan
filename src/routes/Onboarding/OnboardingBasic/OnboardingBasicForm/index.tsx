@@ -1,9 +1,7 @@
 import { updateCurrentUser, User } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ClientResponseError } from "pocketbase";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 export type OnboardingBasicFormProps = {
   onSuccess: () => void | Promise<void>;

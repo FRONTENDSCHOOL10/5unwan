@@ -1,6 +1,6 @@
 import { UserContext } from "@/routes/PrivateRoute";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { OnboardingBasicForm } from "./OnboardingBasicForm";
+import { OnboardingBasicForm } from "@/routes/Onboarding/OnboardingBasic/OnboardingBasicForm";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 
 export default function OnboardingBasic() {

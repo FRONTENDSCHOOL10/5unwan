@@ -1,5 +1,5 @@
 import { Link, Outlet, useOutletContext } from "react-router-dom";
-import { UserContext } from "../PrivateRoute";
+import { UserContext } from "@/routes/PrivateRoute";
 import { getOnboardingStep, ONBOARDING_STEPS } from "@/utils/onboarding";
 
 export default function OnboardedRoute() {
