@@ -1,0 +1,95 @@
+:root {
+  --font-size-basic: 16px;
+  --font-family-basic: "Noto Sans KR", sans-serif;
+  --font-weight-black: 900;
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+}
+
+/* Heading */
+.heading-1 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 3);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 110%;
+  color: var(--grayscale-900);
+}
+.heading-2 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 2.5);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 110%;
+  color: var(--grayscale-900);
+}
+.heading-3 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 2);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 110%;
+  color: var(--grayscale-900);
+}
+.heading-4 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 1.5);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 120%;
+  color: var(--grayscale-900);
+}
+.heading-5 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 1.25);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 120%;
+  color: var(--grayscale-900);
+}
+.heading-6 {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 1.125);
+  font-style: normal;
+  font-weight: var(--font-weight-black);
+  line-height: 120%;
+  color: var(--grayscale-900);
+}
+
+/* body */
+.body-xl {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 1.125);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-lg {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 1);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-md {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 0.875);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-sm {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 0.75);
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-xs {
+  font-family: var(--font-family-basic);
+  font-size: calc(var(--font-size-basic) * 0.625);
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
