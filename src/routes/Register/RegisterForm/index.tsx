@@ -1,4 +1,5 @@
 import { createUser } from "@/api/pocketbase";
+import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 
@@ -94,7 +95,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           registerMutation.isPending
         }
       >
-        다음 1/6
+        {`다음 1/${ONBOARDING_STEPS.length + 1}`}
       </button>
     </form>
   );

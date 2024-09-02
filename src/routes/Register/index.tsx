@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { RegisterForm } from "./RegisterForm";
+import { RegisterForm } from "@/routes/Register/RegisterForm";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export default function Register() {
       <h1>이메일과 비밀번호를 입력해주세요.</h1>
       <RegisterForm
         onSuccess={() => {
-          navigate("/");
+          navigate("/onboarding");
         }}
       />
     </div>

@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  height: 4rem;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-bottom: 0.125rem solid;
+}
+
+.outlet {
+  height: 0;
+  min-height: 15rem;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.gnb-nav {
+  z-index: 50;
+  order: 9999;
+  height: 4rem;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-top: 0.125rem solid;
+}
