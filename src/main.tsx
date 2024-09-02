@@ -2,8 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // > css
-import "@/styles/globals.css";
-import "@/styles/reset.css";
+import "@/styles/styles.css";
 // > components
 import {
   createBrowserRouter,
