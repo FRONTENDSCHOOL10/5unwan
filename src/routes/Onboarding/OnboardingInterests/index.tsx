@@ -1,16 +1,16 @@
 import { UserContext } from "@/routes/PrivateRoute";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { OnboardingHeightForm } from "@/routes/Onboarding/OnboardingHeight/OnboardingHeightForm";
+import { OnboardingInterestsForm } from "@/routes/Onboarding/OnboardingInterests/OnboardingInterestsForm";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 
-export default function OnboardingHeight() {
+export default function OnboardingInterests() {
   const { user } = useOutletContext<UserContext>();
   const currentRoute = location.pathname.toLowerCase();
   const currentStep = ONBOARDING_STEPS.indexOf(currentRoute);
   const navigate = useNavigate();
   return (
     <div>
-      <OnboardingHeightForm
+      <OnboardingInterestsForm
         onSuccess={() => {
           currentStep === ONBOARDING_STEPS.length - 1
             ? navigate("/")

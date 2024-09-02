@@ -12,7 +12,9 @@ export default function OnboardingWeight() {
     <div>
       <OnboardingWeightForm
         onSuccess={() => {
-          navigate("/");
+          currentStep === ONBOARDING_STEPS.length - 1
+            ? navigate("/")
+            : navigate(ONBOARDING_STEPS[currentStep + 1]);
         }}
         user={user}
         currentStep={currentStep}

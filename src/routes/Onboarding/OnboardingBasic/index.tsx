@@ -12,7 +12,9 @@ export default function OnboardingBasic() {
     <div>
       <OnboardingBasicForm
         onSuccess={() => {
-          navigate("/onboarding/dob");
+          currentStep === ONBOARDING_STEPS.length - 1
+            ? navigate("/")
+            : navigate(ONBOARDING_STEPS[currentStep + 1]);
         }}
         user={user}
         currentStep={currentStep}

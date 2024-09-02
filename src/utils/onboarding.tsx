@@ -5,7 +5,7 @@ export const ONBOARDING_STEPS = [
   "/onboarding/dob",
   "/onboarding/height",
   "/onboarding/weight",
-  // "/onboarding/interests",
+  "/onboarding/interests",
 ];
 
 export function getOnboardingStep(user: User) {
@@ -17,8 +17,8 @@ export function getOnboardingStep(user: User) {
     return ONBOARDING_STEPS.indexOf("/onboarding/height");
   } else if (!user.weight) {
     return ONBOARDING_STEPS.indexOf("/onboarding/weight");
-    // } else if (!user.interests || user.interests.length === 0) {
-    //   return ONBOARDING_STEPS.indexOf("/onboarding/interests");
+  } else if (!user.interests || user.interests.length === 0) {
+    return ONBOARDING_STEPS.indexOf("/onboarding/interests");
   } else {
     return "done";
   }
