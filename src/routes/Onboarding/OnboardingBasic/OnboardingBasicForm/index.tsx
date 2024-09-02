@@ -102,7 +102,9 @@ export function OnboardingBasicForm({
       <button
         type="submit"
         disabled={
-          !formData.nickname.trim() || onboardingBasicMutation.isPending
+          !formData.nickname.trim() ||
+          !formData.gender.trim() ||
+          onboardingBasicMutation.isPending
         }
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
