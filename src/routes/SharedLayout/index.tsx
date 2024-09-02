@@ -1,3 +1,4 @@
+import { WorkoutRecordModal } from "@/components/WorkoutRecordModal";
 import { RouteHandle } from "@/main";
 import styles from "@/routes/SharedLayout/styles.module.css";
 import { Link, Outlet, useMatches } from "react-router-dom";
@@ -29,9 +30,7 @@ export default function SharedLayout() {
             <Link to={"/calendar"} type="button">
               <span>캘린더</span>
             </Link>
-            <button type="button">
-              <span>운동기록</span>
-            </button>
+            <WorkoutRecordModal />
             <Link to={"/maps"} type="button">
               <span>지도</span>
             </Link>
