@@ -1,5 +1,3 @@
-import { useOutletContext } from "react-router-dom";
-import { UserContext } from "@/routes/PrivateRoute";
 import { useUser } from "@/hooks/user";
 
 export default function MyPage() {
@@ -19,8 +17,11 @@ export default function MyPage() {
       <br />
       <span>마이페이지</span>
       <br />
-      <button onClick={logout}>로그아웃</button>
+      <button onClick={handleLogout}>로그아웃</button>
     </div>
   );
-}
 
+  function handleLogout() {
+    logout();
+  }
+}
