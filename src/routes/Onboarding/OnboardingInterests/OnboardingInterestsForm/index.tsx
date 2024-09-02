@@ -70,8 +70,6 @@ export function OnboardingInterestsForm({
     });
   };
 
-  console.log("formData", formData);
-
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">

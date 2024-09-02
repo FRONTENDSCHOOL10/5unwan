@@ -1,4 +1,4 @@
-import { updateCurrentUser, User } from "@/api/pocketbase";
+import { updateCurrentUser, UpdateUser, User } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
-  const [formData, setFormData] = useState<Pick<User, "height">>(() => {
+  const [formData, setFormData] = useState<Pick<UpdateUser, "height">>(() => {
     return {
       height: user.height || 0,
     };
@@ -32,14 +32,8 @@ export function OnboardingHeightForm({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    const { height } = formData;
-
-    const userValues = {
-      height,
-    };
-
     await onboardingHeightMutation.mutateAsync(
-      { userId: user.id, userValues },
+      { userId: user.id, userValues: formData },
       { onSuccess }
     );
   };

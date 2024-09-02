@@ -1,4 +1,4 @@
-import { updateCurrentUser, User } from "@/api/pocketbase";
+import { updateCurrentUser, UpdateUser, User } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ export function OnboardingWeightForm({
   user,
   currentStep,
 }: OnboardingWeightFormProps) {
-  const [formData, setFormData] = useState<Pick<User, "weight">>(() => {
+  const [formData, setFormData] = useState<Pick<UpdateUser, "weight">>(() => {
     return {
       weight: user.weight || 0,
     };
@@ -32,14 +32,8 @@ export function OnboardingWeightForm({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    const { weight } = formData;
-
-    const userValues = {
-      weight,
-    };
-
     await onboardingWeightMutation.mutateAsync(
-      { userId: user.id, userValues },
+      { userId: user.id, userValues: formData },
       { onSuccess }
     );
   };
