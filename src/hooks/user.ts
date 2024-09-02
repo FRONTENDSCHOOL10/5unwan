@@ -1,12 +1,13 @@
 import { currentUser, logout } from "@/api/pocketbase";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { Error } from "somewhere"; 
 
 export function useCurrentUserQuery() {
   const query = useQuery({
     queryKey: ["current-user"],
     queryFn: currentUser,
-    onError: (error) => {
+    onError: (error: unknown) => { 
       console.error("Failed to fetch current user:", error);
     },
   });
