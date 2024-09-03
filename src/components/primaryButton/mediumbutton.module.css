@@ -1,32 +1,32 @@
 @import "@/styles/colors.css";
 @import "@/styles/fonts.css";
 
-.mediumButtonWrapper {
-  width: 140px;
-  height: 44px;
+.medium-button-wrapper {
+  width: 8.75rem; /* 140px */
+  height: 2.75rem; /* 44px */
   background-color: var(--grayscale-800);
   color: white;
   font-family: var(--font-family-basic);
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
   font-weight: var(--font-weight-bold);
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem; /* 4px */
   cursor: pointer;
-  margin-bottom: 2px;
+  margin-bottom: 0.125rem; /* 2px */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.mediumButtonWrapper:hover {
+.medium-button-wrapper:hover {
   background-color: var(--grayscale-900);
 }
 
-.mediumButtonWrapper:active {
+.medium-button-wrapper:active {
   background-color: var(--grayscale-700);
 }
 
-.mediumButtonWrapper:disabled {
+.medium-button-wrapper:disabled {
   background-color: var(--grayscale-300);
   color: var(--grayscale-500);
   cursor: not-allowed;

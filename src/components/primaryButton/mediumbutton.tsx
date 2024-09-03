@@ -10,7 +10,7 @@ type ButtonProps = {
 const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
     <button
-      className={styles['medium-button-wrapper']}
+      className={styles["medium-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
     >

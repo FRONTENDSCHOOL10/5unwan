@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './minibutton.module.css'; 
+import styles from './minibutton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -20,6 +20,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 };
 
 export default MiniButton;
+
 
 
 

@@ -1,34 +1,33 @@
 @import '@/styles/colors.css';
 @import '@/styles/fonts.css';
 
-
-.miniButtonWrapper {
-  width: 63px;
-  height: 42px;
-  background-color: var(--grayscale-800); /* 기존의 #424242에 해당하는 색상 */
-  color: var(--grayscale-50); /* 기존의 흰색에 해당하는 색상 */
+.mini-button-wrapper {
+  width: 3.9375rem; /* 63px */
+  height: 2.625rem; /* 42px */
+  background-color: var(--grayscale-800); 
+  color: var(--grayscale-50); 
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.75); /* 기존의 12px에 해당 */
+  font-size: calc(var(--font-size-basic) * 0.75);
   font-weight: var(--font-weight-bold);
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem; /* 4px */
   cursor: pointer;
-  margin-bottom: 2px;
+  margin-bottom: 0.125rem; /* 2px */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.miniButtonWrapper:hover {
-  background-color: var(--grayscale-900); /* 기존의 #212121에 해당 */
+.mini-button-wrapper:hover {
+  background-color: var(--grayscale-900);
 }
 
-.miniButtonWrapper:active {
-  background-color: var(--grayscale-700); /* 기존의 #333333에 해당 */
+.mini-button-wrapper:active {
+  background-color: var(--grayscale-700);
 }
 
-.miniButtonWrapper:disabled {
-  background-color: var(--disabled); /* disabled 상태의 배경색 */
-  color: var(--grayscale-500); /* disabled 상태의 텍스트 색상 */
+.mini-button-wrapper:disabled {
+  background-color: var(--disabled); 
+  color: var(--grayscale-500); 
   cursor: not-allowed;
 }

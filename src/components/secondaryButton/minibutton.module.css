@@ -1,0 +1,38 @@
+@import "@/styles/colors.css";
+@import "@/styles/fonts.css";
+
+.mini-button-wrapper {
+	width: 3.9375rem; /* 63px */
+	height: 2.625rem; /* 42px */
+	background-color: transparent;
+	color: var(--grayscale-600);
+	font-family: var(--font-family-basic);
+	font-size: 0.75rem; /* 12px */
+	font-weight: var(--font-weight-bold);
+	border: 0.0625rem solid var(--grayscale-400); /* 1px */
+	border-radius: 0.25rem; /* 4px */
+	cursor: pointer;
+	margin-bottom: 0.125rem; /* 2px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mini-button-wrapper:hover {
+	background-color: transparent;
+	color: var(--grayscale-800);
+	border-color: var(--grayscale-600);
+}
+
+.mini-button-wrapper:active {
+	background-color: transparent;
+	color: var(--grayscale-900);
+	border-color: var(--grayscale-600);
+}
+
+.mini-button-wrapper:disabled {
+	background-color: transparent;
+	color: var(--grayscale-400);
+	border-color: var(--grayscale-200);
+	cursor: not-allowed;
+}

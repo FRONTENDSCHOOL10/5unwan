@@ -1,0 +1,39 @@
+@import "@/styles/colors.css";
+@import "@/styles/fonts.css";
+
+.medium-button-wrapper {
+	width: 8.75rem;  /* 140px */
+	height: 2.75rem; /* 44px */
+	background-color: transparent;
+	color: var(--grayscale-600);
+	font-family: var(--font-family-basic);
+	font-size: 0.875rem; /* 14px */
+	font-weight: var(--font-weight-bold);
+	border: 0.0625rem solid transparent; /* 1px */
+	border-radius: 0.25rem; /* 4px */
+	cursor: pointer;
+	margin-bottom: 0.125rem; /* 2px */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .medium-button-wrapper:hover {
+	background-color: transparent;
+	color: var(--grayscale-800);
+	border-color: transparent;
+  }
+  
+  .medium-button-wrapper:active {
+	background-color: transparent;
+	color: var(--grayscale-800);
+	border-color: transparent;
+  }
+  
+  .medium-button-wrapper:disabled {
+	background-color: transparent;
+	color: var(--grayscale-400);
+	border-color: transparent;
+	cursor: not-allowed;
+  }
+  
