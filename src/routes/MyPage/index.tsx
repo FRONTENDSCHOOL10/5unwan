@@ -1,9 +1,12 @@
 import MiniButton from "@/components/primaryButton/minibutton";
-import MediumButton from "@/components/primaryButton/mdiumbutton";
+import MediumButton from "@/components/primaryButton/mediumbutton";
 import LargeButton from "@/components/primaryButton/largebutton";
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import { useUser } from "@/hooks/user";
+import MiniButtonS from "@/components/secondaryButton/minibutton";
+import MediumButtonS from "@/components/secondaryButton/mediumbutton";
+import LargeButtonS from "@/components/secondaryButton/largebutton";
 
 
 export default function MyPage() {
@@ -17,11 +20,6 @@ export default function MyPage() {
     return <div>Error loading user data.</div>;
   }
 
-
-  // handleClick 함수 정의
-  const handleClick = () => {
-    alert('Disabled Button Clicked!');
-  };
 
 
   
@@ -42,7 +40,7 @@ export default function MyPage() {
 	버튼
 	</MediumButton>
 
-	<MediumButton onClick={handleClick} disabled={true}>
+	<MediumButton disabled={true}>
 	버튼
 	</MediumButton>
 
@@ -51,7 +49,26 @@ export default function MyPage() {
  	 버튼
 	</LargeButton>
 
+
+<MiniButtonS onClick={() => alert('Mini Button Clicked!')}>
+	버튼
+</MiniButtonS>
+
+<MediumButtonS onClick={() => {}}>
+	버튼
+</MediumButtonS>
+
+<LargeButtonS onClick={() => {}}>
+		버튼
+	</LargeButtonS>
+
+	<LargeButtonS disabled={true}>
+  버튼
+</LargeButtonS>
     </div>
+
+
+
 
   );
 

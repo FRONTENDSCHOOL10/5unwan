@@ -7,18 +7,18 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-const LargeButtonWrapper = styled.button<ButtonProps>`
-  width: 280px; 
-  height: 54px;  
+const MediumButtonWrapper = styled.button<ButtonProps>`
+  width: 140px;  
+  height: 44px; 
   background-color: #424242;
   color: white;
   font-family: 'Noto Sans KR';
-  font-size: 14px; 
+  font-size: 14px;
   font-weight: bold;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,32 +38,32 @@ const LargeButtonWrapper = styled.button<ButtonProps>`
   }
 `;
 
-const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
+const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
-    <LargeButtonWrapper onClick={onClick} disabled={disabled}>
+    <MediumButtonWrapper onClick={onClick} disabled={disabled}>
       {children}
-    </LargeButtonWrapper>
+    </MediumButtonWrapper>
   );
 };
 
-export default LargeButton;
+export default MediumButton;
 
-/* 라지 버튼 사용 예시 
-import LargeButton from "@/components/primaryButton/largebutton";
+/* 미디엄 버튼 사용 예시 
+import MediumButton from "@/components/primaryButton/mdiumbutton";
 
-	<LargeButton onClick={() => {}}>
+	<MediumButton onClick={() => {}}>
 		버튼
-	</LargeButton>
+	</MediumButton>
 */
 
-/* 비활성화 라지 버튼 사용 예시
-import LargeButton from "@/components/primaryButton/largebutton";
+/* 비활성화 미디엄 버튼 사용 예시
+import MediumButton from "@/components/primaryButton/mdiumbutton";
 
 	const handleClick = () => {
   	  alert('Disabled Button Clicked!');
 	  };
 
-  	<LargeButton disabled={true}>
-  		버튼
-	</LargeButton>
+	<MediumButton disabled={true}>
+	버튼
+	</MediumButton>
 */

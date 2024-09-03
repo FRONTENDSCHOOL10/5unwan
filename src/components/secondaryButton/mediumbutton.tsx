@@ -10,12 +10,12 @@ type ButtonProps = {
 const MediumButtonWrapper = styled.button<ButtonProps>`
   width: 140px;  
   height: 44px; 
-  background-color: #424242;
-  color: white;
+  background-color: transparent;
+  color: #757575;
   font-family: 'Noto Sans KR';
   font-size: 14px;
   font-weight: bold;
-  border: none;
+  border: 1px solid #BDBDBD;
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 2px;
@@ -24,16 +24,21 @@ const MediumButtonWrapper = styled.button<ButtonProps>`
   justify-content: center;
 
   &:hover {
-    background-color: #212121;
+    background-color: transparent;
+    color: #424242;
+    border-color: #757575;
   }
 
   &:active {
-    background-color: #333333;
+    background-color: transparent;
+    color: #333333;
+    border-color: #757575;
   }
 
   &:disabled {
-    background-color: #E0E0E0;
-    color: #9E9E9E;
+    background-color: transparent;
+    color: #BDBDBD;
+    border-color: #EEEEEE;
     cursor: not-allowed;
   }
 `;
@@ -49,21 +54,21 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
 export default MediumButton;
 
 /* 미디엄 버튼 사용 예시 
-import MediumButton from "@/components/primaryButton/mdiumbutton";
+import MediumButtonS from "@/components/secondaryButton/mdiumbutton";
 
-	<MediumButton onClick={() => alert('Medium Button Clicked!')}>
-		미디엄버튼
-	</MediumButton>
+	<MediumButtonS onClick={() => {}}>
+		버튼
+	</MediumButtonS>
 */
 
 /* 비활성화 미디엄 버튼 사용 예시
-import MediumButton from "@/components/primaryButton/mdiumbutton";
+import MediumButtonS from "@/components/secondaryButton/mdiumbutton";
 
-	const handleClick = () => {
+	const handleClickS = () => {
   	  alert('Disabled Button Clicked!');
 	  };
 
-  	<MediumButton onClick={handleClick} disabled={true}>
-  		Disabled Button
-	</MediumButton>
+  	<MediumButtonS disabled={true}>
+  		버튼
+	</MediumButtonS>
 */

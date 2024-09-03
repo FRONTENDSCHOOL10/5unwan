@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
@@ -11,12 +10,12 @@ type ButtonProps = {
 const MiniButtonWrapper = styled.button<ButtonProps>`
   width: 63px;
   height: 42px;
-  background-color: #424242;
-  color: white;
-  font-family: 'Noto Sans KR;
+  background-color: transparent;
+  color: #757575;
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-weight: bold; 
-  border: none;
+  border: 1px solid #BDBDBD;
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 2px;
@@ -25,16 +24,21 @@ const MiniButtonWrapper = styled.button<ButtonProps>`
   justify-content: center;
 
   &:hover {
-    background-color: #212121;
+    background-color: transparent;
+    color: #424242;
+    border-color: #757575;
   }
 
   &:active {
-    background-color: #333333;
+    background-color: transparent;
+    color: #333333;
+    border-color: #757575;
   }
 
   &:disabled {
-    background-color: #E0E0E0;
-    color: #9E9E9E;
+    background-color: transparent;
+    color: #BDBDBD;
+    border-color: #EEEEEE;
     cursor: not-allowed;
   }
 `;
@@ -49,25 +53,23 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 
 export default MiniButton;
 
-
-
 /* 미니버튼 사용 예시
-import MiniButton from "@/components/primaryButton/minibutton";
+import MiniButtonS from "@/components/secondaryButton/minibutton";
 
-	<MiniButton onClick={() => {}}>
+	<MiniButtonS onClick={() => {}}>
 		버튼
-	</MiniButton>
+	</MiniButtonS>
 */
 
 
 /* 비활성화 미니버튼 사용 예시
-import MiniButton from "@/components/primaryButton/minibutton";
+import MiniButtonS from "@/components/secondaryButton/minibutton";
 
-	const handleClick = () => {
+	const handleClickS = () => {
   	  alert('Disabled Button Clicked!');
 	  };
 
-  	<MiniButton disabled={true}>
+  	<MiniButtonS disabled={true}>
   		버튼
-	</MiniButton>
+	</MiniButtonS>
   */
