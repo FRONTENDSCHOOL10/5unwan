@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styles from './LargeButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -7,59 +7,32 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-const LargeButtonWrapper = styled.button<ButtonProps>`
-  width: 280px; 
-  height: 54px;  
-  background-color: #424242;
-  color: white;
-  font-family: 'Noto Sans KR';
-  font-size: 14px; 
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: #212121;
-  }
-
-  &:active {
-    background-color: #333333;
-  }
-
-  &:disabled {
-    background-color: #E0E0E0;
-    color: #9E9E9E;
-    cursor: not-allowed;
-  }
-`;
-
 const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
-    <LargeButtonWrapper onClick={onClick} disabled={disabled}>
+    <button
+      className={styles['large-button-wrapper']}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
-    </LargeButtonWrapper>
+    </button>
   );
 };
 
 export default LargeButton;
 
-/* 라지 버튼 사용 예시 
-import LargeButton from "@/components/primaryButton/largebutton";
 
-	<LargeButton onClick={() => {}}>
-		버튼
-	</LargeButton>
+/* 버튼 사용 예시 
+
+import LargeButton from "@/components/primaryButton/LargeButton";
+
+<LargeButton onClick={() => {}}>
+  버튼
+</LargeButton>
+
+<LargeButton disabled={true}>
+  버튼
+</LargeButton>
+
 */
 
-/* 비활성화 라지 버튼 사용 예시
-import LargeButton from "@/components/primaryButton/largebutton";
-
-  	<LargeButton disabled={true}>
-  		버튼
-	</LargeButton>
-*/
