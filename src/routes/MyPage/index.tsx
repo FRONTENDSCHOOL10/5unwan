@@ -45,53 +45,14 @@ export default function MyPage() {
       <br />
       <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 
-      <MiniButton onClick={() => alert('Mini Button Clicked!')}>
-        버튼
-      </MiniButton>
+	<MiniButton onClick={() => {}}>
+		버튼
+	</MiniButton>
 
-      <MediumButton onClick={() => {}}>
-        버튼
-      </MediumButton>
-
-      <MediumButton disabled={true}>
-        버튼
-      </MediumButton>
-
-      <LargeButton onClick={() => {}}>
-        버튼
-      </LargeButton>
-
-      <MiniButtonS onClick={() => {}}>
-        버튼
-      </MiniButtonS>
-
-      <MediumButtonS onClick={() => {}}>
-        버튼
-      </MediumButtonS>
-
-      <LargeButtonS onClick={() => {}}>
-        버튼
-      </LargeButtonS>
-
-      <LargeButtonS disabled={true}>
-        버튼
-      </LargeButtonS>
-
-      <MiniButtonT onClick={() => {}}>
-        버튼
-      </MiniButtonT>
-
-      <MediumButtonT onClick={() => {}}>
-        버튼
-      </MediumButtonT>
-
-      <LargeButtonT onClick={() => {}}>
-        버튼
-      </LargeButtonT>
-
-      <LargeButtonT disabled={true}>
-        버튼
-      </LargeButtonT>
+	<MiniButton disabled={true}>
+  		버튼
+	</MiniButton>
+	
     </div>
   );
 }
