@@ -1,8 +1,8 @@
 import MiniButton from "@/components/primaryButton/minibutton";
-import MiniButtonS from "@/components/secondaryButton/minibutton";
-import LargeButton from "@/components/primaryButton/largebutton";
-import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 import MediumButton from "@/components/primaryButton/mediumbutton";
+import LargeButton from "@/components/primaryButton/largebutton";
+import MiniButtonS from "@/components/secondaryButton/minibutton";
+import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 import LargeButtonS from "@/components/secondaryButton/largebutton";
 import MiniButtonT from "@/components/tertiaryButton/minibutton";
 import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
@@ -12,26 +12,30 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "@/api/pocketbase";  
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
 
+
 export default function MyPage() {
-  const { user, isLoading, isError } = useCurrentUserQuery(); 
-  const navigate = useNavigate(); 
-  const queryClient = useQueryClient(); 
+	const { user, isLoading, isError } = useCurrentUserQuery(); 
+	const navigate = useNavigate(); 
+	const queryClient = useQueryClient(); 
+  
 
-  const logoutMutation = useMutation({
-    mutationFn: logout, 
-    onSuccess: () => {
-      queryClient.clear(); 
-      navigate("/login");  
-    },
-  });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error loading user data.</div>;
-  }
+	const logoutMutation = useMutation({
+		mutationFn: async () => {
+			await logout();
+		},
+		onSuccess: () => {
+			queryClient.clear(); 
+			navigate("/login");  
+		},
+	});
+  
+	if (isLoading) {
+	  return <div>Loading...</div>;
+	}
+  
+	if (isError) {
+	  return <div>Error loading user data.</div>;
+	}
 
   return (
     <div>
