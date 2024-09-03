@@ -22,25 +22,11 @@
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M13 4 7.144 9.677A.444.444 0 0 0 7 10a.431.431 0 0 0 .144.323L13 16"/>
     </symbol>
     <symbol id="iconEdit" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <g clip-path="url(#a)">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m10.714 12.857-4.285.772.714-4.343 8.186-8.157a1.428 1.428 0 0 1 2.028 0l1.515 1.514a1.43 1.43 0 0 1 0 2.028l-8.158 8.186Z"/>
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M17.143 13.571v4.286a1.429 1.429 0 0 1-1.429 1.429H2.143a1.429 1.429 0 0 1-1.429-1.429V4.286a1.429 1.429 0 0 1 1.429-1.429h4.286"/>
-      </g>
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M0 0h20v20H0z"/>
-        </clipPath>
-      </defs>
     </symbol>
     <symbol id="iconCheck" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <g clip-path="url(#a)">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7 11.125 2.05 1.64a.48.48 0 0 0 .4.1.501.501 0 0 0 .34-.24l3.21-5.5"/>
-      </g>
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M6 6.125h8v7.749H6z"/>
-        </clipPath>
-      </defs>
     </symbol>
     <symbol id="iconArrowsRight" width="20" height="20" fill="none" viewBox="0 0 20 20">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m8 16 5.856-5.677A.443.443 0 0 0 14 10a.432.432 0 0 0-.144-.323L8 4"/>
