@@ -1,7 +1,3 @@
-h3 {
-  margin-bottom: 0.5rem;
-}
-
 .inputText {
   display: flex;
   flex-flow: nowrap column;
@@ -13,21 +9,22 @@ h3 {
     color: var(--grayscale-900);
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
   }
 
   input {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 280px;
-    height: 42px;
-    padding: 0 20px;
+    max-width: 17.5rem;
+    width: 100%;
+    height: 2.625rem;
+    padding: 0 1.25rem;
     border: 1px solid var(--grayscale-400);
-    border-radius: 4px; 
+    border-radius: 0.25rem; 
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
 
     &::placeholder {
       color: var(--grayscale-600);
@@ -61,19 +58,19 @@ h3 {
   flex-flow: nowrap column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 1rem;
 
   input {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 280px;
-    height: 46px;
+    max-width: 17.5rem;
+    width: 100%;
+    height: 2.875rem;
     background-color: var(--white);
-    padding: 0 34px 0 20px;
+    padding: 0 2.125rem 0 1.25rem;
     border: none;
-    border-radius: 8px;
-    box-shadow: 0px 3px 12px 0px rgba(0, 0, 0, 0.16);
+    border-radius: 0.5rem;
+    box-shadow: 0px 0.1875rem 0.75rem 0px rgba(0, 0, 0, 0.16);
     flex-shrink: 0;
 
     &::placeholder {
@@ -87,9 +84,5 @@ h3 {
         color: var(--grayscale-700);
       }
     }
-  }
-
-  span {
-    display: none;
   }
 }
