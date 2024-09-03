@@ -4,6 +4,7 @@ const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 
 export type User = {
   id: string;
+  collectionId: string;
   username: string;
   nickname: string;
   email: string;
@@ -27,6 +28,19 @@ export type NewUser = {
   interests?: string[];
   password: string;
   passwordConfirm: string;
+};
+
+export type UpdateUser = {
+  username?: string;
+  nickname?: string;
+  email?: string;
+  // User와 기본적으로는 똑같음, avatar는 업데이트 시 File로 줘야할듯,,,?
+  avatar?: File;
+  dob?: string;
+  gender?: "" | "F" | "M";
+  height?: number;
+  weight?: number;
+  interests?: string[];
 };
 
 export async function currentUser() {
@@ -64,7 +78,7 @@ export async function updateCurrentUser({
   userValues,
 }: {
   userId: string;
-  userValues: Partial<User>;
+  userValues: UpdateUser;
 }) {
   const updatedUser = (await pb
     .collection("users")
@@ -92,4 +106,18 @@ export function logout() {
 
 export function getPb() {
   return pb;
+}
+
+export type PbItem = {
+  collectionId: string;
+  id: string;
+};
+
+export function getPbImageUrl(item: PbItem, fileName: string) {
+  if (!fileName) {
+    return null;
+  }
+  return `${import.meta.env.VITE_POCKETBASE_URL}api/files/${
+    item.collectionId
+  }/${item.id}/${fileName}`;
 }

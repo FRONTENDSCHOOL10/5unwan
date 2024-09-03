@@ -22,6 +22,9 @@ import SharedLayout from "@/routes/SharedLayout";
 import Calendar from "@/routes/Calendar";
 import Maps from "@/routes/Maps";
 import MyPage from "@/routes/MyPage";
+import OnboardingHeight from "./routes/Onboarding/OnboardingHeight";
+import OnboardingWeight from "./routes/Onboarding/OnboardingWeight";
+import OnboardingInterests from "./routes/Onboarding/OnboardingInterests";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +116,18 @@ const router = createBrowserRouter([
               {
                 path: "dob",
                 element: <OnboardingDob />,
+              },
+              {
+                path: "height",
+                element: <OnboardingHeight />,
+              },
+              {
+                path: "weight",
+                element: <OnboardingWeight />,
+              },
+              {
+                path: "interests",
+                element: <OnboardingInterests />,
               },
             ],
           },
