@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" display="none;">
+  <defs>
+    <symbol id="iconHome" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M17.857 10.36a1.144 1.144 0 0 0-.366-.846L10.43 3 3.366 9.514A1.143 1.143 0 0 0 3 10.36v6.354a1.143 1.143 0 0 0 1.143 1.143h12.571a1.143 1.143 0 0 0 1.143-1.143V10.36Z"/>
+    </symbol>
+    <symbol id="iconCalendar" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M4.077 5c-.286 0-.56.125-.762.346A1.243 1.243 0 0 0 3 6.182v10.636c0 .314.113.614.315.836.202.221.476.346.762.346h11.846c.286 0 .56-.125.762-.346.202-.222.315-.522.315-.836V6.182c0-.314-.113-.614-.315-.836A1.03 1.03 0 0 0 15.923 5H14M3 9.857h14M6.429 3v4.571M14 3v4.571M6.429 5H11.5"/>
+    </symbol>
+    <symbol id="iconMap" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M8 16.846 3 18V4.154L8 3v13.846Zm0 0L12 18V4.154L8 3v13.846Zm9 0L12 18V4.154L17 3v13.846Z"/>
+    </symbol>
+    <symbol id="iconMyPage" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 8a7.207 7.207 0 0 0-2.668-3.617A7.457 7.457 0 0 0 10 13a7.457 7.457 0 0 0-4.332 1.383A7.207 7.207 0 0 0 3 18"/>
+    </symbol>
+    <symbol id="iconSignatureSmall" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M6.391 5.16c-2.37.79-1.317 2.634-.493 3.457.164.165.559 1.529.987 3.457.988 4.444 4.183 6.803 5.17 6.803.988 0 3.951-2.47 5.927-3.951C19.957 13.444 19.463 9.494 16.5 9c-2.37-.395-3.95 2.47-4.444 3.95-1.482-1.975-2.208-2.357-3.196-3.345-.79-.79-.658-1.976-.493-2.47.329-.987.395-2.765-1.976-1.975ZM3.457 9.408l1.482-.988M8.89 5.95l.987-.493"/>
+      <rect width="1.963" height="5.914" x=".687" y="8.842" stroke="currentColor" rx=".5" transform="rotate(-31.32 .687 8.842)"/>
+      <rect width="1.963" height="5.914" x="9.125" y="3.707" stroke="currentColor" rx=".5" transform="rotate(-31.32 9.125 3.707)"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m4.938 11.383 1.482-.988m2.47-1.481 1.974-1.482"/>
+    </symbol>
+    <symbol id="iconArrowsLeft" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M13 4 7.144 9.677A.444.444 0 0 0 7 10a.431.431 0 0 0 .144.323L13 16"/>
+    </symbol>
+    <symbol id="iconEdit" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <g clip-path="url(#a)">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m10.714 12.857-4.285.772.714-4.343 8.186-8.157a1.428 1.428 0 0 1 2.028 0l1.515 1.514a1.43 1.43 0 0 1 0 2.028l-8.158 8.186Z"/>
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M17.143 13.571v4.286a1.429 1.429 0 0 1-1.429 1.429H2.143a1.429 1.429 0 0 1-1.429-1.429V4.286a1.429 1.429 0 0 1 1.429-1.429h4.286"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path fill="none" d="M0 0h20v20H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="iconCheck" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <g clip-path="url(#a)">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7 11.125 2.05 1.64a.48.48 0 0 0 .4.1.501.501 0 0 0 .34-.24l3.21-5.5"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path fill="none" d="M6 6.125h8v7.749H6z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="iconArrowsRight" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m8 16 5.856-5.677A.443.443 0 0 0 14 10a.432.432 0 0 0-.144-.323L8 4"/>
+    </symbol>
+    <symbol id="iconSearch" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M9.337 15.174a5.837 5.837 0 1 0 0-11.674 5.837 5.837 0 0 0 0 11.674ZM16.5 16.5l-3-3"/>
+    </symbol>
+    <symbol id="iconAdd" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10 15.5v-11M4.5 10h11"/>
+    </symbol>
+  </defs>
+</svg>
