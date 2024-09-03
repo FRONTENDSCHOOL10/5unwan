@@ -10,7 +10,7 @@ type ButtonProps = {
 const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
     <button
-      className={styles['large-button-wrapper']}
+      className={styles["large-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
     >
