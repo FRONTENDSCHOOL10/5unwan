@@ -59,10 +59,6 @@ import LargeButton from "@/components/primaryButton/largebutton";
 /* 비활성화 라지 버튼 사용 예시
 import LargeButton from "@/components/primaryButton/largebutton";
 
-	const handleClick = () => {
-  	  alert('Disabled Button Clicked!');
-	  };
-
   	<LargeButton disabled={true}>
   		버튼
 	</LargeButton>

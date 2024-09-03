@@ -63,10 +63,6 @@ import MiniButton from "@/components/primaryButton/minibutton";
 /* 비활성화 미니버튼 사용 예시
 import MiniButton from "@/components/primaryButton/minibutton";
 
-	const handleClick = () => {
-  	  alert('Disabled Button Clicked!');
-	  };
-
   	<MiniButton disabled={true}>
   		버튼
 	</MiniButton>

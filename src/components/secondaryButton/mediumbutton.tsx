@@ -54,7 +54,7 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
 export default MediumButton;
 
 /* 미디엄 버튼 사용 예시 
-import MediumButtonS from "@/components/secondaryButton/mdiumbutton";
+import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 
 	<MediumButtonS onClick={() => {}}>
 		버튼
@@ -62,11 +62,7 @@ import MediumButtonS from "@/components/secondaryButton/mdiumbutton";
 */
 
 /* 비활성화 미디엄 버튼 사용 예시
-import MediumButtonS from "@/components/secondaryButton/mdiumbutton";
-
-	const handleClickS = () => {
-  	  alert('Disabled Button Clicked!');
-	  };
+import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 
   	<MediumButtonS disabled={true}>
   		버튼

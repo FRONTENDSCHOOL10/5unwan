@@ -7,6 +7,9 @@ import { useUser } from "@/hooks/user";
 import MiniButtonS from "@/components/secondaryButton/minibutton";
 import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 import LargeButtonS from "@/components/secondaryButton/largebutton";
+import MiniButtonT from "@/components/tertiaryButton/minibutton";
+import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
+import LargeButtonT from "@/components/tertiaryButton/largebutton";
 
 
 export default function MyPage() {
@@ -22,7 +25,6 @@ export default function MyPage() {
 
 
 
-  
   return (
     <div>
       <p>현재 사용자: {user?.nickname || "알 수 없음"}</p>
@@ -36,7 +38,7 @@ export default function MyPage() {
 	</MiniButton>
 
 
-	<MediumButton onClick={() => alert('Medium Button Clicked!')}>
+	<MediumButton onClick={() => {}}>
 	버튼
 	</MediumButton>
 
@@ -65,7 +67,26 @@ export default function MyPage() {
 	<LargeButtonS disabled={true}>
   버튼
 </LargeButtonS>
-    </div>
+    
+	
+	<MiniButtonT onClick={() => {}}>
+		버튼
+	</MiniButtonT>
+
+
+	<MediumButtonT onClick={() => {}}>
+		버튼
+	</MediumButtonT>
+
+	<LargeButtonT onClick={() => {}}>
+		버튼
+	</LargeButtonT>
+
+
+	<LargeButtonT disabled={true}>
+  		버튼
+	</LargeButtonT>
+	</div>
 
 
 

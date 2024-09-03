@@ -15,7 +15,7 @@ const LargeButtonWrapper = styled.button<ButtonProps>`
   font-family: 'Noto Sans KR';
   font-size: 14px; 
   font-weight: bold;
-  border: 1px solid #BDBDBD;
+  border: 1px solid transparent; 
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 6px;
@@ -26,19 +26,19 @@ const LargeButtonWrapper = styled.button<ButtonProps>`
   &:hover {
     background-color: transparent;
     color: #424242;
-    border-color: #757575;
+    border-color: transparent; 
   }
 
   &:active {
     background-color: transparent;
-    color: #333333;
-    border-color: #757575;
+    color: #424242;
+    border-color: transparent; 
   }
 
   &:disabled {
     background-color: transparent;
     color: #BDBDBD;
-    border-color: #EEEEEE;
+    border-color: transparent; 
     cursor: not-allowed;
   }
 `;
@@ -54,17 +54,17 @@ const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => 
 export default LargeButton;
 
 /* 라지 버튼 사용 예시 
-import LargeButtonS from "@/components/secondaryButton/largebutton";
+import LargeButtonT from "@/components/tertiaryButton/largebutton";
 
-	<LargeButtonS onClick={() => {}}>
+	<LargeButtonT onClick={() => {}}>
 		버튼
-	</LargeButtonS>
+	</LargeButtonT>
 */
 
 /* 비활성화 라지 버튼 사용 예시
-import LargeButtonS from "@/components/secondaryButton/largebutton";
+import LargeButtonT from "@/components/tertiaryButton/largebutton";
 
-  	<LargeButtonS disabled={true}>
+  	<LargeButtonT disabled={true}>
   		버튼
-	</LargeButtonS>
+	</LargeButtonT>
 */
