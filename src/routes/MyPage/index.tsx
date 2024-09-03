@@ -1,9 +1,7 @@
 import MiniButton from "@/components/primaryButton/minibutton";
 import MediumButton from "@/components/primaryButton/mediumbutton";
 import LargeButton from "@/components/primaryButton/largebutton";
-import { useOutletContext } from "react-router-dom";
-import { UserContext } from "@/routes/PrivateRoute";
-import { useUser } from "@/hooks/user";
+import { useCurrentUserQuery } from "@/hooks/user"; 
 import MiniButtonS from "@/components/secondaryButton/minibutton";
 import MediumButtonS from "@/components/secondaryButton/mediumbutton";
 import LargeButtonS from "@/components/secondaryButton/largebutton";
@@ -11,9 +9,8 @@ import MiniButtonT from "@/components/tertiaryButton/minibutton";
 import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
 import LargeButtonT from "@/components/tertiaryButton/largebutton";
 
-
 export default function MyPage() {
-  const { user, isLoading, isError, logout } = useUser();
+  const { user, isLoading, isError } = useCurrentUserQuery(); 
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -23,8 +20,6 @@ export default function MyPage() {
     return <div>Error loading user data.</div>;
   }
 
-
-
   return (
     <div>
       <p>현재 사용자: {user?.nickname || "알 수 없음"}</p>
@@ -33,67 +28,58 @@ export default function MyPage() {
       <br />
       <button onClick={handleLogout}>로그아웃</button>
 
-	<MiniButton onClick={() => alert('Mini Button Clicked!')}>
-	  버튼
-	</MiniButton>
+      <MiniButton onClick={() => alert('Mini Button Clicked!')}>
+        버튼
+      </MiniButton>
 
+      <MediumButton onClick={() => {}}>
+        버튼
+      </MediumButton>
 
-	<MediumButton onClick={() => {}}>
-	버튼
-	</MediumButton>
+      <MediumButton disabled={true}>
+        버튼
+      </MediumButton>
 
-	<MediumButton disabled={true}>
-	버튼
-	</MediumButton>
+      <LargeButton onClick={() => {}}>
+        버튼
+      </LargeButton>
 
+      <MiniButtonS onClick={() => {}}>
+        버튼
+      </MiniButtonS>
 
-	<LargeButton onClick={() => alert('Large Button Clicked!')}>
- 	 버튼
-	</LargeButton>
+      <MediumButtonS onClick={() => {}}>
+        버튼
+      </MediumButtonS>
 
+      <LargeButtonS onClick={() => {}}>
+        버튼
+      </LargeButtonS>
 
-<MiniButtonS onClick={() => alert('Mini Button Clicked!')}>
-	버튼
-</MiniButtonS>
+      <LargeButtonS disabled={true}>
+        버튼
+      </LargeButtonS>
 
-<MediumButtonS onClick={() => {}}>
-	버튼
-</MediumButtonS>
+      <MiniButtonT onClick={() => {}}>
+        버튼
+      </MiniButtonT>
 
-<LargeButtonS onClick={() => {}}>
-		버튼
-	</LargeButtonS>
+      <MediumButtonT onClick={() => {}}>
+        버튼
+      </MediumButtonT>
 
-	<LargeButtonS disabled={true}>
-  버튼
-</LargeButtonS>
-    
-	
-	<MiniButtonT onClick={() => {}}>
-		버튼
-	</MiniButtonT>
+      <LargeButtonT onClick={() => {}}>
+        버튼
+      </LargeButtonT>
 
-
-	<MediumButtonT onClick={() => {}}>
-		버튼
-	</MediumButtonT>
-
-	<LargeButtonT onClick={() => {}}>
-		버튼
-	</LargeButtonT>
-
-
-	<LargeButtonT disabled={true}>
-  		버튼
-	</LargeButtonT>
-	</div>
-
-
-
-
+      <LargeButtonT disabled={true}>
+        버튼
+      </LargeButtonT>
+    </div>
   );
 
   function handleLogout() {
-    logout();
+    // 로그아웃 기능을 구현하려면 추가적인 훅 또는 메소드를 사용해야 합니다.
+    console.log("로그아웃 기능이 구현되어야 합니다.");
   }
 }
