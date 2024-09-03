@@ -1,16 +1,29 @@
 import MiniButton from "@/components/primaryButton/minibutton";
-import MediumButton from "@/components/primaryButton/mediumbutton";
-import LargeButton from "@/components/primaryButton/largebutton";
-import { useCurrentUserQuery } from "@/hooks/user"; 
 import MiniButtonS from "@/components/secondaryButton/minibutton";
+import LargeButton from "@/components/primaryButton/largebutton";
 import MediumButtonS from "@/components/secondaryButton/mediumbutton";
+import MediumButton from "@/components/primaryButton/mediumbutton";
 import LargeButtonS from "@/components/secondaryButton/largebutton";
 import MiniButtonT from "@/components/tertiaryButton/minibutton";
 import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
 import LargeButtonT from "@/components/tertiaryButton/largebutton";
+import { useCurrentUserQuery } from "@/hooks/user"; 
+import { useNavigate } from "react-router-dom";  
+import { logout } from "@/api/pocketbase";  
+import { useMutation, useQueryClient } from "@tanstack/react-query"; 
 
 export default function MyPage() {
   const { user, isLoading, isError } = useCurrentUserQuery(); 
+  const navigate = useNavigate(); 
+  const queryClient = useQueryClient(); 
+
+  const logoutMutation = useMutation({
+    mutationFn: logout, 
+    onSuccess: () => {
+      queryClient.clear(); 
+      navigate("/login");  
+    },
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,7 +39,7 @@ export default function MyPage() {
       <br />
       <span>마이페이지</span>
       <br />
-      <button onClick={handleLogout}>로그아웃</button>
+      <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 
       <MiniButton onClick={() => alert('Mini Button Clicked!')}>
         버튼
@@ -77,9 +90,4 @@ export default function MyPage() {
       </LargeButtonT>
     </div>
   );
-
-  function handleLogout() {
-    // 로그아웃 기능을 구현하려면 추가적인 훅 또는 메소드를 사용해야 합니다.
-    console.log("로그아웃 기능이 구현되어야 합니다.");
-  }
 }

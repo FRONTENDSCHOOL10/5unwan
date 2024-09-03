@@ -20,8 +20,8 @@
     "react-router-dom": "6.26.1",
     "sort-by": "1.2.0",
     "styled-components": "6.1.13",
-    "vaul": "0.9.1",
-    "upload-images-converter": "2.0.2"
+    "upload-images-converter": "2.0.2",
+    "vaul": "0.9.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
