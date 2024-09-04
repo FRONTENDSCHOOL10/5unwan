@@ -1,11 +1,8 @@
-@import "@/styles/colors.css";
-@import "@/styles/fonts.css";
-
 .large-button-wrapper {
   width: 17.5rem; /* 280px */
   height: 3.375rem; /* 54px */
   background-color: var(--grayscale-800);
-  color: white;
+  color: var(--grayscale-white);
   font-family: var(--font-family-basic);
   font-size: calc(var(--font-size-basic) * 0.875);
   font-weight: var(--font-weight-bold);
@@ -23,7 +20,7 @@
 }
 
 .large-button-wrapper:active {
-  background-color: #333333;
+  background-color: var(--grayscale-900);
 }
 
 .large-button-wrapper:disabled {

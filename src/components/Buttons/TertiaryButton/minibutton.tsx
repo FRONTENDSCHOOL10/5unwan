@@ -13,6 +13,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
       className={styles["mini-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>
@@ -22,7 +23,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 export default MiniButton;
 
 /* 버튼 사용 예시
-import MiniButtonT from "@/components/tertiaryButton/minibutton";
+import MiniButtonT from "@/components/TertiaryButton/minibutton";
 
 	<MiniButtonT onClick={() => {}}>
 		버튼

@@ -1,11 +1,8 @@
-@import "@/styles/colors.css";
-@import "@/styles/fonts.css";
-
 .medium-button-wrapper {
   width: 8.75rem; /* 140px */
   height: 2.75rem; /* 44px */
   background-color: var(--grayscale-800);
-  color: white;
+  color:  var(--grayscale-white);
   font-family: var(--font-family-basic);
   font-size: 0.875rem; /* 14px */
   font-weight: var(--font-weight-bold);

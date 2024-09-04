@@ -13,6 +13,7 @@ const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => 
       className={styles["large-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>
@@ -22,17 +23,14 @@ const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => 
 export default LargeButton;
 
 
-/* 버튼 사용 예시 
+/* 라지 버튼 사용 예시 
+import LargeButtonT from "@/components/TertiaryButton/largebutton";
 
-import LargeButton from "@/components/primaryButton/LargeButton";
+	<LargeButtonT onClick={() => {}}>
+		버튼
+	</LargeButtonT>
 
-<LargeButton onClick={() => {}}>
-  버튼
-</LargeButton>
-
-<LargeButton disabled={true}>
-  버튼
-</LargeButton>
-
+  	<LargeButtonT disabled={true}>
+  		버튼
+	</LargeButtonT>
 */
-
