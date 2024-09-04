@@ -10,7 +10,7 @@
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    background: var(--Gradients, linear-gradient(286deg, #004CE8 0%, #6F9EFF 100%));
+    background: var(--gradient-blue);
     border: none;
     border-radius: var(--rounded-full);
     &:hover {
