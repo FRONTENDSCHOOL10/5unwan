@@ -14,9 +14,9 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
-  const [formData, setFormData] = useState<Pick<UpdateUser, "height">>(() => {
+  const [formData, setFormData] = useState(() => {
     return {
-      height: user.height || 0,
+      height: user.height <= 0 ? "" : String(user.height),
     };
   });
 
@@ -32,9 +32,17 @@ export function OnboardingHeightForm({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    const height = parseFloat(formData.height) || 0;
+
+    const userValues = {
+      height,
+    };
+
     await onboardingHeightMutation.mutateAsync(
-      { userId: user.id, userValues: formData },
-      { onSuccess }
+      { userId: user.id, userValues },
+      {
+        onSuccess,
+      }
     );
   };
 

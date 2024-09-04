@@ -14,9 +14,9 @@ export function OnboardingWeightForm({
   user,
   currentStep,
 }: OnboardingWeightFormProps) {
-  const [formData, setFormData] = useState<Pick<UpdateUser, "weight">>(() => {
+  const [formData, setFormData] = useState(() => {
     return {
-      weight: user.weight || 0,
+      weight: user.weight <= 0 ? "" : String(user.weight),
     };
   });
 
@@ -32,8 +32,14 @@ export function OnboardingWeightForm({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    const weight = parseFloat(formData.weight) || 0;
+
+    const userValues = {
+      weight,
+    };
+
     await onboardingWeightMutation.mutateAsync(
-      { userId: user.id, userValues: formData },
+      { userId: user.id, userValues },
       { onSuccess }
     );
   };
