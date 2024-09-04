@@ -22,7 +22,7 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
 export default MediumButton;
 
 /* 버튼 사용 예시 
-import MediumButtonS from "@/components/secondaryButton/mediumbutton";
+import MediumButtonS from "@/components/SecondaryButton/mediumbutton";
 
 	<MediumButtonS onClick={() => {}}>
 		버튼

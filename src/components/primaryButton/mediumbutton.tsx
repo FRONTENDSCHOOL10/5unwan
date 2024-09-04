@@ -24,7 +24,7 @@ export default MediumButton;
 
 /* 버튼 사용 예시 
 
-import MediumButton from "@/components/primaryButton/MediumButton";
+import MediumButton from "@/components/PrimaryButton/MediumButton";
 
 <MediumButton onClick={() => {}}>
   버튼
