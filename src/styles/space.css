@@ -1,4 +1,5 @@
 :root {
+    /* size */
     --rounded-none: 0.0000rem;
     --rounded-xs: 0.1250rem;
     --rounded-sm: 0.2500rem;
@@ -29,4 +30,8 @@
     --space-14-half: 3.625rem;
     --space-15: 3.75rem;
     --space-15-half: 3.875rem;
+
+    /* shadow */
+    --box-shadow: 0rem 0.1875rem 0.75rem 0rem rgba(0, 0, 0, 0.25);
+    --gnb-shadow: 0rem -0.25rem 0.875rem 0rem rgba(0, 0, 0, 0.10);
 }
