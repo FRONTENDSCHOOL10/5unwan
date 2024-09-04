@@ -1,20 +1,23 @@
 import styles from './input.module.css';
 
 interface InputProps {
-  status?: string
+  status?: string,
+  isDark?: boolean
 }
 
-export default function Input({ status }: InputProps) {
+export default function Input({ status, isDark }: InputProps) {
   function getInputStatus() {
+    const darkClass = isDark ? styles["is-dark"] : '';
+
     switch (status) {
       case 'search':
-        return styles["input-search"];
+        return `${styles["input-search"]} ${darkClass}`;
       case 'disabled':
-        return styles["input-text"];
+        return `${styles["input-text"]} ${darkClass}`;
       case 'text':
-        return styles["input-text"]
+        return `${styles["input-text"]} ${darkClass}`;
       default:
-        return styles["input-text"]
+        return `${styles["input-text"]} ${darkClass}`;
     }
   }
 
