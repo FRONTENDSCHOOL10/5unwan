@@ -20,7 +20,7 @@ export const Spinner = () => {
             fill="currentColor"
           />
         </svg>
-        <span className="visually-hidden">Loading...</span>
+        <span className="sr-only">Loading...</span>
       </div>
     </div>
   );

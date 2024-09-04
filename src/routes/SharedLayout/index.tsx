@@ -1,5 +1,5 @@
 import { WorkoutRecordModal } from "@/components/WorkoutRecordModal";
-import { RouteHandle } from "@/main";
+import { RouteHandle } from "@/router";
 import styles from "@/routes/SharedLayout/styles.module.css";
 import { Link, Outlet, useMatches } from "react-router-dom";
 

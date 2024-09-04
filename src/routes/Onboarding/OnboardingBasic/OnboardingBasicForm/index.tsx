@@ -124,7 +124,7 @@ export function OnboardingBasicForm({
         role="group"
         // className="flex flex-col items-center"
       >
-        <h3 className="visually-hidden">프로필 사진</h3>
+        <h3 className="sr-only">프로필 사진</h3>
         <div
         // className="relative w-1/4"
         >
@@ -163,7 +163,7 @@ export function OnboardingBasicForm({
       </div>
       <div role="group">
         <label htmlFor="nickname">
-          <h2 className="visually-hidden">닉네임</h2>
+          <h2 className="sr-only">닉네임</h2>
         </label>
         <input
           name="nickname"
@@ -182,7 +182,7 @@ export function OnboardingBasicForm({
             value="M"
             checked={formData.gender === "M"}
             onChange={handleUpdateFormData}
-            // className="visually-hidden"
+            // className="sr-only"
           />
           <label htmlFor="male">남자</label>
         </div>
@@ -194,7 +194,7 @@ export function OnboardingBasicForm({
             value="F"
             checked={formData.gender === "F"}
             onChange={handleUpdateFormData}
-            // className="visually-hidden"
+            // className="sr-only"
           />
           <label htmlFor="female">여자</label>
         </div>

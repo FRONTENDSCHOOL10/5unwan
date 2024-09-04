@@ -48,7 +48,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     <form onSubmit={handleSubmit}>
       <div role="group">
         <label htmlFor="email">
-          <h2 className="visually-hidden">이메일</h2>
+          <h2 className="sr-only">이메일</h2>
         </label>
         <input
           name="email"
@@ -60,7 +60,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       </div>
       <div role="group">
         <label htmlFor="password">
-          <h2 className="visually-hidden">비밀번호</h2>
+          <h2 className="sr-only">비밀번호</h2>
         </label>
         <input
           name="password"
