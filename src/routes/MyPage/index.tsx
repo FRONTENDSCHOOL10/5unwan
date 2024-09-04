@@ -9,15 +9,16 @@ import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
 import LargeButtonT from "@/components/tertiaryButton/largebutton";
 import { useCurrentUserQuery } from "@/hooks/user"; 
 import { useNavigate } from "react-router-dom";  
-import { logout } from "@/api/pocketbase";  
+import { logout } from "@/api/pocketbase"; 
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
+import PrimaryButton from "@/components/darkmodeButton/primaryButton";
 
 
 export default function MyPage() {
 	const { user, isLoading, isError } = useCurrentUserQuery(); 
 	const navigate = useNavigate(); 
 	const queryClient = useQueryClient(); 
-  
+
 
 	const logoutMutation = useMutation({
 		mutationFn: async () => {
@@ -29,6 +30,7 @@ export default function MyPage() {
 		},
 	});
   
+
 	if (isLoading) {
 	  return <div>Loading...</div>;
 	}
@@ -118,7 +120,29 @@ export default function MyPage() {
   		버튼
 	</LargeButtonT>
 
-	
+	<PrimaryButton size="large" onClick={() => {}}>
+  		큰 버튼
+	</PrimaryButton>
+
+	<PrimaryButton size="medium" onClick={() => {}}>
+  		중간 버튼
+	</PrimaryButton>
+
+	<PrimaryButton size="mini" onClick={() => {}}>
+ 		버튼
+	</PrimaryButton>
+
+	<PrimaryButton size="large" disabled={true}>
+ 		버튼
+	</PrimaryButton>
+
+	<PrimaryButton size="mini" disabled={true}>
+ 		버튼
+	</PrimaryButton>
+
+	<PrimaryButton size="medium" disabled={true}>
+ 		버튼
+	</PrimaryButton>
     </div>
   );
 }

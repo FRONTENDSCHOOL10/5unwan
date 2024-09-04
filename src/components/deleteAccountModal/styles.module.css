@@ -1,0 +1,76 @@
+@import "@/styles/colors.css";
+@import "@/styles/fonts.css";
+
+:root {
+    /* 모달 스타일 */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+    --modal-content-bg: var(--white);
+    --modal-content-padding: 1.25rem; /* 20px */
+    --modal-content-border-radius: 0.5rem; /* 8px */
+    --modal-content-width: 18.75rem; /* 300px */
+    --password-input-padding: 0.5rem; /* 8px */
+    --password-input-margin: 0.625rem 0; /* 10px 0 */
+    --password-input-border-radius: 0.25rem; /* 4px */
+    --password-input-border-color: var(--grayscale-300);
+    --button-padding: 0.625rem 1.25rem; /* 10px 20px */
+    --button-border-radius: 0.25rem; /* 4px */
+    --cancel-button-bg: var(--grayscale-300);
+    --confirm-button-bg: var(--error);
+    --confirm-button-color: var(--white);
+    --error-text-color: var(--error);
+    --error-text-margin-top: 0.625rem; /* 10px */
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-overlay-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background: var(--modal-content-bg);
+    padding: var(--modal-content-padding);
+    border-radius: var(--modal-content-border-radius);
+    width: var(--modal-content-width);
+    text-align: center;
+}
+
+.passwordInput {
+    width: 100%;
+    padding: var(--password-input-padding);
+    margin: var(--password-input-margin);
+    border-radius: var(--password-input-border-radius);
+    border: 1px solid var(--password-input-border-color);
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancelButton, .confirmButton {
+    padding: var(--button-padding);
+    border: none;
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+}
+
+.cancelButton {
+    background: var(--cancel-button-bg);
+}
+
+.confirmButton {
+    background: var(--confirm-button-bg);
+    color: var(--confirm-button-color);
+}
+
+.errorText {
+    color: var(--error-text-color);
+    margin-top: var(--error-text-margin-top);
+}

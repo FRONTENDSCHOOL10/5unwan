@@ -9,3 +9,20 @@
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+/* src/styles/globals.css */
+
+/* 일반 모드 */
+body {
+	background-color: white;
+
+  }
+  
+  /* 다크 모드 */
+  body.dark-mode {
+	background-color: #121212;
+
+  }
+
+  
+  

@@ -121,3 +121,8 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
     item.collectionId
   }/${item.id}/${fileName}`;
 }
+
+
+const pocketbase = new PocketBase('https://your-pocketbase-url');
+
+export default pocketbase;

@@ -7,7 +7,7 @@
 	background-color: transparent;
 	color: var(--grayscale-600);
 	font-family: var(--font-family-basic);
-	font-size: 0.875rem; /* 14px */
+	font-size: calc(var(--font-size-basic) * 0.875);
 	font-weight: var(--font-weight-bold);
 	border: 0.0625rem solid transparent; /* 1px */
 	border-radius: 0.25rem; /* 4px */
