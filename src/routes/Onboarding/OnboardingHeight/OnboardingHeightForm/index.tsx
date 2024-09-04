@@ -52,7 +52,7 @@ export function OnboardingHeightForm({
     <form onSubmit={handleSubmit}>
       <div role="group">
         <label htmlFor="height">
-          <h2 className="visually-hidden">신장</h2>
+          <h2 className="sr-only">신장</h2>
         </label>
         <input
           name="height"

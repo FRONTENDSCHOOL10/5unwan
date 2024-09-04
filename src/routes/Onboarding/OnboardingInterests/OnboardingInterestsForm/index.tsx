@@ -74,7 +74,7 @@ export function OnboardingInterestsForm({
     <form onSubmit={handleSubmit}>
       <div role="group">
         <label htmlFor="interests">
-          <h2 className="visually-hidden">관심 운동</h2>
+          <h2 className="sr-only">관심 운동</h2>
         </label>
         {interestOptions.map((interestOption) => {
           return (

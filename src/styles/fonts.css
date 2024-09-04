@@ -1,7 +1,21 @@
 :root {
-  --font-size-basic: 16px;
+  /* font familly */
   --font-family-basic: "Noto Sans KR", sans-serif;
-  --font-weight-black: 900;
+
+  /* font-size */
+  --basic: 0.75rem;
+  --small: 0.625rem;
+  --medium: 0.875rem;
+  --large: 1rem;
+  --xlarge: 1.125rem;
+  --title-small: 1.25rem;
+  --title-medium: 1.5rem;
+  --title-large: 2rem;
+  --title-xlarge: 2.5rem;
+  --title-extra: 3rem;
+
+  /* font weight */
+  --font-weight-extraBold: 800;
   --font-weight-bold: 700;
   --font-weight-medium: 500;
   --font-weight-regular: 400;
@@ -10,86 +24,168 @@
 /* Heading */
 .heading-1 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 3);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--title-extra);
+  font-weight: var(--font-weight-bold);
   line-height: 110%;
   color: var(--grayscale-900);
 }
 .heading-2 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 2.5);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--title-xlarge);
+  font-weight: var(--font-weight-bold);
   line-height: 110%;
   color: var(--grayscale-900);
 }
 .heading-3 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 2);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--title-large);
+  font-weight: var(--font-weight-bold);
   line-height: 110%;
   color: var(--grayscale-900);
 }
 .heading-4 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 1.5);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--title-medium);
+  font-weight: var(--font-weight-bold);
   line-height: 120%;
   color: var(--grayscale-900);
 }
 .heading-5 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 1.25);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--title-small);
+  font-weight: var(--font-weight-bold);
   line-height: 120%;
   color: var(--grayscale-900);
 }
 .heading-6 {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 1.125);
-  font-style: normal;
-  font-weight: var(--font-weight-black);
+  font-size: var(--xlarge);
+  font-weight: var(--font-weight-bold);
   line-height: 120%;
   color: var(--grayscale-900);
 }
 
 /* body */
-.body-xl {
+  /* bold */
+.body-xl-bold {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 1.125);
+  font-size: var(--xlarge);
+  font-weight: var(--font-weight-bold);
   line-height: 140%;
   letter-spacing: 0.2px;
   color: var(--grayscale-900);
 }
-.body-lg {
+.body-lg-bold {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 1);
+  font-size: var(--large);
+  font-weight: var(--font-weight-bold);
   line-height: 140%;
   letter-spacing: 0.2px;
   color: var(--grayscale-900);
 }
-.body-md {
+.body-md-bold {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.875);
+  font-size: var(--medium);
+  font-weight: var(--font-weight-bold);
   line-height: 140%;
   letter-spacing: 0.2px;
   color: var(--grayscale-900);
 }
-.body-sm {
+.body-sm-bold {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.75);
-  line-height: normal;
+  font-size: var(--basic);
+  font-weight: var(--font-weight-bold);
+  line-height: 140%;
   letter-spacing: 0.2px;
   color: var(--grayscale-900);
 }
-.body-xs {
+.body-xm-bold {
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.625);
-  line-height: normal;
+  font-size: var(--small);
+  font-weight: var(--font-weight-bold);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+  /* medium */
+.body-xl-medium {
+  font-family: var(--font-family-basic);
+  font-size: var(--xlarge);
+  font-weight: var(--font-weight-medium);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-lg-medium {
+  font-family: var(--font-family-basic);
+  font-size: var(--large);
+  font-weight: var(--font-weight-medium);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-md-medium {
+  font-family: var(--font-family-basic);
+  font-size: var(--medium);
+  font-weight: var(--font-weight-medium);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-sm-medium {
+  font-family: var(--font-family-basic);
+  font-size: var(--basic);
+  font-weight: var(--font-weight-medium);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-xm-medium {
+  font-family: var(--font-family-basic);
+  font-size: var(--small);
+  font-weight: var(--font-weight-medium);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+  /* regular */
+.body-xl-regular {
+  font-family: var(--font-family-basic);
+  font-size: var(--xlarge);
+  font-weight: var(--font-weight-regular);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-lg-regular {
+  font-family: var(--font-family-basic);
+  font-size: var(--large);
+  font-weight: var(--font-weight-regular);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-md-regular {
+  font-family: var(--font-family-basic);
+  font-size: var(--regular);
+  font-weight: var(--font-weight-regular);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-sm-regular {
+  font-family: var(--font-family-basic);
+  font-size: var(--basic);
+  font-weight: var(--font-weight-regular);
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: var(--grayscale-900);
+}
+.body-xm-regular {
+  font-family: var(--font-family-basic);
+  font-size: var(--small);
+  font-weight: var(--font-weight-regular);
+  line-height: 140%;
   letter-spacing: 0.2px;
   color: var(--grayscale-900);
 }

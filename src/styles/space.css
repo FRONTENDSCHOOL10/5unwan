@@ -1,0 +1,37 @@
+:root {
+    /* size */
+    --rounded-none: 0.0000rem;
+    --rounded-xs: 0.1250rem;
+    --rounded-sm: 0.2500rem;
+    --rounded-md: 0.5000rem;
+    --rounded-lg: 1.0000rem;
+    --rounded-xl: 2.0000rem;
+    --rounded-full: 62.4375rem;
+    --space-none: 0.0000rem;
+    --space-half: 0.1250rem;
+    --space-1: 0.2500rem;
+    --space-2: 0.5000rem;
+    --space-3: 0.7500rem;
+    --space-4: 1.0000rem;
+    --space-5: 1.2500rem;
+    --space-6: 1.5000rem;
+    --space-7: 1.7500rem;
+    --space-8: 2.0000rem;
+    --space-9: 2.2500rem;
+    --space-10: 2.5000rem;
+    --space-10-half: 2.6250rem;
+    --space-11: 2.7500rem;
+    --space-11-half: 2.8750rem;
+    --space-12: 3.0000rem;
+    --space-12-half: 3.1250rem;
+    --space-13: 3.2500rem;
+    --space-13-half: 3.3750rem;
+    --space-14: 3.5rem;
+    --space-14-half: 3.625rem;
+    --space-15: 3.75rem;
+    --space-15-half: 3.875rem;
+
+    /* shadow */
+    --box-shadow: 0rem 0.1875rem 0.75rem 0rem rgba(0, 0, 0, 0.25);
+    --gnb-shadow: 0rem -0.25rem 0.875rem 0rem rgba(0, 0, 0, 0.10);
+}
