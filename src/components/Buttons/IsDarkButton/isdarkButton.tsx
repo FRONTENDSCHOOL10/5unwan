@@ -31,7 +31,7 @@ export default IsDarkButton;
 
 
 /* 
-import PrimaryButton from "@/components/IsdarkButton/primaryButton";
+import IsDarkButton from "@/components/Buttons/IsdarkButton/IsDarkButton";
 
 <IsDarkButton size="large" onClick={() => {}}>
   큰 버튼

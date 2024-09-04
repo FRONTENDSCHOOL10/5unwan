@@ -37,7 +37,6 @@ export default function MyPage() {
       <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 	  <br />
 
-	
     </div>
   );
 }
