@@ -1,0 +1,38 @@
+.gnb-icon-edit {
+    display: flex;
+    width: 3.75rem;
+    height: var(--space-10, 40px);
+    padding: var(--space-none, 0px) var(--space-5, 20px);
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background: var(--gradient-blue);
+    border: none;
+    border-radius: var(--rounded-full);
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+}
+
+.gnb-icon-frame {
+    display: inline-flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: var(--rounded-full);
+    transition: 0.3s;
+    
+    &:hover {
+        background-color: var(--grayscale-300);
+        color: var(--primary);
+    }
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
