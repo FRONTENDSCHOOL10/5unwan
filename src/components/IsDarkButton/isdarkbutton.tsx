@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './primaryButton.module.css';
+import styles from './isdarkbutton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type ButtonProps = {
   size: 'large' | 'medium' | 'mini'; 
 };
 
-const PrimaryButton: React.FC<ButtonProps> = ({ children, onClick, disabled, size }) => {
+const IsDarkButton: React.FC<ButtonProps> = ({ children, onClick, disabled, size }) => {
   const buttonClass =
     size === 'large'
       ? styles["large-button-wrapper"]
@@ -27,25 +27,25 @@ const PrimaryButton: React.FC<ButtonProps> = ({ children, onClick, disabled, siz
   );
 };
 
-export default PrimaryButton;
+export default IsDarkButton;
 
 
 /* 
-import PrimaryButton from "@/components/darkmodeButton/primaryButton";
+import IsDarkButton from "@/components/IsDarkButton/IsDarkButton";
 
-<PrimaryButton size="large" onClick={() => {}}>
+<IsDarkButton size="large" onClick={() => {}}>
   큰 버튼
-</PrimaryButton>
+</IsDarkButton>
 
-<PrimaryButton size="medium" onClick={() => {}}>
+<IsDarkButton size="medium" onClick={() => {}}>
   중간 버튼
-</PrimaryButton>
+</IsDarkButton>
 
-<PrimaryButton size="mini" onClick={() => {}}>
+<IsDarkButton size="mini" onClick={() => {}}>
   작은 버튼
-</PrimaryButton>
+</IsDarkButton>
 
-<PrimaryButton size="large" disabled={true}>
+<IsDarkButton size="large" disabled={true}>
   비활성화된 버튼
-</PrimaryButton>
+</IsDarkButton>
 */

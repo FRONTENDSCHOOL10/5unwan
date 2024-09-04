@@ -13,6 +13,7 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
       className={styles["medium-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>
@@ -24,7 +25,7 @@ export default MediumButton;
 
 /* 버튼 사용 예시 
 
-import MediumButton from "@/components/primaryButton/MediumButton";
+import MediumButton from "@/components/PrimaryButton/MediumButton";
 
 <MediumButton onClick={() => {}}>
   버튼

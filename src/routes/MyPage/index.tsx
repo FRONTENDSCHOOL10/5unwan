@@ -1,18 +1,7 @@
-import MiniButton from "@/components/primaryButton/minibutton";
-import MediumButton from "@/components/primaryButton/mediumbutton";
-import LargeButton from "@/components/primaryButton/largebutton";
-import MiniButtonS from "@/components/secondaryButton/minibutton";
-import MediumButtonS from "@/components/secondaryButton/mediumbutton";
-import LargeButtonS from "@/components/secondaryButton/largebutton";
-import MiniButtonT from "@/components/tertiaryButton/minibutton";
-import MediumButtonT from "@/components/tertiaryButton/mediumbutton";
-import LargeButtonT from "@/components/tertiaryButton/largebutton";
 import { useCurrentUserQuery } from "@/hooks/user"; 
 import { useNavigate } from "react-router-dom";  
 import { logout } from "@/api/pocketbase"; 
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-import PrimaryButton from "@/components/darkmodeButton/primaryButton";
-
 
 export default function MyPage() {
 	const { user, isLoading, isError } = useCurrentUserQuery(); 
@@ -48,101 +37,6 @@ export default function MyPage() {
       <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 	  <br />
 
-	<MiniButton onClick={() => {}}>
- 		 버튼
-	</MiniButton>
-
-	<MiniButton disabled={true}>
-  		버튼
-	</MiniButton>
-
-	<MediumButton onClick={() => {}}>
-	  버튼
-	</MediumButton>
-
-	<MediumButton disabled={true}>
-  	버튼
-	</MediumButton>
-
-	<LargeButton onClick={() => {}}>
- 		 버튼
-	</LargeButton>
-
-	<LargeButton disabled={true}>
-  		버튼
-	</LargeButton>
-
-	<LargeButtonS onClick={() => {}}>
-		버튼
-	</LargeButtonS>
-
-  	<LargeButtonS disabled={true}>
-  		버튼
-	</LargeButtonS>
-
-	<MediumButtonS onClick={() => {}}>
-		버튼
-	</MediumButtonS>
-
-  	<MediumButtonS disabled={true}>
-  		버튼
-	</MediumButtonS>
-
-	<MiniButtonS onClick={() => {}}>
-		버튼
-	</MiniButtonS>
-
-  	<MiniButtonS disabled={true}>
-  		버튼
-	</MiniButtonS>
-
-	<MiniButtonT onClick={() => {}}>
-		버튼
-	</MiniButtonT>
-
-  	<MiniButtonT disabled={true}>
-  		버튼
-	</MiniButtonT>
-
-	<MediumButtonT onClick={() => {}}>
-		버튼
-	</MediumButtonT>
-
-  	<MediumButtonT disabled={true}>
-  		버튼
-	</MediumButtonT>
-
-	<LargeButtonT onClick={() => {}}>
-		버튼
-	</LargeButtonT>
-
-  	<LargeButtonT disabled={true}>
-  		버튼
-	</LargeButtonT>
-
-	<PrimaryButton size="large" onClick={() => {}}>
-  		큰 버튼
-	</PrimaryButton>
-
-	<PrimaryButton size="medium" onClick={() => {}}>
-  		중간 버튼
-	</PrimaryButton>
-
-	<PrimaryButton size="mini" onClick={() => {}}>
- 		버튼
-	</PrimaryButton>
-
-	<PrimaryButton size="large" disabled={true}>
- 		버튼
-	</PrimaryButton>
-
-	<PrimaryButton size="mini" disabled={true}>
- 		버튼
-	</PrimaryButton>
-
-	<PrimaryButton size="medium" disabled={true}>
- 		버튼
-	</PrimaryButton>
     </div>
   );
 }
