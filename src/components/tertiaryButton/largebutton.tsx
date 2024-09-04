@@ -13,6 +13,7 @@ const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => 
       className={styles["large-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>

@@ -13,6 +13,7 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
       className={styles['medium-button-wrapper']}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>

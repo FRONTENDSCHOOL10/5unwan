@@ -13,6 +13,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
       className={styles["mini-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
+	  type="button" 
     >
       {children}
     </button>
