@@ -39,6 +39,4 @@
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    width: var(--space-5);
-    height: var(--space-5);
 }
