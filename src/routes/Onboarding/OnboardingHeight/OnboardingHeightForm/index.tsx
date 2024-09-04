@@ -1,4 +1,4 @@
-import { updateCurrentUser, UpdateUser, User } from "@/api/pocketbase";
+import { updateCurrentUser, User } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";

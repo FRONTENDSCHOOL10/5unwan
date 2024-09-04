@@ -131,6 +131,14 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   path: "interests",
                   element: <OnboardingInterests />,
                 },
+                {
+                  path: "done",
+                  lazy: () => import("@/routes/Onboarding/OnboardingDone"),
+                },
+                {
+                  path: "resume",
+                  lazy: () => import("@/routes/Onboarding/OnboardingResume"),
+                },
               ],
             },
           ],
