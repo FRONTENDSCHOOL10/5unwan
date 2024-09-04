@@ -18,17 +18,17 @@ interface SVGIconProps {
 iconId: SvgIconId | string;
 width?: number | string;
 height?: number | string;
-stroke?: string;
+color?: string;
 }
 
-function SVGIcon({iconId, width, height, stroke='currentColor'}: SVGIconProps) {
+function SVGIcon({iconId, width, height, color='currentColor'}: SVGIconProps) {
     return (
       <svg className={styles.icon}
         width={width}
         height={height}
-        stroke={stroke}
+        color={color}
       >
-        <use width={width} height={height} href={`${icons}#${iconId}`} stroke={stroke} />
+        <use width={width} height={height} href={`${icons}#${iconId}`} color={color} />
       </svg>
       );
 
