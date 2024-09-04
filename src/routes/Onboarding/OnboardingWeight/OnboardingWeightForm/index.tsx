@@ -52,7 +52,7 @@ export function OnboardingWeightForm({
     <form onSubmit={handleSubmit}>
       <div role="group">
         <label htmlFor="weight">
-          <h2 className="visually-hidden">체중</h2>
+          <h2 className="sr-only">체중</h2>
         </label>
         <input
           name="weight"

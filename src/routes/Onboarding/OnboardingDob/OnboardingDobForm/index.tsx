@@ -63,7 +63,7 @@ export function OnboardingDobForm({
     <form onSubmit={handleSubmit}>
       <div role="group">
         <label htmlFor="year">
-          <h2 className="visually-hidden">연도</h2>
+          <h2 className="sr-only">연도</h2>
         </label>
         <input
           name="year"
@@ -73,7 +73,7 @@ export function OnboardingDobForm({
           onChange={handleUpdateFormData}
         />
         <label htmlFor="month">
-          <h2 className="visually-hidden">월</h2>
+          <h2 className="sr-only">월</h2>
         </label>
         <input
           name="month"
@@ -83,7 +83,7 @@ export function OnboardingDobForm({
           onChange={handleUpdateFormData}
         />
         <label htmlFor="day">
-          <h2 className="visually-hidden">일</h2>
+          <h2 className="sr-only">일</h2>
         </label>
         <input
           name="day"
