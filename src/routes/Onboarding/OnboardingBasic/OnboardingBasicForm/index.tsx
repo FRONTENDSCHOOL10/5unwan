@@ -7,7 +7,7 @@ import {
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 
 export type OnboardingBasicFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -20,6 +20,7 @@ export function OnboardingBasicForm({
   user,
   currentStep,
 }: OnboardingBasicFormProps) {
+  const id = useId();
   const avatarImageRef = useRef<HTMLImageElement | null>(null);
 
   const [formData, setFormData] = useState<{
@@ -141,7 +142,7 @@ export function OnboardingBasicForm({
           />
 
           <label
-            htmlFor="avatar"
+            htmlFor={`${id}-newAvatarFile`}
             role="button"
             // className="absolute bottom-[0.06rem] right-[0.06rem] flex w-1/4 rounded-full bg-background p-[0.125rem] [box-shadow:0.25rem_0.25rem_0.25rem_0px_rgba(0,_0,_0,_0.15)] cursor-pointer xs:bottom-[0.084rem] xs:right-[0.084rem] xs:p-[0.175rem] sm:bottom-[0.108rem] sm:right-[0.108rem] sm:p-[0.225rem] focus-within:ring-1 focus-within:ring-blue-500 focus:ring-blue-500"
           >
@@ -150,8 +151,9 @@ export function OnboardingBasicForm({
               alt="연필"
               aria-hidden="true"
               className="aspect-square w-full"
-            /> */}
+              /> */}
             <input
+              id={`${id}-newAvatarFile`}
               type="file"
               name="newAvatarFile"
               accept=".jpg, .webp, .svg, .gif, .webp"
@@ -162,10 +164,11 @@ export function OnboardingBasicForm({
         </div>
       </div>
       <div role="group">
-        <label htmlFor="nickname">
+        <label htmlFor={`${id}-nickname`}>
           <h2 className="sr-only">닉네임</h2>
         </label>
         <input
+          id={`${id}-nickname`}
           name="nickname"
           type="text"
           placeholder="닉네임"
@@ -178,25 +181,25 @@ export function OnboardingBasicForm({
           <input
             type="radio"
             name="gender"
-            id="male"
+            id={`${id}-male`}
             value="M"
             checked={formData.gender === "M"}
             onChange={handleUpdateFormData}
             // className="sr-only"
           />
-          <label htmlFor="male">남자</label>
+          <label htmlFor={`${id}-male`}>남자</label>
         </div>
         <div>
           <input
             type="radio"
             name="gender"
-            id="female"
+            id={`${id}-female`}
             value="F"
             checked={formData.gender === "F"}
             onChange={handleUpdateFormData}
             // className="sr-only"
           />
-          <label htmlFor="female">여자</label>
+          <label htmlFor={`${id}-female`}>여자</label>
         </div>
       </div>
       <button
