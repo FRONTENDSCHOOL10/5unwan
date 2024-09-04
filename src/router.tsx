@@ -15,6 +15,7 @@ import PrivateRoute from "@/routes/PrivateRoute";
 import Register from "@/routes/Register";
 import SharedLayout from "@/routes/SharedLayout";
 import Start from "@/routes/Start";
+import NotFound from "@/routes/NotFound";
 
 export type RouteHandle = {
   hideHeader?: boolean;
@@ -49,6 +50,14 @@ export const router: ReturnType<typeof createBrowserRouter> =
           handle: {
             hideGnb: true,
             title: "로그인",
+          } satisfies RouteHandle,
+        },
+        {
+          path: "/*",
+          element: <NotFound />,
+          handle: {
+            hideGnb: true,
+            hideHeader: true,
           } satisfies RouteHandle,
         },
         {
