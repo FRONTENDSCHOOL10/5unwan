@@ -1,4 +1,3 @@
-import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import styles from "@/components/SVGicon/styles.module.css";
 import icons from "./svgSprites.svg";
 
