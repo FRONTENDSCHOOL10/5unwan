@@ -75,23 +75,30 @@ export default function MyPage() {
       {showDeleteModal && (
         <div className={styles.modal}>
           <div className={styles["modal-content"]}>
-            <h1>회원 탈퇴</h1>
-            <p>회원 탈퇴를 진행하려면 비밀번호를 입력하세요.</p>
-            <Input
+		  <h1>
+  			<span className={styles["nickname"]}>{user?.nickname}</span>
+  			<span className={styles["message"]}>님 회원탈퇴를 위해<br></br>
+  			비밀번호를 입력해주세요.</span>
+		  </h1>
+		<br></br>
+		<div>
+        	<Input
               status="text"
               isDark={false}
   			  label="비밀번호"  
               placeholder="8문자 이상, 특수 문자 포함해주세요."
+			  type="password"
             />
-
-	<LargeButton onClick={showConfirmDeleteModal} >
-  		확인
+		</div>
+		<br></br>
+		<LargeButton onClick={showConfirmDeleteModal} >
+  			확인
 		</LargeButton>
-	<LargeButton 
-  		onClick={() => setShowDeleteModal(false)}
-  		className={styles["cancel-button"]}>
- 		 취소
-	</LargeButton>
+		<LargeButton 
+  			onClick={() => setShowDeleteModal(false)}
+  			className={styles["cancel-button"]}>
+ 			 취소
+		</LargeButton>
 
           </div>
         </div>

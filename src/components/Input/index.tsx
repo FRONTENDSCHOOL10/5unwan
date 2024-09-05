@@ -4,10 +4,11 @@ interface InputProps {
   status?: string,
   isDark?: boolean
   label?: string,
-  placeholder?: string    
+  placeholder?: string,
+  type?: string
 }
 
-export default function Input({ status, isDark, label, placeholder }: InputProps) {
+export default function Input({ status, isDark, label, placeholder, type = 'text' }: InputProps) {
 	function getInputStatus() {
     const darkClass = isDark ? styles["is-dark"] : '';
 
@@ -43,7 +44,7 @@ export default function Input({ status, isDark, label, placeholder }: InputProps
             :
             <div className={getInputStatus()}>
               <label htmlFor="text" className="body-sm">{label || '타이틀'}</label>
-              <input type="text" id="text" className="body-sm" placeholder={placeholder || '내용을 입력해 주세요.'} />
+              <input type={type} id="text" className="body-sm" placeholder={placeholder || '내용을 입력해 주세요.'} />
               <span className="body-xs">{'내용을 입력해 주세요.'}</span>
             </div>
       }
