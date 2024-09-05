@@ -14,7 +14,7 @@ export default function MyPage() {
 	const queryClient = useQueryClient(); 
     const [showDeleteModal, setShowDeleteModal] = useState(false); 
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
-	const [password] = useState("");
+	const [password, setPassword] = useState(""); 
 
 	const logoutMutation = useMutation({
 		mutationFn: async () => {
@@ -26,18 +26,20 @@ export default function MyPage() {
 		},
 	});
   
-  const deleteUserMutation = useMutation({
-	mutationFn: async () => {
-	  await deleteUser(password);
-	},
-	onSuccess: () => {
-	  queryClient.clear();
-	  navigate("/start"); 
-	},
-	onError: (error) => {
-	  alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
-	},
-  });
+	const deleteUserMutation = useMutation({
+		mutationFn: async () => {
+		  await deleteUser(password);  
+		},
+		onSuccess: () => {
+		  queryClient.clear();
+		  navigate("/start");
+		},
+		onError: (error) => {
+		  console.error(error); 
+		  alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
+		},
+	  });
+	  
   
   const showConfirmDeleteModal = () => {
     setShowConfirmModal(true); // 
@@ -68,9 +70,9 @@ export default function MyPage() {
       <br />
       <span>마이페이지</span>
       <br />
-      <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
+      <button onClick={() => logoutMutation.mutate()}>로그아웃</button> 
 	  <br />
-	  <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button> {/* 회원 탈퇴 버튼 */}
+	  <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
       
       {showDeleteModal && (
         <div className={styles.modal}>
@@ -80,25 +82,25 @@ export default function MyPage() {
   			<span className={styles["message"]}>님 회원탈퇴를 위해<br></br>
   			비밀번호를 입력해주세요.</span>
 		  </h1>
-		<br></br>
-		<div>
+	
         	<Input
               status="text"
               isDark={false}
   			  label="비밀번호"  
               placeholder="8문자 이상, 특수 문자 포함해주세요."
 			  type="password"
+			  value={password} 
+			  onChange={(e) => setPassword(e.target.value)} 
             />
-		</div>
-		<br></br>
-		<LargeButton onClick={showConfirmDeleteModal} >
+	
+		  <LargeButton onClick={showConfirmDeleteModal} >
   			확인
-		</LargeButton>
-		<LargeButton 
+		  </LargeButton>
+		  <LargeButton 
   			onClick={() => setShowDeleteModal(false)}
   			className={styles["cancel-button"]}>
  			 취소
-		</LargeButton>
+		  </LargeButton>
 
           </div>
         </div>
