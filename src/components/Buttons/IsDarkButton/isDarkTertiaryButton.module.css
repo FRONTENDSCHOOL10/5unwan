@@ -4,7 +4,7 @@
 	background-color: transparent;
 	color: var(--grayscale-600);
 	font-family: var(--font-family-basic);
-	font-size: calc(var(--font-size-basic) * 0.875);
+	font-size: var(--medium);
 	font-weight: var(--font-weight-bold);
 	border: 0.0625rem solid transparent;
 	border-radius: 0.25rem; /* 4px */
@@ -41,7 +41,7 @@
 	background-color: transparent;
 	color: var(--grayscale-600);
 	font-family: var(--font-family-basic);
-	font-size: 0.875rem; /* 14px */
+	font-size: var(--medium); 
 	font-weight: var(--font-weight-bold);
 	border: 0.0625rem solid transparent;
 	border-radius: 0.25rem; /* 4px */
@@ -78,7 +78,7 @@
 	background-color: transparent;
 	color: var(--grayscale-600);
 	font-family: var(--font-family-basic);
-	font-size: calc(var(--font-size-basic) * 0.75);
+	font-size: var(--small);
 	font-weight: var(--font-weight-bold);
 	border: 0.0625rem solid transparent;
 	border-radius: 0.25rem; /* 4px */
