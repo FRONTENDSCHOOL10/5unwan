@@ -1,24 +1,7 @@
-import { useCurrentUserQuery } from "@/hooks/user"; 
-import { useNavigate } from "react-router-dom";  
-import { logout } from "@/api/pocketbase";  
-import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-
+import { useCurrentUser } from "@/hooks/user"; 
 
 export default function MyPage() {
-	const { user, isLoading, isError } = useCurrentUserQuery(); 
-	const navigate = useNavigate(); 
-	const queryClient = useQueryClient(); 
-  
-
-	const logoutMutation = useMutation({
-		mutationFn: async () => {
-			await logout();
-		},
-		onSuccess: () => {
-			queryClient.clear(); 
-			navigate("/login");  
-		},
-	});
+	const { user, isLoading, isError, logout } = useCurrentUser(); 
   
 	if (isLoading) {
 	  return <div>Loading...</div>;
@@ -34,7 +17,7 @@ export default function MyPage() {
       <br />
       <span>마이페이지</span>
       <br />
-      <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
+      <button onClick={logout}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 	  <br />
 
 
