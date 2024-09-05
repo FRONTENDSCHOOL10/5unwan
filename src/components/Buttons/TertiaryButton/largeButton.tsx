@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Link 컴포넌트 가져오기
+import { Link } from 'react-router-dom'; 
 import styles from './largebutton.module.css';
 
 type ButtonProps = {

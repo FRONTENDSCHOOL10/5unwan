@@ -3,9 +3,9 @@
 	height: 3.375rem; /* 54px */
 	background-color: transparent;
 	color: var(--grayscale-600); /* #757575 대신 사용 */
-	font-family: 'Noto Sans KR';
+	font-family: var(--font-family-basic);
 	font-size: 0.875rem; /* 14px */
-	font-weight: bold;
+	font-weight: var(--font-weight-bold);
 	border: 0.0625rem solid transparent; /* 1px */
 	border-radius: 0.25rem; /* 4px */
 	cursor: pointer;
@@ -17,19 +17,19 @@
 
 .large-button-wrapper:hover {
 	background-color: transparent;
-	color: var(--grayscale-800); /* #424242 대신 사용 */
+	color: var(--black);
 	border-color: transparent;
 }
 
 .large-button-wrapper:active {
 	background-color: transparent;
-	color: var(--grayscale-800); /* #424242 대신 사용 */
+	color: var(--black);
 	border-color: transparent;
 }
 
 .large-button-wrapper:disabled {
 	background-color: transparent;
-	color: var(--grayscale-400); /* #BDBDBD 대신 사용 */
+	color: var(--grayscale-400);
 	border-color: transparent;
 	cursor: not-allowed;
 }

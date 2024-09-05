@@ -17,13 +17,13 @@
   
   .medium-button-wrapper:hover {
 	background-color: transparent;
-	color: var(--grayscale-800);
+	color: var(--black);
 	border-color: transparent;
   }
   
   .medium-button-wrapper:active {
 	background-color: transparent;
-	color: var(--grayscale-800);
+	color: var(--black);
 	border-color: transparent;
   }
   
