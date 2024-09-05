@@ -1,0 +1,41 @@
+.container {
+  padding: 20px 0;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 12px;
+  overflow: hidden;  
+  margin-bottom: 30px;    
+
+  &:hover, &:active, &:focus {
+    img {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 100%;
+    height: 8.75rem;
+    background-color: rgba(217, 217, 217, 1);
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+
+  h3 {
+    font-family: var(--font-family-basic);
+    font-size: var(--large);
+    font-weight: var(--font-weight-bold);
+    line-height: 120%;
+    color: var(--primary);
+  }
+}

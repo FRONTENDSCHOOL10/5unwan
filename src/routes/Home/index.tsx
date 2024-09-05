@@ -3,8 +3,11 @@ import { getExercises, logout } from '@/api/pocketbase'
 import { useNavigate, useOutletContext, Link } from 'react-router-dom';
 import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-interface Exercise {
+import styles from './home.module.css';
+// > components
+import Article from '@/components/Article/Article';
+import ExerciseType from '@/components/ExerciseTypes/ExerciseTypes';
+interface exerciseProps {
   id: string;
   type: string;
   title: string;
@@ -13,7 +16,7 @@ interface Exercise {
 }
 
 export default function Home() {
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [exercises, setExercises] = useState<exerciseProps[]>([]);
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -40,35 +43,21 @@ export default function Home() {
     fetchExercises();
   }, []);
 
-  console.log(exercises);
-
   return (
     <>
-      <div>
-        <p>현재 사용자: {user?.email}</p>
-        <br />
-        <button onClick={async () => {
-          await logoutMutation.mutateAsync();
-        }}>
-          로그아웃
-        </button>
+      <div className={styles.container}>
+        <div>
+          <p>현재 사용자: {user?.email}</p>
+          <br />
+          <button onClick={async () => {
+            await logoutMutation.mutateAsync();
+          }}>
+            로그아웃
+          </button>
+        </div>
+        <ExerciseType exercises={exercises} />
+        <Article exercises={exercises} />
       </div>
-      <ul>
-        {
-          exercises.map((exercise) => (
-            <li key={ exercise.id }>{ exercise.type }</li>
-          ))
-        }
-      </ul>
-      {
-        exercises.map((exercise) => (
-          <Link to={exercise.link}>
-            <img src={exercise.img_url} alt="" />
-            <h3>{ exercise.title}</h3>
-          </Link>
-        ))
-
-      }
     </>
   )
 }
