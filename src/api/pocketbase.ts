@@ -11,7 +11,9 @@ export type User = {
   avatar: string;
   dob: string;
   gender: "" | "F" | "M";
+  /** height은 무조건 0보다 커야 한다. default value가 0이라는 것은, 유저가 아직 입력을 하지 않았다는 것을 암시하며, special value로 취급된다. https://github.com/pocketbase/pocketbase/issues/122#issuecomment-1427510028 */
   height: number;
+  /** weight은 무조건 0보다 커야 한다. default value가 0이라는 것은, 유저가 아직 입력을 하지 않았다는 것을 암시하며, special value로 취급된다. https://github.com/pocketbase/pocketbase/issues/122#issuecomment-1427510028 */
   weight: number;
   interests: string[];
 };

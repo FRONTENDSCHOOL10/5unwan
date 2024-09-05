@@ -12,7 +12,9 @@ export default function OnboardingDob() {
     <div>
       <OnboardingDobForm
         onSuccess={() => {
-          navigate("/onboarding/height");
+          currentStep === ONBOARDING_STEPS.length - 1
+            ? navigate("/onboarding/done")
+            : navigate(ONBOARDING_STEPS[currentStep + 1]);
         }}
         user={user}
         currentStep={currentStep}

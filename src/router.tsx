@@ -67,10 +67,12 @@ export const router: ReturnType<typeof createBrowserRouter> =
             {
               element: <OnboardedRoute />,
               children: [
+                { index: true, element: <Navigate to="home" replace /> },
                 {
-                  index: true,
+                  path: "home",
                   element: <Home />,
                   handle: {
+                    title: "홈",
                     hideHeader: true,
                   } satisfies RouteHandle,
                 },
@@ -78,6 +80,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   path: "calendar",
                   element: <Calendar />,
                   handle: {
+                    title: "캘린더",
                     hideHeader: true,
                   } satisfies RouteHandle,
                 },
@@ -85,6 +88,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   path: "maps",
                   element: <Maps />,
                   handle: {
+                    title: "지도",
                     hideHeader: true,
                   } satisfies RouteHandle,
                 },
@@ -92,6 +96,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   path: "my-page",
                   element: <MyPage />,
                   handle: {
+                    title: "마이페이지",
                     hideHeader: true,
                   } satisfies RouteHandle,
                 },
@@ -125,6 +130,14 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 {
                   path: "interests",
                   element: <OnboardingInterests />,
+                },
+                {
+                  path: "done",
+                  lazy: () => import("@/routes/Onboarding/OnboardingDone"),
+                },
+                {
+                  path: "resume",
+                  lazy: () => import("@/routes/Onboarding/OnboardingResume"),
                 },
               ],
             },
