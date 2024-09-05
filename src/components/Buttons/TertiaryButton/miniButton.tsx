@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './minibutton.module.css';
+import styles from './miniButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;

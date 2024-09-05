@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './isdarkButton.module.css';
+import styles from './isDarkButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;

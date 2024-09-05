@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './largebutton.module.css';
+import styles from './largeButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;

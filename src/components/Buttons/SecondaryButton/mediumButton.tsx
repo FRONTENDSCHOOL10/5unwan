@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './mediumbutton.module.css';
+import styles from './mediumButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
