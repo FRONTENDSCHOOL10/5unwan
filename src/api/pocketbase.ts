@@ -123,3 +123,18 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
     item.collectionId
   }/${item.id}/${fileName}`;
 }
+
+
+// 회원 탈퇴 기능 추가
+export async function deleteUser(password: string) {
+	try {
+	  const user = pb.authStore.model as User | null;
+	  if (!user) throw new Error("로그인된 사용자가 없습니다.");
+  
+	  // 비밀번호 인증 후 사용자 삭제
+	  await pb.collection("users").authWithPassword(user.email, password); // 비밀번호 확인
+	  await pb.collection("users").delete(user.id); // 사용자 삭제
+	} catch (error) {
+	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
+	}
+  }

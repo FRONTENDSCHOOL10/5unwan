@@ -7,13 +7,17 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   to?: string; 
+  className?: string;
 };
 
-const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
+const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, className }) => {
   if (to) {
 
     return (
-      <Link to={to} className={styles["medium-button-wrapper"]}>
+      <Link 
+        to={to} 
+        className={`${styles["medium-button-wrapper"]} ${className}`} 
+      >
         {children}
       </Link>
     );
@@ -21,7 +25,7 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }
 
   return (
     <button
-      className={styles["medium-button-wrapper"]}
+      className={`${styles["medium-button-wrapper"]} ${className}`} 
       onClick={onClick}
       disabled={disabled}
       type="button"
@@ -29,7 +33,6 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }
       {children}
     </button>
   );
-  
 };
 
 export default MediumButton;
