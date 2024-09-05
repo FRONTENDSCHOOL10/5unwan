@@ -124,6 +124,17 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
   }/${item.id}/${fileName}`;
 }
 
+pb.autoCancellation(false);
+export async function getExercises(): Promise<any> {
+  try {
+    const records = await pb.collection('exercises').getFullList();
+    return records;
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    throw error; 
+  }
+}
+
 
 // 회원 탈퇴 기능 추가
 export async function deleteUser(password: string) {
@@ -147,5 +158,3 @@ export async function deleteUser(password: string) {
 	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
 	}
   }
-  
-  
