@@ -29,5 +29,8 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "typings/**/*.d.ts",
+  ]
 }
