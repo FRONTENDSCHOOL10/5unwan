@@ -49,5 +49,4 @@ import LargeButtonS from "@/components/Buttons/SecondaryButton/largeButton";
 <LargeButtonS to="/next-page">
   버튼 (페이지 이동)
 </LargeButtonS>
-
 */

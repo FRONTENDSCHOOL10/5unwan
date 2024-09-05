@@ -2,8 +2,6 @@ import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";  
 import { logout } from "@/api/pocketbase";  
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-import IsDarkTertiaryButton from "@/components/Buttons/IsDarkButton/isDarkTertiaryButton";
-
 
 
 export default function MyPage() {
@@ -38,12 +36,6 @@ export default function MyPage() {
       <br />
       <button onClick={() => logoutMutation.mutate()}>로그아웃</button> {/* 로그아웃 버튼 클릭 시 mutate 호출 */}
 	  <br />
-
-
-<IsDarkTertiaryButton size="large" onClick={() => {}}>
-  큰 버튼
-</IsDarkTertiaryButton>
-
 
 
     </div>

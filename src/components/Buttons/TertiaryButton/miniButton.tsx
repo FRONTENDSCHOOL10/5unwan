@@ -39,17 +39,14 @@ export default MiniButton;
 /* 버튼 사용 예시
 import MiniButtonT from "@/components/Buttons/TertiaryButton/miniButton";
 
-// 일반 버튼
 <MiniButtonT onClick={() => {}}>
   버튼 (클릭)
 </MiniButtonT>
 
-// 비활성화된 버튼
 <MiniButtonT disabled={true}>
   버튼 (비활성화)
 </MiniButtonT>
 
-// Link 버튼
 <MiniButtonT to="/next-page">
   버튼 (페이지 이동)
 </MiniButtonT>

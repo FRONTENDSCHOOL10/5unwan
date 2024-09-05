@@ -30,7 +30,7 @@
   .large-button-wrapper:disabled {
 	background-color: transparent;
 	color: var(--grayscale-200);
-	border: 0.0625rem solid var(--grayscale-200);
+	border: 0.0625rem solid transparent;
 	cursor: not-allowed;
   }
   
@@ -67,7 +67,7 @@
   .medium-button-wrapper:disabled {
 	background-color: transparent;
 	color: var(--grayscale-200);
-	border: 0.0625rem solid var(--grayscale-200);
+	border: 0.0625rem solid transparent;
 	cursor: not-allowed;
   }
   
@@ -104,7 +104,7 @@
   .mini-button-wrapper:disabled {
 	background-color: transparent;
 	color: var(--grayscale-200);
-	border: 0.0625rem solid var(--grayscale-200);
+	border: 0.0625rem solid transparent;
 	cursor: not-allowed;
   }
   
