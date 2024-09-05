@@ -2,7 +2,7 @@ import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";  
 import { logout, deleteUser } from "@/api/pocketbase";  
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-import React, { useState } from "react"; 
+import { useState } from "react"; 
 import styles from "./myPageModal.module.css"; 
 import Input from "@/components/Input/index";
 import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
