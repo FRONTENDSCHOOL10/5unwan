@@ -2,7 +2,7 @@
   width: 17.5rem; /* 280px */
   height: 3.375rem; /* 54px */
   background-color: var(--grayscale-800);
-  color: var(--grayscale-white);
+  color: var(--white);
   font-family: var(--font-family-basic);
   font-size: calc(var(--font-size-basic) * 0.875);
   font-weight: var(--font-weight-bold);

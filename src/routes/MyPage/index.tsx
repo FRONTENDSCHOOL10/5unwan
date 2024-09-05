@@ -2,6 +2,7 @@ import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";  
 import { logout } from "@/api/pocketbase";  
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
+import LargeButtonT from "@/components/Buttons/TertiaryButton/largeButton";
 
 
 export default function MyPage() {
@@ -38,6 +39,17 @@ export default function MyPage() {
 	  <br />
 
 
+<LargeButtonT onClick={() => {}}>
+  버튼 (클릭)
+</LargeButtonT>
+
+<LargeButtonT disabled={true}>
+  버튼 (비활성화)
+</LargeButtonT>
+
+<LargeButtonT to="/home">
+  홈으로 이동
+</LargeButtonT>
 
 
     </div>
