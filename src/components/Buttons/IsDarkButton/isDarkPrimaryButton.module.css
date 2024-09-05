@@ -2,10 +2,10 @@
 .large-button-wrapper {
   width: 17.5rem; /* 280px */
   height: 3.375rem; /* 54px */
-  background-color: var(--grayscale-white);
-  color: var(--grayscale-black);
+  background-color: var(--white);
+  color: var(--black);
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.875);
+  font-size: var(--medium); 
   font-weight: var(--font-weight-bold);
   border: none;
   border-radius: 0.25rem; /* 4px */
@@ -34,10 +34,10 @@
 .medium-button-wrapper {
   width: 8.75rem; /* 140px */
   height: 2.75rem; /* 44px */
-  background-color: var(--grayscale-white);
-  color: var(--grayscale-black);
+  background-color: var(--white);
+  color: var(--black);
   font-family: var(--font-family-basic);
-  font-size: 0.875rem; /* 14px */
+  font-size: var(--medium); 
   font-weight: var(--font-weight-bold);
   border: none;
   border-radius: 0.25rem; /* 4px */
@@ -66,10 +66,10 @@
 .mini-button-wrapper {
   width: 3.9375rem; /* 63px */
   height: 2.625rem; /* 42px */
-  background-color: var(--grayscale-white);
-  color: var(--grayscale-black);
+  background-color: var(--white);
+  color: var(--black);
   font-family: var(--font-family-basic);
-  font-size: calc(var(--font-size-basic) * 0.75);
+  font-size: var(--small);
   font-weight: var(--font-weight-bold);
   border: none;
   border-radius: 0.25rem; /* 4px */
