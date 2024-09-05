@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getExercises, logout } from '@/api/pocketbase'
-import { useNavigate, useOutletContext, Link } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from './home.module.css';
