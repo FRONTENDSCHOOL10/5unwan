@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './minibutton.module.css';
+import styles from './miniButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type ButtonProps = {
 const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
     <button
-      className={styles["mini-button-wrapper"]} 
+      className={styles["mini-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
 	  type="button" 
@@ -22,19 +22,14 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 
 export default MiniButton;
 
+/* 버튼 사용 예시
+import MiniButtonT from "@/components/Buttons/TertiaryButton/miniButton";
 
+	<MiniButtonT onClick={() => {}}>
+		버튼
+	</MiniButtonT>
 
-
-/* 버튼 사용 예시 
-
-import MiniButton from "@/components/PrimaryButton/MiniButton";
-
-<MiniButton onClick={() => {}}>
-  버튼
-</MiniButton>
-
-<MiniButton disabled={true}>
-  버튼
-</MiniButton>
-
-*/
+  	<MiniButtonT disabled={true}>
+  		버튼
+	</MiniButtonT>
+  */

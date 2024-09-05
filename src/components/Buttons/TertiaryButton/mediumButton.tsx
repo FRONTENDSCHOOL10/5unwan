@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './mediumbutton.module.css';
+import styles from './mediumButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type ButtonProps = {
 const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
   return (
     <button
-      className={styles['medium-button-wrapper']}
+      className={styles["medium-button-wrapper"]}
       onClick={onClick}
       disabled={disabled}
 	  type="button" 
@@ -22,14 +22,14 @@ const MediumButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) =>
 
 export default MediumButton;
 
-/* 버튼 사용 예시 
-import MediumButtonS from "@/components/SecondaryButton/mediumbutton";
+/* 미디엄 버튼 사용 예시 
+import MediumButtonT from "@/components/Buttons/TertiaryButton/mediumButton";
 
-	<MediumButtonS onClick={() => {}}>
+	<MediumButtonT onClick={() => {}}>
 		버튼
-	</MediumButtonS>
+	</MediumButtonT>
 
-  	<MediumButtonS disabled={true}>
+  	<MediumButtonT disabled={true}>
   		버튼
-	</MediumButtonS>
+	</MediumButtonT>
 */

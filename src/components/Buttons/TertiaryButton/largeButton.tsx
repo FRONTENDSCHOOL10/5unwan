@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './largebutton.module.css';
+import styles from './largeButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -23,14 +23,14 @@ const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => 
 export default LargeButton;
 
 
-/* 버튼 사용 예시
-import LargeButtonS from "@/components/SecondaryButton/largebutton";
+/* 라지 버튼 사용 예시 
+import LargeButtonT from "@/components/Buttons/TertiaryButton/largeButton";
 
-	<LargeButtonS onClick={() => {}}>
+	<LargeButtonT onClick={() => {}}>
 		버튼
-	</LargeButtonS>
+	</LargeButtonT>
 
-  	<LargeButtonS disabled={true}>
+  	<LargeButtonT disabled={true}>
   		버튼
-	</LargeButtonS>
+	</LargeButtonT>
 */

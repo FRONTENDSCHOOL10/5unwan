@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './largebutton.module.css';
+import styles from './largeButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export default LargeButton;
 
 /* 버튼 사용 예시 
 
-import LargeButton from "@/components/PrimaryButton/LargeButton";
+import LargeButton from "@/components/Buttons/PrimaryButton/LargeButton";
 
 <LargeButton onClick={() => {}}>
   버튼

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './minibutton.module.css';
+import styles from './miniButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -23,13 +23,13 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 export default MiniButton;
 
 /* 버튼 사용 예시
-import MiniButtonT from "@/components/TertiaryButton/minibutton";
+import MiniButtonS from "@/components/Buttons/SecondaryButton/miniButton";
 
-	<MiniButtonT onClick={() => {}}>
+	<MiniButtonS onClick={() => {}}>
 		버튼
-	</MiniButtonT>
+	</MiniButtonS>
 
-  	<MiniButtonT disabled={true}>
+  	<MiniButtonS disabled={true}>
   		버튼
-	</MiniButtonT>
+	</MiniButtonS>
   */

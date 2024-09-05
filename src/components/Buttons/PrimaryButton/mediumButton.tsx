@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './mediumbutton.module.css';
+import styles from './mediumButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export default MediumButton;
 
 /* 버튼 사용 예시 
 
-import MediumButton from "@/components/PrimaryButton/MediumButton";
+import MediumButton from "@/components/Buttons/PrimaryButton/MediumButton";
 
 <MediumButton onClick={() => {}}>
   버튼

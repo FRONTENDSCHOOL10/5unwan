@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './isdarkButton.module.css';
+import styles from './isDarkButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ export default IsDarkButton;
 
 
 /* 
-import IsDarkButton from "@/components/Buttons/IsdarkButton/IsDarkButton";
+import IsDarkButton from "@/components/Buttons/IsDarkButton/IsDarkButton";
 
 <IsDarkButton size="large" onClick={() => {}}>
   큰 버튼
