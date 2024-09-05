@@ -24,7 +24,7 @@ export default LargeButton;
 
 
 /* 버튼 사용 예시
-import LargeButtonS from "@/components/SecondaryButton/largebutton";
+import LargeButtonS from "@/components/Buttons/SecondaryButton/largeButton";
 
 	<LargeButtonS onClick={() => {}}>
 		버튼

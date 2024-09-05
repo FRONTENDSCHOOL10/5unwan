@@ -23,7 +23,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled }) => {
 export default MiniButton;
 
 /* 버튼 사용 예시
-import MiniButtonT from "@/components/TertiaryButton/minibutton";
+import MiniButtonT from "@/components/Buttons/TertiaryButton/miniButton";
 
 	<MiniButtonT onClick={() => {}}>
 		버튼

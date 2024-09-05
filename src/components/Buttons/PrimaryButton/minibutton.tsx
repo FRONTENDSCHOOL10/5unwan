@@ -27,7 +27,7 @@ export default MiniButton;
 
 /* 버튼 사용 예시 
 
-import MiniButton from "@/components/PrimaryButton/MiniButton";
+import MiniButton from "@/components/Buttons/PrimaryButton/MiniButton";
 
 <MiniButton onClick={() => {}}>
   버튼

@@ -24,7 +24,7 @@ export default LargeButton;
 
 
 /* 라지 버튼 사용 예시 
-import LargeButtonT from "@/components/TertiaryButton/largebutton";
+import LargeButtonT from "@/components/Buttons/TertiaryButton/largeButton";
 
 	<LargeButtonT onClick={() => {}}>
 		버튼
