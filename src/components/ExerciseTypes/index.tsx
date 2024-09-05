@@ -7,6 +7,25 @@ interface exerciseProps {
   }[];
 }
 
+function getTypes(type:string) {
+  switch (type) {
+    case 'fitness':
+      return '헬스';
+    case 'yoga':
+      return '요가';
+    case 'badminton':
+      return '배드민턴';
+    case 'climbing':
+      return '클라이밍';
+    case 'tennis':
+      return '테니스';
+    case 'running':
+      return '런닝';
+    default:
+      return '기타';
+  }
+}
+
 export default function ExerciseType({ exercises }: exerciseProps) {
   return (
     <>
@@ -16,7 +35,7 @@ export default function ExerciseType({ exercises }: exerciseProps) {
         </li>
         {
           exercises.map((exercise) => (
-            <li key={ exercise.id } className={styles["exercise-type-item"]}>{ exercise.type }</li>
+            <li key={exercise.id} className={styles["exercise-type-item"]}>{getTypes(exercise.type)}</li>
           ))
         }
       </ul>

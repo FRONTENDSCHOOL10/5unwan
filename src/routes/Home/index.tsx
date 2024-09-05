@@ -5,8 +5,8 @@ import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from './home.module.css';
 // > components
-import Article from '@/components/Article/Article';
-import ExerciseType from '@/components/ExerciseTypes/ExerciseTypes';
+import Article from '@/components/Article';
+import ExerciseType from '@/components/ExerciseTypes';
 interface exerciseProps {
   id: string;
   type: string;
