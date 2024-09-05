@@ -123,3 +123,14 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
     item.collectionId
   }/${item.id}/${fileName}`;
 }
+
+pb.autoCancellation(false);
+export async function getExercises(): Promise<any> {
+  try {
+    const records = await pb.collection('exercises').getFullList();
+    return records;
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    throw error; 
+  }
+}
