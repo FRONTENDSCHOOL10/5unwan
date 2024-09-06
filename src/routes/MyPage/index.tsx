@@ -1,4 +1,4 @@
-import { useCurrentUserQuery } from "@/hooks/user"; 
+import { useCurrentUser } from "@/hooks/user";  
 import { useNavigate } from "react-router-dom";  
 import { logout, deleteUser } from "@/api/pocketbase";  
 import { useMutation, useQueryClient } from "@tanstack/react-query"; 
@@ -9,7 +9,7 @@ import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 
 
 export default function MyPage() {
-	const { user, isLoading, isError } = useCurrentUserQuery(); 
+	const { user, isLoading, isError } = useCurrentUser(); 
 	const navigate = useNavigate(); 
 	const queryClient = useQueryClient(); 
     const [showDeleteModal, setShowDeleteModal] = useState(false); 

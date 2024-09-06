@@ -1,5 +1,5 @@
 // https://blog.logrocket.com/using-pocketbase-build-full-stack-app/
-import PocketBase from "pocketbase";
+import PocketBase, { OnStoreChangeFunc } from "pocketbase";
 const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 
 export type User = {
@@ -45,23 +45,6 @@ export type UpdateUser = {
   interests?: string[];
 };
 
-export async function currentUser() {
-  if (pb.authStore.isValid) {
-    try {
-      await pb.collection("users").authRefresh();
-
-      return pb.authStore.model as User | null;
-    } catch (error) {
-      if ((error as any)?.response?.code === 401) {
-        logout();
-      } else {
-        throw error;
-      }
-    }
-  }
-  return null;
-}
-
 export async function createUser(newUser: NewUser) {
   const createdUser = (await pb.collection("users").create(newUser)) as User;
 
@@ -73,6 +56,29 @@ export async function createUser(newUser: NewUser) {
   // pb.collection("users").requestVerification(newUser.email);
 
   return createdUser;
+}
+
+export async function getCurrentUser() {
+  return pb.authStore.isValid ? (pb.authStore.model as User | null) : null;
+}
+
+export async function refreshCurrentUser() {
+  if (pb.authStore.isValid) {
+    try {
+      await pb.collection("users").authRefresh();
+    } catch (error) {
+      if ((error as any)?.response?.code === 401) {
+        // NOTE: 1. authStore 클리어 -> 2. pb.authStore.model이 null이 됨 -> 3. pb.authStore.onChange 콜백 실행
+        logout();
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+
+export function subscribeToCurrentUser(callback: OnStoreChangeFunc) {
+  return pb.authStore.onChange(callback);
 }
 
 export async function updateCurrentUser({
@@ -124,6 +130,17 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
   }/${item.id}/${fileName}`;
 }
 
+pb.autoCancellation(false);
+export async function getExercises(): Promise<any> {
+  try {
+    const records = await pb.collection('exercises').getFullList();
+    return records;
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    throw error; 
+  }
+}
+
 
 // 회원 탈퇴 기능 추가
 export async function deleteUser(password: string) {
@@ -147,5 +164,3 @@ export async function deleteUser(password: string) {
 	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
 	}
   }
-  
-  
