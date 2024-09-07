@@ -1,68 +1,67 @@
-import { useCurrentUser } from "@/hooks/user";  
-import { useNavigate } from "react-router-dom";  
-import { logout, deleteUser } from "@/api/pocketbase";  
-import { useMutation, useQueryClient } from "@tanstack/react-query"; 
-import { useState } from "react"; 
-import styles from "./myPageModal.module.css"; 
+import { useCurrentUser } from "@/hooks/user";
+import { useNavigate } from "react-router-dom";
+import { deleteUser } from "@/api/pocketbase";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import styles from "./myPageModal.module.css";
 import Input from "@/components/Input/index";
 import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 
-
 export default function MyPage() {
-	const { user, isLoading, isError } = useCurrentUser(); 
-	const navigate = useNavigate(); 
-	const queryClient = useQueryClient(); 
-    const [showDeleteModal, setShowDeleteModal] = useState(false); 
-	const [showConfirmModal, setShowConfirmModal] = useState(false);
-	const [password, setPassword] = useState(""); 
+  const { user, isLoading, isError, logout } = useCurrentUser();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [password, setPassword] = useState("");
 
-	const logoutMutation = useMutation({
-		mutationFn: async () => {
-			await logout();
-		},
-		onSuccess: () => {
-			queryClient.clear(); 
-			navigate("/login");  
-		},
-	});
-  
-	const deleteUserMutation = useMutation({
-		mutationFn: async () => {
-		  await deleteUser(password);  
-		},
-		onSuccess: () => {
-		  queryClient.clear();
-		  navigate("/start");
-		},
-		onError: (error) => {
-		  console.error(error); 
-		  alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
-		},
-	  });
-	  
-  
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await logout();
+    },
+    onSuccess: () => {
+      queryClient.clear();
+      navigate("/login");
+    },
+  });
+
+  const deleteUserMutation = useMutation({
+    mutationFn: async (password: string) => {
+      await deleteUser(password);
+    },
+    onSuccess: () => {
+      queryClient.clear();
+      navigate("/start");
+    },
+    onError: (error) => {
+      console.error(error);
+      alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
+    },
+  });
+
   const showConfirmDeleteModal = () => {
-    setShowConfirmModal(true); // 
+    setShowConfirmModal(true); //
   };
 
   const handleConfirmDelete = () => {
-    deleteUserMutation.mutate();
-    setShowConfirmModal(false);
+    deleteUserMutation.mutate(password, {
+      onSuccess() {
+        setShowConfirmModal(false);
+      },
+    });
   };
 
   const handleCancelDelete = () => {
     setShowConfirmModal(false);
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-	if (isLoading) {
-	  return <div>Loading...</div>;
-	}
-  
-	if (isError) {
-	  return <div>Error loading user data.</div>;
-	}
-
+  if (isError) {
+    return <div>Error loading user data.</div>;
+  }
 
   return (
     <div>
@@ -70,38 +69,38 @@ export default function MyPage() {
       <br />
       <span>마이페이지</span>
       <br />
-      <button onClick={() => logoutMutation.mutate()}>로그아웃</button> 
-	  <br />
-	  <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
-      
+      <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
+      <br />
+      <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
+
       {showDeleteModal && (
         <div className={styles.modal}>
           <div className={styles["modal-content"]}>
-		  <h1>
-  			<span className={styles["nickname"]}>{user?.nickname}</span>
-  			<span className={styles["message"]}>님 회원탈퇴를 위해<br></br>
-  			비밀번호를 입력해주세요.</span>
-		  </h1>
-	
-        	<Input
+            <h1>
+              <span className={styles["nickname"]}>{user?.nickname}</span>
+              <span className={styles["message"]}>
+                님 회원탈퇴를 위해<br></br>
+                비밀번호를 입력해주세요.
+              </span>
+            </h1>
+
+            <Input
               status="text"
               isDark={false}
-  			  label="비밀번호"  
+              label="비밀번호"
               placeholder="8문자 이상, 특수 문자 포함해주세요."
-			  type="password"
-			  value={password} 
-			  onChange={(e) => setPassword(e.target.value)} 
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-	
-		  <LargeButton onClick={showConfirmDeleteModal} >
-  			확인
-		  </LargeButton>
-		  <LargeButton 
-  			onClick={() => setShowDeleteModal(false)}
-  			className={styles["cancel-button"]}>
- 			 취소
-		  </LargeButton>
 
+            <LargeButton onClick={showConfirmDeleteModal}>확인</LargeButton>
+            <LargeButton
+              onClick={() => setShowDeleteModal(false)}
+              className={styles["cancel-button"]}
+            >
+              취소
+            </LargeButton>
           </div>
         </div>
       )}
@@ -114,6 +113,7 @@ export default function MyPage() {
               <button
                 className={`${styles["confirmation-button"]} ${styles["confirmation-button-confirm"]}`}
                 onClick={handleConfirmDelete}
+                disabled={deleteUserMutation.isPending}
               >
                 확인
               </button>
@@ -127,7 +127,6 @@ export default function MyPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
