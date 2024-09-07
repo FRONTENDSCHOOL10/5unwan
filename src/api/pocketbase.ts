@@ -45,6 +45,14 @@ export type UpdateUser = {
   interests?: string[];
 };
 
+export type Exercise = {
+  id: string;
+  type: string;
+  title: string;
+  img_url: string;
+  link: string;
+};
+
 export async function currentUser() {
   if (pb.authStore.isValid) {
     try {
@@ -125,59 +133,59 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
 }
 
 pb.autoCancellation(false);
-export async function getExercises(): Promise<any> {
-  try {
-    const records = await pb.collection('exercises').getFullList();
-    return records;
-  } catch (error) {
-    console.error('Error fetching exercises:', error);
-    throw error; 
-  }
+
+export async function getExercises(): Promise<Exercise[]> {
+  const records = await pb.collection("exercises").getFullList();
+  return records as unknown as Exercise[];
 }
-export async function getExercise(type: string): Promise<any> {
+
+export async function getExercise(type: string): Promise<Exercise[]> {
   try {
-    const resultList = await pb.collection('exercises').getList(1, 10, {
+    const resultList = await pb.collection("exercises").getList(1, 10, {
       filter: `type ?= '${type}'`,
     });
-    return resultList;
+    return resultList as unknown as Exercise[];
   } catch (error) {
-    console.error('Error fetching exercise:', error);
-    throw error; 
+    console.error("Error fetching exercise:", error);
+    throw error;
   }
 }
 
-// 회원 탈퇴 기능 
+// 회원 탈퇴 기능
 export async function deleteUser(password: string) {
-	try {
-	  const user = pb.authStore.model as User | null;
-	  if (!user) throw new Error("로그인된 사용자가 없습니다.");
-  
-	  if (!password) throw new Error("비밀번호가 입력되지 않았습니다.");
-  
-	  await pb.collection("users").authWithPassword(user.email, password);
-	  await pb.collection("users").delete(user.id);
-	} catch (error: any) {
-	  console.error("회원 탈퇴 중 오류 발생:", error);
-	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
-	}
-  }
+  try {
+    const user = pb.authStore.model as User | null;
+    if (!user) throw new Error("로그인된 사용자가 없습니다.");
 
-  export async function updateUserProfile(userId: string, userValues: UpdateUser) {
-	const formData = new FormData();
-	
-	Object.entries(userValues).forEach(([key, value]) => {
-	  if (value !== undefined && value !== null) {
-		if (Array.isArray(value)) {
-		  formData.append(key, value.join(',')); 
-		} else {
-		  formData.append(key, typeof value === "number" ? value.toString() : value);
-		}
-	  }
-	});
-  
-	const updatedUser = await pb.collection("users").update(userId, formData);
-	return updatedUser;
-  }
-  
-  
+    if (!password) throw new Error("비밀번호가 입력되지 않았습니다.");
 
+    await pb.collection("users").authWithPassword(user.email, password);
+    await pb.collection("users").delete(user.id);
+  } catch (error: any) {
+    console.error("회원 탈퇴 중 오류 발생:", error);
+    throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
+  }
+}
+
+export async function updateUserProfile(
+  userId: string,
+  userValues: UpdateUser
+) {
+  const formData = new FormData();
+
+  Object.entries(userValues).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      if (Array.isArray(value)) {
+        formData.append(key, value.join(","));
+      } else {
+        formData.append(
+          key,
+          typeof value === "number" ? value.toString() : value
+        );
+      }
+    }
+  });
+
+  const updatedUser = await pb.collection("users").update(userId, formData);
+  return updatedUser;
+}
