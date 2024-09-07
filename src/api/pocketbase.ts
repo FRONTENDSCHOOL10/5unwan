@@ -22,7 +22,7 @@ export type NewUser = {
   username?: string;
   nickname?: string;
   email: string;
-  avatar?: string;
+  avatar?: File;
   dob?: string;
   gender?: "" | "F" | "M";
   height?: number;
