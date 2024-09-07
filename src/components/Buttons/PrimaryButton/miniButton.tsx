@@ -7,7 +7,7 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   to?: string; 
-  className?: string; // className 추가
+  className?: string; 
 };
 
 const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, className }) => {
@@ -16,7 +16,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, cl
     return (
       <Link 
         to={to} 
-        className={`${styles["mini-button-wrapper"]} ${className}`} // 전달받은 className 추가
+        className={`${styles["mini-button-wrapper"]} ${className}`} 
       >
         {children}
       </Link>
@@ -25,7 +25,7 @@ const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, cl
 
   return (
     <button
-      className={`${styles["mini-button-wrapper"]} ${className}`} // 전달받은 className 추가
+      className={`${styles["mini-button-wrapper"]} ${className}`} 
       onClick={onClick}
       disabled={disabled}
       type="button"

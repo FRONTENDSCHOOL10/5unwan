@@ -23,7 +23,7 @@ interface ButtonProps {
 	  <button
 		onClick={onClick}
 		disabled={disabled}
-		className={`${styles["large-button-wrapper"]} ${className}`}  // className prop을 추가
+		className={`${styles["large-button-wrapper"]} ${className}`} 
 	  >
 		{children}
 	  </button>
