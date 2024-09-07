@@ -45,6 +45,14 @@ export type UpdateUser = {
   interests?: string[];
 };
 
+export type Exercise = {
+  id: string;
+  type: string;
+  title: string;
+  img_url: string;
+  link: string;
+};
+
 export async function createUser(newUser: NewUser) {
   const createdUser = (await pb.collection("users").create(newUser)) as User;
 
@@ -131,36 +139,31 @@ export function getPbImageUrl(item: PbItem, fileName: string) {
 }
 
 pb.autoCancellation(false);
-export async function getExercises(): Promise<any> {
-  try {
-    const records = await pb.collection('exercises').getFullList();
-    return records;
-  } catch (error) {
-    console.error('Error fetching exercises:', error);
-    throw error; 
-  }
-}
 
+export async function getExercises(): Promise<Exercise[]> {
+  const records = await pb.collection("exercises").getFullList();
+  return records as unknown as Exercise[];
+}
 
 // 회원 탈퇴 기능 추가
 export async function deleteUser(password: string) {
-	try {
-	  const user = pb.authStore.model as User | null;
-	  if (!user) throw new Error("로그인된 사용자가 없습니다.");
-  
-	  if (!password) throw new Error("비밀번호가 입력되지 않았습니다.");  // 비밀번호가 빈 값인지 체크
-  
-	  console.log("비밀번호 인증 시도 중:", user.email, password);
-	  await pb.collection("users").authWithPassword(user.email, password);  // 비밀번호가 전달되는지 확인
-	  console.log("비밀번호 인증 성공");
-  
-	  await pb.collection("users").delete(user.id);  // 사용자 삭제
-	  console.log("사용자 삭제 성공");
-	} catch (error: any) {
-	  if (error.response) {
-		console.error("서버 응답 오류:", error.response.data);
-	  }
-	  console.error("회원 탈퇴 중 오류 발생:", error);
-	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
-	}
+  try {
+    const user = pb.authStore.model as User | null;
+    if (!user) throw new Error("로그인된 사용자가 없습니다.");
+
+    if (!password) throw new Error("비밀번호가 입력되지 않았습니다."); // 비밀번호가 빈 값인지 체크
+
+    console.log("비밀번호 인증 시도 중:", user.email, password);
+    await pb.collection("users").authWithPassword(user.email, password); // 비밀번호가 전달되는지 확인
+    console.log("비밀번호 인증 성공");
+
+    await pb.collection("users").delete(user.id); // 사용자 삭제
+    console.log("사용자 삭제 성공");
+  } catch (error: any) {
+    if (error.response) {
+      console.error("서버 응답 오류:", error.response.data);
+    }
+    console.error("회원 탈퇴 중 오류 발생:", error);
+    throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
   }
+}
