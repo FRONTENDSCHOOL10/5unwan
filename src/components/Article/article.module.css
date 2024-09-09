@@ -29,7 +29,7 @@
     transition: transform 300ms ease-in-out, opacity 300ms ease-in-out, border-radius 300ms ease-in-out;
   }
 
-  &:hover {
+  &:hover, &:focus, &:active {
     img {
       transform: scale(1.05);
       opacity: 0.8;
