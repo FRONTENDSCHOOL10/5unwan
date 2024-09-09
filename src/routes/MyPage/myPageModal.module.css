@@ -1,3 +1,88 @@
+/* 마이페이지 */
+.mypage-title {
+	font-family: var(--font-family-basic);
+	font-size: var(--medium); 
+	font-weight: var(--font-weight-bold); 
+	line-height: var(--line-height-140);
+	letter-spacing: 0.0125rem;
+	color: var(--grayscale-900); 
+	display: flex;
+	width: var(--width-180);
+	height: var(--height-20);
+	justify-content: center;
+	align-items: center; 
+	margin-top: var(--space-6); 
+	margin-bottom: var(--space-6);
+  }
+
+  /* 프로필 사진 */
+  .avatar-container {
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	width: 100%; 
+	height: auto;
+  }
+  
+  .avatar {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%; 
+	object-fit: cover;
+  }
+  
+  /* 유저 닉네임 */
+  .nickname {
+	font-size: 1.125rem; /* 18px */
+	font-weight: 700; /* Bold */
+	color: var(--grayscale-900); /* 텍스트 색상 */
+	margin-top: var(--space-5); /* 적절한 여백 추가 */
+	margin-bottom: var(--space-5);
+	display: flex;
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	text-align: center; /* 텍스트 중앙 정렬 */
+  }
+
+/* 내 정보 */
+.profile-stats-container {
+	width: 17.5rem; 
+	height: 3.125rem; 
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: var(--white); 
+	border-radius: 0.5rem; 
+	box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+	padding: 0;
+	margin: 0 auto; /* 부모 안에서 가로 중앙 정렬 */
+  }
+  
+  .stat-item {
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+	width: 5rem;
+	font-size: var(--large); 
+	font-weight: var(--font-weight-medium);
+	color: var(--black); 
+	text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  .stat-item span {
+	font-size: var(--small); 
+	margin-left: 0.1875rem;
+	color: var(--grayscale-700); 
+  }
+  
+  .divider {
+	width: 0.0625rem; 
+	height: 1.25rem; 
+	background-color: var(--grayscale-400); 
+  }
+
+
+	/* 회원 탈퇴 모달창*/
 .modal {
 	position: fixed;
 	top: 0;
@@ -67,3 +152,6 @@
 	font-size: var(--title-medium); 
 	font-weight: var(--font-weight-extraBold);
 }
+
+
+
