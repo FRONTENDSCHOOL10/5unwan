@@ -167,3 +167,14 @@ export async function deleteUser(password: string) {
     throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
   }
 }
+
+export async function updateUserProfile(userId: string, userValues: UpdateUser) {
+	try {
+	  console.log("업데이트할 사용자 정보:", userValues);  // 전송할 데이터 확인
+	  const updatedUser = await pb.collection("users").update(userId, userValues);
+	  return updatedUser;
+	} catch (error: any) {
+	  console.error("프로필 업데이트 중 오류 발생:", error);
+	  throw new Error("프로필 업데이트에 실패했습니다.");
+	}
+  }

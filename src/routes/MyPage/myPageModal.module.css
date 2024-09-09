@@ -1,20 +1,32 @@
 /* 마이페이지 */
-.mypage-title {
+.mypage-header {
+	display: flex;
+	align-items: center;
+	justify-content: center; 
+	position: relative; 
+  }
+  
+  .mypage-title {
 	font-family: var(--font-family-basic);
-	font-size: var(--medium); 
-	font-weight: var(--font-weight-bold); 
+	font-size: var(--medium);
+	font-weight: var(--font-weight-bold);
 	line-height: var(--line-height-140);
 	letter-spacing: 0.0125rem;
-	color: var(--grayscale-900); 
-	display: flex;
-	width: var(--width-180);
-	height: var(--height-20);
-	justify-content: center;
-	align-items: center; 
-	margin-top: var(--space-6); 
-	margin-bottom: var(--space-6);
+	color: var(--grayscale-900);
+	text-align: center; 
+	flex-grow: 1; 
+	margin-bottom: 1rem;
+	margin-top: 1rem;
   }
-
+  
+  .edit-icon {
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+	margin-right: 2rem; 
+  }
+  
+  
   /* 프로필 사진 */
   .avatar-container {
 	display: flex;
