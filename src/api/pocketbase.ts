@@ -170,8 +170,15 @@ export async function deleteUser(password: string) {
 
 export async function updateUserProfile(userId: string, userValues: UpdateUser) {
 	try {
-	  console.log("업데이트할 사용자 정보:", userValues);  // 전송할 데이터 확인
-	  const updatedUser = await pb.collection("users").update(userId, userValues);
+	  const formData = new FormData();
+	  Object.keys(userValues).forEach((key) => {
+		const value = userValues[key as keyof UpdateUser];
+		if (value) {
+		  formData.append(key, value);
+		}
+	  });
+  
+	  const updatedUser = await pb.collection("users").update(userId, formData);
 	  return updatedUser;
 	} catch (error: any) {
 	  console.error("프로필 업데이트 중 오류 발생:", error);

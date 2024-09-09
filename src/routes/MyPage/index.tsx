@@ -6,11 +6,14 @@ import { useState } from "react";
 import styles from "./myPageModal.module.css";
 import Input from "@/components/Input/index";
 import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
+import MiniButton from "@/components/Buttons/SecondaryButton/miniButton";
+import MediumButton from "@/components/Buttons/PrimaryButton/mediumButton";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout, updateMutation } = useCurrentUser();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [password, setPassword] = useState("");
@@ -19,6 +22,11 @@ export default function MyPage() {
   const [weight, setWeight] = useState(user?.weight || 0);
   const [height, setHeight] = useState(user?.height || 0);
   const [dob, setDob] = useState(user?.dob || "");
+  const [gender, setGender] = useState(user?.gender || "");
+
+  // 추가된 상태: 프로필 이미지 파일과 미리보기 URL 상태
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [profilePreview, setProfilePreview] = useState(user?.avatar ? getPbImageUrl(user, user.avatar) : "");
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -60,19 +68,34 @@ export default function MyPage() {
     setShowConfirmModal(false);
   };
 
+  // 프로필 수정 저장 함수에 이미지 파일 추가
   const handleSaveChanges = () => {
-	updateUserProfile(user.id, { nickname, weight, height, dob })
-	  .then(() => {
-		queryClient.invalidateQueries(["current-user"]);
-		setIsEditMode(false);
-		setShowSaveMessage(true);
-  
-		setTimeout(() => {
-		  setShowSaveMessage(false);
-		}, 3000);
-	  })
+    const updateData = {
+      nickname,
+      weight,
+      height,
+      dob,
+      avatar: avatarFile, // 선택한 프로필 이미지 파일 추가
+    };
+
+    updateUserProfile(user.id, updateData)
+      .then(() => {
+        queryClient.invalidateQueries(["current-user"]);
+        setIsEditMode(false);
+        // setShowSaveMessage(true); // 이 부분은 코드에 없어서 주석 처리했습니다.
+        // setTimeout(() => setShowSaveMessage(false), 3000);
+      });
   };
-  
+
+  // 이미지 파일 선택 시 미리보기와 파일 저장
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file); // 선택한 파일 상태로 저장
+      const previewUrl = URL.createObjectURL(file); // 이미지 미리보기 URL 생성
+      setProfilePreview(previewUrl); // 미리보기 URL 설정
+    }
+  };
 
   const birthDate = new Date(user?.dob);
   const age = new Date().getFullYear() - birthDate.getFullYear();
@@ -90,9 +113,10 @@ export default function MyPage() {
   return (
     <div>
       <div className={styles["mypage-header"]}>
-        <span className={styles["mypage-title"]}>마이페이지</span>
+        <span className={styles["mypage-title"]}>
+          {isEditMode ? "프로필 수정" : "마이페이지"}
+        </span>
 
-        {/* SVG 아이콘 */}
         <svg
           width="20"
           height="20"
@@ -100,7 +124,10 @@ export default function MyPage() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className={styles["edit-icon"]}
-          onClick={() => setIsEditMode(true)} // 아이콘 클릭 시 편집 모드로 전환
+          onClick={() => {
+            setIsEditMode(true);
+            setGender(user?.gender || "");
+          }}
         >
           <g clipPath="url(#clip0_40_612)">
             <path
@@ -124,34 +151,91 @@ export default function MyPage() {
         </svg>
       </div>
 
-      {!isEditMode ? (
-        <div>
-          {/* 프로필 정보 */}
-          <div className={styles["avatar-container"]}>
+      {isEditMode ? (
+        <div className={styles["edit-mode-container"]}>
+          {/* 프로필 이미지 선택 기능 */}
+          <label>
             <img
-              src={profileImageUrl || "/default-profile.png"}
+              src={profilePreview || profileImageUrl || "/default-profile.png"}
+              alt="프로필 이미지"
+              className={styles.avatar}
+            />
+            <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
+          </label>
+
+          <Input label="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+
+          <div className={styles["gender-container"]}>
+            <MiniButton
+              className={`${gender === "M" ? styles.active : ""}`}
+              onClick={() => setGender("M")}
+            >
+              남자
+            </MiniButton>
+            <MiniButton
+              className={`${gender === "F" ? styles.active : ""}`}
+              onClick={() => setGender("F")}
+            >
+              여자
+            </MiniButton>
+          </div>
+
+          <Input
+            label="생년월일"
+            value={dob}
+            type="text"
+            placeholder="yyyy-mm-dd"
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              const formattedValue = inputValue
+                .replace(/[^0-9]/g, "")
+                .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+              setDob(formattedValue);
+            }}
+            maxLength={10}
+          />
+
+          <Input
+            label="키"
+            value={height}
+            type="number"
+            onChange={(e) => setHeight(Number(e.target.value))}
+          />
+
+          <Input
+            label="몸무게"
+            value={weight}
+            type="number"
+            onChange={(e) => setWeight(Number(e.target.value))}
+          />
+
+          <div className={styles["button-container"]}>
+            <MediumButton onClick={handleSaveChanges}>저장</MediumButton>
+            <MediumButton onClick={() => setIsEditMode(false)}>취소</MediumButton>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className={styles["avatar-container"]}>
+            {/* 프로필 이미지 미리보기 */}
+            <img
+              src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
               className={styles.avatar}
             />
           </div>
-          <h1 className={styles["nickname"]}>{user?.nickname || "사용자 이름"}</h1>
+          <h1 className={styles["nickname"]}>
+            {user?.nickname || "사용자 이름"}
+          </h1>
 
-          {/* 유저 정보 */}
           <div className={styles["profile-stats-container"]}>
-            <div className={styles["stat-item"]}>
-              {user?.weight || 0}kg
-            </div>
+            <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>
-              {user?.height || 0}cm
-            </div>
+            <div className={styles["stat-item"]}>{user?.height || 0}cm</div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>
-              {age || "알 수 없음"}세
-            </div>
+            <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
 
-          {/* 관심 운동 */}
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
@@ -166,105 +250,10 @@ export default function MyPage() {
               )}
             </div>
           </div>
-		  
 
-          {/* 로그아웃 및 회원 탈퇴 버튼 */}
           <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
           <br />
           <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
-        </div>
-      ) : (
-
-        /* 수정 모드 */
-        <div>
-          <h1>프로필 수정</h1>
-          <img
-            src={profileImageUrl || "/default-profile.png"}
-            alt="프로필 이미지"
-            className={styles.avatar}
-          />
-          <Input
-            label="닉네임"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-          <Input
-            label="몸무게"
-            value={weight}
-            type="number"
-            onChange={(e) => setWeight(Number(e.target.value))}
-          />
-          <Input
-            label="키"
-            value={height}
-            type="number"
-            onChange={(e) => setHeight(Number(e.target.value))}
-          />
-          <Input
-            label="생년월일"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-          />
-          <div>
-            <button onClick={handleSaveChanges}>저장</button>
-            <button onClick={() => setIsEditMode(false)}>취소</button>
-          </div>
-        </div>
-      )}
-
-		{/* 회원 탈퇴 */}
-      {showDeleteModal && (
-        <div className={styles.modal}>
-          <div className={styles["modal-content"]}>
-            <h1>
-              <span className={styles["nickname"]}>{user?.nickname}</span>
-              <span className={styles["message"]}>
-                님 회원탈퇴를 위해<br></br>
-                비밀번호를 입력해주세요.
-              </span>
-            </h1>
-
-            <Input
-              status="text"
-              isDark={false}
-              label="비밀번호"
-              placeholder="8문자 이상, 특수 문자 포함해주세요."
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <LargeButton onClick={showConfirmDeleteModal}>확인</LargeButton>
-            <LargeButton
-              onClick={() => setShowDeleteModal(false)}
-              className={styles["cancel-button"]}
-            >
-              취소
-            </LargeButton>
-          </div>
-        </div>
-      )}
-
-      {showConfirmModal && (
-        <div className={styles.modal}>
-          <div className={styles["confirmation-modal-content"]}>
-            <h2>정말 탈퇴하시겠습니까?</h2>
-            <div className={styles["confirmation-buttons"]}>
-              <button
-                className={`${styles["confirmation-button"]} ${styles["confirmation-button-confirm"]}`}
-                onClick={handleConfirmDelete}
-                disabled={deleteUserMutation.isPending}
-              >
-                확인
-              </button>
-              <button
-                className={`${styles["confirmation-button"]} ${styles["confirmation-button-cancel"]}`}
-                onClick={handleCancelDelete}
-              >
-                취소
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>

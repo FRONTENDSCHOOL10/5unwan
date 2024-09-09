@@ -4,9 +4,9 @@
 	align-items: center;
 	justify-content: center; 
 	position: relative; 
-  }
-  
-  .mypage-title {
+}
+
+.mypage-title {
 	font-family: var(--font-family-basic);
 	font-size: var(--medium);
 	font-weight: var(--font-weight-bold);
@@ -15,38 +15,45 @@
 	color: var(--grayscale-900);
 	text-align: center; 
 	flex-grow: 1; 
-	margin-bottom: 1rem;
-	margin-top: 1rem;
-  }
-  
-  .edit-icon {
+	margin-bottom: var(--space-4);
+	margin-top: var(--space-4);
+}
+
+.edit-icon {
 	position: absolute;
 	right: 0;
 	cursor: pointer;
-	margin-right: 2rem; 
-  }
-  
-  
-  /* 프로필 사진 */
-  .avatar-container {
+	margin-right: var(--space-8); 
+}
+
+
+/* 버튼 컨테이너 */
+.button-container {
+	display: flex;
+	gap: var(--space-2); /* 버튼 간의 간격 */
+	margin-top: var(--space-5); /* 여백 추가 */
+}
+
+/* 프로필 사진 */
+.avatar-container {
 	display: flex;
 	justify-content: center; 
 	align-items: center; 
 	width: 100%; 
 	height: auto;
-  }
-  
-  .avatar {
-	width: 120px;
-	height: 120px;
-	border-radius: 50%; 
+}
+
+.avatar {
+	width: 7.5rem;
+	height: 7.5rem;
+	border-radius: var(--rounded-full); /* 50% */
 	object-fit: cover;
-  }
+}
   
-  /* 유저 닉네임 */
-  .nickname {
-	font-size: 1.125rem; /* 18px */
-	font-weight: 700; /* Bold */
+/* 유저 닉네임 */
+.nickname {
+	font-size: var(--xlarge); /* 18px */
+	font-weight: var(--font-weight-bold); /* Bold */
 	color: var(--grayscale-900); /* 텍스트 색상 */
 	margin-top: var(--space-5); /* 적절한 여백 추가 */
 	margin-bottom: var(--space-5);
@@ -54,23 +61,23 @@
 	justify-content: center; /* 가로 중앙 정렬 */
 	align-items: center; /* 세로 중앙 정렬 */
 	text-align: center; /* 텍스트 중앙 정렬 */
-  }
+}
 
 /* 내 정보 */
 .profile-stats-container {
 	width: 17.5rem; 
-	height: 3.125rem; 
+	height: var(--space-12-half); 
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	background-color: var(--white); 
-	border-radius: 0.5rem; 
-	box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+	border-radius: var(--rounded-md); 
+	box-shadow: var(--box-shadow);
 	padding: 0;
 	margin: 0 auto; /* 부모 안에서 가로 중앙 정렬 */
-  }
-  
-  .stat-item {
+}
+
+.stat-item {
 	display: flex;
 	justify-content: center;
 	align-items: center; 
@@ -79,22 +86,21 @@
 	font-weight: var(--font-weight-medium);
 	color: var(--black); 
 	text-align: center; /* 텍스트 중앙 정렬 */
-  }
-  
-  .stat-item span {
+}
+
+.stat-item span {
 	font-size: var(--small); 
-	margin-left: 0.1875rem;
+	margin-left: var(--space-half);
 	color: var(--grayscale-700); 
-  }
-  
-  .divider {
-	width: 0.0625rem; 
-	height: 1.25rem; 
+}
+
+.divider {
+	width: var(--space-half); 
+	height: var(--space-5); 
 	background-color: var(--grayscale-400); 
-  }
+}
 
-
-	/* 회원 탈퇴 모달창*/
+/* 회원 탈퇴 모달창 */
 .modal {
 	position: fixed;
 	top: 0;
@@ -109,15 +115,15 @@
 
 .modal-content {
 	background-color: var(--white);
-	padding: 1.25rem;
-	border-radius: 0.5rem; 
+	padding: var(--space-5);
+	border-radius: var(--rounded-md); 
 	text-align: center;
 }
 
 .confirmation-modal-content {
 	background-color: var(--white);
-	padding: 1.25rem;
-	border-radius: 0.5rem; 
+	padding: var(--space-5);
+	border-radius: var(--rounded-md); 
 	text-align: center;
 	width: 18.75rem; 
 }
@@ -125,13 +131,13 @@
 .confirmation-buttons {
 	display: flex;
 	justify-content: space-around;
-	margin-top: 1.25rem; 
+	margin-top: var(--space-5); 
 }
 
 .confirmation-button {
-	padding: 0.625rem 1.25rem; 
+	padding: var(--space-3) var(--space-5); 
 	border: none;
-	border-radius: 0.25rem;
+	border-radius: var(--rounded-sm);
 	cursor: pointer;
 	font-family: var(--font-family-basic);
 	font-size: var(--medium);
@@ -144,8 +150,8 @@
 
 .custom-large-button {
 	font-size: var(--large);
-	padding: 0.625rem 1.25rem; 
-	border-radius: 0.3125rem;
+	padding: var(--space-3) var(--space-5); 
+	border-radius: var(--rounded-sm);
 }
 
 .cancel-button {
@@ -167,3 +173,23 @@
 
 
 
+/* 성별 버튼 컨테이너 */
+.gender-container {
+	display: flex;
+	justify-content: center;
+	width: 100%; 
+	gap: var(--space-2); 
+	align-items: center; 
+}
+
+  /* 편집 모드 콘텐츠 중앙 정렬 */
+.edit-mode-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+	justify-content: center; 
+	width: 100%;
+	padding: var(--space-5); 
+	margin-top: var(--space-4); 
+  }
+  
