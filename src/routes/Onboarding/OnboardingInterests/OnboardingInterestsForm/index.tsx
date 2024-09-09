@@ -1,6 +1,6 @@
-import { User } from "@/api/pocketbase";
-import { useCurrentUser } from "@/hooks/user";
+import { updateCurrentUser, User } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 export const interestOptions = [
@@ -30,7 +30,14 @@ export function OnboardingInterestsForm({
     }, {} as Record<string, boolean>);
   });
 
-  const { updateMutation } = useCurrentUser();
+  const queryClient = useQueryClient();
+
+  const onboardingInterestsMutation = useMutation({
+    mutationFn: updateCurrentUser,
+    async onSuccess() {
+      await queryClient.invalidateQueries({ queryKey: ["current-user"] });
+    },
+  });
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -41,7 +48,7 @@ export function OnboardingInterestsForm({
       interests,
     };
 
-    await updateMutation.mutateAsync(
+    await onboardingInterestsMutation.mutateAsync(
       { userId: user.id, userValues },
       { onSuccess }
     );
@@ -87,12 +94,12 @@ export function OnboardingInterestsForm({
         type="submit"
         disabled={
           Object.keys(formData).length === 0 ||
-          updateMutation.isPending
+          onboardingInterestsMutation.isPending
         }
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
       </button>
-      {updateMutation.isError
+      {onboardingInterestsMutation.isError
         ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
         : null}
     </form>

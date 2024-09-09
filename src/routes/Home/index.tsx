@@ -1,10 +1,22 @@
-import { logout } from "@/api/pocketbase";
-import { useNavigate, useOutletContext, Link } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { getExercises, logout } from '@/api/pocketbase'
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useExercisesQuery } from "@/hooks/useExercisesQuery";
+import styles from './home.module.css';
+// > components
+import Article from '@/components/Article';
+import ExerciseType from '@/components/ExerciseTypes';
+interface exerciseProps {
+  id: string;
+  type: string;
+  title: string;
+  img_url: string;
+  link: string;
+}
 
 export default function Home() {
+  const [exercises, setExercises] = useState<exerciseProps[]>([]);
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -19,40 +31,33 @@ export default function Home() {
     },
   });
 
-  const { exercises, isLoading } = useExercisesQuery();
-
-  // TODO: loading 보여주기,, spinner?  */
-  if (!isLoading) {
-    console.log(exercises);
-  }
-
-  console.log(exercises);
+  useEffect(() => {
+    const fetchExercises = async () => {
+      try {
+        const data = await getExercises();
+        setExercises(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchExercises();
+  }, []);
 
   return (
     <>
-      <div>
-        <p>현재 사용자: {user?.email}</p>
-        <br />
-        <button
-          onClick={async () => {
+      <div className={styles.container}>
+        <div>
+          <p>현재 사용자: {user?.email}</p>
+          <br />
+          <button onClick={async () => {
             await logoutMutation.mutateAsync();
-          }}
-        >
-          로그아웃
-        </button>
+          }}>
+            로그아웃
+          </button>
+        </div>
+        <ExerciseType exercises={exercises} />
+        <Article exercises={exercises} />
       </div>
-
-      <ul>
-        {exercises?.map((exercise) => (
-          <li key={exercise.id}>{exercise.type}</li>
-        ))}
-      </ul>
-      {exercises?.map((exercise) => (
-        <Link to={exercise.link}>
-          <img src={exercise.img_url} alt="" />
-          <h3>{exercise.title}</h3>
-        </Link>
-      ))}
     </>
   );
 }
