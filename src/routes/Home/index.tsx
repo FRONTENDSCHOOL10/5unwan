@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getExercises, logout } from '@/api/pocketbase'
+import { getExercises, getExercise, logout } from '@/api/pocketbase'
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ interface exerciseProps {
 
 export default function Home() {
   const [exercises, setExercises] = useState<exerciseProps[]>([]);
+  const [filtered, setFiltered] = useState<exerciseProps[]>([]);
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -43,6 +44,23 @@ export default function Home() {
     fetchExercises();
   }, []);
 
+  async function handleList(type: string) {
+    if (type) {
+      try {
+        const data = await getExercise(type);
+        setFiltered(data);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setFiltered([]);
+    }
+  }
+
+  useEffect(() => {
+    console.log(filtered);
+  }, [filtered]);
+
   return (
     <>
       <div className={styles.container}>
@@ -55,8 +73,8 @@ export default function Home() {
             로그아웃
           </button>
         </div>
-        <ExerciseType exercises={exercises} />
-        <Article exercises={exercises} />
+        <ExerciseType exercises={exercises} handleList={handleList} />
+        <Article exercises={exercises} filtered={filtered} />
       </div>
     </>
   );

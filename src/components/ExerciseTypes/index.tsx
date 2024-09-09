@@ -1,10 +1,12 @@
 import styles from './exerciseTypes.module.css';
+import { useState } from 'react';
 
 interface exerciseProps {
   exercises: {
     id: string;
     type: string;
   }[];
+  handleList: (type: string) => void;
 }
 
 function getTypes(type:string) {
@@ -26,16 +28,22 @@ function getTypes(type:string) {
   }
 }
 
-export default function ExerciseType({ exercises }: exerciseProps) {
+export default function ExerciseType({ exercises, handleList }: exerciseProps) {
+  const [isActive, setIsActive] = useState(false);
+  const typeList = [...new Set(exercises.map(exercise => exercise.type))];
+
+  const handleClick = (type: string) => {
+    handleList(type)
+  }
   return (
     <>
       <ul className={`${styles["exercise-type-list"]} no-scroll`}>
-        <li className={`${styles["exercise-type-item"]} ${styles["is-active"]}`}>
+        <li className={`${styles["exercise-type-item"]} ${styles["is-active"]}`} onClick={() => handleList('')}>
           전체
         </li>
         {
-          exercises.map((exercise) => (
-            <li key={exercise.id} className={styles["exercise-type-item"]}>{getTypes(exercise.type)}</li>
+          typeList.map((type, index) => (
+            <li key={index} className={`${styles["exercise-type-item"]} ${isActive ? `${styles["is-active"]}` : ''}`} onClick={() => handleClick(type)}>{getTypes(type)}</li>
           ))
         }
       </ul>
