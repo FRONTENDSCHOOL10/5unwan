@@ -13,16 +13,18 @@ interface exerciseProps {
 export default function Article({ exercises }:exerciseProps) {
   return (
     <>
-      <div className={styles.container}>
-          {
-            exercises.map((exercise) => (
-              <Link to={exercise.link} key={exercise.id} className={styles.article}>
-                <img src={exercise.img_url} alt={exercise.title} />
-                <h3 className="ellipsis">{exercise.title}</h3>
-              </Link>
-            ))
-          }
-        </div>
+      <section className={styles.wrapper}>
+      {
+        exercises.map((exercise) => (
+          <Link to={exercise.link} id={exercise.id} className={styles.article}>
+            <div className={styles["img-wrapper"]}>
+              <img src={exercise.img_url} alt="" />
+            </div>            
+            <h2 className="ellipsis">{exercise.title}</h2>
+          </Link>
+        ))
+      }
+      </section>
     </>
   )
 }
