@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, createContext } from "react";
 import { createRoot } from "react-dom/client";
 import {
   QueryCache,
@@ -10,6 +10,24 @@ import "@/styles/styles.css";
 // > components
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/router";
+// darkmode
+import { GlobalStyle } from '@/global-styles';
+import { useDarkMode } from '@/hooks/useDarkMode.ts';
+import { lightTheme, darkTheme, Theme } from '@/theme';
+import Toggle from "@/components/DarkModeToggle";
+
+
+interface ContextProps {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+export const ThemeContext = createContext<ContextProps>({
+  theme: lightTheme,
+  toggleTheme: () => {
+    return null;
+  },
+});
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -17,11 +35,25 @@ const queryClient = new QueryClient({
   }),
 });
 
-const rootNode = document.getElementById("react-app");
-createRoot(rootNode!).render(
+// App 컴포넌트 내에서 useDarkMode 훅 호출
+function App() {
+  const { theme, toggleTheme } = useDarkMode();
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <QueryClientProvider client={queryClient}>
+          <Toggle />
+          <GlobalStyle theme={theme} />
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+    </ThemeContext.Provider>
+  );
+}
+
+
+  createRoot(document.getElementById('react-app') as HTMLElement).render(
+
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </StrictMode>
-);
+    <App />
+  </StrictMode>,
+)
