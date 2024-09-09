@@ -2,35 +2,37 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import styles from './largeButton.module.css';
 
-interface ButtonProps {
-	children: React.ReactNode;
-	onClick?: () => void;
-	disabled?: boolean;
-	to?: string;
-	className?: string;  
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  to?: string; 
+};
+
+const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
+  if (to) {
+  
+    return (
+      <Link to={to} className={styles["large-button-wrapper"]}>
+        {children}
+      </Link>
+    );
   }
-  
-  const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, className }) => {
-	if (to) {
-	  return (
-		<Link to={to} className={`${styles["large-button-wrapper"]} ${className}`}>
-		  {children}
-		</Link>
-	  );
-	}
-  
-	return (
-	  <button
-		onClick={onClick}
-		disabled={disabled}
-		className={`${styles["large-button-wrapper"]} ${className}`} 
-	  >
-		{children}
-	  </button>
-	);
-  };
-  
-  export default LargeButton;
+
+  return (
+    <button
+      className={styles["large-button-wrapper"]}
+      onClick={onClick}
+      disabled={disabled}
+      type="button"
+    >
+      {children}
+    </button>
+  );
+
+};
+
+export default LargeButton;
 
 
 
@@ -50,3 +52,4 @@ import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 </LargeButton>
 
 */
+

@@ -5,11 +5,8 @@ import { Link, Outlet, useMatches } from "react-router-dom";
 
 import SVGIcon from "@/components/SVGicon";
 import iconstyles from "@/components/SVGicon/styles.module.css";
-import { useSetupPocketBaseUser } from "@/hooks/user";
 
 export default function SharedLayout() {
-  useSetupPocketBaseUser();
-
   const matches = useMatches();
   console.log({ matches });
   const hideHeader = matches.some(
