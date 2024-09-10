@@ -21,16 +21,16 @@ interface ContextProps {
   toggleTheme: () => void;
 }
 
-const queryClient = new QueryClient({
-  queryCache: new QueryCache({
-    onError: (error) => console.error("error:", error),
-  }),
+export const ThemeContext = createContext<ContextProps>({
+  theme: lightTheme,
+  toggleTheme: () => {
+    return null;
+  },
 });
 
 const queryClient = new QueryClient();
 
-
-// App 컴포넌트 내에서 useDarkMode 훅을 호출
+// App 컴포넌트 내에서 useDarkMode 훅 호출
 function App() {
   const { theme, toggleTheme } = useDarkMode();
 
@@ -45,12 +45,8 @@ function App() {
   );
 }
 
-// DOM 컨테이너에 createRoot를 한 번만 호출하고, 이후에 render만 사용
-const rootNode = document.getElementById('react-app') as HTMLElement;
-const root = createRoot(rootNode);
-
-root.render(
+createRoot(document.getElementById('react-app') as HTMLElement).render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 );

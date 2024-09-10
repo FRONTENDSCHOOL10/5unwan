@@ -6,7 +6,6 @@ import { Link, Outlet, useMatches } from "react-router-dom";
 
 import SVGIcon from "@/components/SVGicon";
 import "@/components/SVGicon/styles.module.css";
-import { useSetupPocketBaseUser } from "@/hooks/user";
 
 import { ThemeContext } from '@/main';
 import { Theme } from '@/theme';
