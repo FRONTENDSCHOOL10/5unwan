@@ -28,7 +28,7 @@ export default function Article({ exercises, filtered }: exerciseProps) {
       <section className={styles.wrapper}>
         {displayExercises.map((exercise) => (
           <div key={exercise.id} className={styles.article}>
-            <Link to={exercise.link} id={exercise.id} className={styles.article}>
+            <Link to={exercise.link} key={exercise.id} className={styles.article}>
                 <div className={styles["img-wrapper"]}>
                   <img src={exercise.img_url} alt="" />
                 </div>            

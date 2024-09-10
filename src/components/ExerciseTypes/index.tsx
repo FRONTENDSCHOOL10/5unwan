@@ -1,5 +1,5 @@
 import styles from './exerciseTypes.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface exerciseProps {
   exercises: {
@@ -7,6 +7,7 @@ interface exerciseProps {
     type: string;
   }[];
   handleList: (type: string) => void;
+  handleClick: (type: string) => void;
 }
 
 function getTypes(type:string) {
@@ -29,21 +30,33 @@ function getTypes(type:string) {
 }
 
 export default function ExerciseType({ exercises, handleList }: exerciseProps) {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState<string>('');
   const typeList = [...new Set(exercises.map(exercise => exercise.type))];
 
+  
+
   const handleClick = (type: string) => {
-    handleList(type)
+    handleList(type);
+    if (type === '') {
+      setIsActive('');
+    } else {
+      setIsActive(type);
+    }
   }
+
+    // 상태 변경을 감지하여 로그 출력
+  useEffect(() => {
+    console.log('activeType changed:', isActive);
+  }, [isActive]);
   return (
     <>
       <ul className={`${styles["exercise-type-list"]} no-scroll`}>
-        <li className={`${styles["exercise-type-item"]} ${styles["is-active"]}`} onClick={() => handleList('')}>
+        <li className={`${styles["exercise-type-item"]} ${isActive === '' ? styles["is-active"] : ''}`} onClick={() => handleClick('')}>
           전체
         </li>
         {
           typeList.map((type, index) => (
-            <li key={index} className={`${styles["exercise-type-item"]} ${isActive ? `${styles["is-active"]}` : ''}`} onClick={() => handleClick(type)}>{getTypes(type)}</li>
+            <li key={index} className={`${styles["exercise-type-item"]} ${isActive === type ? styles["is-active"] : ''}`} onClick={() => handleClick(type)}>{getTypes(type)}</li>
           ))
         }
       </ul>

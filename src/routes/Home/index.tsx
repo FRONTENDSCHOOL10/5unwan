@@ -17,7 +17,7 @@ interface exerciseProps {
 
 export default function Home() {
   const [exercises, setExercises] = useState<exerciseProps[]>([]);
-  const [filtered, setFiltered] = useState<exerciseProps[]>([]);
+  const [filtered, setFiltered] = useState('');
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function Home() {
         console.error(err);
       }
     } else {
-      setFiltered([]);
+      setFiltered('');
     }
   }
 
