@@ -1,41 +1,6 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  box-sizing: border-box;
-}
-
-.header {
-  height: var(--space-12-half);;
-  width: 100%;
-  flex-shrink: 0;
-  flex-grow: 0;
-  border-bottom: 0.125rem solid;
-}
-
 .outlet {
   height: 0;
   min-height: 15rem;
   flex: 1 1 auto;
   overflow: auto;
-}
-
-.gnb-nav {
-  flex-shrink: 0;
-  background-color: var(--white);
-  z-index: 50;
-  order: 9999;
-  height: var(--space-15);
-  flex-shrink: 0;
-  flex-grow: 0;
-  box-shadow: var(--gnb-shadow);
-  & > ul{
-    display: flex;
-    justify-content: space-between;
-    height: var(--space-15);
-    padding: var(--space-none) var(--space-5);
-    align-items: center;
-    flex-shrink: 0;
-    align-self: stretch;
-  }
 }
