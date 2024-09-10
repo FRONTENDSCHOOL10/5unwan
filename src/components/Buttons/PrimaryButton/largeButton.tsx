@@ -7,30 +7,32 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   to?: string; 
+  className?: string; 
 };
 
-const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
-  if (to) {
+const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to, className }) => {
+	const buttonClass = `${styles["large-button-wrapper"]} ${className || ""}`; 
   
-    return (
-      <Link to={to} className={styles["large-button-wrapper"]}>
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <button
-      className={styles["large-button-wrapper"]}
-      onClick={onClick}
-      disabled={disabled}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-
-};
+	if (to) {
+	  return (
+		<Link to={to} className={buttonClass}>
+		  {children}
+		</Link>
+	  );
+	}
+  
+	return (
+	  <button
+		className={buttonClass}
+		onClick={onClick}
+		disabled={disabled}
+		type="button"
+	  >
+		{children}
+	  </button>
+	);
+  };
+  
 
 export default LargeButton;
 
