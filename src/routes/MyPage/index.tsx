@@ -104,7 +104,7 @@ export default function MyPage() {
   
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>닉네임</label>
+		  <label className={styles["label"]}>몸무게</label>
             <input
               type="text"
               value={nickname}
@@ -212,12 +212,18 @@ export default function MyPage() {
 							)}
 						</div>
 					</div>
+		{/* 구분선 추가 */}
+<div className={styles["divider-line"]}></div>
 
-					<button onClick={() => logoutMutation.mutate()}>로그아웃</button>
-					<br />
-					<button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
-				</div>
-			)}
-		</div>
-	);
+          {/* 계정 관련 섹션 */}
+          <div className={styles["account-section"]}>
+            <h3>계정</h3>
+            <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
+            <br />
+            <button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
