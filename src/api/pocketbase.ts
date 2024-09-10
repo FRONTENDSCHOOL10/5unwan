@@ -135,20 +135,38 @@ export async function getExercises(): Promise<any> {
   }
 }
 
-export async function updateUserProfile(userId: string, userValues: UpdateUser) {
+// 회원 탈퇴 기능 
+export async function deleteUser(password: string) {
 	try {
-	  const formData = new FormData();
-	  Object.keys(userValues).forEach((key) => {
-		const value = userValues[key as keyof UpdateUser];
-		if (value) {
-		  formData.append(key, value);
-		}
-	  });
+	  const user = pb.authStore.model as User | null;
+	  if (!user) throw new Error("로그인된 사용자가 없습니다.");
   
-	  const updatedUser = await pb.collection("users").update(userId, formData);
-	  return updatedUser;
+	  if (!password) throw new Error("비밀번호가 입력되지 않았습니다.");
+  
+	  await pb.collection("users").authWithPassword(user.email, password);
+	  await pb.collection("users").delete(user.id);
 	} catch (error: any) {
-	  console.error("프로필 업데이트 중 오류 발생:", error);
-	  throw new Error("프로필 업데이트에 실패했습니다.");
+	  console.error("회원 탈퇴 중 오류 발생:", error);
+	  throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
 	}
   }
+
+  export async function updateUserProfile(userId: string, userValues: UpdateUser) {
+	const formData = new FormData();
+	
+	Object.entries(userValues).forEach(([key, value]) => {
+	  if (value !== undefined && value !== null) {
+		if (Array.isArray(value)) {
+		  formData.append(key, value.join(',')); 
+		} else {
+		  formData.append(key, typeof value === "number" ? value.toString() : value);
+		}
+	  }
+	});
+  
+	const updatedUser = await pb.collection("users").update(userId, formData);
+	return updatedUser;
+  }
+  
+  
+

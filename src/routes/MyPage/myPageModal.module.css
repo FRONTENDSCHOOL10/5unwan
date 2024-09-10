@@ -51,7 +51,7 @@
 }
   
 /* 유저 닉네임 */
-.nickname {
+.main-nickname {
 	font-size: var(--xlarge); /* 18px */
 	font-weight: var(--font-weight-bold); /* Bold */
 	color: var(--grayscale-900); /* 텍스트 색상 */
@@ -163,6 +163,7 @@
 	color: var(--primary-color);
 	font-size: var(--title-medium); 
 	font-weight: var(--font-weight-extraBold);
+	display: inline; /* 한 줄로 보이게 설정 */
 }
 
 .message {

@@ -1,6 +1,6 @@
-import { useCurrentUser } from "@/hooks/user";
+import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
+import { deleteUser, getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import styles from "./myPageModal.module.css";
@@ -10,7 +10,7 @@ import MiniButton from "@/components/Buttons/SecondaryButton/miniButton";
 import MediumButton from "@/components/Buttons/PrimaryButton/mediumButton";
 
 export default function MyPage() {
-  const { user, isLoading, isError, logout, updateMutation } = useCurrentUser();
+  const { user, isLoading, isError } = useCurrentUserQuery();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -24,7 +24,6 @@ export default function MyPage() {
   const [dob, setDob] = useState(user?.dob || "");
   const [gender, setGender] = useState(user?.gender || "");
 
-  // 추가된 상태: 프로필 이미지 파일과 미리보기 URL 상태
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState(user?.avatar ? getPbImageUrl(user, user.avatar) : "");
 
@@ -68,39 +67,36 @@ export default function MyPage() {
     setShowConfirmModal(false);
   };
 
-  // 프로필 수정 저장 함수에 이미지 파일 추가
   const handleSaveChanges = () => {
     const updateData = {
       nickname,
       weight,
       height,
       dob,
-      avatar: avatarFile, // 선택한 프로필 이미지 파일 추가
+      avatar: avatarFile || undefined,
     };
 
-    updateUserProfile(user.id, updateData)
-      .then(() => {
-        queryClient.invalidateQueries(["current-user"]);
-        setIsEditMode(false);
-        // setShowSaveMessage(true); // 이 부분은 코드에 없어서 주석 처리했습니다.
-        // setTimeout(() => setShowSaveMessage(false), 3000);
-      });
-  };
+	if (user?.id) {
+		updateUserProfile(user.id, updateData)
+		  .then(() => {
+			queryClient.invalidateQueries(["current-user"]); 
+			setIsEditMode(false);
+		  });
+	  }
 
-  // 이미지 파일 선택 시 미리보기와 파일 저장
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setAvatarFile(file); // 선택한 파일 상태로 저장
-      const previewUrl = URL.createObjectURL(file); // 이미지 미리보기 URL 생성
-      setProfilePreview(previewUrl); // 미리보기 URL 설정
+      setAvatarFile(file);
+      const previewUrl = URL.createObjectURL(file);
+      setProfilePreview(previewUrl);
     }
   };
 
-  const birthDate = new Date(user?.dob);
+  const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
 
-  const profileImageUrl = getPbImageUrl(user, user?.avatar || "");
+  const profileImageUrl = user ? getPbImageUrl(user, user?.avatar || "") : "/default-profile.png";
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -197,14 +193,14 @@ export default function MyPage() {
 
           <Input
             label="키"
-            value={height}
+            value={height.toString()}  // number를 string으로 변환
             type="number"
             onChange={(e) => setHeight(Number(e.target.value))}
           />
 
           <Input
             label="몸무게"
-            value={weight}
+            value={weight.toString()}  // number를 string으로 변환
             type="number"
             onChange={(e) => setWeight(Number(e.target.value))}
           />
@@ -224,7 +220,7 @@ export default function MyPage() {
               className={styles.avatar}
             />
           </div>
-          <h1 className={styles["nickname"]}>
+          <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
 
@@ -239,7 +235,7 @@ export default function MyPage() {
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
-              {user?.interests?.length > 0 ? (
+              {user?.interests && user.interests.length > 0 ? (
                 user.interests.map((interest: string, index: number) => (
                   <div key={index} className={styles.interest}>
                     <span>{interest}</span>
@@ -254,6 +250,59 @@ export default function MyPage() {
           <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
           <br />
           <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className={styles.modal}>
+          <div className={styles["modal-content"]}>
+            <h1>
+              <span className={styles["nickname"]}>{user?.nickname}</span>
+              <span className={styles["message"]}>님 회원탈퇴를 위해<br />비밀번호를 입력해주세요.</span>
+            </h1>
+
+            <Input
+              status="text"
+              isDark={false}
+              label="비밀번호"
+              placeholder="8문자 이상, 특수 문자 포함해주세요."
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <LargeButton onClick={showConfirmDeleteModal}>
+              확인
+            </LargeButton>
+            <LargeButton
+              onClick={() => setShowDeleteModal(false)}
+              className={styles["cancel-button"]}
+            >
+              취소
+            </LargeButton>
+          </div>
+        </div>
+      )}
+
+      {showConfirmModal && (
+        <div className={styles.modal}>
+          <div className={styles["confirmation-modal-content"]}>
+            <h2>정말 탈퇴하시겠습니까?</h2>
+            <div className={styles["confirmation-buttons"]}>
+              <button
+                className={`${styles["confirmation-button"]} ${styles["confirmation-button-confirm"]}`}
+                onClick={handleConfirmDelete}
+              >
+                확인
+              </button>
+              <button
+                className={`${styles["confirmation-button"]} ${styles["confirmation-button-cancel"]}`}
+                onClick={handleCancelDelete}
+              >
+                취소
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
