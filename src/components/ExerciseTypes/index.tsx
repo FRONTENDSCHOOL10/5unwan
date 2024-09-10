@@ -1,12 +1,11 @@
 import styles from './exerciseTypes.module.css';
-import { useState, useEffect } from 'react';
 
 interface exerciseProps {
+  isActive: string;
   exercises: {
     id: string;
     type: string;
   }[];
-  handleList: (type: string) => void;
   handleClick: (type: string) => void;
 }
 
@@ -29,25 +28,9 @@ function getTypes(type:string) {
   }
 }
 
-export default function ExerciseType({ exercises, handleList }: exerciseProps) {
-  const [isActive, setIsActive] = useState<string>('');
+export default function ExerciseType({ exercises, isActive, handleClick }: exerciseProps) {
   const typeList = [...new Set(exercises.map(exercise => exercise.type))];
 
-  
-
-  const handleClick = (type: string) => {
-    handleList(type);
-    if (type === '') {
-      setIsActive('');
-    } else {
-      setIsActive(type);
-    }
-  }
-
-    // 상태 변경을 감지하여 로그 출력
-  useEffect(() => {
-    console.log('activeType changed:', isActive);
-  }, [isActive]);
   return (
     <>
       <ul className={`${styles["exercise-type-list"]} no-scroll`}>

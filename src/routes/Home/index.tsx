@@ -7,6 +7,7 @@ import styles from './home.module.css';
 // > components
 import Article from '@/components/Article';
 import ExerciseType from '@/components/ExerciseTypes';
+
 interface exerciseProps {
   id: string;
   type: string;
@@ -17,7 +18,8 @@ interface exerciseProps {
 
 export default function Home() {
   const [exercises, setExercises] = useState<exerciseProps[]>([]);
-  const [filtered, setFiltered] = useState('');
+  const [filtered, setFiltered] = useState<exerciseProps[] | string>('');
+  const [isActive, setIsActive] = useState<string>('');
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -57,6 +59,11 @@ export default function Home() {
     }
   }
 
+  const handleClick = (type: string) => {
+    handleList(type);
+    setIsActive(type === '' ? '' : type)
+  }
+
   useEffect(() => {
     console.log(filtered);
   }, [filtered]);
@@ -73,7 +80,7 @@ export default function Home() {
             로그아웃
           </button>
         </div>
-        <ExerciseType exercises={exercises} handleList={handleList} />
+        <ExerciseType exercises={exercises} handleClick={handleClick} isActive={isActive} />
         <Article exercises={exercises} filtered={filtered} />
       </div>
     </>
