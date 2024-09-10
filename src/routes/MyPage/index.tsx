@@ -76,53 +76,52 @@ export default function MyPage() {
 
 	return (
 		<div>
-			<p>현재 사용자: {user?.nickname || "알 수 없음"}</p>
-			<br />
-			<span>마이페이지</span>
-			<br />
-			<button onClick={() => logoutMutation.mutate()}>로그아웃</button>
-			<br />
-			
-			<svg
-				width="20"
-				height="20"
-				className={styles["edit-icon"]}
-				onClick={() => {
-					setIsEditMode(true);
-					setGender(user?.gender || "");
-				}}
-			>
-				<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
-			</svg>
-
-			{isEditMode ? (
-				<div className={styles["edit-mode-container"]}>
-					{/* 프로필 이미지 선택 기능 */}
-					<label>
-						<img
-							src={profilePreview || profileImageUrl || "/default-profile.png"}
-							alt="프로필 이미지"
-							className={styles.avatar}
-						/>
-						<input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
-					</label>
-
-					<Input label="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-
-					<div className={styles["gender-container"]}>
-						<MiniButtonT
-							className={`${gender === "M" ? styles.active : ""}`}
-							onClick={() => setGender("M")}
-						>
-							남자
-						</MiniButtonT>
-						<MiniButtonT
-							className={`${gender === "F" ? styles.active : ""}`}
-							onClick={() => setGender("F")}
-						>
-							여자
-						</MiniButtonT>
-					</div>
+		<div className={styles["mypage-header"]}>
+		  <span className={styles["mypage-title"]}>
+			{isEditMode ? "프로필 수정" : "마이페이지"}
+		  </span>
+  
+		  <svg
+			width="20"
+			height="20"
+			className={styles["edit-icon"]}
+			onClick={() => {
+			  setIsEditMode(true);
+			  setGender(user?.gender || "");
+			}}
+		  >
+			<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
+		  </svg>
+		</div>
+  
+		{isEditMode ? (
+		  <div className={styles["edit-mode-container"]}>
+			{/* 프로필 이미지 선택 기능 */}
+			<label>
+			  <img
+				src={profilePreview || profileImageUrl || "/default-profile.png"}
+				alt="프로필 이미지"
+				className={styles.avatar}
+			  />
+			  <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+			</label>
+  
+			<Input label="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+  
+			<div className={styles["gender-container"]}>
+			  <MiniButtonT
+				className={`${gender === "M" ? styles.active : ""}`}
+				onClick={() => setGender("M")}
+			  >
+				남자
+			  </MiniButtonT>
+			  <MiniButtonT
+				className={`${gender === "F" ? styles.active : ""}`}
+				onClick={() => setGender("F")}
+			  >
+				여자
+			  </MiniButtonT>
+			</div>
 
 					<Input
 						label="생년월일"
