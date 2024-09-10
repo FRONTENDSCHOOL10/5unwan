@@ -2,8 +2,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 12px 0 20px 0;
-  gap: 8px;
+  padding: 0.75rem 0 1.25rem 0;
+  gap: 0.5rem;
 }
 
 .user-info {
@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: flex-end;
   color: var(--Primary);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 160%; /* 19.2px */
 
@@ -25,8 +25,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
   border-radius: 50%;
   overflow: hidden;
   background-image: url('/avatar-placeholder.webp');

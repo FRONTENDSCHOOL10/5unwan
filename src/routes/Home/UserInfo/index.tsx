@@ -1,12 +1,11 @@
+import { User } from '@/api/pocketbase';
 import styles from './user.module.css';
 
 interface userProps {
-  user: {
-    nickname: string;
-  }
+  user: User;
 }
 
-export default function User({ user }: userProps) { 
+export default function UserInfo({ user }: userProps) { 
   return (
     <div className={styles.wrapper}>
       <div className={styles["user-info"]}>

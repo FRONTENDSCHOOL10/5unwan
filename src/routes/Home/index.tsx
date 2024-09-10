@@ -5,7 +5,7 @@ import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from './home.module.css';
 // > components
-import User from '@/routes/Home/User';
+import UserInfo from '@/routes/Home/UserInfo';
 import Article from '@/components/Article';
 import ExerciseType from '@/components/ExerciseTypes';
 
@@ -77,7 +77,7 @@ export default function Home() {
             로그아웃
           </button>
         </div>
-        <User user={user} />
+        <UserInfo user={user} />
         <ExerciseType exercises={exercises} handleClick={handleClick} isActive={isActive} />
         <Article exercises={exercises} filtered={filtered} />
       </div>
