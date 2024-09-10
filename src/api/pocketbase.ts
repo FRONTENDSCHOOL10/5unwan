@@ -133,7 +133,6 @@ export async function getExercises(): Promise<any> {
     console.error('Error fetching exercises:', error);
     throw error; 
   }
-<<<<<<< HEAD
 }
 
 export async function updateUserProfile(userId: string, userValues: UpdateUser) {
@@ -153,6 +152,3 @@ export async function updateUserProfile(userId: string, userValues: UpdateUser) 
 	  throw new Error("프로필 업데이트에 실패했습니다.");
 	}
   }
-=======
-}
->>>>>>> develop
