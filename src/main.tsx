@@ -13,7 +13,7 @@ import { router } from "@/router";
 // darkmode
 import { GlobalStyle } from '@/global-styles';
 import { useDarkMode } from '@/hooks/useDarkMode.ts';
-import { lightTheme, darkTheme, Theme } from '@/theme';
+import { lightTheme, Theme } from '@/theme';
 import Toggle from "@/components/DarkModeToggle";
 
 
@@ -29,13 +29,10 @@ export const ThemeContext = createContext<ContextProps>({
   },
 });
 
-const queryClient = new QueryClient({
-  queryCache: new QueryCache({
-    onError: (error) => console.error("error:", error),
-  }),
-});
+const queryClient = new QueryClient();
 
-// App 컴포넌트 내에서 useDarkMode 훅 호출
+
+// App 컴포넌트 내에서 useDarkMode 훅을 호출
 function App() {
   const { theme, toggleTheme } = useDarkMode();
 
@@ -50,10 +47,12 @@ function App() {
   );
 }
 
+// DOM 컨테이너에 createRoot를 한 번만 호출하고, 이후에 render만 사용
+const rootNode = document.getElementById('react-app') as HTMLElement;
+const root = createRoot(rootNode);
 
-  createRoot(document.getElementById('react-app') as HTMLElement).render(
-
+root.render(
   <StrictMode>
     <App />
-  </StrictMode>,
-)
+  </StrictMode>
+);
