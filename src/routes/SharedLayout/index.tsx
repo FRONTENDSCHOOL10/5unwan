@@ -9,7 +9,7 @@ import "@/components/SVGicon/styles.module.css";
 import { useSetupPocketBaseUser } from "@/hooks/user";
 
 import { ThemeContext } from '@/main';
-import { lightTheme, Theme } from '@/theme';
+import { Theme } from '@/theme';
 import styled from 'styled-components';
 
 
