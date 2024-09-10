@@ -6,10 +6,11 @@ interface InputProps {
 	label?: string,
 	placeholder?: string,
 	type?: string,
-	value?: string,  // value 추가
+	value?: string | number,
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void 
+	maxLength?: number; 
   }
-  
+
   export default function Input({ status, isDark, label, placeholder, type = 'text', value, onChange }: InputProps) {
 	  function getInputStatus() {
     const darkClass = isDark ? styles["is-dark"] : '';
@@ -45,14 +46,17 @@ interface InputProps {
             </div>
             :
             <div className={getInputStatus()}>
-              <label htmlFor="text" className="body-sm">{label || '타이틀'}</label>
-              <input type=
-			  {type} id="text" 
-			  className="body-sm" 
-			  placeholder={placeholder || '내용을 입력해 주세요.'} 
-			  value={value} 
-              onChange={onChange}/>
-              <span className="body-xs">{'내용을 입력해 주세요.'}</span>
+			  <label htmlFor="text" className="body-sm">
+  				{label || "타이틀"} 
+			  </label>
+              <input             
+			  type={type}
+         	  id="text"
+       	      className="body-sm"
+          	  placeholder={placeholder}
+       	      value={value}
+         	  onChange={onChange} />
+              <span className="body-xs">내용을 입력해 주세요.</span>
             </div>
       }
     </>

@@ -67,8 +67,6 @@ const IconHoverFrame = styled('figure')<Props>`
 
 
 export default function SharedLayout() {
-  useSetupPocketBaseUser();
-
   const matches = useMatches();
   console.log({ matches });
   const hideHeader = matches.some(

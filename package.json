@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@tanstack/react-query": "5.53.1",
-    "date-fns": "3.6.0",
     "localforage": "1.10.0",
     "match-sorter": "6.3.4",
     "pocketbase": "0.21.5",

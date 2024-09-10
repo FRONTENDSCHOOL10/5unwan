@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { Spinner } from "@/components/Spinner";
-import { useCurrentUser } from "@/hooks/user";
+import { useCurrentUserQuery } from "@/hooks/user";
 import { User } from "@/api/pocketbase";
 
 export type UserContext = {
@@ -8,7 +8,7 @@ export type UserContext = {
 };
 
 export default function PrivateRoute() {
-  const { isLoading, user } = useCurrentUser();
+  const { isLoading, user } = useCurrentUserQuery();
   return isLoading ? (
     <Spinner />
   ) : user ? (

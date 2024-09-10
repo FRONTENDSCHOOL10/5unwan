@@ -1,0 +1,33 @@
+.exercise-type-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+  gap: 10px;
+}
+
+.exercise-type-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  background-color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 160%;
+  cursor: pointer;
+  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+
+  &.is-active {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+
+  &:hover, &:focus, &:active {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+}

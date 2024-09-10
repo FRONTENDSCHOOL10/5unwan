@@ -21,11 +21,10 @@ interface ContextProps {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ContextProps>({
-  theme: lightTheme,
-  toggleTheme: () => {
-    return null;
-  },
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => console.error("error:", error),
+  }),
 });
 
 const queryClient = new QueryClient();
