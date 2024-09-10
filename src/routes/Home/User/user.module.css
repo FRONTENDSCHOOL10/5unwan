@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 0 20px 0;
+  gap: 8px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: var(--Primary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 160%; /* 19.2px */
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.user-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-image: url('/avatar-placeholder.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
