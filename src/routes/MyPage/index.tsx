@@ -79,10 +79,10 @@ export default function MyPage() {
 	if (user?.id) {
 		updateUserProfile(user.id, updateData)
 		  .then(() => {
-			queryClient.invalidateQueries(["current-user"]); 
 			setIsEditMode(false);
 		  });
 	  }
+	};
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
