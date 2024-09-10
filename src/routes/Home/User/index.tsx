@@ -1,10 +1,16 @@
 import styles from './user.module.css';
 
-export default function User() {
+interface userProps {
+  user: {
+    nickname: string;
+  }
+}
+
+export default function User({ user }: userProps) { 
   return (
     <div className={styles.wrapper}>
       <div className={styles["user-info"]}>
-        <h1><strong className={styles["user-name"]}>홍길동</strong>님 안녕하세요!</h1>
+        <h1><strong className={styles["user-name"]}>{user.nickname}</strong>님 안녕하세요!</h1>
         <p>오늘도 <strong>득근득근!</strong></p>
       </div>
       <div className={styles["user-profile"]}>

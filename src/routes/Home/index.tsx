@@ -65,15 +65,11 @@ export default function Home() {
     setIsActive(type === '' ? '' : type)
   }
 
-  useEffect(() => {
-    console.log(filtered);
-  }, [filtered]);
-
   return (
     <>
       <div className={styles.container}>
         <div>
-          <p>현재 사용자: {user?.email}</p>
+          <p>현재 사용자: {user?.nickname}</p>
           <br />
           <button onClick={async () => {
             await logoutMutation.mutateAsync();
@@ -81,7 +77,7 @@ export default function Home() {
             로그아웃
           </button>
         </div>
-        <User />
+        <User user={user} />
         <ExerciseType exercises={exercises} handleClick={handleClick} isActive={isActive} />
         <Article exercises={exercises} filtered={filtered} />
       </div>
