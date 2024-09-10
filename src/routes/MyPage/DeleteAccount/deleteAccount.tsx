@@ -8,7 +8,7 @@ import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 import styles from "./deleteAccount.module.css";
 
 export default function DeleteAccount() {
-  const { user, isLoading, isError } = useCurrentUserQuery(); 
+  const { user } = useCurrentUserQuery(); 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [password, setPassword] = useState("");
@@ -33,18 +33,24 @@ export default function DeleteAccount() {
 
   return (
     <div className={styles.container}>
-      <h1>{user?.nickname}님 회원탈퇴를 위해 비밀번호를 입력해주세요.</h1>
-      <Input
-        label="비밀번호"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="비밀번호를 입력해주세요."
-      />
-      <LargeButton onClick={handleDeleteAccount}>탈퇴하기</LargeButton>
-      <LargeButton onClick={() => navigate("/my-page")} className={styles.cancelButton}>
-        취소
-      </LargeButton>
+  <div className={styles.container}>
+  <h1 className={styles.title}>
+    <span className={styles.nickname}>{user?.nickname}</span>님
+    <br />
+    회원탈퇴를 위해 비밀번호를 입력해주세요.
+  </h1>
+  <Input
+    label="비밀번호"
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    placeholder="비밀번호를 입력해주세요."
+  />
+  <LargeButton onClick={handleDeleteAccount}>탈퇴하기</LargeButton>
+  <LargeButton onClick={() => navigate("/my-page")} className={styles.cancelButton}>
+    취소
+  </LargeButton>
+</div>
     </div>
   );
 }

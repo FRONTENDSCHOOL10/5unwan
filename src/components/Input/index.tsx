@@ -1,18 +1,12 @@
 import styles from './input.module.css';
 
 interface InputProps {
-	status?: string,
-	isDark?: boolean,
-	label?: string,
-	placeholder?: string,
-	type?: string,
-	value?: string | number,
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void 
-	maxLength?: number; 
-  }
+  status?: string,
+  isDark?: boolean
+}
 
-  export default function Input({ status, isDark, label, placeholder, type = 'text', value, onChange }: InputProps) {
-	  function getInputStatus() {
+export default function Input({ status, isDark }: InputProps) {
+  function getInputStatus() {
     const darkClass = isDark ? styles["is-dark"] : '';
 
     switch (status) {
@@ -46,16 +40,8 @@ interface InputProps {
             </div>
             :
             <div className={getInputStatus()}>
-			  <label htmlFor="text" className="body-sm">
-  				{label || "타이틀"} 
-			  </label>
-              <input             
-			  type={type}
-         	  id="text"
-       	      className="body-sm"
-          	  placeholder={placeholder}
-       	      value={value}
-         	  onChange={onChange} />
+              <label htmlFor="text" className="body-sm">타이틀</label>
+              <input type="text" id="text" className="body-sm" placeholder="내용을 입력해 주세요." />
               <span className="body-xs">내용을 입력해 주세요.</span>
             </div>
       }

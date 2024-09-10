@@ -134,6 +134,17 @@ export async function getExercises(): Promise<any> {
     throw error; 
   }
 }
+export async function getExercise(type: string): Promise<any> {
+  try {
+    const resultList = await pb.collection('exercises').getList(1, 10, {
+      filter: `type ?= '${type}'`,
+    });
+    return resultList;
+  } catch (error) {
+    console.error('Error fetching exercise:', error);
+    throw error; 
+  }
+}
 
 // 회원 탈퇴 기능 
 export async function deleteUser(password: string) {
