@@ -1,25 +1,17 @@
-import { useState, useEffect } from 'react'
-import { getExercises, getExercise, logout } from '@/api/pocketbase'
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { getExercise, logout, Exercise } from "@/api/pocketbase";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import styles from './home.module.css';
+import styles from "./home.module.css";
 // > components
-import Article from '@/components/Article';
-import ExerciseType from '@/components/ExerciseTypes';
-
-interface exerciseProps {
-  id: string;
-  type: string;
-  title: string;
-  img_url: string;
-  link: string;
-}
+import Article from "@/components/Article";
+import ExerciseType from "@/components/ExerciseTypes";
+import { useExercisesQuery } from "@/hooks/useExercisesQuery";
 
 export default function Home() {
-  const [exercises, setExercises] = useState<exerciseProps[]>([]);
-  const [filtered, setFiltered] = useState<exerciseProps[] | string>('');
-  const [isActive, setIsActive] = useState<string>('');
+  const [filtered, setFiltered] = useState<Exercise[] | string>("");
+  const [isActive, setIsActive] = useState<string>("");
   const { user } = useOutletContext<UserContext>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -34,17 +26,12 @@ export default function Home() {
     },
   });
 
-  useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const data = await getExercises();
-        setExercises(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchExercises();
-  }, []);
+  const { exercises, isLoading } = useExercisesQuery();
+
+  // TODO: loading 보여주기,, spinner?  */
+  if (!isLoading) {
+    console.log(exercises);
+  }
 
   async function handleList(type: string) {
     if (type) {
@@ -55,14 +42,14 @@ export default function Home() {
         console.error(err);
       }
     } else {
-      setFiltered('');
+      setFiltered("");
     }
   }
 
   const handleClick = (type: string) => {
     handleList(type);
-    setIsActive(type === '' ? '' : type)
-  }
+    setIsActive(type === "" ? "" : type);
+  };
 
   useEffect(() => {
     console.log(filtered);
@@ -74,13 +61,19 @@ export default function Home() {
         <div>
           <p>현재 사용자: {user?.email}</p>
           <br />
-          <button onClick={async () => {
-            await logoutMutation.mutateAsync();
-          }}>
+          <button
+            onClick={async () => {
+              await logoutMutation.mutateAsync();
+            }}
+          >
             로그아웃
           </button>
         </div>
-        <ExerciseType exercises={exercises} handleClick={handleClick} isActive={isActive} />
+        <ExerciseType
+          exercises={exercises}
+          handleClick={handleClick}
+          isActive={isActive}
+        />
         <Article exercises={exercises} filtered={filtered} />
       </div>
     </>
