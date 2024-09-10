@@ -16,6 +16,7 @@ import Register from "@/routes/Register";
 import SharedLayout from "@/routes/SharedLayout";
 import Start from "@/routes/Start";
 import NotFound from "@/routes/NotFound";
+import LogoutComplete from "@/routes/MyPage/LogoutComplete/index"; 
 
 export type RouteHandle = {
   hideHeader?: boolean;
@@ -100,6 +101,15 @@ export const router: ReturnType<typeof createBrowserRouter> =
                     hideHeader: true,
                   } satisfies RouteHandle,
                 },
+				{
+					path: "logout-complete", // 로그아웃 완료 페이지 경로 추가
+					element: <LogoutComplete />,
+					handle: {
+					  title: "로그아웃 완료",
+					  hideHeader: true,
+					  hideGnb: true,
+					} satisfies RouteHandle,
+				  },
               ],
             },
             {
