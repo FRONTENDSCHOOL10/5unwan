@@ -1,14 +1,11 @@
 import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import styles from "./myPageModal.module.css";
-import Input from "@/components/Input/index";
-import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 import MiniButtonT from "@/components/Buttons/SecondaryButton/miniButton";
 import MediumButton from "@/components/Buttons/PrimaryButton/mediumButton";
-import MiniButton from "@/components/Buttons/PrimaryButton/miniButton";
 
 export default function MyPage() {
 	const { user, isLoading, isError } = useCurrentUserQuery(); 
@@ -106,7 +103,16 @@ export default function MyPage() {
 			  <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
 			</label>
   
-			<Input label="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+          {/* 닉네임 입력 */}
+          <div className={styles["input-container"]}>
+            <label>닉네임</label>
+            <input
+              type="text"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className={styles["input-class"]}
+            />
+          </div>
   
 			<div className={styles["gender-container"]}>
 			  <MiniButtonT
@@ -123,34 +129,48 @@ export default function MyPage() {
 			  </MiniButtonT>
 			</div>
 
-					<Input
-						label="생년월일"
-						value={dob}
-						type="text"
-						placeholder="yyyy-mm-dd"
-						onChange={(e) => {
-							const inputValue = e.target.value;
-							const formattedValue = inputValue
-								.replace(/[^0-9]/g, "")
-								.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-							setDob(formattedValue);
-						}}
-						maxLength={10}
-					/>
+		 {/* 생년월일 입력 */}
+		 <div className={styles["input-container"]}>
+            <label>생년월일</label>
+            <input
+              type="text"
+              value={dob}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                const formattedValue = inputValue
+                  .replace(/[^0-9]/g, "")
+                  .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                setDob(formattedValue);
+              }}
+              placeholder="yyyy-mm-dd"
+              maxLength={10}
+              className={styles["input-class"]}
+            />
+          </div>
 
-					<Input
-						label="키"
-						value={height.toString()} 
-						type="number"
-						onChange={(e) => setHeight(Number(e.target.value))}
-					/>
+          {/* 키 입력 */}
+          <div className={styles["input-container"]}>
+            <label>키</label>
+            <input
+              type="number"
+              value={height.toString()}
+              onChange={(e) => setHeight(Number(e.target.value))}
+              className={styles["input-class"]}
+            />
+          </div>
 
-					<Input
-						label="몸무게"
-						value={weight.toString()} 
-						type="number"
-						onChange={(e) => setWeight(Number(e.target.value))}
-					/>
+          {/* 몸무게 입력 */}
+          <div className={styles["input-container"]}>
+            <label>몸무게</label>
+            <input
+              type="number"
+              value={weight.toString()}
+              onChange={(e) => setWeight(Number(e.target.value))}
+              className={styles["input-class"]}
+            />
+          </div>
+
+
 
 					<div className={styles["button-container"]}>
 						<MediumButton onClick={handleSaveChanges}>저장</MediumButton>
