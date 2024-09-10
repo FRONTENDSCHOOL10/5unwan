@@ -4,9 +4,12 @@ interface ThemeInterface {
   theme: {
     body: string;
     text: string;
+    primaryColor: string;
+    secondaryColor: string;
     toggleBackground: string;
-    mainColor: string;
-    navBar: string;
+    gnbBar: string;
+    gnbIconDefault: string;
+    gnbIconAcive: string;
   };
 }
 

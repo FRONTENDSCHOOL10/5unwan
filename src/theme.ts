@@ -1,17 +1,23 @@
 export const lightTheme = {
-    body: '#fcfcfc',
-    text: '#363537',
-    toggleBackground: '#fcfcfc',
-    mainColor: '#e6328d',
-    navBar: '#fcfcfc',
-  };
-  
-  export const darkTheme = {
-    body: '#252424',
-    text: '#fcfcfc',
-    toggleBackground: '#3b3b3b',
-    mainColor: '#fcfcfc',
-    navBar: '#303030',
-  };
-  
-  export type Theme = typeof lightTheme;
+  body: 'var(--white)',
+  text: 'var(--grayscale-800)',
+  primaryColor: 'var(--primary)',
+  secondaryColor: 'var(--secondary)',
+  toggleBackground: 'var(--white)',
+  gnbBar: 'var(--white)',
+  gnbIconDefault: 'var(--grayscale-400)',
+  gnbIconAcive: 'var(--grayscale-900)',
+};
+
+export const darkTheme = {
+  body: 'var(--grayscale-900)',
+  text: 'var(--white)',
+  primaryColor: 'var(--primary)',
+  secondaryColor: 'var(--secondary)',
+  toggleBackground: 'var(--grayscale-800)',
+  gnbBar: 'var(--grayscale-800)',
+  gnbIconDefault: 'var(--grayscale-600)',
+  gnbIconAcive: 'var(--grayscale-100)',
+};
+
+export type Theme = typeof lightTheme;
