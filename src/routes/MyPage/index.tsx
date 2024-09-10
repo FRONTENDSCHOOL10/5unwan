@@ -15,9 +15,6 @@ export default function MyPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [password, setPassword] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
@@ -38,36 +35,6 @@ export default function MyPage() {
       navigate("/logout-complete");  
     },
   });
-
-  const deleteUserMutation = useMutation({
-    mutationFn: async (password: string) => {
-      await deleteUser(password);
-    },
-    onSuccess: () => {
-      queryClient.clear();
-      navigate("/start");
-    },
-    onError: (error) => {
-      console.error(error);
-      alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
-    },
-  });
-
-  const showConfirmDeleteModal = () => {
-    setShowConfirmModal(true);
-  };
-
-  const handleConfirmDelete = () => {
-    deleteUserMutation.mutate(password, {
-      onSuccess() {
-        setShowConfirmModal(false);
-      },
-    });
-  };
-
-  const handleCancelDelete = () => {
-    setShowConfirmModal(false);
-  };
 
   const handleSaveChanges = () => {
     const updateData = {
@@ -182,7 +149,7 @@ export default function MyPage() {
 
           <Input
             label="몸무게"
-            value={weight.toString()}  // number를 string으로 변환
+            value={weight.toString()} 
             type="number"
             onChange={(e) => setWeight(Number(e.target.value))}
           />
@@ -231,62 +198,9 @@ export default function MyPage() {
 
           <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
           <br />
-          <button onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
+          <button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
         </div>
       )}
-
-      {showDeleteModal && (
-        <div className={styles.modal}>
-          <div className={styles["modal-content"]}>
-            <h1>
-              <span className={styles["nickname"]}>{user?.nickname}</span>
-              <span className={styles["message"]}>님 회원탈퇴를 위해<br />비밀번호를 입력해주세요.</span>
-            </h1>
-
-            <Input
-              status="text"
-              isDark={false}
-              label="비밀번호"
-              placeholder="8문자 이상, 특수 문자 포함해주세요."
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <LargeButton onClick={showConfirmDeleteModal}>
-              확인
-            </LargeButton>
-            <LargeButton
-              onClick={() => setShowDeleteModal(false)}
-              className={styles["cancel-button"]}
-            >
-              취소
-            </LargeButton>
-          </div>
-        </div>
-      )}
-
-{showConfirmModal && (
-  <div className={styles.modal}>
-    <div className={styles["confirmation-modal-content"]}>
-      <h2>정말 탈퇴하시겠습니까?</h2>
-      <div className={styles["confirmation-buttons"]}>
-        <MiniButton
-          className={`${styles["confirmation-button"]} ${styles["confirmation-button-confirm"]}`}
-          onClick={handleConfirmDelete}
-        >
-          확인
-        </MiniButton>
-        <MiniButton
-          className={`${styles["confirmation-button"]} ${styles["confirmation-button-cancel"]}`}
-          onClick={handleCancelDelete}
-        >
-          취소
-        </MiniButton>
-      </div>
-    </div>
-  </div>
-)}
     </div>
   );
 }

@@ -17,6 +17,9 @@ import SharedLayout from "@/routes/SharedLayout";
 import Start from "@/routes/Start";
 import NotFound from "@/routes/NotFound";
 import LogoutComplete from "@/routes/MyPage/LogoutComplete/index"; 
+import DeleteAccount from "@/routes/MyPage/DeleteAccount/deleteAccount";
+import DeleteComplete from "@/routes/MyPage/DeleteAccount/deleteComplete";
+
 
 export type RouteHandle = {
   hideHeader?: boolean;
@@ -102,7 +105,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   } satisfies RouteHandle,
                 },
 				{
-					path: "logout-complete", // 로그아웃 완료 페이지 경로 추가
+					path: "logout-complete",
 					element: <LogoutComplete />,
 					handle: {
 					  title: "로그아웃 완료",
@@ -110,6 +113,24 @@ export const router: ReturnType<typeof createBrowserRouter> =
 					  hideGnb: true,
 					} satisfies RouteHandle,
 				  },
+				  {
+					path: "/delete-account",
+					element: <DeleteAccount />,
+					handle: {
+					  title: "회원 탈퇴",
+					  hideHeader: true,
+					  hideGnb: true,
+					},
+				  },
+				  {
+					path: "/delete-complete",
+					element: <DeleteComplete />,
+					handle: {
+					  title: "회원탈퇴 완료",
+					  hideHeader: true,
+					  hideGnb: true,
+					},
+				  },			  
               ],
             },
             {
