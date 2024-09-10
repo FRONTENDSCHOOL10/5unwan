@@ -16,14 +16,14 @@ interface Props {
   theme: Theme;
 }
 
-const GnbContainer = styled('div')<Props>`
+const GnbContainer = styled.div<Props>`
   display: flex;
   flex-direction: column;
   height: 100vh;
   box-sizing: border-box;
 `;
 
-const Gnb = styled('ul')<Props>`
+const Gnb = styled.ul<Props>`
   flex-shrink: 0;
   z-index: 50;
   order: 9999;
@@ -31,7 +31,7 @@ const Gnb = styled('ul')<Props>`
   flex-shrink: 0;
   flex-grow: 0;
   box-shadow: var(--gnb-shadow);
-  background: ${({ theme }) => theme.gnbBar};
+  background: ${({ theme }) => theme.gnbBack};
   & > ul{
     display: flex;
     justify-content: space-between;
@@ -43,13 +43,15 @@ const Gnb = styled('ul')<Props>`
   }
 `;
 
-const HeaderContainer = styled('header')<Props>`
-  height: var(--space-12-half);;
+const HeaderContainer = styled.header<Props>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  height: var(--space-12-half);
   flex-shrink: 0;
   flex-grow: 0;
-  border-bottom: 0.125rem solid;
-  background: ${({ theme }) => theme.gnbBar};
+  background: ${({ theme }) => theme.headerBack};
   color: ${({ theme }) => theme.text};
 `;
 
@@ -84,7 +86,7 @@ export default function SharedLayout() {
   return (
     <GnbContainer theme={theme}>
       {/* header */}
-      {!hideHeader && <HeaderContainer>{title}</HeaderContainer>}
+      {!hideHeader && <HeaderContainer theme={theme} className='body-md-bold'>{title}</HeaderContainer>}
       {/* global navigation bar */}
       {!hideGnb && (
         <Gnb theme={theme}>

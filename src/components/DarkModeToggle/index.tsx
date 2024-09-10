@@ -17,7 +17,7 @@ const ToggleButton = styled('button')<ToggleProps>`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  background: ${({ theme }) => theme.toggleBackground};
+  background: ${({ theme }) => theme.toggleBack};
   color: ${({ theme }) => theme.text};
   box-shadow: var(--gnb-shadow);
   z-index: 10000;

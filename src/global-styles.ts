@@ -6,10 +6,11 @@ interface ThemeInterface {
     text: string;
     primaryColor: string;
     secondaryColor: string;
-    toggleBackground: string;
-    gnbBar: string;
+    toggleBack: string;
+    gnbBack: string;
     gnbIconDefault: string;
     gnbIconAcive: string;
+    headerBack: string;
   };
 }
 

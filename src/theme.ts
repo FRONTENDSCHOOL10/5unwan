@@ -3,10 +3,11 @@ export const lightTheme = {
   text: 'var(--grayscale-800)',
   primaryColor: 'var(--primary)',
   secondaryColor: 'var(--secondary)',
-  toggleBackground: 'var(--white)',
-  gnbBar: 'var(--white)',
+  toggleBack: 'var(--white)',
+  gnbBack: 'var(--white)',
   gnbIconDefault: 'var(--grayscale-400)',
   gnbIconAcive: 'var(--grayscale-900)',
+  headerBack: 'var(--white)',
 };
 
 export const darkTheme = {
@@ -14,10 +15,11 @@ export const darkTheme = {
   text: 'var(--white)',
   primaryColor: 'var(--primary)',
   secondaryColor: 'var(--secondary)',
-  toggleBackground: 'var(--grayscale-800)',
-  gnbBar: 'var(--grayscale-800)',
+  toggleBack: 'var(--grayscale-800)',
+  gnbBack: 'var(--grayscale-800)',
   gnbIconDefault: 'var(--grayscale-600)',
   gnbIconAcive: 'var(--grayscale-100)',
+  headerBack: 'var(--grayscale-900)',
 };
 
 export type Theme = typeof lightTheme;
