@@ -126,14 +126,14 @@
 	align-items: center;
 	max-width: 17.5rem;
 	width: 100%; 
-	height: 2.625rem; 
-	padding: 0 1.25rem;
+	height: var(--space-10-half); 
+	padding: 0 var(--space-5); 
 	border: 1px solid var(--grayscale-400);
-	border-radius: 0.25rem;
+	border-radius: var(--rounded-sm); 
 	overflow: hidden;
 	text-overflow: ellipsis; 
-	margin: 0.5rem;
-	margin-bottom: 0.25rem;
+	margin: var(--space-3);
+	margin-bottom: var(--space-3);
 	transition: all 300ms ease-in-out; 
   
 	&::placeholder {
@@ -151,3 +151,8 @@
 	}
   }
   
+  .label {
+	font-size: var(--small); 
+	font-weight: var(--font-weight-bold); 
+	color: var(--primary); 
+  }

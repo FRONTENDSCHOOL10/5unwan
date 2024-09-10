@@ -12,7 +12,6 @@ export default function MyPage() {
 	const navigate = useNavigate(); 
 	const queryClient = useQueryClient(); 
 
-	const [password, setPassword] = useState("");
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [nickname, setNickname] = useState(user?.nickname || "");
 	const [weight, setWeight] = useState(user?.weight || 0);
@@ -105,7 +104,7 @@ export default function MyPage() {
   
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-            <label>닉네임</label>
+		  <label className={styles["label"]}>닉네임</label>
             <input
               type="text"
               value={nickname}
@@ -131,7 +130,7 @@ export default function MyPage() {
 
 		 {/* 생년월일 입력 */}
 		 <div className={styles["input-container"]}>
-            <label>생년월일</label>
+		 <label className={styles["label"]}>생년월일</label>
             <input
               type="text"
               value={dob}
@@ -150,7 +149,7 @@ export default function MyPage() {
 
           {/* 키 입력 */}
           <div className={styles["input-container"]}>
-            <label>키</label>
+		  <label className={styles["label"]}>키</label>
             <input
               type="number"
               value={height.toString()}
@@ -161,7 +160,7 @@ export default function MyPage() {
 
           {/* 몸무게 입력 */}
           <div className={styles["input-container"]}>
-            <label>몸무게</label>
+		  <label className={styles["label"]}>몸무게</label>
             <input
               type="number"
               value={weight.toString()}
