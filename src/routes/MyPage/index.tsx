@@ -4,9 +4,12 @@ import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import styles from "./index.module.css";
-import Input from "@/components/Input/index";
-import { SecondaryLargeButton, SecondaryMediumButton, SecondaryMiniButton } from '@/components/Buttons/SecondaryButton';
-import { PrimaryLargeButton, PrimaryMediumButton, PrimaryMiniButton } from '@/components/Buttons/PrimaryButton';
+import {
+  PrimaryLargeButton,
+  PrimaryMediumButton,
+  PrimaryMiniButton,
+} from "@/components/Buttons/PrimaryButton/index";
+import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
 
 export default function MyPage() {
   const { user, isLoading, isError } = useCurrentUserQuery();
@@ -133,8 +136,8 @@ export default function MyPage() {
               disabled
               className={styles["input-class"]}
             />
-		</div>
-		<div className={styles["input-disabled-container"]}>
+          </div>
+          <div className={styles["input-disabled-container"]}>
             <label className={styles["label"]}>비밀번호</label>
             <input
               type="text"
@@ -159,22 +162,22 @@ export default function MyPage() {
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>성별</label>
             <div className={styles["gender-container"]}>
-              <MiniButtonT
+              <TertiaryMiniButton
                 onClick={() => setGender("M")}
                 className={`${styles["gender-button"]} ${
                   gender === "M" ? styles.selected : ""
                 }`}
               >
                 남자
-              </MiniButtonT>
-              <MiniButtonT
+              </TertiaryMiniButton>
+              <TertiaryMiniButton
                 onClick={() => setGender("F")}
                 className={`${styles["gender-button"]} ${
                   gender === "F" ? styles.selected : ""
                 }`}
               >
                 여자
-              </MiniButtonT>
+              </TertiaryMiniButton>
             </div>
           </div>
 
@@ -220,7 +223,9 @@ export default function MyPage() {
           </div>
 
           <div className={styles["button-container"]}>
-            < LargeButton onClick={handleSaveChanges}>수정완료</LargeButton>
+            <PrimaryLargeButton onClick={handleSaveChanges}>
+              수정완료
+            </PrimaryLargeButton>
           </div>
         </div>
       ) : (
@@ -275,7 +280,7 @@ export default function MyPage() {
           </div>
         </div>
       )}
-      <PrimaryLargeButton onClick={() => console.log('Large Button Clicked')}>
+      <PrimaryLargeButton onClick={() => console.log("Large Button Clicked")}>
         큰 버튼 (클릭)
       </PrimaryLargeButton>
 
@@ -287,6 +292,5 @@ export default function MyPage() {
         작은 버튼 (페이지 이동)
       </PrimaryMiniButton>
     </div>
-  
-);
+  );
 }

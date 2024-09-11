@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './button.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -8,10 +8,10 @@ type ButtonProps = {
   disabled?: boolean;
   to?: string;
   className?: string;
-  type?: string; 
+  type?: string;
 };
 
-const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
+const Button: React.FC<ButtonProps & { size: "large" | "medium" | "mini" }> = ({
   children,
   onClick,
   disabled,
@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
   type,
   size,
 }) => {
-  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ''}`;
+  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ""}`;
 
   if (to) {
     return (
@@ -55,3 +55,19 @@ export const PrimaryMiniButton: React.FC<ButtonProps> = (props) => (
 );
 
 export default { PrimaryLargeButton, PrimaryMediumButton, PrimaryMiniButton };
+
+/* 
+import { PrimaryLargeButton, PrimaryMediumButton, PrimaryMiniButton } from "@/components/Buttons/PrimaryButton/index";
+
+      <PrimaryLargeButton onClick={() => console.log('Large Button Clicked')}>
+        큰 버튼 (클릭)
+      </SecondaryLargeButton>
+
+      <PrimaryMediumButton disabled={true}>
+        중간 버튼 (비활성화)
+      </SecondaryMediumButton>
+
+      <PrimaryMiniButton to="/next-page">
+        작은 버튼 (페이지 이동)
+      </PrimaryMiniButton>
+*/

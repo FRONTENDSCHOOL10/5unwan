@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './button.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ type ButtonProps = {
   type?: string; // 추가된 속성
 };
 
-const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
+const Button: React.FC<ButtonProps & { size: "large" | "medium" | "mini" }> = ({
   children,
   onClick,
   disabled,
@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
   type,
   size,
 }) => {
-  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ''}`;
+  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ""}`;
 
   if (to) {
     return (
@@ -36,7 +36,7 @@ const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-	  >
+    >
       {children}
     </button>
   );
@@ -54,4 +54,24 @@ export const TertiaryMiniButton: React.FC<ButtonProps> = (props) => (
   <Button {...props} size="mini" />
 );
 
-export default { TertiaryLargeButton, TertiaryMediumButton, TertiaryMiniButton };
+export default {
+  TertiaryLargeButton,
+  TertiaryMediumButton,
+  TertiaryMiniButton,
+};
+
+/* 
+import { TertiaryLargeButton, TertiaryMediumButton, TertiaryMiniButton } from '@/components/Buttons/TertiaryButton';
+
+      <TertiaryLargeButton onClick={() => console.log('Large Button Clicked')}>
+        큰 버튼 (클릭)
+      </TertiaryLargeButton>
+
+      <TertiaryMediumButton disabled={true}>
+        중간 버튼 (비활성화)
+      </TertiaryMediumButton>
+
+      <TertiaryMiniButton to="/next-page">
+        작은 버튼 (페이지 이동)
+      </TertiaryMiniButton>
+*/
