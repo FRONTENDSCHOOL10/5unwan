@@ -5,19 +5,42 @@ import { useState } from "react";
 import { WorkoutRecordForm } from "@/components/WorkoutRecordForm";
 import styles from "@/components/WorkoutRecordModal/workoutRecordModal.module.css";
 
-import SVGIcon from "@/components/SVGicon"
-import iconstyles from "@/components/SVGicon/styles.module.css"
+import SVGIcon from "@/components/SVGicon";
+import iconstyles from "@/components/SVGicon/styles.module.css";
+import { useToday, useWorkouts } from "@/hooks/useWorkouts";
 
 export function WorkoutRecordModal() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+
+  const { today } = useToday();
+
+  const { workouts, isLoading } = useWorkouts({
+    startDay: today,
+    endDay: today,
+  });
+
+  if (!isLoading) {
+    console.log("workouts", workouts);
+    console.log("등록한 운동기록 수", workouts.length);
+  }
+
   return (
     <Drawer.Root dismissible={false} open={modalOpen}>
       <Drawer.Trigger asChild>
-        <button onClick={handleOpen} type="button" className={iconstyles["gnb-icon-edit"]}>
-          <SVGIcon iconId="iconSignatureSmall" width={20} height={20} color="#ffffff"/>
+        <button
+          onClick={handleOpen}
+          type="button"
+          className={iconstyles["gnb-icon-edit"]}
+        >
+          <SVGIcon
+            iconId="iconSignatureSmall"
+            width={20}
+            height={20}
+            color="#ffffff"
+          />
         </button>
       </Drawer.Trigger>
       <Drawer.Portal>
