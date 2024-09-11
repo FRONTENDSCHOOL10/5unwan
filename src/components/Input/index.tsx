@@ -29,7 +29,7 @@ export default function Input({ status = 'text', isDark = false }: InputProps) {
   if (status === 'search') {
     return (
       <div className={getInputStatus(status, isDark)}>
-        <label htmlFor={searchInputId} className="sr-only" aria-describedby={searchInputId}>검색어</label>
+        <label htmlFor={searchInputId} className="sr-only">검색어</label>
         <input type="text" id={searchInputId} className="body-sm" placeholder="검색어를 입력해 주세요." />
       </div>
     );
@@ -38,7 +38,7 @@ export default function Input({ status = 'text', isDark = false }: InputProps) {
   if (status === 'disabled') {
     return (
       <div className={getInputStatus(status, isDark)}>
-        <label htmlFor={textDisabledInputId} className="body-sm" aria-describedby={textDisabledInputId}>타이틀</label>
+        <label htmlFor={textDisabledInputId} className="body-sm">타이틀</label>
         <input type="text" id={textDisabledInputId} className="body-sm" placeholder="내용을 입력해 주세요." disabled />
         <span className="body-xs">내용을 입력해 주세요.</span>
       </div>
@@ -47,7 +47,7 @@ export default function Input({ status = 'text', isDark = false }: InputProps) {
 
   return (
     <div className={getInputStatus(status, isDark)}>
-      <label htmlFor={textInputId} className="body-sm" aria-describedby={textInputId}>타이틀</label>
+      <label htmlFor={textInputId} className="body-sm">타이틀</label>
       <input type="text" id={textInputId} className="body-sm" placeholder="내용을 입력해 주세요." />
       <span className="body-xs">내용을 입력해 주세요.</span>
     </div>
