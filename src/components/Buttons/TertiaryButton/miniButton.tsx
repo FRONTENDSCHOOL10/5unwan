@@ -3,35 +3,32 @@ import { Link } from 'react-router-dom';
 import styles from './miniButton.module.css';
 
 type ButtonProps = {
-  children: React.ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  to?: string;
-};
-
-const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
-  if (to) {
-    
-    return (
-      <Link to={to} className={styles["mini-button-wrapper"]}>
-        {children}
-      </Link>
-    );
-  }
-
+	children: React.ReactNode;
+	onClick?: () => void;
+	disabled?: boolean;
+	to?: string;
+  };
   
-  return (
-    <button
-      className={styles["mini-button-wrapper"]}
-      onClick={onClick}
-      disabled={disabled}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-  
-};
+  const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
+	if (to) {
+	
+	  return (
+		<Link to={to} className={styles["mini-button-wrapper"]}>
+		  {children}
+		</Link>
+	  );
+	}
+ 
+	return (
+		<button
+		  onClick={onClick}
+		  disabled={disabled}
+		  type="button"
+		>
+		  {children}
+		</button>
+	  );
+	};
 
 export default MiniButton;
 

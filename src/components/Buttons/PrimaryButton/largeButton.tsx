@@ -7,6 +7,7 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   to?: string; 
+  className?: string;
 };
 
 const LargeButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
