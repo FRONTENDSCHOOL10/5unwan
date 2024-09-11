@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCurrentUserQuery } from "@/hooks/user"; 
 import { deleteUser } from "@/api/pocketbase";
-import Input from "@/components/Input/index";
 import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 import styles from "./deleteAccount.module.css";
 

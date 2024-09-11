@@ -17,7 +17,6 @@ export default function MyPage() {
 	const [weight, setWeight] = useState(user?.weight || 0);
 	const [height, setHeight] = useState(user?.height || 0);
 	const [dob, setDob] = useState(user?.dob || "");
-	const [gender, setGender] = useState(user?.gender || "");
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [profilePreview, setProfilePreview] = useState(user?.avatar ? getPbImageUrl(user, user.avatar) : "");
 
@@ -83,7 +82,6 @@ export default function MyPage() {
 			className={styles["edit-icon"]}
 			onClick={() => {
 			  setIsEditMode(true);
-			  setGender(user?.gender || "");
 			}}
 		  >
 			<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
@@ -113,20 +111,16 @@ export default function MyPage() {
             />
           </div>
   
-			<div className={styles["gender-container"]}>
-			  <MiniButtonT
-				className={`${gender === "M" ? styles.active : ""}`}
-				onClick={() => setGender("M")}
-			  >
-				남자
-			  </MiniButtonT>
-			  <MiniButtonT
-				className={`${gender === "F" ? styles.active : ""}`}
-				onClick={() => setGender("F")}
-			  >
-				여자
-			  </MiniButtonT>
-			</div>
+		  <div className={styles["gender-container"]}>
+						<MiniButtonT
+							onClick={() => {}}>
+							남자
+						</MiniButtonT>
+						<MiniButtonT
+							onClick={() => {}}>
+							여자
+						</MiniButtonT>
+					</div>
 
 		 {/* 생년월일 입력 */}
 		 <div className={styles["input-container"]}>
