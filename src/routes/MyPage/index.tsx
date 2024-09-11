@@ -17,6 +17,7 @@ export default function MyPage() {
 	const [weight, setWeight] = useState(user?.weight || 0);
 	const [height, setHeight] = useState(user?.height || 0);
 	const [dob, setDob] = useState(user?.dob || "");
+	const [gender, setGender] = useState<"" | "M" | "F">(user?.gender || "");
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [profilePreview, setProfilePreview] = useState(user?.avatar ? getPbImageUrl(user, user.avatar) : "");
 
@@ -36,6 +37,7 @@ export default function MyPage() {
 			weight,
 			height,
 			dob,
+			gender,
 			avatar: avatarFile || undefined,
 		};
 
@@ -114,9 +116,29 @@ export default function MyPage() {
     <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
 </label>
   
+		   <div className={styles["input-disabled-container"]}>
+            <label className={styles["label"]}>아이디</label>
+            <input
+              type="text"
+              value={user?.email || ""}
+              disabled
+              className={styles["input-class"]}
+            />
+          </div>
+
+          <div className={styles["input-disabled-container"]}>
+            <label className={styles["label"]}>비밀번호</label>
+            <input
+              type="text"
+              value="고객센터를 통해 변경해주세요."
+              disabled
+              className={styles["input-class"]}
+            />
+		  </div>
+		
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>몸무게</label>
+		  <label className={styles["label"]}>닉네임</label>
             <input
               type="text"
               value={nickname}
@@ -124,17 +146,25 @@ export default function MyPage() {
               className={styles["input-class"]}
             />
           </div>
-  
+		  <div className={styles["input-container"]}>
+		  <label className={styles["label"]}>성별</label>
 		  <div className={styles["gender-container"]}>
-						<MiniButtonT
-							onClick={() => {}}>
-							남자
-						</MiniButtonT>
-						<MiniButtonT
-							onClick={() => {}}>
-							여자
-						</MiniButtonT>
-					</div>
+    <MiniButtonT
+      onClick={() => setGender("M")}
+      className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+    >
+      남자
+    </MiniButtonT>
+    <MiniButtonT
+      onClick={() => setGender("F")}
+      className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+    >
+      여자
+    </MiniButtonT>
+  </div>
+  </div>
+  
+
 
 		 {/* 생년월일 입력 */}
 		 <div className={styles["input-container"]}>

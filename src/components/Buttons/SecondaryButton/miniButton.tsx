@@ -7,33 +7,33 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   to?: string; 
+  className?: string;
 };
 
-const MiniButton: React.FC<ButtonProps> = ({ children, onClick, disabled, to }) => {
-  if (to) {
+const MiniButtonT: React.FC<ButtonProps> = ({ children, onClick, disabled, to, className }) => {
+	const buttonClass = `${styles['mini-button-wrapper']} ${className || ''}`;
+  
+	if (to) {
+	  return (
+		<Link to={to} className={buttonClass}>
+		  {children}
+		</Link>
+	  );
+	}
+  
+	return (
+	  <button
+		className={buttonClass}
+		onClick={onClick}
+		disabled={disabled}
+		type="button"
+	  >
+		{children}
+	  </button>
+	);
+  };
 
-    return (
-      <Link to={to} className={styles["mini-button-wrapper"]}>
-        {children}
-      </Link>
-    );
-  }
-
-
-  return (
-    <button
-      className={styles["mini-button-wrapper"]}
-      onClick={onClick}
-      disabled={disabled}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-
-};
-
-export default MiniButton;
+export default MiniButtonT;
 
 
 
