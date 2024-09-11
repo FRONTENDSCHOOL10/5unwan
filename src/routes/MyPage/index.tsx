@@ -43,6 +43,7 @@ export default function MyPage() {
 			updateUserProfile(user.id, updateData)
 				.then(() => {
 					setIsEditMode(false);
+					navigate("/my-page");  
 				});
 		}
 	};
