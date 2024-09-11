@@ -8,7 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
   to?: string;
   className?: string;
-  type?: "button" | "submit" | "reset" | undefined; // 추가된 속성
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
 const Button: React.FC<ButtonProps & { size: "large" | "medium" | "mini" }> = ({
