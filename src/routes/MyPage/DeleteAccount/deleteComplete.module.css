@@ -4,25 +4,22 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	padding: 20px;
-	
+	padding: var(--space-8) var(--space-4);
   }
   
   .title {
-	font-size: var(--title-medium);
+	font-size: var(--title-xlarge);
 	font-weight: var(--font-weight-extraBold); 
 	color: var(--grayscale-700); 
 	margin-bottom: var(--space-5);
 	line-height: 1.5;
 	padding: var(--large) var(--medium); 
-	
+	margin-bottom: var(--space-10);
 }
 
 .nickname {
 	color: var(--primary); 
 	font-weight: var(--font-weight-extraBold); 
 }
-  button {
-	margin-top: 10px;
-  }
+
   

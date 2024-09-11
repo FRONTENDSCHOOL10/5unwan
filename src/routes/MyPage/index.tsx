@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import styles from "./myPageModal.module.css";
+import styles from "./index.module.css";
 import MiniButtonT from "@/components/Buttons/SecondaryButton/miniButton";
 import MediumButton from "@/components/Buttons/PrimaryButton/mediumButton";
 
@@ -72,33 +72,46 @@ export default function MyPage() {
 	return (
 		<div>
 		<div className={styles["mypage-header"]}>
+				{/* 뒤로가기 버튼 추가 */}
+				{isEditMode && (
+					<svg
+						width="20"
+						height="20"
+						className={styles["back-icon"]}
+						onClick={() => setIsEditMode(false)}
+					>
+						<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconArrowsLeft"></use>
+					</svg>
+				)}
 		  <span className={styles["mypage-title"]}>
 			{isEditMode ? "프로필 수정" : "마이페이지"}
 		  </span>
-  
-		  <svg
-			width="20"
-			height="20"
-			className={styles["edit-icon"]}
-			onClick={() => {
-			  setIsEditMode(true);
-			}}
-		  >
-			<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
-		  </svg>
-		</div>
+
+		  {!isEditMode && (
+					<svg
+						width="20"
+						height="20"
+						className={styles["edit-icon"]}
+						onClick={() => {
+							setIsEditMode(true);
+						}}
+					>
+						<use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
+					</svg>
+				)}
+			</div>
   
 		{isEditMode ? (
 		  <div className={styles["edit-mode-container"]}>
 			{/* 프로필 이미지 선택 기능 */}
-			<label>
-			  <img
-				src={profilePreview || profileImageUrl || "/default-profile.png"}
-				alt="프로필 이미지"
-				className={styles.avatar}
-			  />
-			  <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-			</label>
+<label>
+    <img
+        src={profilePreview || profileImageUrl || "/default-profile.png"}
+        alt="프로필 이미지"
+        className={`${styles.avatar} ${isEditMode ? styles.hoverable : ""}`} 
+    />
+    <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+</label>
   
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
@@ -163,8 +176,6 @@ export default function MyPage() {
             />
           </div>
 
-
-
 					<div className={styles["button-container"]}>
 						<MediumButton onClick={handleSaveChanges}>저장</MediumButton>
 						<MediumButton onClick={() => setIsEditMode(false)}>취소</MediumButton>
@@ -193,7 +204,7 @@ export default function MyPage() {
 					</div>
 
 					<div className={styles.interests}>
-  						<h3>관심 운동</h3>
+  					<h3>관심 운동</h3>
 						<div className={styles.interestsList}>
 							{user?.interests && user.interests.length > 0 ? (
 								user.interests.map((interest: string, index: number) => (

@@ -18,7 +18,7 @@ export default function DeleteAccount() {
     },
     onSuccess: () => {
       queryClient.clear();
-      navigate("/delete-complete");  // 회원탈퇴 성공 시 완료 페이지로 이동
+      navigate("/delete-complete");  
     },
     onError: (error) => {
       console.error(error);

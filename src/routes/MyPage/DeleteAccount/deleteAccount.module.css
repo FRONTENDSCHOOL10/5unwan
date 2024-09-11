@@ -40,7 +40,7 @@
 	border-radius: var(--rounded-sm); 
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-bottom: var(--space-2);
+	margin-bottom: var(--space-6);
 	transition: all 300ms ease-in-out;
 }
 
@@ -56,11 +56,3 @@
 	color: var(--grayscale-900);
 }
 
-.input:disabled {
-	background-color: var(--grayscale-100);
-	border-color: var(--grayscale-300);
-}
-
-.input:disabled::placeholder {
-	color: var(--grayscale-500);
-}

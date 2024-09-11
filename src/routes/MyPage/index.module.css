@@ -189,17 +189,41 @@
 	background-color: var(--grayscale-100);
 	margin: var(--space-5) 0;
   }
-
-
-  .interests {
-	padding-left: 1.5rem; 
-  }
-
+  
   .interests h3 {
 	font-size: 1rem;
 	font-weight: var(--font-weight-bold);
 	color: var(--primary);
 	margin-bottom: var(--space-3);
+  }
+
+  .interests {
+	padding-left: 1.5rem; 
+	margin-bottom: var(--space-3);
 	margin-top: var(--space-10);
   }
-  
+
+  .back-icon {
+	position: absolute; 
+    cursor: pointer;
+	left: 0;
+	margin-left: var(--space-8); 
+}
+
+
+.avatar {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: var(--rounded-full); 
+    object-fit: cover;
+    transition: all 0.3s ease; 
+	margin-bottom: var(--space-8);
+}
+
+.hoverable:hover,
+.hoverable:active {
+    border: var(--primary-color);  
+    box-shadow: var(--gnb-shadow); 
+    transform: scale(1.05);  
+	cursor: pointer;
+}
