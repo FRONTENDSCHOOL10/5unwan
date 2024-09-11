@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './button.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -8,10 +8,10 @@ type ButtonProps = {
   disabled?: boolean;
   to?: string;
   className?: string;
-  type?: string; // 추가된 속성
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
-const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
+const Button: React.FC<ButtonProps & { size: "large" | "medium" | "mini" }> = ({
   children,
   onClick,
   disabled,
@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps & { size: 'large' | 'medium' | 'mini' }> = ({
   type,
   size,
 }) => {
-  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ''}`;
+  const buttonClass = `${styles[`${size}-button-wrapper`]} ${className || ""}`;
 
   if (to) {
     return (
@@ -54,8 +54,11 @@ export const SecondaryMiniButton: React.FC<ButtonProps> = (props) => (
   <Button {...props} size="mini" />
 );
 
-export default { SecondaryLargeButton, SecondaryMediumButton, SecondaryMiniButton };
-
+export default {
+  SecondaryLargeButton,
+  SecondaryMediumButton,
+  SecondaryMiniButton,
+};
 
 /* 
 import { SecondaryLargeButton, SecondaryMediumButton, SecondaryMiniButton } from '@/components/Buttons/SecondaryButton';
