@@ -5,15 +5,23 @@
 	justify-content: center;
 	height: 100vh;
 	padding: 20px;
+	
   }
   
-  h1 {
-	font-size: 1.5rem;
-	margin-bottom: 20px;
-	text-align: left;
+  .title {
+	font-size: var(--title-medium);
+	font-weight: var(--font-weight-extraBold); 
+	color: var(--grayscale-700); 
+	margin-bottom: var(--space-5);
+	line-height: 1.5;
 	padding: var(--large) var(--medium); 
-  }
-  
+	
+}
+
+.nickname {
+	color: var(--primary); 
+	font-weight: var(--font-weight-extraBold); 
+}
   button {
 	margin-top: 10px;
   }
