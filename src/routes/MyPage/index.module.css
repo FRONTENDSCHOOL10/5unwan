@@ -26,14 +26,6 @@
 	margin-right: var(--space-8); 
 }
 
-
-/* 버튼 컨테이너 */
-.button-container {
-	display: flex;
-	gap: var(--space-2); 
-	margin-top: var(--space-5); 
-}
-
 /* 프로필 사진 */
 .avatar-container {
 	display: flex;
@@ -129,10 +121,10 @@
 	padding: var(--space-5); 
 	margin-top: var(--space-4); 
   }
+
   
   .input-container input {
 	display: flex;
-	justify-content: flex-start;
 	align-items: center;
 	max-width: 17.5rem;
 	width: 100%; 
@@ -144,7 +136,6 @@
 	text-overflow: ellipsis; 
 	margin: var(--space-3);
 	margin-bottom: var(--space-3);
-	transition: all 300ms ease-in-out; 
   
 	&::placeholder {
 	  color: var(--grayscale-600);
