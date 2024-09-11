@@ -5,9 +5,20 @@ import { UserContext } from "@/routes/PrivateRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from "./home.module.css";
 // > components
+import UserInfo from '@/routes/Home/UserInfo';
+import Article from '@/components/Article';
+import ExerciseType from '@/components/ExerciseTypes';
 import Article from "@/components/Article";
 import ExerciseType from "@/components/ExerciseTypes";
 import { useExercisesQuery } from "@/hooks/useExercisesQuery";
+
+interface exerciseProps {
+  id: string;
+  type: string;
+  title: string;
+  img_url: string;
+  link: string;
+}
 
 export default function Home() {
   const [filtered, setFiltered] = useState<Exercise[] | string>("");
@@ -51,15 +62,11 @@ export default function Home() {
     setIsActive(type === "" ? "" : type);
   };
 
-  useEffect(() => {
-    console.log(filtered);
-  }, [filtered]);
-
   return (
     <>
       <div className={styles.container}>
         <div>
-          <p>현재 사용자: {user?.email}</p>
+          <p>현재 사용자: {user?.nickname}</p>
           <br />
           <button
             onClick={async () => {
@@ -69,11 +76,8 @@ export default function Home() {
             로그아웃
           </button>
         </div>
-        <ExerciseType
-          exercises={exercises}
-          handleClick={handleClick}
-          isActive={isActive}
-        />
+        <UserInfo user={user} />
+        <ExerciseType exercises={exercises} handleClick={handleClick} isActive={isActive} />
         <Article exercises={exercises} filtered={filtered} />
       </div>
     </>
