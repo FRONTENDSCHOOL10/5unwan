@@ -1,12 +1,11 @@
 import {
   getPbImageUrl,
-  updateCurrentUser,
   UpdateUser,
   User,
 } from "@/api/pocketbase";
+import { useCurrentUser } from "@/hooks/user";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 
 export type OnboardingBasicFormProps = {
@@ -37,14 +36,7 @@ export function OnboardingBasicForm({
 
   const [newAvatarFileSrc, setNewAvatarFileSrc] = useState<string | null>(null);
 
-  const queryClient = useQueryClient();
-
-  const onboardingBasicMutation = useMutation({
-    mutationFn: updateCurrentUser,
-    async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: ["current-user"] });
-    },
-  });
+  const { updateMutation } = useCurrentUser();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -61,7 +53,7 @@ export function OnboardingBasicForm({
       userValues.avatar = avatarWebP;
     }
 
-    await onboardingBasicMutation.mutateAsync(
+    await updateMutation.mutateAsync(
       { userId: user.id, userValues },
       { onSuccess }
     );
@@ -207,12 +199,12 @@ export function OnboardingBasicForm({
         disabled={
           !formData.nickname.trim() ||
           !formData.gender.trim() ||
-          onboardingBasicMutation.isPending
+          updateMutation.isPending
         }
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
       </button>
-      {onboardingBasicMutation.isError
+      {updateMutation.isError
         ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
         : null}
     </form>
