@@ -12,9 +12,11 @@ export default function OnboardingInterests() {
     <div>
       <OnboardingInterestsForm
         onSuccess={() => {
-          currentStep === ONBOARDING_STEPS.length - 1
-            ? navigate("/onboarding/done")
-            : navigate(ONBOARDING_STEPS[currentStep + 1]);
+          if (currentStep === ONBOARDING_STEPS.length - 1) {
+            navigate("/onboarding/done");
+          } else {
+            navigate(ONBOARDING_STEPS[currentStep + 1]);
+          }
         }}
         user={user}
         currentStep={currentStep}

@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import { useToday, useWorkouts } from "@/hooks/useWorkouts";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { Workout } from "@/api/pocketbaseWorkouts";
 import { DayContent, DayContentProps, DayPicker } from "react-day-picker";
@@ -40,6 +40,7 @@ export default function Calendar() {
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
     const c = (props: DayContentProps) => {
+      // eslint-disable-next-line react/prop-types
       const dateTime = format(props.date, "yyyy-MM-dd");
       const dayWorkouts = workoutsByDay[dateTime] ?? [];
       return (
@@ -65,7 +66,7 @@ export default function Calendar() {
     };
     c.displayName = "CustomDayContent";
     return c;
-  }, [workouts]);
+  }, [workoutsByDay]);
 
   return (
     <div>
@@ -103,7 +104,11 @@ export default function Calendar() {
                 formatters={{
                   formatMonthCaption: (date: Date) => format(date, "MMM"),
                 }}
-                components={{ DayContent: CustomDayContent as any }}
+                components={{
+                  DayContent: CustomDayContent as
+                    | ((props: DayContentProps) => JSX.Element | null)
+                    | undefined,
+                }}
                 month={currentMonthStart}
                 onMonthChange={(month) => {
                   setCurrentMonthStart(startOfMonth(month));
