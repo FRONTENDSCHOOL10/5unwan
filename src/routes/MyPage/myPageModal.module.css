@@ -161,6 +161,7 @@
   .account-section {
 	padding-left: 1.5rem; 
   }
+
   .account-section h3 {
 	font-size: 1rem; 
 	font-weight: var(--font-weight-bold); 
@@ -187,5 +188,18 @@
 	height: 0.375rem; 
 	background-color: var(--grayscale-100);
 	margin: var(--space-5) 0;
+  }
+
+
+  .interests {
+	padding-left: 1.5rem; 
+  }
+
+  .interests h3 {
+	font-size: 1rem;
+	font-weight: var(--font-weight-bold);
+	color: var(--primary);
+	margin-bottom: var(--space-3);
+	margin-top: var(--space-10);
   }
   

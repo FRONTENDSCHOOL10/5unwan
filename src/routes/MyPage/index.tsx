@@ -193,7 +193,7 @@ export default function MyPage() {
 					</div>
 
 					<div className={styles.interests}>
-						<h3>관심 운동</h3>
+  						<h3>관심 운동</h3>
 						<div className={styles.interestsList}>
 							{user?.interests && user.interests.length > 0 ? (
 								user.interests.map((interest: string, index: number) => (
