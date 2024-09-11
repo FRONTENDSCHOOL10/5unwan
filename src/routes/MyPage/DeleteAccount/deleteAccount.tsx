@@ -36,16 +36,20 @@ export default function DeleteAccount() {
   <div className={styles.container}>
   <h1 className={styles.title}>
     <span className={styles.nickname}>{user?.nickname}</span>님
-    <br />
-    회원탈퇴를 위해 비밀번호를 입력해주세요.
-  </h1>
-  <Input
-    label="비밀번호"
-    type="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    placeholder="비밀번호를 입력해주세요."
-  />
+    회원탈퇴를 위해 <br/>
+	비밀번호를 입력해주세요.
+	</h1>
+      <label htmlFor="password" className={styles.label}>
+        비밀번호
+      </label>
+      <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="비밀번호를 입력해주세요."
+        className={styles.input}
+      />
   <LargeButton onClick={handleDeleteAccount}>탈퇴하기</LargeButton>
   <LargeButton onClick={() => navigate("/my-page")} className={styles.cancelButton}>
     취소

@@ -4,20 +4,63 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	padding: 20px;
-	text-align: left; /* 왼쪽 정렬 */
-  }
-  
-  .title {
-	font-size: 1.5rem; /* 24px을 rem으로 변환 */
-	font-weight: 800; /* ExtraBold */
-	color: rgba(97, 97, 97, 1); /* RGB 97, 97, 97, 1 */
-	margin-bottom: 20px;
-	line-height: 1.5; /* 두 줄로 나누기 위한 적절한 줄 간격 */
-  }
-  
-  .nickname {
-	color: rgba(24, 26, 32, 1); /* RGB 24, 26, 32, 1 */
-	font-weight: 800; /* ExtraBold */
-  }
-  
+	padding: var(--space-4);
+	text-align: left; 
+}
+
+.title {
+	font-size: var(--title-medium);
+	font-weight: var(--font-weight-extraBold); 
+	color: var(--grayscale-700); 
+	margin-bottom: var(--space-5);
+	line-height: 1.5;
+	padding: var(--large) var(--medium); 
+}
+
+.nickname {
+	color: var(--primary); 
+	font-weight: var(--font-weight-extraBold); 
+}
+
+.label {
+	margin-bottom: var(--space-2);
+	text-align: left; 
+	width: 100%; 
+}
+
+.input {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	max-width: 17.5rem;
+	width: 100%;
+	height: var(--space-10-half); 
+	padding: 0 var(--space-5); 
+	border: 1px solid var(--grayscale-400);
+	border-radius: var(--rounded-sm); 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: var(--space-2);
+	transition: all 300ms ease-in-out;
+}
+
+.input::placeholder {
+	color: var(--grayscale-600);
+}
+
+.input:hover, .input:focus, .input:active {
+	border-color: var(--grayscale-700);
+}
+
+.input:hover::placeholder, .input:focus::placeholder, .input:active::placeholder {
+	color: var(--grayscale-900);
+}
+
+.input:disabled {
+	background-color: var(--grayscale-100);
+	border-color: var(--grayscale-300);
+}
+
+.input:disabled::placeholder {
+	color: var(--grayscale-500);
+}
