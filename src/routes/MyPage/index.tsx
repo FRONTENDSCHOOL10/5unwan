@@ -4,10 +4,9 @@ import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import styles from "./index.module.css";
-import MiniButtonT from "@/components/Buttons/SecondaryButton/miniButton";
-import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
 import Input from "@/components/Input/index";
-
+import { SecondaryLargeButton, SecondaryMediumButton, SecondaryMiniButton } from '@/components/Buttons/SecondaryButton';
+import { PrimaryLargeButton, PrimaryMediumButton, PrimaryMiniButton } from '@/components/Buttons/PrimaryButton';
 
 export default function MyPage() {
   const { user, isLoading, isError } = useCurrentUserQuery();
@@ -276,6 +275,18 @@ export default function MyPage() {
           </div>
         </div>
       )}
+      <PrimaryLargeButton onClick={() => console.log('Large Button Clicked')}>
+        큰 버튼 (클릭)
+      </PrimaryLargeButton>
+
+      <PrimaryMediumButton disabled={true}>
+        중간 버튼 (비활성화)
+      </PrimaryMediumButton>
+
+      <PrimaryMiniButton to="/next-page">
+        작은 버튼 (페이지 이동)
+      </PrimaryMiniButton>
     </div>
-  );
+  
+);
 }
