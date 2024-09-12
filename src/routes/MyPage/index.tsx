@@ -2,17 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useState } from "react";
 import styles from "./index.module.css";
-import {
-  PrimaryLargeButton,
-  PrimaryMediumButton,
-  PrimaryMiniButton,
-} from "@/components/Buttons/PrimaryButton/index";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
+import { useCurrentUser } from "@/hooks/user";
 
 export default function MyPage() {
-  const { user, isLoading, isError } = useCurrentUserQuery();
+  const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const { user, logout } = useCurrentUser();
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -23,16 +20,6 @@ export default function MyPage() {
   const [profilePreview, setProfilePreview] = useState(
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
-
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await logout();
-    },
-    onSuccess: () => {
-      queryClient.clear();
-      navigate("/logout-complete");
-    },
-  });
 
   const handleSaveChanges = () => {
     const updateData = {
@@ -45,7 +32,7 @@ export default function MyPage() {
     };
 
     if (user?.id) {
-      updateUserProfile(user.id, updateData).then(() => {
+      updateUserProfile(queryUser.id, updateData).then(() => {
         setIsEditMode(false);
         navigate("/my-page");
       });
@@ -61,11 +48,11 @@ export default function MyPage() {
     }
   };
 
-  const birthDate = user?.dob ? new Date(user.dob) : new Date();
+  const birthDate = queryUser?.dob ? new Date(queryUser.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
 
-  const profileImageUrl = user
-    ? getPbImageUrl(user, user?.avatar || "")
+  const profileImageUrl = queryUser
+    ? getPbImageUrl(queryUser, queryUser?.avatar || "")
     : "/default-profile.png";
 
   if (isLoading) {
@@ -93,7 +80,6 @@ export default function MyPage() {
         <span className={styles["mypage-title"]}>
           {isEditMode ? "프로필 수정" : "마이페이지"}
         </span>
-
 
         {!isEditMode && (
           <svg
@@ -130,7 +116,7 @@ export default function MyPage() {
             <label className={styles["label"]}>아이디</label>
             <input
               type="text"
-              value={user?.email || ""}
+              value={queryUser?.email || ""}
               disabled
               className={styles["input-class"]}
             />
@@ -235,11 +221,11 @@ export default function MyPage() {
               alt="프로필 이미지"
               className={styles.avatar}
             />
-          </div>\
+          </div>
+          \
           <h1 className={styles["main-nickname"]}>
-            {user?.nickname || "사용자 이름"}
+            {queryUser?.nickname || "사용자 이름"}
           </h1>
-
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
@@ -250,8 +236,8 @@ export default function MyPage() {
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
-              {user?.interests && user.interests.length > 0 ? (
-                user.interests.map((interest: string, index: number) => (
+              {queryUser?.interests && queryUser.interests.length > 0 ? (
+                queryUser.interests.map((interest: string, index: number) => (
                   <div key={index} className={styles.interest}>
                     <span>{interest}</span>
                   </div>
@@ -261,10 +247,8 @@ export default function MyPage() {
               )}
             </div>
           </div>
-
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
-
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
