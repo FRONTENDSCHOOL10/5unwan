@@ -280,17 +280,6 @@ export default function MyPage() {
           </div>
         </div>
       )}
-      <PrimaryLargeButton onClick={() => console.log("Large Button Clicked")}>
-        큰 버튼 (클릭)
-      </PrimaryLargeButton>
-
-      <PrimaryMediumButton disabled={true}>
-        중간 버튼 (비활성화)
-      </PrimaryMediumButton>
-
-      <PrimaryMiniButton to="/next-page">
-        작은 버튼 (페이지 이동)
-      </PrimaryMiniButton>
     </div>
   );
 }
