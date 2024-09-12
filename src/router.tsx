@@ -114,7 +114,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                     title: "회원 탈퇴",
                     hideHeader: true,
                     hideGnb: true,
-                  },
+                  } satisfies RouteHandle,
                 },
                 {
                   path: "/delete-complete",
@@ -123,7 +123,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                     title: "회원탈퇴 완료",
                     hideHeader: true,
                     hideGnb: true,
-                  },
+                  } satisfies RouteHandle,
                 },
               ],
             },

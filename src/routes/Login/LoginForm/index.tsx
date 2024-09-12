@@ -1,7 +1,7 @@
 import { loginWithPassword } from "@/api/pocketbase";
 import { useMutation } from "@tanstack/react-query";
 import { ClientResponseError } from "pocketbase";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { Link } from "react-router-dom";
 
 export type LoginFormProps = {
@@ -9,6 +9,7 @@ export type LoginFormProps = {
 };
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       email: "",
@@ -47,10 +48,11 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="email">
+        <label htmlFor={`${id}-email`}>
           <h2 className="sr-only">이메일</h2>
         </label>
         <input
+          id={`${id}-email`}
           name="email"
           type="email"
           placeholder="이메일을 입력해주세요."
@@ -59,10 +61,11 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         />
       </div>
       <div role="group">
-        <label htmlFor="password">
+        <label htmlFor={`${id}-password`}>
           <h2 className="sr-only">비밀번호</h2>
         </label>
         <input
+          id={`${id}-password`}
           name="password"
           type="password"
           placeholder="비밀번호를 입력해주세요"

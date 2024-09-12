@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { interestOptions, ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type OnboardingInterestsFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,6 +14,7 @@ export function OnboardingInterestsForm({
   user,
   currentStep,
 }: OnboardingInterestsFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState<Record<string, boolean>>(() => {
     return (user.interests || []).reduce((acc, val) => {
       acc[val] = true;
@@ -63,6 +64,7 @@ export function OnboardingInterestsForm({
         {interestOptions.map((interestOption) => {
           return (
             <input
+              id={`${id}-${interestOption}`}
               key={interestOption}
               name={interestOption}
               type="checkbox"

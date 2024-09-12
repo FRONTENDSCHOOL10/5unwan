@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type OnboardingWeightFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,6 +14,7 @@ export function OnboardingWeightForm({
   user,
   currentStep,
 }: OnboardingWeightFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       weight: user.weight <= 0 ? "" : String(user.weight),
@@ -50,10 +51,11 @@ export function OnboardingWeightForm({
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="weight">
+        <label htmlFor={`${id}-weight`}>
           <h2 className="sr-only">체중</h2>
         </label>
         <input
+          id={`${id}-weight`}
           name="weight"
           type="text"
           placeholder="70"

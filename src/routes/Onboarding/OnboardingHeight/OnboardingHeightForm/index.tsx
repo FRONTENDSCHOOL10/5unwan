@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type OnboardingHeightFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,6 +14,7 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       height: user.height <= 0 ? "" : String(user.height),
@@ -52,10 +53,11 @@ export function OnboardingHeightForm({
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="height">
+        <label htmlFor={`${id}-height`}>
           <h2 className="sr-only">신장</h2>
         </label>
         <input
+          id={`${id}-height`}
           name="height"
           type="text"
           placeholder="160"
