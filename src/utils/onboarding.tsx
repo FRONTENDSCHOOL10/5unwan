@@ -23,3 +23,12 @@ export function getOnboardingStep(user: User) {
     return "done";
   }
 }
+
+export const interestOptions = [
+  "fitness",
+  "running",
+  "yoga",
+  "pilates",
+  "sport-climbing",
+  "etc",
+];

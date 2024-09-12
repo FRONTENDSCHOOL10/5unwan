@@ -5,8 +5,11 @@ import { Link, Outlet, useMatches } from "react-router-dom";
 
 import SVGIcon from "@/components/SVGicon";
 import iconstyles from "@/components/SVGicon/styles.module.css";
+import { useSetupPocketBaseUser } from "@/hooks/user";
 
 export default function SharedLayout() {
+  useSetupPocketBaseUser();
+
   const matches = useMatches();
   console.log({ matches });
   const hideHeader = matches.some(
@@ -24,7 +27,7 @@ export default function SharedLayout() {
     <div className={styles.container}>
       {/* header */}
       {!hideHeader && <header className={styles.header}>{title}</header>}
-      {/* global navigation bar */}
+      {/* this is the global navigation bar */}
       {!hideGnb && (
         <nav className={styles["gnb-nav"]}>
           <ul>

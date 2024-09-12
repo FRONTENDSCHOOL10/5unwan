@@ -8,7 +8,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { RecordModel, RecordSubscription } from "pocketbase";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function useToday() {
   const [{ today, now, todayMonthStart, todayMonthEnd }] = useState(() => {
@@ -45,13 +45,16 @@ export function useWorkouts({
   const queryClient = useQueryClient();
 
   // https://tanstack.com/query/latest/docs/framework/react/guides/query-keys#array-keys-with-variables
-  const queryKey = [
-    "workouts",
-    {
-      startDay,
-      endDay,
-    },
-  ];
+  const queryKey = useMemo(
+    () => [
+      "workouts",
+      {
+        startDay,
+        endDay,
+      },
+    ],
+    [startDay, endDay]
+  );
 
   const query = useQuery({
     queryKey,
@@ -64,7 +67,7 @@ export function useWorkouts({
   // https://tkdodo.eu/blog/using-web-sockets-with-react-query#partial-data-updates
   // async, await 못함.
   useEffect(() => {
-    const callback: (data: RecordSubscription<RecordModel>) => void = (e) => {
+    const callback: (e: RecordSubscription<RecordModel>) => void = (e) => {
       queryClient.setQueryData(queryKey, (prevWorkouts: Workout[]) => {
         // strictmode때문에 useEffect가 두 번씩 일어나는 현상 발생, 같은 record에서 create가 두 번 발생함. -> 따라서 e.action을 사용하지 않고 다른 방식으로 진행.
         // e.action은 생성인지 수정(업데이트)인지, 삭제인지 알려줌.
@@ -105,7 +108,7 @@ export function useWorkouts({
         unsubscribeFunc();
       });
     };
-  }, [queryClient]);
+  }, [queryClient, endDay, queryKey, startDay]);
 
   const createMutation = useMutation({
     mutationFn: createWorkout,

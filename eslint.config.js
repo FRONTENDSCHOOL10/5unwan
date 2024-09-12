@@ -1,20 +1,20 @@
+// @ts-check
+
 import globals from "globals";
-import parser from "@typescript-eslint/parser";
 import pluginJs from "@eslint/js";
-import pluginTs from "@typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
+import { fixupPluginRules } from "@eslint/compat";
+import tseslint from "typescript-eslint";
 
 // Flat Config (ESLint v9+)
-export default [
-  {
-    root: true,
-    env: { browser: true, es2020: true },
-  },
+export default tseslint.config(
   {
     files: ["**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"],
-    ignorePatterns: ["dist", ".eslintrc.cjs"],
+  },
+  {
+    ignores: ["dist", ".eslintrc.cjs"],
   },
   {
     settings: {
@@ -24,13 +24,12 @@ export default [
     },
     plugins: {
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
+      "react-hooks": fixupPluginRules(pluginReactHooks),
       "react-refresh": pluginReactRefresh,
     },
   },
   {
     languageOptions: {
-      parser,
       globals: {
         ...globals.browser, // globalThis, window, console, alert, ...
         ...globals.node, // global, process, ...
@@ -38,7 +37,7 @@ export default [
     },
   },
   pluginJs.configs.recommended,
-  pluginTs.configs.recommended,
+  ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     rules: {
@@ -58,5 +57,5 @@ export default [
         },
       ],
     },
-  },
-];
+  }
+);

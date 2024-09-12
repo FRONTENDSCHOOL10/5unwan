@@ -7,7 +7,7 @@ import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import styles from "./deleteAccount.module.css";
 
 export default function DeleteAccount() {
-  const { user } = useCurrentUserQuery();
+  const { user } = useCurrentUsegestyle/surQuery();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [password, setPassword] = useState("");

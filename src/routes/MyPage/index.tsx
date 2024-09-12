@@ -1,7 +1,5 @@
-import { useCurrentUserQuery } from "@/hooks/user";
 import { useNavigate } from "react-router-dom";
-import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useState } from "react";
 import styles from "./index.module.css";
 import {
@@ -15,7 +13,6 @@ export default function MyPage() {
   const { user, isLoading, isError } = useCurrentUserQuery();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -96,6 +93,7 @@ export default function MyPage() {
         <span className={styles["mypage-title"]}>
           {isEditMode ? "프로필 수정" : "마이페이지"}
         </span>
+
 
         {!isEditMode && (
           <svg
@@ -237,8 +235,7 @@ export default function MyPage() {
               alt="프로필 이미지"
               className={styles.avatar}
             />
-          </div>
-
+          </div>\
           <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
@@ -250,7 +247,6 @@ export default function MyPage() {
             <div className={styles.divider}></div>
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
-
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
@@ -272,7 +268,7 @@ export default function MyPage() {
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
-            <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
+            <button onClick={logout}>로그아웃</button>
             <br />
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
