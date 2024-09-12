@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useState } from "react";
-import styles from "./myPageModal.module.css";
-import MiniButtonT from "@/components/Buttons/SecondaryButton/miniButton";
-import MediumButton from "@/components/Buttons/PrimaryButton/mediumButton";
+import styles from "./index.module.css";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
+import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
 import { useCurrentUser } from "@/hooks/user";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
   const [height, setHeight] = useState(user?.height || 0);
   const [dob, setDob] = useState(user?.dob || "");
+  const [gender, setGender] = useState<"" | "M" | "F">(user?.gender || "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState(
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
@@ -26,12 +26,14 @@ export default function MyPage() {
       weight,
       height,
       dob,
+      gender,
       avatar: avatarFile || undefined,
     };
 
     if (user?.id) {
       updateUserProfile(user.id, updateData).then(() => {
         setIsEditMode(false);
+        navigate("/my-page");
       });
     }
   };
@@ -63,20 +65,31 @@ export default function MyPage() {
   return (
     <div>
       <div className={styles["mypage-header"]}>
+        {/* 뒤로가기 버튼 추가 */}
+        {isEditMode && (
+          <svg
+            width="20"
+            height="20"
+            className={styles["back-icon"]}
+            onClick={() => setIsEditMode(false)}
+          >
+            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconArrowsLeft"></use>
+          </svg>
+        )}
         <span className={styles["mypage-title"]}>
           {isEditMode ? "프로필 수정" : "마이페이지"}
         </span>
 
-        <svg
-          width="20"
-          height="20"
-          className={styles["edit-icon"]}
-          onClick={() => {
-            setIsEditMode(true);
-          }}
-        >
-          <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
-        </svg>
+        {!isEditMode && (
+          <svg
+            width="20"
+            height="20"
+            className={styles["edit-icon"]}
+            onClick={() => setIsEditMode(true)}
+          >
+            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
+          </svg>
+        )}
       </div>
 
       {isEditMode ? (
@@ -86,7 +99,9 @@ export default function MyPage() {
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
-              className={styles.avatar}
+              className={`${styles.avatar} ${
+                isEditMode ? styles.hoverable : ""
+              }`}
             />
             <input
               type="file"
@@ -96,9 +111,28 @@ export default function MyPage() {
             />
           </label>
 
+          <div className={styles["input-disabled-container"]}>
+            <label className={styles["label"]}>아이디</label>
+            <input
+              type="text"
+              value={user?.email || ""}
+              disabled
+              className={styles["input-class"]}
+            />
+          </div>
+          <div className={styles["input-disabled-container"]}>
+            <label className={styles["label"]}>비밀번호</label>
+            <input
+              type="text"
+              value="고객센터를 통해 변경해주세요."
+              disabled
+              className={styles["input-class"]}
+            />
+          </div>
+
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>몸무게</label>
+            <label className={styles["label"]}>닉네임</label>
             <input
               type="text"
               value={nickname}
@@ -107,9 +141,27 @@ export default function MyPage() {
             />
           </div>
 
-          <div className={styles["gender-container"]}>
-            <MiniButtonT onClick={() => {}}>남자</MiniButtonT>
-            <MiniButtonT onClick={() => {}}>여자</MiniButtonT>
+          {/* 성별 선택 */}
+          <div className={styles["input-container"]}>
+            <label className={styles["label"]}>성별</label>
+            <div className={styles["gender-container"]}>
+              <TertiaryMiniButton
+                onClick={() => setGender("M")}
+                className={`${styles["gender-button"]} ${
+                  gender === "M" ? styles.selected : ""
+                }`}
+              >
+                남자
+              </TertiaryMiniButton>
+              <TertiaryMiniButton
+                onClick={() => setGender("F")}
+                className={`${styles["gender-button"]} ${
+                  gender === "F" ? styles.selected : ""
+                }`}
+              >
+                여자
+              </TertiaryMiniButton>
+            </div>
           </div>
 
           {/* 생년월일 입력 */}
@@ -154,10 +206,9 @@ export default function MyPage() {
           </div>
 
           <div className={styles["button-container"]}>
-            <MediumButton onClick={handleSaveChanges}>저장</MediumButton>
-            <MediumButton onClick={() => setIsEditMode(false)}>
-              취소
-            </MediumButton>
+            <PrimaryLargeButton onClick={handleSaveChanges}>
+              수정완료
+            </PrimaryLargeButton>
           </div>
         </div>
       ) : (
@@ -170,10 +221,10 @@ export default function MyPage() {
               className={styles.avatar}
             />
           </div>
+          \
           <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
-
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
@@ -181,7 +232,6 @@ export default function MyPage() {
             <div className={styles.divider}></div>
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
-
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
@@ -198,7 +248,6 @@ export default function MyPage() {
           </div>
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
-
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>

@@ -26,14 +26,6 @@
 	margin-right: var(--space-8); 
 }
 
-
-/* 버튼 컨테이너 */
-.button-container {
-	display: flex;
-	gap: var(--space-2); /* 버튼 간의 간격 */
-	margin-top: var(--space-5); /* 여백 추가 */
-}
-
 /* 프로필 사진 */
 .avatar-container {
 	display: flex;
@@ -48,6 +40,8 @@
 	height: 7.5rem;
 	border-radius: var(--rounded-full); /* 50% */
 	object-fit: cover;
+	transition: all 0.3s ease; 
+	margin-bottom: var(--space-8);
 }
   
 /* 유저 닉네임 */
@@ -74,7 +68,7 @@
 	border-radius: var(--rounded-md); 
 	box-shadow: var(--box-shadow);
 	padding: 0;
-	margin: 0 auto; /* 부모 안에서 가로 중앙 정렬 */
+	margin: 0 auto;
 }
 
 .stat-item {
@@ -85,7 +79,7 @@
 	font-size: var(--large); 
 	font-weight: var(--font-weight-medium);
 	color: var(--black); 
-	text-align: center; /* 텍스트 중앙 정렬 */
+	text-align: center;
 }
 
 .stat-item span {
@@ -103,11 +97,19 @@
 /* 성별 버튼 컨테이너 */
 .gender-container {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start; 
 	width: 100%; 
 	gap: var(--space-2); 
 	align-items: center; 
+	margin: var(--space-3);
+	margin-bottom: var(--space-3);
 }
+
+.selected {
+	color: var(--primary) !important;
+	border-color: var(--primary) !important;
+  }
+  
 
   /* 편집 모드 콘텐츠 중앙 정렬 */
 .edit-mode-container {
@@ -119,10 +121,10 @@
 	padding: var(--space-5); 
 	margin-top: var(--space-4); 
   }
+
   
   .input-container input {
 	display: flex;
-	justify-content: flex-start;
 	align-items: center;
 	max-width: 17.5rem;
 	width: 100%; 
@@ -134,7 +136,6 @@
 	text-overflow: ellipsis; 
 	margin: var(--space-3);
 	margin-bottom: var(--space-3);
-	transition: all 300ms ease-in-out; 
   
 	&::placeholder {
 	  color: var(--grayscale-600);
@@ -152,15 +153,17 @@
   }
   
   .label {
-	font-size: var(--small); 
+	font-size: var(--basic); 
 	font-weight: var(--font-weight-bold); 
 	color: var(--primary); 
+	width: 100%; 
   }
 
 
   .account-section {
 	padding-left: 1.5rem; 
   }
+
   .account-section h3 {
 	font-size: 1rem; 
 	font-weight: var(--font-weight-bold); 
@@ -189,3 +192,57 @@
 	margin: var(--space-5) 0;
   }
   
+  .interests h3 {
+	font-size: 1rem;
+	font-weight: var(--font-weight-bold);
+	color: var(--primary);
+	margin-bottom: var(--space-3);
+  }
+
+  .interests {
+	padding-left: 1.5rem; 
+	margin-bottom: var(--space-3);
+	margin-top: var(--space-10);
+  }
+
+  .back-icon {
+	position: absolute; 
+    cursor: pointer;
+	left: 0;
+	margin-left: var(--space-8); 
+}
+
+
+.avatar {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: var(--rounded-full); 
+    object-fit: cover;
+    transition: all 0.3s ease; 
+	margin-bottom: var(--space-8);
+}
+
+.hoverable:hover,
+.hoverable:active {
+    border: var(--primary-color);  
+    box-shadow: var(--gnb-shadow); 
+    transform: scale(1.05);  
+	cursor: pointer;
+}
+
+.input-disabled-container input {
+	display: flex;
+	max-width: 17.5rem;
+	width: 100%;
+	height: var(--space-10-half);
+	padding: 0 var(--space-5);
+	border: 1px solid var(--grayscale-400);
+	border-radius: var(--rounded-sm);
+	text-overflow: ellipsis;
+	margin: var(--space-3);
+	margin-bottom: var(--space-3);
+	pointer-events: none; 
+	background-color: var(--grayscale-100);
+	border-color: var(--grayscale-300);
+	color: var(--grayscale-500);
+	}

@@ -1,6 +1,7 @@
 import styles from "./notFound.module.css";
 import { useNavigate } from "react-router-dom";
-import LargeButton from "@/components/Buttons/PrimaryButton/largeButton.tsx";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
+
 
 export default function NotFound() {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ export default function NotFound() {
             <br />
             페이지를 불러올 수 없습니다.
           </h1>
-          <LargeButton onClick={handleGoHome}>홈으로 가기</LargeButton>
+          <PrimaryLargeButton onClick={handleGoHome}>
+            홈으로 가기
+          </PrimaryLargeButton>
         </div>
       </section>
     </>

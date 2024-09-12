@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "@/hooks/user";
 import { deleteUser } from "@/api/pocketbase";
-import LargeButton from "@/components/Buttons/PrimaryButton/largeButton";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import styles from "./deleteAccount.module.css";
 
 export default function DeleteAccount() {
@@ -18,7 +18,7 @@ export default function DeleteAccount() {
     },
     onSuccess: () => {
       queryClient.clear();
-      navigate("/delete-complete"); // 회원탈퇴 성공 시 완료 페이지로 이동
+      navigate("/delete-complete");
     },
     onError: (error) => {
       console.error(error);
@@ -49,13 +49,15 @@ export default function DeleteAccount() {
           placeholder="비밀번호를 입력해주세요."
           className={styles.input}
         />
-        <LargeButton onClick={handleDeleteAccount}>탈퇴하기</LargeButton>
-        <LargeButton
+        <PrimaryLargeButton onClick={handleDeleteAccount}>
+          탈퇴하기
+        </PrimaryLargeButton>
+        <PrimaryLargeButton
           onClick={() => navigate("/my-page")}
           className={styles.cancelButton}
         >
           취소
-        </LargeButton>
+        </PrimaryLargeButton>
       </div>
     </div>
   );
