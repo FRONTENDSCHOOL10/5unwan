@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { OnboardingDobForm } from "@/routes/Onboarding/OnboardingDob/OnboardingDobForm";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 
-export default function OnboardingDob() {
+export function Component() {
   const { user } = useOutletContext<UserContext>();
   const currentRoute = location.pathname.toLowerCase();
   const currentStep = ONBOARDING_STEPS.indexOf(currentRoute);
@@ -24,3 +24,5 @@ export default function OnboardingDob() {
     </div>
   );
 }
+
+Component.displayName = "OnboardingDobRoute";

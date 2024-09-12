@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { OnboardingWeightForm } from "@/routes/Onboarding/OnboardingWeight/OnboardingWeightForm";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 
-export default function OnboardingWeight() {
+export function Component() {
   const { user } = useOutletContext<UserContext>();
   const currentRoute = location.pathname.toLowerCase();
   const currentStep = ONBOARDING_STEPS.indexOf(currentRoute);
@@ -24,3 +24,5 @@ export default function OnboardingWeight() {
     </div>
   );
 }
+
+Component.displayName = "OnboardingWeightRoute";

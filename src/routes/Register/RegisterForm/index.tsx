@@ -1,13 +1,14 @@
 import { createUser } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type RegisterFormProps = {
   onSuccess: () => void | Promise<void>;
 };
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       email: "",
@@ -52,10 +53,11 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="email">
+        <label htmlFor={`${id}-email`}>
           <h2>이메일</h2>
         </label>
         <input
+          id={`${id}-email`}
           name="email"
           type="email"
           placeholder="이메일을 입력"
@@ -64,10 +66,11 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         />
       </div>
       <div role="group">
-        <label htmlFor="password">
+        <label htmlFor={`${id}-password`}>
           <h2>비밀번호</h2>
         </label>
         <input
+          id={`${id}-password`}
           name="password"
           type="password"
           placeholder="8문자 이상, 특수 문자 포함"
@@ -76,10 +79,11 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         />
       </div>
       <div role="group">
-        <label htmlFor="passwordConfirm">
+        <label htmlFor={`${id}-passwordConfirm`}>
           <h2>비밀번호 확인</h2>
         </label>
         <input
+          id={`${id}-passwordConfirm`}
           name="passwordConfirm"
           type="password"
           value={formData.passwordConfirm}

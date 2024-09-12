@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type OnboardingDobFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,6 +14,7 @@ export function OnboardingDobForm({
   user,
   currentStep,
 }: OnboardingDobFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       // TODO: avatar,
@@ -55,30 +56,33 @@ export function OnboardingDobForm({
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="year">
+        <label htmlFor={`${id}-year`}>
           <h2 className="sr-only">연도</h2>
         </label>
         <input
+          id={`${id}-year`}
           name="year"
           type="number"
           placeholder="YYYY"
           value={formData.year}
           onChange={handleUpdateFormData}
         />
-        <label htmlFor="month">
+        <label htmlFor={`${id}-month`}>
           <h2 className="sr-only">월</h2>
         </label>
         <input
+          id={`${id}-month`}
           name="month"
           type="number"
           placeholder="MM"
           value={formData.month}
           onChange={handleUpdateFormData}
         />
-        <label htmlFor="day">
+        <label htmlFor={`${id}-day`}>
           <h2 className="sr-only">일</h2>
         </label>
         <input
+          id={`${id}-day`}
           name="day"
           type="number"
           placeholder="DD"
