@@ -1,5 +1,5 @@
 // https://blog.logrocket.com/using-pocketbase-build-full-stack-app/
-import PocketBase, { OnStoreChangeFunc } from "pocketbase";
+import PocketBase, { ClientResponseError, OnStoreChangeFunc } from "pocketbase";
 const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 
 export type User = {
@@ -75,7 +75,7 @@ export async function refreshCurrentUser() {
     try {
       await pb.collection("users").authRefresh();
     } catch (error) {
-      if ((error as any)?.response?.code === 401) {
+      if ((error as unknown as ClientResponseError)?.response?.code === 401) {
         // NOTE: 1. authStore 클리어 -> 2. pb.authStore.model이 null이 됨 -> 3. pb.authStore.onChange 콜백 실행
         logout();
       } else {
@@ -167,7 +167,7 @@ export async function deleteUser(password: string) {
 
     await pb.collection("users").authWithPassword(user.email, password);
     await pb.collection("users").delete(user.id);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("회원 탈퇴 중 오류 발생:", error);
     throw new Error("회원 탈퇴 중 오류가 발생했습니다.");
   }

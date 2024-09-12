@@ -1,16 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
-import { ONBOARDING_STEPS } from "@/utils/onboarding";
+import { interestOptions, ONBOARDING_STEPS } from "@/utils/onboarding";
 import React, { useState } from "react";
-
-export const interestOptions = [
-  "fitness",
-  "running",
-  "yoga",
-  "pilates",
-  "sport-climbing",
-  "etc",
-];
 
 export type OnboardingInterestsFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -86,8 +77,7 @@ export function OnboardingInterestsForm({
       <button
         type="submit"
         disabled={
-          Object.keys(formData).length === 0 ||
-          updateMutation.isPending
+          Object.keys(formData).length === 0 || updateMutation.isPending
         }
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
