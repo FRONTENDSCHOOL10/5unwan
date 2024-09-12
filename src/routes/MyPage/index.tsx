@@ -9,7 +9,6 @@ import { useCurrentUser } from "@/hooks/user";
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
-  const { user, logout } = useCurrentUser();
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -32,7 +31,7 @@ export default function MyPage() {
     };
 
     if (user?.id) {
-      updateUserProfile(queryUser.id, updateData).then(() => {
+      updateUserProfile(user.id, updateData).then(() => {
         setIsEditMode(false);
         navigate("/my-page");
       });
@@ -48,11 +47,11 @@ export default function MyPage() {
     }
   };
 
-  const birthDate = queryUser?.dob ? new Date(queryUser.dob) : new Date();
+  const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
 
-  const profileImageUrl = queryUser
-    ? getPbImageUrl(queryUser, queryUser?.avatar || "")
+  const profileImageUrl = user
+    ? getPbImageUrl(user, user?.avatar || "")
     : "/default-profile.png";
 
   if (isLoading) {
@@ -116,7 +115,7 @@ export default function MyPage() {
             <label className={styles["label"]}>아이디</label>
             <input
               type="text"
-              value={queryUser?.email || ""}
+              value={user?.email || ""}
               disabled
               className={styles["input-class"]}
             />
@@ -224,7 +223,7 @@ export default function MyPage() {
           </div>
           \
           <h1 className={styles["main-nickname"]}>
-            {queryUser?.nickname || "사용자 이름"}
+            {user?.nickname || "사용자 이름"}
           </h1>
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
@@ -236,8 +235,8 @@ export default function MyPage() {
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
-              {queryUser?.interests && queryUser.interests.length > 0 ? (
-                queryUser.interests.map((interest: string, index: number) => (
+              {user?.interests && user.interests.length > 0 ? (
+                user.interests.map((interest: string, index: number) => (
                   <div key={index} className={styles.interest}>
                     <span>{interest}</span>
                   </div>
