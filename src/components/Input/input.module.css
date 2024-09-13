@@ -92,12 +92,15 @@
 }
 
 .input-search {
-  position: relative;
   display: flex;
   flex-flow: nowrap column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+
+  form {
+    position: relative;
+  }
 
   .search-icon {
     position: absolute;
