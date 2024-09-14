@@ -3,7 +3,8 @@ import { FormEvent, ChangeEvent } from 'react';
 import Input from '@/components/Input';
 
 interface SearchFormProps {
-  search: string;
+  search?: string;
+  value?: string;
   setSearch: (value: string) => void;
   handleSearchList: () => void;
 }

@@ -16,6 +16,13 @@ interface MapBoardProps {
   setMarker: Dispatch<SetStateAction<kakao.maps.Marker | null>>;
 }
 
+interface KakaoMouseEvent {
+  latLng: {
+    getLat: () => number;
+    getLng: () => number;
+  };
+}
+
 const defaultLocation = {
   lat: 37.5709958592808,
   lng: 126.978914477333
@@ -46,37 +53,37 @@ export default function MapBoard({map, setMap, marker, setMarker}:MapBoardProps)
   }, [setMap, setMarker]);
 
   useEffect(() => {
-    if (!map || !marker) return;
+  if (!map || !marker) return;
 
-    const clickListener = (mouseEvent: kakao.maps.event.MouseEvent) => {
-      const geocoder = new window.kakao.maps.services.Geocoder();
+  const clickListener = (mouseEvent: KakaoMouseEvent) => {
+    const geocoder = new window.kakao.maps.services.Geocoder();
 
-      geocoder.coord2Address(
-        mouseEvent.latLng.getLng(),
-        mouseEvent.latLng.getLat(),
-        (result: kakao.maps.services.Address[], status: kakao.maps.services.Status) => {
-          if (status === window.kakao.maps.services.Status.OK) {
-            const addr = result[0].road_address
-              ? result[0].road_address.address_name
-              : result[0].address.address_name;
+    geocoder.coord2Address(
+      mouseEvent.latLng.getLng(),
+      mouseEvent.latLng.getLat(),
+      (result: kakao.maps.services.Address[], status: kakao.maps.services.Status) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const addr = result[0].road_address
+            ? result[0].road_address.address_name
+            : result[0].address.address_name;
 
-            console.log(addr);
+          console.log(addr);
 
-            marker.setMap(null);
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-          }
+          marker.setMap(null);
+          marker.setPosition(mouseEvent.latLng);
+          marker.setMap(map);
         }
-      );
-    };
+      }
+    );
+  };
 
-    window.kakao.maps.event.addListener(map, "click", clickListener);
+  window.kakao.maps.event.addListener(map, "click", clickListener);
 
-    return () => {
-      window.kakao.maps.event.removeListener(map, "click", clickListener);
-    };
+  return () => {
+    window.kakao.maps.event.removeListener(map, "click", clickListener);
+  };
   }, [map, marker]);
-
+  
   function getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(
       getPosSuccess,
