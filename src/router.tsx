@@ -88,6 +88,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   handle: {
                     title: "지도",
                     hideHeader: true,
+                    hideGnb: true,
                   } satisfies RouteHandle,
                 },
                 {
