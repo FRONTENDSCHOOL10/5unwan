@@ -8,7 +8,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noEmit": true,
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "jsx": "react-jsx",
   },
-  "include": ["vite.config.ts", "src/**/*", "types/kakao.maps.d.ts"]
+  "include": ["vite.config.ts"]
 }

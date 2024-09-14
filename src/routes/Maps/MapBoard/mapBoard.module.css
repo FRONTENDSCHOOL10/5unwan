@@ -3,7 +3,7 @@
   overflow: hidden;
 }
 
-button {
+.button-current {
   position: absolute;
   bottom: 1.25rem;
   left: 1.25rem;

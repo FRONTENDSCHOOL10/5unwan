@@ -4,11 +4,18 @@ import { UserContext } from "@/routes/PrivateRoute";
 import styles from './map.module.css';
 import SearchForm from './SearchForm';
 import MapBoard from './MapBoard';
+import SearchList from '@/routes/Maps/SearchList';
 
 export default function Maps() {
   const { user } = useOutletContext<UserContext>();
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [marker, setMarker] = useState<kakao.maps.Marker | null>(null);
+  const [search, setSearch] = useState<string>('');
+  const [showList, setShowList] = useState<boolean>(false);
+
+  function handleSearchList() {
+    setShowList(true);
+  }
 
   return (
     <div className={styles.container}>
@@ -16,8 +23,11 @@ export default function Maps() {
         <p>현재 사용자: {user?.nickname}</p>
         <br />
       </div>
-      <SearchForm />
+      <SearchForm search={search} setSearch={setSearch} handleSearchList={handleSearchList} />
       <MapBoard map={map} setMap={setMap} marker={marker} setMarker={setMarker} />
+      {
+        showList && <SearchList />
+      }
     </div>
   )
 }

@@ -110,7 +110,7 @@ export default function MapBoard({map, setMap, marker, setMarker}:MapBoardProps)
   return (
     <div className={styles.container}>
       <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
-      <button type="button" onClick={getCurrentLocation}>현재위치</button>
+      <button className={styles["button-current"]} type="button" onClick={getCurrentLocation}>현재위치</button>
     </div>
   );
 }
