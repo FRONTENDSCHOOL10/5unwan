@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import styles from './map.module.css';
@@ -6,6 +7,8 @@ import MapBoard from './MapBoard';
 
 export default function Maps() {
   const { user } = useOutletContext<UserContext>();
+  const [map, setMap] = useState<kakao.maps.Map | null>(null);
+  const [marker, setMarker] = useState<kakao.maps.Marker | null>(null);
 
   return (
     <div className={styles.container}>
@@ -14,7 +17,7 @@ export default function Maps() {
         <br />
       </div>
       <SearchForm />
-      <MapBoard />
+      <MapBoard map={map} setMap={setMap} marker={marker} setMarker={setMarker} />
     </div>
   )
 }
