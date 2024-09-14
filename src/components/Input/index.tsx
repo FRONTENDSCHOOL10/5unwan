@@ -1,7 +1,6 @@
 import { useId } from 'react';
 import styles from './input.module.css';
-import SVGIcon from '../SVGicon';
-
+import SVGIcon from '@/components/SVGicon';
 interface InputProps {
   status?: string,
   isDark?: boolean,
@@ -11,6 +10,10 @@ interface InputProps {
   text?: string,
   textHide?: boolean,
   buttonName?: string,
+  value?: string,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  minLength?: number,
+  maxLength?: number,
 }
 
 function getInputStatus(status :string, isDark :boolean) {
@@ -35,8 +38,12 @@ export default function Input({
   isDark = false,
   placeholder = "내용을 입력해 주세요.",
   text = "내용을 입력해 주세요.",
-  textHide = true,
-  buttonName = '버튼'
+  textHide = false,
+  buttonName = '버튼',
+  value,
+  minLength,
+  maxLength,
+  onChange,
 }: InputProps) {
   const searchInputId = useId();
   const textInputId = useId();
@@ -46,20 +53,42 @@ export default function Input({
     return (
       <div className={getInputStatus(status, isDark)}>
         <label htmlFor={searchInputId} className="sr-only">{title}</label>
-        <input type="text" id={searchInputId} className="body-sm-medium" placeholder={placeholder} />
-        <button type="button" className={styles["search-icon"]}>
-          <SVGIcon iconId="iconSearch" width={14} height={14} />
-        </button>
+        <form action="">
+          <input
+            type="text"
+            id={searchInputId}
+            className="body-sm-medium"
+            placeholder={placeholder}
+            value={value}
+            minLength={minLength}
+            maxLength={maxLength}
+            onChange={onChange} />
+          <button type="button" className={styles["search-icon"]}>
+            <SVGIcon iconId="iconSearch" width={14} height={14} />
+          </button>
+        </form>
       </div>
-    );
+    )
   }
 
   if (status === 'disabled') {
     return (
       <div className={getInputStatus(status, isDark)}>
         <label htmlFor={textDisabledInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
-        <input type="text" id={textDisabledInputId} className="body-sm-medium" placeholder={placeholder} disabled />
-        {textHide ? <span className="body-xs">{text}</span> : null}
+        <form>
+          <input
+            type="text"
+            id={searchInputId}
+            className="body-sm-medium"
+            placeholder={placeholder}
+            value={value}
+            minLength={minLength}
+            maxLength={maxLength}
+            onChange={onChange}
+            disabled
+          />
+          <span className={textHide ? "sr-only" : "body-xs"}>{text}</span>
+        </form>
       </div>
     );
   }
@@ -69,10 +98,19 @@ export default function Input({
       <div className={getInputStatus(status, isDark)}>
         <label htmlFor={textInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
         <form>
-          <input type="text" id={textInputId} className="body-sm-medium" placeholder={placeholder} />
+          <input
+            type="text"
+            id={searchInputId}
+            className="body-sm-medium"
+            placeholder={placeholder}
+            value={value}
+            minLength={minLength}
+            maxLength={maxLength}
+            onChange={onChange}
+          />
           <button type="button" className="body-sm-medium">{buttonName}</button>
+          <span className={textHide ? "sr-only" : "body-xs"}>{text}</span>
         </form>
-        {textHide ? <span className="body-xs">{text}</span> : null}
       </div>
     );
   }
@@ -80,8 +118,10 @@ export default function Input({
   return (
     <div className={getInputStatus(status, isDark)}>
       <label htmlFor={textInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
-      <input type="text" id={textInputId} className="body-sm-medium" placeholder={placeholder} />
-      {textHide ? <span className="body-xs">{text}</span> : null}
+      <form>
+        <input type="text" id={textInputId} className="body-sm-medium" placeholder={placeholder} onChange={onChange} />
+        <span className={textHide ? "sr-only" : ''}>{text}</span>
+      </form>
     </div>
   );
 }
