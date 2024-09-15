@@ -6,6 +6,7 @@ import { endOfMonth, format, startOfMonth } from "date-fns";
 import { Workout } from "@/api/pocketbaseWorkouts";
 import { DayContent, DayContentProps, DayPicker } from "react-day-picker";
 import { ko } from "date-fns/locale";
+import styles from "./calendar.module.css";
 
 export default function Calendar() {
   const { user } = useOutletContext<UserContext>();
@@ -69,11 +70,16 @@ export default function Calendar() {
   }, [workoutsByDay]);
 
   return (
-    <div>
-      <p>현재 사용자: {user?.nickname}</p>
-      <br />
-      <span>캘린더</span>
-
+    <div className={styles.container}>
+      <span>{user.email}</span>
+      <h1 className="body-xl-bold">
+        운동기록과
+        <br />
+        출석률을 확인해보세요.
+      </h1>
+      <div role="group">
+        <span className="heading-6">{}% 출석중</span>
+      </div>
       <div style={{ padding: "0 1rem" }}>
         <div
           style={{
