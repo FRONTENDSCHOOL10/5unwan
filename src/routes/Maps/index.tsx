@@ -8,8 +8,6 @@ import SearchList from '@/routes/Maps/SearchList';
 
 export default function Maps() {
   const { user } = useOutletContext<UserContext>();
-  const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [marker, setMarker] = useState<kakao.maps.Marker | null>(null);
   const [search, setSearch] = useState<string>('');
   const [showList, setShowList] = useState<boolean>(false);
 
@@ -24,10 +22,10 @@ export default function Maps() {
         <br />
       </div>
       <SearchForm search={search} setSearch={setSearch} handleSearchList={handleSearchList} />
-      <MapBoard map={map} setMap={setMap} marker={marker} setMarker={setMarker} />
       {
         showList && <SearchList />
       }
+      <MapBoard />
     </div>
   )
 }
