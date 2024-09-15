@@ -58,20 +58,22 @@ export function OnboardingInterestsForm({
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="interests">
-          <h2 className="sr-only">관심 운동</h2>
-        </label>
         {interestOptions.map((interestOption) => {
           return (
-            <input
-              id={`${id}-${interestOption}`}
-              key={interestOption}
-              name={interestOption}
-              type="checkbox"
-              value={interestOption}
-              checked={formData[interestOption]}
-              onChange={handleUpdateFormData}
-            />
+            <div key={interestOption}>
+              <label htmlFor={`${id}-${interestOption}`}>
+                <h2 className="sr-only">관심 운동</h2>
+              </label>
+              <input
+                id={`${id}-${interestOption}`}
+                key={interestOption}
+                name={interestOption}
+                type="checkbox"
+                value={interestOption}
+                checked={formData[interestOption]}
+                onChange={handleUpdateFormData}
+              />
+            </div>
           );
         })}
       </div>
