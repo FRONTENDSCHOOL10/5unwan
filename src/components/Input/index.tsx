@@ -1,6 +1,8 @@
 import { useId } from 'react';
 import styles from './input.module.css';
 import SVGIcon from '@/components/SVGicon';
+import {PrimaryMiniButton} from "@/components/Buttons/PrimaryButton/index";
+
 interface InputProps {
   status?: string,
   isDark?: boolean,
@@ -12,6 +14,7 @@ interface InputProps {
   buttonName?: string,
   value?: string,
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void,
   minLength?: number,
   maxLength?: number,
 }
@@ -44,6 +47,7 @@ export default function Input({
   minLength,
   maxLength,
   onChange,
+  onSubmit,
 }: InputProps) {
   const searchInputId = useId();
   const textInputId = useId();
@@ -52,8 +56,8 @@ export default function Input({
   if (status === 'search') {
     return (
       <div className={getInputStatus(status, isDark)}>
-        <label htmlFor={searchInputId} className="sr-only">{title}</label>
-        <form action="">
+        <form action="" onSubmit={onSubmit}>
+          <label htmlFor={searchInputId} className="sr-only">{title}</label>
           <input
             type="text"
             id={searchInputId}
@@ -63,7 +67,7 @@ export default function Input({
             minLength={minLength}
             maxLength={maxLength}
             onChange={onChange} />
-          <button type="button" className={styles["search-icon"]}>
+          <button type="submit" className={styles["search-icon"]}>
             <SVGIcon iconId="iconSearch" width={14} height={14} />
           </button>
         </form>
@@ -74,8 +78,8 @@ export default function Input({
   if (status === 'disabled') {
     return (
       <div className={getInputStatus(status, isDark)}>
-        <label htmlFor={textDisabledInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
-        <form>
+        <form onSubmit={onSubmit}>
+          <label htmlFor={textDisabledInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
           <input
             type="text"
             id={searchInputId}
@@ -96,19 +100,21 @@ export default function Input({
   if (status === 'button') {
     return (
       <div className={getInputStatus(status, isDark)}>
-        <label htmlFor={textInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
-        <form>
-          <input
-            type="text"
-            id={searchInputId}
-            className="body-sm-medium"
-            placeholder={placeholder}
-            value={value}
-            minLength={minLength}
-            maxLength={maxLength}
-            onChange={onChange}
-          />
-          <button type="button" className="body-sm-medium">{buttonName}</button>
+        <form onSubmit={onSubmit}>
+          <label htmlFor={textInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
+          <div className={styles["input-wrapper"]}>
+            <input
+              type="text"
+              id={searchInputId}
+              className="body-sm-medium"
+              placeholder={placeholder}
+              value={value}
+              minLength={minLength}
+              maxLength={maxLength}
+              onChange={onChange}
+            />
+            <PrimaryMiniButton type="submit">{ buttonName }</PrimaryMiniButton>
+          </div>
           <span className={textHide ? "sr-only" : "body-xs"}>{text}</span>
         </form>
       </div>
@@ -118,7 +124,7 @@ export default function Input({
   return (
     <div className={getInputStatus(status, isDark)}>
       <label htmlFor={textInputId} className={titleHide ? "sr-only" : ''}>{title}</label>
-      <form>
+      <form onSubmit={onSubmit}>
         <input type="text" id={textInputId} className="body-sm-medium" placeholder={placeholder} onChange={onChange} />
         <span className={textHide ? "sr-only" : ''}>{text}</span>
       </form>
