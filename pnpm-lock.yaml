@@ -87,6 +87,9 @@ importers:
       globals:
         specifier: ^15.8.0
         version: 15.9.0
+      kakao.maps.d.ts:
+        specifier: 0.1.40
+        version: 0.1.40
       typescript:
         specifier: ^5.2.2
         version: 5.5.4
