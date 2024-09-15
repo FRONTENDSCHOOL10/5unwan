@@ -9,6 +9,7 @@ import SearchList from '@/routes/Maps/SearchList';
 interface MarkerTypes {
   position: { lat: number, lng: number };
   content: string;
+  address?: string;  // 상세 주소를 추가
 }
 interface StateTypes {
   center: { lat: number; lng: number };
@@ -38,35 +39,87 @@ export default function Maps() {
     setShowList(true);
   }
 
-  useEffect(() => {
-    if (!map) return
-    const ps = new kakao.maps.services.Places();
+  // 좌표로 상세 주소를 가져오는 함수
+  function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
+    const geocoder = new (window as any).kakao.maps.services.Geocoder();
+    const coord = new (window as any).kakao.maps.LatLng(lat, lng);
 
-    ps.keywordSearch(`${search}`, (data: any, status: any, _pagination: any) => {
-      // if (status === kakao.maps.services.Status.OK) {
+    geocoder.coord2Address(lng, lat, function(result: any, status: any) {
       if (status === (window as any).kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
+        const detailAddr = result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+        callback(detailAddr);
+      }
+    });
+  }
+
+    useEffect(() => {
+    if (!map) return;
+    const ps = new (window as any).kakao.maps.services.Places();
+
+    ps.keywordSearch(`${search}`, (data: any, status: any) => {
+      if (status === (window as any).kakao.maps.services.Status.OK) {
         const bounds = new (window as any).kakao.maps.LatLngBounds();
-        const markers: MarkerTypes[] = [];
+        const newMarkers: MarkerTypes[] = [];
 
-        for (let i = 0; i < data.length; i++) {
-          markers.push({
+        data.forEach((place: any, index: number) => {
+          const marker = {
             position: {
-              lat: parseFloat(data[i].y),  // 문자열로 반환된 위도 값을 숫자로 변환
-              lng: parseFloat(data[i].x),  // 문자열로 반환된 경도 값을 숫자로 변환
+              lat: parseFloat(place.y),
+              lng: parseFloat(place.x),
             },
-            content: data[i].place_name,
-          })
-          bounds.extend(new (window as any).kakao.maps.LatLng(parseFloat(data[i].y), parseFloat(data[i].x)));
-        }
-        setMarkers(markers);
+            content: place.place_name,
+            address: ''  // 기본적으로 빈 값으로 설정
+          };
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        map.setBounds(bounds);
+          // 각 마커의 좌표로부터 주소를 가져오고, markers에 추가
+          getAddressFromCoords(marker.position.lat, marker.position.lng, (address) => {
+            marker.address = address;
+            setMarkers((prevMarkers) => {
+              const updatedMarkers = [...prevMarkers];
+              updatedMarkers[index] = marker;  // 해당 마커 업데이트
+              return updatedMarkers;
+            });
+          });
+
+          bounds.extend(new (window as any).kakao.maps.LatLng(marker.position.lat, marker.position.lng));
+          newMarkers.push(marker);
+        });
+
+        setMarkers(newMarkers);
+        map.setBounds(bounds);  // 지도 범위 설정
       }
     });
   }, [map, search]);
+
+  // useEffect(() => {
+  //   if (!map) return
+  //   const ps = new kakao.maps.services.Places();
+
+  //   ps.keywordSearch(`${search}`, (data: any, status: any, _pagination: any) => {
+  //     // if (status === kakao.maps.services.Status.OK) {
+  //     if (status === (window as any).kakao.maps.services.Status.OK) {
+  //       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+  //       // LatLngBounds 객체에 좌표를 추가합니다
+  //       const bounds = new (window as any).kakao.maps.LatLngBounds();
+  //       const markers: MarkerTypes[] = [];
+
+  //       for (let i = 0; i < data.length; i++) {
+  //         markers.push({
+  //           position: {
+  //             lat: parseFloat(data[i].y),  // 문자열로 반환된 위도 값을 숫자로 변환
+  //             lng: parseFloat(data[i].x),  // 문자열로 반환된 경도 값을 숫자로 변환
+  //           },
+  //           content: data[i].place_name,
+  //         })
+  //         bounds.extend(new (window as any).kakao.maps.LatLng(parseFloat(data[i].y), parseFloat(data[i].x)));
+  //       }
+  //       setMarkers(markers);
+
+  //       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+  //       map.setBounds(bounds);
+  //     }
+  //   });
+  // }, [map, search]);
 
   return (
     <div className={styles.container}>

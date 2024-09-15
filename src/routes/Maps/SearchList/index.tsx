@@ -3,7 +3,8 @@ import styles from './searchList.module.css';
 interface SearchListProps {
   markers: {
     position: { lat: number, lng: number },
-    content: string
+    content: string,
+    address?: string,
   }[];
   setState: React.Dispatch<React.SetStateAction<{
     center: { lat: number; lng: number };
@@ -22,18 +23,21 @@ export default function SearchList({ markers, setState }: SearchListProps) {
   }
 
   return (
-    <div className={styles.container}>
-      <h3>검색 결과</h3>
-      <ul>
+    <div className={`${styles.container} no-scroll`}>
+      <ul className={styles["result-list"]}>
         {
           markers.length > 0 ? (
           markers.map((marker, index) => (
             <li
               key={index}
-              onClick={() => handleMapMarker(marker.position)}
+              className={styles["result-items"]}
             >
-              <h3>{index + 1}</h3>
-              <p>{marker.content}</p>
+              <div className={styles.content} onClick={() => handleMapMarker(marker.position)}>
+                <h2 className={styles.title}>{marker.content}</h2>
+                <p className="ellipsis">{marker.address || '주소를 가져오는 중...'}</p>
+              </div>
+              <span className={styles.number}>{index + 1}</span>
+              <button type="button" className={`${styles.favorite} ${styles["is-active"]}`}></button>
             </li>
           ))
         ) : (
