@@ -8,8 +8,8 @@
   bottom: 1.5rem;
   left: 1rem;
   z-index: 100;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border: 1px solid var(--primary);
   border-radius: 50%;
   background-image: url('https://cdn-icons-png.flaticon.com/512/5055/5055654.png');
@@ -21,4 +21,28 @@
   &:hover {
     opacity: 0.7;
   }
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  height: auto !important;
+  white-space: nowrap;
+  color: var(--primary);
+  gap: var(--space-2);
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--white);
+  background-color: var(--secondary);
+  border-radius: 50%;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
