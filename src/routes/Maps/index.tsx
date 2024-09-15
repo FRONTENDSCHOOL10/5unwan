@@ -42,7 +42,7 @@ export default function Maps() {
   // 좌표로 상세 주소를 가져오는 함수
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
     const geocoder = new (window as any).kakao.maps.services.Geocoder();
-    const coord = new (window as any).kakao.maps.LatLng(lat, lng);
+    // const coord = new (window as any).kakao.maps.LatLng(lat, lng);
 
     geocoder.coord2Address(lng, lat, function(result: any, status: any) {
       if (status === (window as any).kakao.maps.services.Status.OK) {
@@ -131,7 +131,7 @@ export default function Maps() {
       {
         showList && <SearchList markers={markers} setState={setState} />
       }
-      <MapBoard markers={markers} setMap={setMap} search={search} state={state} setState={setState} defaultLocation={defaultLocation} />
+      <MapBoard markers={markers} map={map} setMap={setMap} search={search} state={state} setState={setState} defaultLocation={defaultLocation} />
     </div>
   )
 }

@@ -12,6 +12,7 @@ interface MapBoardProps {
     position: { lat: number, lng: number },
     content: string
   }[];
+  map: any;
   setMap?: (map: any) => void;
   search?: string;
   state: {
@@ -30,7 +31,7 @@ interface MapBoardProps {
   };
 }
 
-export default function MapBoard({ markers, setMap, search, state, setState, defaultLocation } :MapBoardProps) {
+export default function MapBoard({ markers, map, setMap, search, state, setState, defaultLocation } :MapBoardProps) {
   function getCurrentLocation() {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -62,9 +63,9 @@ export default function MapBoard({ markers, setMap, search, state, setState, def
       }));
     }
   }
-  // Kakao Maps Service 객체와 인포윈도우를 선언합니다.
+  // Kakao Maps Service 객체와 인포윈도우를 선언
   const geocoder = new (window as any).kakao.maps.services.Geocoder();
-  const infowindow = new (window as any).kakao.maps.InfoWindow({ zIndex: 1 });
+  const infoWindow = new (window as any).kakao.maps.InfoWindow({ zIndex: 1 });
 
   // 좌표로부터 상세 주소를 가져오는 함수
   function searchDetailAddrFromCoords(coords: any, callback: any) {
@@ -72,29 +73,29 @@ export default function MapBoard({ markers, setMap, search, state, setState, def
   }
 
   function handleMapClick(mouseEvent: any) {
-    const latlng = mouseEvent.latLng;
+    const latLng = mouseEvent.latLng;
 
     // 좌표를 바탕으로 상세 주소 요청
-    searchDetailAddrFromCoords(latlng, function(result: any, status: any) {
+    searchDetailAddrFromCoords(latLng, function(result: any, status: any) {
       if (status === (window as any).kakao.maps.services.Status.OK) {
-        const detailAddr = result[0].road_address ? `도로명 주소: ${result[0].road_address.address_name}` : '';
-        const jibunAddr = `지번 주소: ${result[0].address.address_name}`;
+        const RoadNameAddress = result[0].road_address ? `도로명 주소: ${result[0].road_address.address_name}` : '';
+        const lotNumberAddress = `지번 주소: ${result[0].address.address_name}`;
         const content = `
           <div style="padding:5px;">
             <div>법정동 주소정보:</div>
-            <div>${detailAddr}</div>
-            <div>${jibunAddr}</div>
+            <div>${RoadNameAddress}</div>
+            <div>${lotNumberAddress}</div>
           </div>
         `;
 
         // 클릭한 위치에 마커를 표시하고 인포윈도우를 엽니다.
         const marker = new (window as any).kakao.maps.Marker({
-          position: latlng
+          position: latLng
         });
         marker.setMap(map);  // 마커를 지도에 표시
 
-        infowindow.setContent(content);  // 인포윈도우에 주소를 표시
-        infowindow.open(map, marker);  // 인포윈도우를 지도에 표시
+        infoWindow.setContent(content);  // 인포윈도우에 주소를 표시
+        infoWindow.open(map, marker);  // 인포윈도우를 지도에 표시
       }
     });
   }
