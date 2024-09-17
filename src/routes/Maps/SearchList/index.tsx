@@ -1,25 +1,27 @@
+import useMapStore from '@/stores/mapStore';
 import styles from './searchList.module.css';
 
-interface SearchListProps {
-  markers: {
-    position: { lat: number, lng: number },
-    content: string,
-    address?: string,
-  }[];
-  setState: React.Dispatch<React.SetStateAction<{
-    center: { lat: number; lng: number };
-    errMsg: string | null;
-    isLoading: boolean;
-  }>>;
-}
+// interface SearchListProps {
+//   markers: {
+//     position: { lat: number, lng: number },
+//     content: string,
+//     address?: string,
+//   }[];
+// }
 
-export default function SearchList({ markers, setState }: SearchListProps) {
-  function handleMapMarker(position: { lat: number, lng: number }) {
+export default function SearchList() {
+  const mapStore = useMapStore();
+  const setState = mapStore.setState;
+  const markers = mapStore.markers;
+  const setSelectedMarkerContent = mapStore.setSelectedMarkerContent;
+
+  function handleMapMarker(position: { lat: number, lng: number }, content: string) {
     setState(() => ({
       center: position,
       errMsg: null,
       isLoading: false
     }));
+    setSelectedMarkerContent(content);
   }
 
   return (
@@ -32,7 +34,7 @@ export default function SearchList({ markers, setState }: SearchListProps) {
               key={index}
               className={styles["result-items"]}
             >
-              <div className={styles.content} onClick={() => handleMapMarker(marker.position)}>
+              <div className={styles.content} onClick={() => handleMapMarker(marker.position, marker.content)}>
                 <h2 className={styles.title}>{marker.content}</h2>
                 <p className="ellipsis">{marker.address || '주소를 가져오는 중...'}</p>
               </div>
