@@ -83,7 +83,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         </li>
 
         <li className={styles["list-category"]}>
-          <title>운동 종류</title>
+          <title className="body-md-bold">운동 종류</title>
           <section>
             {categories.map((cat) => {
               const buttonClassName = classNames('body-sm-medium', {
@@ -105,7 +105,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         </li>
 
         <li className={styles["list-time"]}>
-          <title>운동 시간</title>
+          <title className="body-md-bold">운동 시간</title>
           <section>
             <input
               className="body-sm-medium"
@@ -116,7 +116,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               onChange={handleUpdateFormData}
               required
               />
-            <p className="body-md-bold">부터</p>
+            <p className="body-sm-bold">부터</p>
             <input
               className="body-sm-medium"
               id={`${id}-end`}
@@ -126,12 +126,12 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               onChange={handleUpdateFormData}
               required
               />
-            <p className="body-md-bold">까지</p>
+            <p className="body-sm-bold">까지</p>
           </section>
         </li>
 
         <li className={styles["list-title"]}>
-          <title>제목</title>
+          <title className="body-md-bold">제목</title>
           <input
             id={`${id}-title`}
             type="text"
@@ -143,7 +143,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         </li>
 
         <li className={styles["list-content"]}>
-          <title>내용</title>
+          <title className="body-md-bold">내용</title>
           <textarea
             id={`${id}-content`}
             name="content"
