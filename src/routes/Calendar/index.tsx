@@ -13,6 +13,7 @@ import {
 } from "react-day-picker";
 import { ko } from "date-fns/locale";
 import styles from "./calendar.module.css";
+import { getPbImageUrl } from "@/api/pocketbase";
 
 export default function Calendar() {
   // const { user } = useOutletContext<UserContext>();
@@ -131,6 +132,11 @@ export default function Calendar() {
             <div key={workout.id}>
               <h2>{workout.title}</h2>
               <p>{workout.content}</p>
+              {workout.photo ? (
+                <img src={getPbImageUrl(workout, workout.photo)!} />
+              ) : (
+                <span>no-photo</span>
+              )}
             </div>
           ))}
         </>
