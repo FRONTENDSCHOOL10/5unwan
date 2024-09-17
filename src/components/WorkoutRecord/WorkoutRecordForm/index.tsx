@@ -6,6 +6,8 @@ import styles from "./workoutRecordModal.module.css";
 import classNames from "classnames";
 import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
 import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
+// import Input from '@/components/Input';
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 const categories = ["헬스", "런닝", "테니스", "클라이밍", "요가", "배드민턴", "기타"];
 
@@ -15,6 +17,8 @@ export type WorkoutRecordFormProps = {
 };
 
 export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProps) {
+  const { isDark } = useDarkMode(); // Use DarkMode context
+
   const id = useId();
   const { user } = useCurrentUser();
 
@@ -56,9 +60,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     await createWorkoutMutation.mutateAsync(newWorkout);
   };
 
-  const handleUpdateFormData: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
-    e
-  ) => {
+  const handleUpdateFormData: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -75,9 +77,8 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
   const [day] = useState(new Date().toISOString().split('T')[0]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul className={styles["content"]}>
-
+    <form onSubmit={handleSubmit} className={classNames(styles.content, { [styles["is-dark"]]: isDark })}>
+      <ul className={classNames(styles.content)}>
         <li className={styles["list-day"]}>
           <p className={`body-md-bold ${styles["list-day"]}`}>{day}</p>
         </li>
@@ -115,7 +116,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               value={formData.start}
               onChange={handleUpdateFormData}
               required
-              />
+            />
             <p className="body-sm-bold">부터</p>
             <input
               className="body-sm-medium"
@@ -125,7 +126,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               value={formData.end}
               onChange={handleUpdateFormData}
               required
-              />
+            />
             <p className="body-sm-bold">까지</p>
           </section>
         </li>
@@ -140,6 +141,16 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             value={formData.title}
             onChange={handleUpdateFormData}
           />
+          {/* Input 컴포넌트 사용 시 onChange가 안먹히는지
+              버튼 disabled가 풀리지 않아요.  */}
+          {/* <Input
+            title="Test Input"
+            isDark={isDark}
+            placeholder="제목을 입력해 주세요"
+            onChange={handleUpdateFormData}
+            textHide
+            titleHide
+          /> */}
         </li>
 
         <li className={styles["list-content"]}>
