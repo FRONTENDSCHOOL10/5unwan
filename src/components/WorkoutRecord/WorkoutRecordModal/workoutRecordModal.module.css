@@ -22,16 +22,10 @@
 .inner {
   overflow-y: scroll;
   padding: 1rem;
-<<<<<<< Updated upstream
   border-top-left-radius: var(--rounded-md);
   border-top-right-radius: var(--rounded-md);
   flex: 1 1 0%;
   
-=======
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  flex: 1 1 0%;
->>>>>>> Stashed changes
   &::-webkit-scrollbar{
     display: none;
   }
@@ -47,8 +41,4 @@
   flex-shrink: 0;
   border-radius: 9999px;
   background-color: var(--grayscale-300);
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
