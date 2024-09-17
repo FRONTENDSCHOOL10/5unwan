@@ -116,3 +116,9 @@ input, textarea {
     width: 100%;
   }
 }
+
+.is-dark {
+  & title {
+    color: red;
+  }
+}

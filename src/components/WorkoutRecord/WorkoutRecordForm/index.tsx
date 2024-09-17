@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
 import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
 // import Input from '@/components/Input';
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 const categories = ["헬스", "런닝", "테니스", "클라이밍", "요가", "배드민턴", "기타"];
 
@@ -16,6 +17,8 @@ export type WorkoutRecordFormProps = {
 };
 
 export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProps) {
+  const { isDark } = useDarkMode(); // Use DarkMode context
+
   const id = useId();
   const { user } = useCurrentUser();
 
@@ -74,7 +77,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
   const [day] = useState(new Date().toISOString().split('T')[0]);
 
   return (
-    <form onSubmit={handleSubmit} className={classNames(styles.content)}>
+    <form onSubmit={handleSubmit} className={classNames(styles.content, { [styles["is-dark"]]: isDark })}>
       <ul className={classNames(styles.content)}>
         <li className={styles["list-day"]}>
           <p className={`body-md-bold ${styles["list-day"]}`}>{day}</p>

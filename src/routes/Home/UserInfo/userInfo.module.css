@@ -39,3 +39,9 @@
     height: 100%;
   }
 }
+
+.is-dark {
+  &.wrapper {
+    color: red;
+  }
+}
