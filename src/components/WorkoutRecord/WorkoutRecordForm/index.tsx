@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useId, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { createWorkout } from "@/api/pocketbaseWorkouts";
@@ -10,12 +11,19 @@ import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 const categories = ["헬스", "런닝", "테니스", "클라이밍", "요가", "배드민턴", "기타"];
+=======
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { createWorkout } from "@/api/pocketbaseWorkouts";
+import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
+>>>>>>> Stashed changes
 
 export type WorkoutRecordFormProps = {
   onSuccess: () => void | Promise<void>;
   onCancel: () => void;
 };
 
+<<<<<<< Updated upstream
 export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProps) {
   const { isDark } = useDarkMode(); // Use DarkMode context
 
@@ -30,6 +38,19 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     end: "",
     title: "",
     content: "",
+=======
+export function WorkoutRecordForm( { onSuccess }: WorkoutRecordFormProps) {
+  const [formData, setFormData] = useState(() => {
+    return {
+      day: "",
+      category: "",
+      start: "",
+      end: "",
+      title: "",
+      content: "",
+      photos: [],
+    }
+>>>>>>> Stashed changes
   });
 
   const createWorkoutMutation = useMutation({
@@ -39,14 +60,20 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+<<<<<<< Updated upstream
 
     const { user, day, category, start, end, title, content } = formData;
 
     if (!user || !day || !category.length || !start || !end || !title || !content) {
+=======
+    
+    if ( !formData.day || !formData.category || !formData.start || !formData.end  || !formData.title  || !formData.content ) {
+>>>>>>> Stashed changes
       alert("모든 내용을 입력해주세요.");
       return;
     }
 
+<<<<<<< Updated upstream
     const newWorkout = {
       user,
       day,
@@ -61,10 +88,19 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
   };
 
   const handleUpdateFormData: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
+=======
+    // createWorkout API 호출
+    await createWorkoutMutation.mutateAsync(formData);
+  };
+
+  // 폼 입력 값 업데이트
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
+>>>>>>> Stashed changes
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+<<<<<<< Updated upstream
   const handleUpdateCategory = (value: string) => {
     setFormData((prev) => {
       const newCategory = prev.category.includes(value)
@@ -194,6 +230,106 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
           취소하기
         </SecondaryMediumButton>
       </div>
+=======
+  // 사진 업로드 핸들러
+  const handlePhotoChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => {
+      return { ...prevFormData, [name]: value };
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* 날짜 */}
+      <input
+        type="date"
+        name="day"
+        value={formData.day}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 카테고리 */}
+      <input
+        type="text"
+        name="category"
+        placeholder="운동 종류 (헬스, 클라이밍, 배드민턴)"
+        value={formData.category}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 시작 시간 */}
+      <input
+        type="time"
+        name="start"
+        value={formData.start}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 종료 시간 */}
+      <input
+        type="time"
+        name="end"
+        value={formData.end}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 제목 */}
+      <input
+        type="text"
+        name="title"
+        placeholder="운동 제목"
+        value={formData.title}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 내용 */}
+      <textarea
+        name="content"
+        placeholder="운동 내용"
+        value={formData.content}
+        onChange={handleInputChange}
+        required
+      />
+
+      {/* 사진 업로드 */}
+      <input
+        type="file"
+        name="photos"
+        multiple
+        onChange={handlePhotoChange}
+      />
+
+      {/* 제출 버튼 */}
+      <PrimaryMediumButton
+        type="submit"
+        disabled={
+          !formData.day ||
+          !formData.category ||
+          !formData.start ||
+          !formData.end ||
+          !formData.title ||
+          !formData.content ||
+          createWorkoutMutation.isPending
+        }
+      >
+        등록하기
+      </PrimaryMediumButton>
+      <PrimaryMediumButton
+        // type="button" 
+        // onClick={onCancel}
+      >
+        취소하기
+      </PrimaryMediumButton>
+>>>>>>> Stashed changes
     </form>
   );
 }

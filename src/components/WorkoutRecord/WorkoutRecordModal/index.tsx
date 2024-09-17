@@ -8,6 +8,11 @@ import styles from "@/components/WorkoutRecord/WorkoutRecordModal/workoutRecordM
 import SVGIcon from "@/components/SVGicon";
 import iconstyles from "@/components/SVGicon/styles.module.css";
 
+<<<<<<< Updated upstream
+=======
+import CurrentDate from "./CurrentDate";
+
+>>>>>>> Stashed changes
 export function WorkoutRecordModal() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -27,6 +32,7 @@ export function WorkoutRecordModal() {
             <span className={styles.handle}></span>
               <Drawer.Title>
                 <p className="body-xl-bold">득근 기록하기</p>
+                <CurrentDate/>
                 <br />
               </Drawer.Title>
                 <WorkoutRecordForm
