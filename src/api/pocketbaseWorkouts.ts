@@ -22,7 +22,7 @@ export type NewWorkout = {
   end: string;
   title: string;
   content: string;
-  photos: File[];
+  photos?: File[];
 };
 
 export type UpdateWorkout = {
