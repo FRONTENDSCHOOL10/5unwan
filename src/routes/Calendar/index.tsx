@@ -1,15 +1,21 @@
-import { useOutletContext } from "react-router-dom";
-import { UserContext } from "@/routes/PrivateRoute";
+// import { useOutletContext } from "react-router-dom";
+// import { UserContext } from "@/routes/PrivateRoute";
 import { useToday, useWorkouts } from "@/hooks/useWorkouts";
 import React, { useMemo, useState } from "react";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { Workout } from "@/api/pocketbaseWorkouts";
-import { DayContent, DayContentProps, DayPicker } from "react-day-picker";
+import {
+  DayContent,
+  DayContentProps,
+  DayPicker,
+  CaptionProps,
+  useNavigation,
+} from "react-day-picker";
 import { ko } from "date-fns/locale";
 import styles from "./calendar.module.css";
 
 export default function Calendar() {
-  const { user } = useOutletContext<UserContext>();
+  // const { user } = useOutletContext<UserContext>();
   const {
     now,
     currentMonthStart,
@@ -100,9 +106,14 @@ export default function Calendar() {
         weekStartsOn={1}
         locale={ko}
         formatters={{
-          formatMonthCaption: (date: Date) => format(date, "MMM"),
+          // formatMonthCaption: (date: Date) => format(date, "MMM"),
+          formatWeekdayName: (date: Date, options) => {
+            return <span>{format(date, "EEE", options)}</span>;
+          },
         }}
         components={{
+          Caption: CustomCaptionComponent,
+
           DayContent: CustomDayContent as
             | ((props: DayContentProps) => JSX.Element | null)
             | undefined,
@@ -125,5 +136,30 @@ export default function Calendar() {
         </>
       )}
     </div>
+  );
+}
+
+export function CustomCaptionComponent(props: CaptionProps) {
+  const { goToMonth, nextMonth, previousMonth } = useNavigation();
+  return (
+    <h2 style={{ display: "flex", justifyContent: "space-between" }}>
+      <button
+        disabled={!previousMonth}
+        onClick={() => previousMonth && goToMonth(previousMonth)}
+      >
+        Previous
+      </button>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <span>{format(props.displayMonth, "M")}</span>
+        <span>{format(props.displayMonth, "yyyy")}</span>
+      </div>
+
+      <button
+        disabled={!nextMonth}
+        onClick={() => nextMonth && goToMonth(nextMonth)}
+      >
+        Next
+      </button>
+    </h2>
   );
 }
