@@ -69,62 +69,50 @@ export default function Calendar() {
     return c;
   }, [workoutsByDay]);
 
+  const progressPerMonth = Math.round(
+    (Object.keys(workoutsByDay).length / currentMonthEnd.getDate()) * 100
+  );
+
   return (
     <div className={styles.container}>
-      <span>{user.email}</span>
-      <h1 className="body-xl-bold">
+      <h1 className={`${styles.title} body-xl-bold`}>
         운동기록과
         <br />
         출석률을 확인해보세요.
       </h1>
-      <div role="group">
-        <span className="heading-6">{}% 출석중</span>
-      </div>
-      <div style={{ padding: "0 1rem" }}>
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
+      <div role="group" className={styles["attendance-container"]}>
+        <span className="heading-6">
+          {progressPerMonth}%{" "}
+          <span className={`${styles.attendance} heading-6`}>출석중</span>
+        </span>
+        <div className={styles["progress-container"]}>
           <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                height: "85%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <DayPicker
-                captionLayout="dropdown"
-                fromYear={2024}
-                toYear={now?.getFullYear()}
-                weekStartsOn={1}
-                locale={ko}
-                formatters={{
-                  formatMonthCaption: (date: Date) => format(date, "MMM"),
-                }}
-                components={{
-                  DayContent: CustomDayContent as
-                    | ((props: DayContentProps) => JSX.Element | null)
-                    | undefined,
-                }}
-                month={currentMonthStart}
-                onMonthChange={(month) => {
-                  setCurrentMonthStart(startOfMonth(month));
-                  setCurrentMonthEnd(endOfMonth(month));
-                }}
-              />
-            </div>
-          </div>
+            className={styles["progress-bar"]}
+            style={{ width: `${progressPerMonth}%` }}
+          ></div>
         </div>
       </div>
+      <DayPicker
+        className={styles.calendar}
+        // captionLayout="dropdown"
+        fromYear={2024}
+        toYear={now?.getFullYear()}
+        weekStartsOn={1}
+        locale={ko}
+        formatters={{
+          formatMonthCaption: (date: Date) => format(date, "MMM"),
+        }}
+        components={{
+          DayContent: CustomDayContent as
+            | ((props: DayContentProps) => JSX.Element | null)
+            | undefined,
+        }}
+        month={currentMonthStart}
+        onMonthChange={(month) => {
+          setCurrentMonthStart(startOfMonth(month));
+          setCurrentMonthEnd(endOfMonth(month));
+        }}
+      />
 
       {selectedDay && (
         <>
