@@ -1,15 +1,21 @@
+import useMapStore from '@/stores/mapStore';
 import styles from './searchForm.module.css';
 import { FormEvent, ChangeEvent } from 'react';
 import Input from '@/components/Input';
 
-interface SearchFormProps {
-  search?: string;
-  value?: string;
-  setSearch: (value: string) => void;
-  handleSearchList: () => void;
-}
+export default function SearchForm() {
+  const mapStore = useMapStore();
+  const search = mapStore.search;
+  const setSearch = mapStore.setSearch;
+  const setShowList = mapStore.setShowList;
 
-export default function SearchForm({ search, setSearch, handleSearchList } :SearchFormProps) {
+  function handleSearchList() {
+    setShowList(true);
+
+    if (search === '') {
+      setShowList(false);
+    }
+  }  
 
   function searchSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,9 +26,15 @@ export default function SearchForm({ search, setSearch, handleSearchList } :Sear
   function searchContent(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
+
   return (
     <div className={styles.container}>
-      <Input status="search" onChange={searchContent} onSubmit={searchSubmit} value={search} />
+      <Input
+        status="search"
+        onChange={searchContent}
+        onSubmit={searchSubmit}
+        value={search}
+      />
     </div>
   )
 }
