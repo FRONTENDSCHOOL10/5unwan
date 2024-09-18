@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import homeStore from '@/stores/homeStore';
 import styles from "./exerciseTypes.module.css";
 import { getExercise } from '@/api/pocketbase';
