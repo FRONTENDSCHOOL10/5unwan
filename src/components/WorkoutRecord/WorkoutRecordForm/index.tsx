@@ -6,6 +6,8 @@ import styles from "./workoutRecordModal.module.css";
 import classNames from "classnames";
 import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
 import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
+import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimaryButton";
+import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 // import Input from '@/components/Input';
@@ -282,7 +284,24 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
       </ul>
 
       <div className={styles["work-btn"]}>
-      <PrimaryMediumButton
+      {isDark ? (
+        <IsDarkPrimaryButton
+          type="submit"
+          size="medium"
+          disabled={
+            !formData.category.length ||
+            !formData.start ||
+            !formData.end ||
+            !formData.title ||
+            !formData.content ||
+            !formData.newPhotoFile ||
+            createWorkoutMutation.isPending
+          }
+        >
+          등록하기
+        </IsDarkPrimaryButton>
+      ) : (
+        <PrimaryMediumButton
           type="submit"
           disabled={
             !formData.category.length ||
@@ -290,14 +309,30 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             !formData.end ||
             !formData.title ||
             !formData.content ||
+            !formData.content ||
             createWorkoutMutation.isPending
           }
         >
           등록하기
         </PrimaryMediumButton>
-        <SecondaryMediumButton type="button" onClick={onCancel}>
+      )}
+        {isDark ? (
+        <IsDarkSecondaryButton
+          type="button"
+          onClick={onCancel}
+          size="medium"
+        >
+          취소하기
+        </IsDarkSecondaryButton>
+      ) : (
+        <SecondaryMediumButton
+          type="button"
+          onClick={onCancel}
+        >
           취소하기
         </SecondaryMediumButton>
+      )}
+
       </div>
     </form>
   );
