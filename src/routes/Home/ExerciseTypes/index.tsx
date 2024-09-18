@@ -1,11 +1,7 @@
-import { Exercise } from "@/api/pocketbase";
+import { useEffect } from 'react';
+import homeStore from '@/stores/homeStore';
 import styles from "./exerciseTypes.module.css";
-
-interface exerciseProps {
-  isActive: string;
-  exercises: Exercise[];
-  handleClick: (type: string) => void;
-}
+import { getExercise } from '@/api/pocketbase';
 
 function getTypes(type: string) {
   switch (type) {
@@ -26,12 +22,26 @@ function getTypes(type: string) {
   }
 }
 
-export default function ExerciseType({
-  exercises,
-  isActive,
-  handleClick,
-}: exerciseProps) {
+export default function ExerciseType() {
+  const { isActive, setIsActive, exercises, setFiltered } = homeStore();
   const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+
+  async function handleList(type: string) {
+    if (type) {
+      try {
+        const data = await getExercise(type);
+        setFiltered(data);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setFiltered("");
+    }
+  }
+  const handleClick = (type: string) => {
+    handleList(type);
+    setIsActive(type === "" ? "" : type);
+  };
 
   return (
     <>
