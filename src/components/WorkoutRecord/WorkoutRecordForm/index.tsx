@@ -6,10 +6,13 @@ import styles from "./workoutRecordModal.module.css";
 import classNames from "classnames";
 import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
 import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
+import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimaryButton";
+import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 // import Input from '@/components/Input';
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
+import SVGIcon from "@/components/SVGicon";
 
 const categories = [
   "헬스",
@@ -27,12 +30,13 @@ export type WorkoutRecordFormProps = {
 };
 
 export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProps) {
-  const { isDark } = useDarkMode(); // Use DarkMode context
+  const { isDark } = useDarkMode(); // 다크모드
 
   const id = useId();
   const { user: userObject } = useCurrentUser();
   const { today } = useToday();
   const photoImageRef = useRef<HTMLImageElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [formData, setFormData] = useState<{
     category: string[];
@@ -154,6 +158,12 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     });
   };
 
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // 파일 선택 창 열기
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className={classNames(styles.content, { [styles["is-dark"]]: isDark })}>
       <ul className={classNames(styles.content)}>
@@ -210,7 +220,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         </li>
 
         <li className={styles["list-title"]}>
-          <title className="body-md-bold">제목</title>
+          <title className="body-md-bold">운동 제목</title>
           <input
             id={`${id}-title`}
             type="text"
@@ -232,45 +242,65 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         </li>
 
         <li className={styles["list-content"]}>
-          <title className="body-md-bold">내용</title>
+          <title className="body-md-bold">운동 내용</title>
           <textarea
             id={`${id}-content`}
             name="content"
             placeholder="내용을 입력해 주세요."
             value={formData.content}
             onChange={handleUpdateFormData}
+            rows={4}
           />
         </li>
 
         <li className={styles["list-photo"]}>
-          <title className="body-md-bold">사진</title>
-          <div>
-            <img
-              aria-hidden="true"
-              ref={photoImageRef}
-              src={
-                newPhotoFileSrc ||
-                // getPbImageUrl(workout, workout.photo) ||
-                "/avatar-placeholder.webp"
-              }
-              alt="운동기록 사진"
-            />
+          <title className="body-md-bold">운동 사진</title>
+          <section>
+            <figure className={styles["image-container"]} onClick={handleImageClick}>
+              {newPhotoFileSrc ? (
+                <img
+                  aria-hidden="true"
+                  ref={photoImageRef}
+                  src={newPhotoFileSrc}
+                  alt="운동 사진"
+                />
+              ) : (
+                <SVGIcon iconId="iconAdd" width={40} height={40} />
+              )}
+            </figure>
 
-            <label htmlFor={`${id}-newPhotoFile`} role="button">
-              <input
-                id={`${id}-newPhotoFile`}
-                type="file"
-                name="newPhotoFile"
-                accept=".jpg, .webp, .svg, .gif, .webp"
-                aria-label="운동기록 사진 업로드"
-                onChange={handleUpdatePhoto}
-              />
-            </label>
-          </div>
+            <input
+              ref={fileInputRef}
+              id={`${id}-newPhotoFile`}
+              type="file"
+              name="newPhotoFile"
+              accept=".jpg, .webp, .svg, .gif, .webp"
+              aria-label="운동기록 사진 업로드"
+              onChange={handleUpdatePhoto}
+              style={{ display: "none" }}
+            />
+          </section>
         </li>
       </ul>
 
       <div className={styles["work-btn"]}>
+      {isDark ? (
+        <IsDarkPrimaryButton
+          type="submit"
+          size="medium"
+          disabled={
+            !formData.category.length ||
+            !formData.start ||
+            !formData.end ||
+            !formData.title ||
+            !formData.content ||
+            !formData.newPhotoFile ||
+            createWorkoutMutation.isPending
+          }
+        >
+          등록하기
+        </IsDarkPrimaryButton>
+      ) : (
         <PrimaryMediumButton
           type="submit"
           disabled={
@@ -279,14 +309,30 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             !formData.end ||
             !formData.title ||
             !formData.content ||
+            !formData.content ||
             createWorkoutMutation.isPending
           }
         >
           등록하기
         </PrimaryMediumButton>
-        <SecondaryMediumButton type="button" onClick={onCancel}>
+      )}
+        {isDark ? (
+        <IsDarkSecondaryButton
+          type="button"
+          onClick={onCancel}
+          size="medium"
+        >
+          취소하기
+        </IsDarkSecondaryButton>
+      ) : (
+        <SecondaryMediumButton
+          type="button"
+          onClick={onCancel}
+        >
           취소하기
         </SecondaryMediumButton>
+      )}
+
       </div>
     </form>
   );
