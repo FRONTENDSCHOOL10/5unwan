@@ -1,8 +1,4 @@
-import {
-  getPbImageUrl,
-  UpdateUser,
-  User,
-} from "@/api/pocketbase";
+import { getPbImageUrl, UpdateUser, User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
@@ -91,7 +87,6 @@ export function OnboardingBasicForm({
       avatarImageElement.addEventListener("load", handleLoad);
     }
 
-    // Clean up the object URL when the component unmounts or when the avatar file changes
     return () => {
       if (avatarImageElement) {
         avatarImageElement.removeEventListener("load", handleLoad);
@@ -113,14 +108,9 @@ export function OnboardingBasicForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div
-        role="group"
-        // className="flex flex-col items-center"
-      >
+      <div role="group">
         <h3 className="sr-only">프로필 사진</h3>
-        <div
-        // className="relative w-1/4"
-        >
+        <div>
           <img
             aria-hidden="true"
             ref={avatarImageRef}
@@ -130,20 +120,9 @@ export function OnboardingBasicForm({
               "/avatar-placeholder.webp"
             }
             alt="프로필 사진"
-            // className="aspect-square w-full rounded-full object-cover"
           />
 
-          <label
-            htmlFor={`${id}-newAvatarFile`}
-            role="button"
-            // className="absolute bottom-[0.06rem] right-[0.06rem] flex w-1/4 rounded-full bg-background p-[0.125rem] [box-shadow:0.25rem_0.25rem_0.25rem_0px_rgba(0,_0,_0,_0.15)] cursor-pointer xs:bottom-[0.084rem] xs:right-[0.084rem] xs:p-[0.175rem] sm:bottom-[0.108rem] sm:right-[0.108rem] sm:p-[0.225rem] focus-within:ring-1 focus-within:ring-blue-500 focus:ring-blue-500"
-          >
-            {/* <img
-              src="/icon/pencil.svg"
-              alt="연필"
-              aria-hidden="true"
-              className="aspect-square w-full"
-              /> */}
+          <label htmlFor={`${id}-newAvatarFile`} role="button">
             <input
               id={`${id}-newAvatarFile`}
               type="file"
@@ -189,7 +168,6 @@ export function OnboardingBasicForm({
             value="F"
             checked={formData.gender === "F"}
             onChange={handleUpdateFormData}
-            // className="sr-only"
           />
           <label htmlFor={`${id}-female`}>여자</label>
         </div>
