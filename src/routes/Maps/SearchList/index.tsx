@@ -1,27 +1,25 @@
-import useMapStore from '@/stores/mapStore';
-import styles from './searchList.module.css';
-
-// interface SearchListProps {
-//   markers: {
-//     position: { lat: number, lng: number },
-//     content: string,
-//     address?: string,
-//   }[];
-// }
+import useMapStore from "@/stores/mapStore";
+import styles from "./searchList.module.css";
 
 export default function SearchList() {
   const mapStore = useMapStore();
   const setState = mapStore.setState;
   const markers = mapStore.markers;
   const setSelectedMarkerContent = mapStore.setSelectedMarkerContent;
+  const map = mapStore.map;
 
   function handleMapMarker(position: { lat: number, lng: number }, content: string) {
+    const currentPos = new window.kakao.maps.LatLng(
+      position.lat,
+      position.lng
+    );
     setState(() => ({
       center: position,
       errMsg: null,
       isLoading: false
     }));
     setSelectedMarkerContent(content);
+    map.panTo(currentPos);
   }
 
   return (
@@ -36,7 +34,7 @@ export default function SearchList() {
             >
               <div className={styles.content} onClick={() => handleMapMarker(marker.position, marker.content)}>
                 <h2 className={styles.title}>{marker.content}</h2>
-                <p className="ellipsis">{marker.address || '주소를 가져오는 중...'}</p>
+                <p className="ellipsis">{marker.address || "주소를 가져오는 중..."}</p>
               </div>
               <span className={styles.number}>{index + 1}</span>
               <button type="button" className={`${styles.favorite} ${styles["is-active"]}`}></button>

@@ -1,5 +1,5 @@
 import useMapStore from '@/stores/mapStore';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import styles from './map.module.css';
@@ -15,15 +15,12 @@ interface MarkerTypes {
 
 export default function Maps() {
   const mapStore = useMapStore();
-  // const defaultLocation = mapStore.defaultLocation;
-  // const state = mapStore.state;
   const showList = mapStore.showList;
   const search = mapStore.search;
   const setMarkers = mapStore.setMarkers;
   const updateMarker = mapStore.updateMarker;
+  const map = mapStore.map;
   const { user } = useOutletContext<UserContext>();
-  const [map, setMap] = useState<kakao.maps.Map>();
-  // const [map, setMap] = useState<any>(null);
 
   // 좌표로 상세 주소를 가져오는 함수
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
@@ -40,7 +37,7 @@ export default function Maps() {
 
   useEffect(() => {
     if (!map) return;
-    const ps = new (window as any).kakao.maps.services.Places();
+    const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(`${search}`, (data: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
@@ -76,7 +73,6 @@ export default function Maps() {
         map.setBounds(bounds);  // 지도 범위 설정
       }
     });
-  // }, [map, search, setMarkers, updateMarker]);
   }, [map, search, setMarkers, updateMarker]);
   
   return (
@@ -85,12 +81,11 @@ export default function Maps() {
         <p>현재 사용자: {user?.nickname}</p>
         <br />
       </div>
-      {/* <SearchForm search={search} setSearch={setSearch} handleSearchList={handleSearchList} /> */}
       <SearchForm />
       {
         showList && <SearchList />
       }
-      <MapBoard map={map} setMap={setMap} />
+      <MapBoard />
     </div>
   )
 }

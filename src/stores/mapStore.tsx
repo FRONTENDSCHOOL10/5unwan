@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface Store {
   defaultLocation: { lat: number, lng: number };
@@ -13,17 +13,20 @@ interface Store {
     position: { lat: number, lng: number };
     content: string;
     address?: string;
+    setMap?: any;
   }[];
   selectedMarkerContent: string,
+  map: kakao.maps.Map,
 }
 
 interface Action {
   setShowList: (value: boolean) => void;
-  setState: (newState: (prevState: Store['state']) => Store['state']) => void;
+  setState: (newState: (prevState: Store["state"]) => Store["state"]) => void;
   setSearch: (value: string) => void;
-  setMarkers: (newMarkers: Store['markers']) => void;
-  updateMarker: (index: number, marker: Store['markers'][number]) => void;
+  setMarkers: (newMarkers: Store["markers"]) => void;
+  updateMarker: (index: number, marker: Store["markers"][number]) => void;
   setSelectedMarkerContent: (content: string) => void;
+  setMap: (map: kakao.maps.Map) => void;
 }
 
 const useStore = create<Store & Action>((set) => {
@@ -37,7 +40,7 @@ const useStore = create<Store & Action>((set) => {
     
     showList: false,
     setShowList: (value) => set(() => ({ showList: value })),
-    
+
     state: {
       center: {
         lat: defaultLocation.lat,
@@ -50,7 +53,7 @@ const useStore = create<Store & Action>((set) => {
       state: newState(state.state),
     })),
     
-    search: '',
+    search: "",
     setSearch: (value) => set(() => ({ search: value })),
     
     markers: [],
@@ -61,8 +64,11 @@ const useStore = create<Store & Action>((set) => {
       return { markers: updatedMarkers };
     }),
 
-    selectedMarkerContent: '',
-    setSelectedMarkerContent: (content: string) => set(() => ({ selectedMarkerContent: content }))
+    selectedMarkerContent: "",
+    setSelectedMarkerContent: (content: string) => set(() => ({ selectedMarkerContent: content })),
+  
+    map: null,
+    setMap: (map) => set(() => ({ map })),
   };
 });
 
