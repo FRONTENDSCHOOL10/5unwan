@@ -39,3 +39,30 @@
     align-self: stretch;
   }
 }
+
+.gnb-icon-frame {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--rounded-full);
+  transition: 0.3s;
+  
+  &:hover {
+      background-color: var(--grayscale-200);
+    }
+  }
+  
+.is-dark {
+  .gnb-nav {
+    background-color: var(--grayscale-900);
+  }
+  
+  .gnb-icon-frame {
+    &:hover{
+      background-color: var(--grayscale-800);
+    }
+  }
+}
