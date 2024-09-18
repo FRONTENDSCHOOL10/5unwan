@@ -9,6 +9,7 @@ import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
 import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 // import Input from '@/components/Input';
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 const categories = [
   "헬스",
@@ -25,10 +26,9 @@ export type WorkoutRecordFormProps = {
   onCancel: () => void;
 };
 
-export function WorkoutRecordForm({
-  onSuccess,
-  onCancel,
-}: WorkoutRecordFormProps) {
+export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProps) {
+  const { isDark } = useDarkMode(); // Use DarkMode context
+
   const id = useId();
   const { user: userObject } = useCurrentUser();
   const { today } = useToday();
@@ -155,7 +155,7 @@ export function WorkoutRecordForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={classNames(styles.content)}>
+    <form onSubmit={handleSubmit} className={classNames(styles.content, { [styles["is-dark"]]: isDark })}>
       <ul className={classNames(styles.content)}>
         <li className={styles["list-day"]}>
           <p className={`body-md-bold ${styles["list-day"]}`}>{today}</p>

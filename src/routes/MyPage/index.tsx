@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
 import { useCurrentUser } from "@/hooks/user";
+import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
@@ -256,6 +257,8 @@ export default function MyPage() {
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
             </button>
+            <br />
+            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
       )}
