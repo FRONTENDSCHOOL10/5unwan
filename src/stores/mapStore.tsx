@@ -16,7 +16,7 @@ interface Store {
     setMap?: any;
   }[];
   selectedMarkerContent: string,
-  map: kakao.maps.Map,
+  map: any,
 }
 
 interface Action {
