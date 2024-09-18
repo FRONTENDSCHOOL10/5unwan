@@ -1,4 +1,4 @@
-import { WorkoutRecordModal } from "@/components/WorkoutRecordModal";
+import { WorkoutRecordModal } from "@/components/WorkoutRecord/WorkoutRecordModal";
 import { RouteHandle } from "@/router";
 import styles from "@/routes/SharedLayout/styles.module.css";
 import { Link, Outlet, useMatches } from "react-router-dom";

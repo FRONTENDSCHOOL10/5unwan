@@ -11,7 +11,7 @@ export type Workout = {
   end: string;
   title: string;
   content: string;
-  photos: string[];
+  photo: string;
 };
 
 export type NewWorkout = {
@@ -22,7 +22,7 @@ export type NewWorkout = {
   end: string;
   title: string;
   content: string;
-  photos: File[];
+  photo?: File;
 };
 
 export type UpdateWorkout = {
@@ -32,7 +32,7 @@ export type UpdateWorkout = {
   end?: string;
   title?: string;
   content?: string;
-  photos?: File[];
+  photo?: File;
 };
 
 export async function getWorkouts({
