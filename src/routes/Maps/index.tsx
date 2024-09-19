@@ -1,13 +1,11 @@
 import useMapStore from '@/stores/mapStore';
 import { useEffect } from 'react';
-import { useOutletContext, useNavigate, useMatches } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
-import { RouteHandle } from "@/router";
 import styles from './map.module.css';
 import SearchForm from './SearchForm';
 import MapBoard from './MapBoard';
 import SearchList from '@/routes/Maps/SearchList';
-import Header from "@/components/Header";
 
 interface MarkerTypes {
   position: { lat: number; lng: number };
@@ -20,19 +18,6 @@ export default function Maps() {
   const { showList, search, setMarkers, updateMarker, map } = mapStore;
   const { user } = useOutletContext<UserContext>();
   
-  const navigate = useNavigate();
-  const matches = useMatches();
-
-  // Check if header should be hidden
-  const hideHeader = matches.some(
-    (match) => (match.handle as RouteHandle)?.hideHeader
-  );
-
-  // Navigate to home
-  const handleGoHome = () => {
-    navigate('/home');
-  };
-
   // Function to get address from coordinates
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -84,17 +69,6 @@ export default function Maps() {
   }, [map, search, setMarkers, updateMarker]);
 
   return (
-    <>
-      {!hideHeader && (
-        <Header
-          leftIconId="iconArrowsLeft"
-          leftIconVisible
-          leftonClick={handleGoHome}
-          rightIconVisible
-          hideTitle
-          background="none"
-        />
-      )}
       <div className={styles.container}>
         <div className="sr-only">
           <p>현재 사용자: {user?.nickname}</p>
@@ -104,6 +78,5 @@ export default function Maps() {
         {showList && <SearchList />}
         <MapBoard />
       </div>
-    </>
   );
 }
