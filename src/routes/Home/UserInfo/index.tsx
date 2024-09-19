@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 interface userProps {
   user: User;
-  show: boolean
 }
 
 export default function UserInfo({ user }: userProps) {
