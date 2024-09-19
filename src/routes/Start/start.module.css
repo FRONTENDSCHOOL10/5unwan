@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 7.5rem var(--space-5) 8.75rem var(--space-5);
+}
+
+.logo {
+  margin-bottom: 13.75rem;
+  
+  figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.875rem;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    figcaption {
+      color: var(--black);
+    }
+  }
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.login-kakao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--disabled);
+
+  span {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-regular);
+    color: var(--grayscale-600);
+    text-align: left;
+  }
+}
