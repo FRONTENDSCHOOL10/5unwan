@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./article.module.css";
-import { Exercise } from "@/api/pocketbase";
+import homeStore from "@/stores/homeStore";
 
-interface articleProps {
-  exercises: Exercise[];
-  filtered: Exercise[] | { items: Exercise[] } | string; // filtered는 items 배열을 포함한 객체 또는 string
-}
-
-export default function Article({ exercises, filtered }: articleProps) {
+export default function Article() {
+  const { filtered, exercises } = homeStore();
   const displayExercises =
     typeof filtered === "object" && "items" in filtered
       ? filtered.items
@@ -15,7 +11,7 @@ export default function Article({ exercises, filtered }: articleProps) {
   return (
     <>
       <section className={styles.wrapper}>
-        {displayExercises.map((article: Exercise) => (
+        {displayExercises.map((article) => (
           <div key={article.id} className={styles.article}>
             <Link to={article.link} key={article.id} className={styles.article}>
               <div className={styles["img-wrapper"]}>
