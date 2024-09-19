@@ -46,6 +46,7 @@ span {
   transition: width 0.3s ease-in-out;
 }
 
+/* 캘린더 관련 스타일링 */
 .calendar {
   margin: 1rem 0;
 }
@@ -56,10 +57,7 @@ span {
   --rdp-caption-font-size: 0.75rem;
 }
 
-.calendar .rdp-day {
-  overflow: visible !important;
-}
-
+/* 캘린더 < 날짜/연도 > */
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -82,6 +80,7 @@ span {
   line-height: 1rem;
 }
 
+/* 캘린더 주(월~일) */
 .week {
   display: flex;
   height: var(--rdp-cell-size);
@@ -103,6 +102,7 @@ span {
   color: var(--primary);
 }
 
+/* 캘린더 날짜 요소 */
 .day-group {
   display: flex;
   flex-direction: column;
@@ -154,6 +154,7 @@ span {
   font-weight: bold;
 }
 
+/* 운동기록 */
 .workout {
   padding: 1.25rem 0;
 }
