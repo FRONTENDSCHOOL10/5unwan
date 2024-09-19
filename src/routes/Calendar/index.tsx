@@ -12,12 +12,11 @@ import {
   useNavigation,
 } from "react-day-picker";
 import { ko } from "date-fns/locale";
-import styles from "./calendar.module.css";
 import { getPbImageUrl } from "@/api/pocketbase";
 import SVGIcon from "@/components/SVGicon";
+import styles from "./calendar.module.css";
 
 export default function Calendar() {
-  // const { user } = useOutletContext<UserContext>();
   const {
     now,
     currentMonthStart,
@@ -52,21 +51,25 @@ export default function Calendar() {
       // eslint-disable-next-line react/prop-types
       const dateTime = format(props.date, "yyyy-MM-dd");
       const dayWorkouts = workoutsByDay[dateTime] ?? [];
+      const isThisMonth =
+        dateTime.split("-")[1] ===
+        "0" + (currentMonthStart.getMonth() + 1).toString();
+
       return (
-        <div>
+        <div role="group" className={styles["day-group"]}>
           <button
             className={
               selectedDay === dateTime
                 ? styles["day-btn-selected"]
                 : styles["day-btn"]
             }
-            // style={{
-            //   cursor: dayWorkouts.length === 0 ? "not-allowed" : "pointer",
-            // }}
             onClick={() => setSelectedDay(dateTime)}
-            disabled={dayWorkouts.length === 0}
+            disabled={dayWorkouts.length === 0 || !isThisMonth}
           >
-            <time className={styles.day} dateTime={dateTime}>
+            <time
+              className={`${isThisMonth ? styles.day : styles["day-disabled"]}`}
+              dateTime={dateTime}
+            >
               <DayContent {...props} />
             </time>
           </button>
@@ -88,7 +91,7 @@ export default function Calendar() {
     };
     c.displayName = "CustomDayContent";
     return c;
-  }, [workoutsByDay]);
+  }, [selectedDay, workoutsByDay, currentMonthStart]);
 
   const progressPerMonth = Math.round(
     (Object.keys(workoutsByDay).length / currentMonthEnd.getDate()) * 100
@@ -104,7 +107,9 @@ export default function Calendar() {
       <div role="group" className={styles["attendance-container"]}>
         <span className="heading-6">
           {progressPerMonth}%{" "}
-          <span className={`${styles.attendance} heading-6`}>출석 중</span>
+          <span className={`${styles.attendance} heading-6`}>
+            {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
+          </span>
         </span>
         <div className={styles["progress-container"]}>
           <div
@@ -115,14 +120,12 @@ export default function Calendar() {
       </div>
       <DayPicker
         className={styles.calendar}
-        // captionLayout="dropdown"
         showOutsideDays
         fromYear={2024}
         toYear={now?.getFullYear()}
         weekStartsOn={1}
         locale={ko}
         formatters={{
-          // formatMonthCaption: (date: Date) => format(date, "MMM"),
           formatWeekdayName: (date: Date, options) => {
             return (
               <span
@@ -154,13 +157,22 @@ export default function Calendar() {
       {selectedDay && (
         <>
           {workoutsByDay[selectedDay].map((workout) => (
-            <div key={workout.id}>
-              <h2>{workout.title}</h2>
-              <p>{workout.content}</p>
-              {workout.photo ? (
-                <img src={getPbImageUrl(workout, workout.photo)!} />
-              ) : (
-                <span>no-photo</span>
+            <div key={workout.id} role="group" className={styles.workout}>
+              <span className={styles["workout-label"]}>
+                {workout.category}
+              </span>
+              <span className={styles["workout-time"]}>
+                {workout.start}-{workout.end}
+              </span>
+              <h2 className={`heading-6 ${styles["workout-title"]}`}>
+                {workout.title}
+              </h2>
+              <p className={styles["workout-content"]}>{workout.content}</p>
+              {workout.photo && (
+                <img
+                  className={styles["workout-image"]}
+                  src={getPbImageUrl(workout, workout.photo)!}
+                />
               )}
             </div>
           ))}
