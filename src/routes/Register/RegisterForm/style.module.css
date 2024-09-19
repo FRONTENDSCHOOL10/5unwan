@@ -1,0 +1,7 @@
+.group {
+    justify-content: center;
+    margin-bottom: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

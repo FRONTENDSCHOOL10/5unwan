@@ -1,0 +1,10 @@
+.group {
+    justify-content: center;
+    margin-bottom: 1.875rem;
+    display: flex;
+    justify-content: space-between;
+    input {
+        width: 5.5rem;
+        gap: .5rem;
+    }
+}

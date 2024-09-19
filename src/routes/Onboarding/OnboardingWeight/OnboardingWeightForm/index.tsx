@@ -67,7 +67,7 @@ export function OnboardingWeightForm({
             value={formData.weight}
             onChange={handleUpdateFormData}
           />
-          kg
+          <p className="body-md-bold">kg</p>
         </div>
         <PrimaryLargeButton
           type="submit"
