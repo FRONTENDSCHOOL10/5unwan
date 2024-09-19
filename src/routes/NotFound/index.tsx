@@ -1,6 +1,6 @@
 import styles from "./notFound.module.css";
 import { useNavigate } from "react-router-dom";
-import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 
 
 export default function NotFound() {
