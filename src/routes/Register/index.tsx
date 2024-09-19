@@ -3,6 +3,7 @@ import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
 import Header from "@/components/Header";
 import styles from "./style.module.css";
+import PageTitle from "@/components/PageTitle";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -26,7 +27,6 @@ export default function Register() {
         />)}
       <div>
         <div className={styles["content-wrapper"]}>
-        <h1>이메일과 비밀번호를 입력해주세요.</h1>
           <RegisterForm
             onSuccess={() => {
               navigate("/onboarding");

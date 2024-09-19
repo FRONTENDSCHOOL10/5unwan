@@ -5,7 +5,8 @@ import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import React, { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import SVGIcon from "@/components/SVGicon";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
-import styles from "@/routes/Onboarding/OnboardingBasic/OnboardingBasicForm/style.module.css";
+import styles from "./style.module.css";
+import PageTitle from "@/components/PageTitle"
 
 export type OnboardingBasicFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -111,6 +112,8 @@ export function OnboardingBasicForm({
 
   return (
     <form onSubmit={handleSubmit}>
+      <PageTitle text="프로필과 닉네임, 성별을 입력해주세요." />
+
       <div className={`${styles.group} ${styles["group-profile"]}`}>
         <section className={styles["content"]}>
           <figure className={styles["image-container"]}>
