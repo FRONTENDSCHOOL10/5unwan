@@ -3,6 +3,9 @@ import { useCurrentUser } from "@/hooks/user";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import React, { ChangeEvent, useEffect, useId, useRef, useState } from "react";
+import SVGIcon from "@/components/SVGicon";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
+import styles from "@/routes/Onboarding/OnboardingBasic/OnboardingBasicForm/style.module.css";
 
 export type OnboardingBasicFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -108,21 +111,22 @@ export function OnboardingBasicForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div role="group">
-        <h3 className="sr-only">프로필 사진</h3>
-        <div>
-          <img
-            aria-hidden="true"
-            ref={avatarImageRef}
-            src={
-              newAvatarFileSrc ||
-              getPbImageUrl(user, user.avatar) ||
-              "/avatar-placeholder.webp"
-            }
-            alt="프로필 사진"
-          />
+      <div className={`${styles.group} ${styles["group-profile"]}`}>
+        <section className={styles["content"]}>
+          <figure className={styles["image-container"]}>
+            <img
+              aria-hidden="true"
+              ref={avatarImageRef}
+              src={
+                newAvatarFileSrc ||
+                getPbImageUrl(user, user.avatar) ||
+                "/avatar-placeholder.webp"
+              }
+              alt="프로필 사진"
+            />
+          </figure>
 
-          <label htmlFor={`${id}-newAvatarFile`} role="button">
+          <label className={styles["image-edit"]} role="button">
             <input
               id={`${id}-newAvatarFile`}
               type="file"
@@ -130,49 +134,60 @@ export function OnboardingBasicForm({
               accept=".jpg, .webp, .svg, .gif, .webp"
               aria-label="프로필사진 업로드"
               onChange={handleUpdateAvatar}
+              className="sr-only"
             />
+            <span className={styles["icon-edit"]}>
+              <SVGIcon width={20} height={20} iconId="iconAdd"/>
+            </span>
           </label>
-        </div>
+        </section>
       </div>
-      <div role="group">
-        <label htmlFor={`${id}-nickname`}>
-          <h2 className="sr-only">닉네임</h2>
-        </label>
-        <input
-          id={`${id}-nickname`}
-          name="nickname"
-          type="text"
-          placeholder="닉네임"
-          value={formData.nickname}
-          onChange={handleUpdateFormData}
-        />
-      </div>
-      <div role="radiogroup" aria-label="성별 선택">
-        <div>
+
+      <div className={`${styles.group} ${styles['group-nickname']}`}>
+        <title className="body-md-bold">닉네임</title>
+        <section className={styles["content"]}>
           <input
-            type="radio"
-            name="gender"
-            id={`${id}-male`}
-            value="M"
-            checked={formData.gender === "M"}
-            onChange={handleUpdateFormData}
-            // className="sr-only"
-          />
-          <label htmlFor={`${id}-male`}>남자</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="gender"
-            id={`${id}-female`}
-            value="F"
-            checked={formData.gender === "F"}
+            id={`${id}-nickname`}
+            name="nickname"
+            type="text"
+            placeholder="닉네임"
+            value={formData.nickname}
             onChange={handleUpdateFormData}
           />
-          <label htmlFor={`${id}-female`}>여자</label>
-        </div>
+        </section>
       </div>
-      <button
+
+      <div className={`${styles.group} ${styles['group-gender']}`} aria-label="성별 선택">
+        <title className="body-md-bold">성별</title>
+          <ul className={styles["content"]}>
+            <li>
+              <input
+                type="radio"
+                name="gender"
+                id={`${id}-male`}
+                value="M"
+                checked={formData.gender === "M"}
+                onChange={handleUpdateFormData}
+                // className="sr-only"
+                />
+              <label htmlFor={`${id}-male`}>남자</label>
+            </li>
+
+            <li>
+              <input
+                type="radio"
+                name="gender"
+                id={`${id}-female`}
+                value="F"
+                checked={formData.gender === "F"}
+                onChange={handleUpdateFormData}
+                />
+              <label htmlFor={`${id}-female`}>여자</label>
+            </li>
+          </ul>
+      </div>
+
+      <PrimaryLargeButton
         type="submit"
         disabled={
           !formData.nickname.trim() ||
@@ -181,7 +196,7 @@ export function OnboardingBasicForm({
         }
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-      </button>
+      </PrimaryLargeButton>
       {updateMutation.isError
         ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
         : null}
