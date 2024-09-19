@@ -37,5 +37,10 @@
     <symbol id="iconAdd" width="20" height="20" fill="none" viewBox="0 0 20 20">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10 15.5v-11M4.5 10h11"/>
     </symbol>
+    <symbol id="iconSearch" width="20" height="20" fill="none" viewBox="0 0 20 20">
+    <svg id="iconKakao" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="18" fill="#FFE333"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M18 12.5514C14.7756 12.5514 12.1621 14.5706 12.1621 17.0609C12.1621 18.6097 13.173 19.9751 14.7123 20.7872L14.0646 23.1532C14.0074 23.3622 14.2465 23.5289 14.4301 23.4077L17.2691 21.534C17.5087 21.5571 17.7522 21.5706 18 21.5706C21.224 21.5706 23.8377 19.5514 23.8377 17.0609C23.8377 14.5706 21.224 12.5514 18 12.5514Z" fill="#212121"/>
+    </svg>
   </defs>
 </svg>
