@@ -30,7 +30,7 @@ export default function SearchForm() {
   return (
     <div className={styles.container}>
       <Input
-        status="search"
+        type="search"
         onChange={searchContent}
         onSubmit={searchSubmit}
         value={search}
