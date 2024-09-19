@@ -1,0 +1,35 @@
+.header {
+    height: var(--space-12-half);
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9375rem 1.25rem;
+
+    .title {
+        word-break: keep-all;
+    }
+
+    svg {
+        width: 20px;
+        &:hover {
+            opacity: 0.5;
+            transition: 0.3;
+            cursor: pointer;
+        }
+    }
+}
+
+.is-dark {
+    .header {
+        background-color: var(--primary);
+
+        .title {
+            color: var(--white);
+        }
+
+        svg {
+            color: var(--white);
+        }
+    }
+}
