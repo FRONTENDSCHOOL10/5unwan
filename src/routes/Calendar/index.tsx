@@ -1,5 +1,3 @@
-// import { useOutletContext } from "react-router-dom";
-// import { UserContext } from "@/routes/PrivateRoute";
 import { useToday, useWorkouts } from "@/hooks/useWorkouts";
 import React, { useMemo, useState } from "react";
 import { endOfMonth, format, getDay, startOfMonth } from "date-fns";
@@ -48,12 +46,10 @@ export default function Calendar() {
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
     const c = (props: DayContentProps) => {
-      // eslint-disable-next-line react/prop-types
-      const dateTime = format(props.date, "yyyy-MM-dd");
+      const date = props.date;
+      const dateTime = format(date, "yyyy-MM-dd");
       const dayWorkouts = workoutsByDay[dateTime] ?? [];
-      const isThisMonth =
-        dateTime.split("-")[1] ===
-        "0" + (currentMonthStart.getMonth() + 1).toString();
+      const isThisMonth = date.getMonth() === currentMonthStart.getMonth();
 
       return (
         <div role="group" className={styles["day-group"]}>
