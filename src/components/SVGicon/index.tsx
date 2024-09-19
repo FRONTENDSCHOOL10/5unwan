@@ -13,16 +13,17 @@ export type SvgIconId =
   | 'iconArrowsRight'
   | 'iconSearch'
   | 'iconAdd'
+  | 'iconKakao'
 
 interface SVGIconProps {
-iconId?: SvgIconId | string;
-width?: number | string;
-height?: number | string;
-color?: string;
-name?: string;
-to?: string;
-onClick?: () => void;
-onChange?: () => void;
+  iconId?: SvgIconId | string;
+  width?: number | string;
+  height?: number | string;
+  color?: string;
+  name?: string;
+  to?: string;
+  onClick?: () => void;
+  onChange?: () => void;
 }
 
 function SVGIcon({iconId, width, height, color='currentColor', name, to, onClick, onChange}: SVGIconProps) {
