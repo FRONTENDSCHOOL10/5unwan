@@ -1,4 +1,3 @@
-import React from 'react';
 import SVGIcon from "@/components/SVGicon";
 import { useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
@@ -15,6 +14,7 @@ interface HeaderProps {
   to?: string;
   leftonClick?: () => void;
   rightonClick?: () => void;
+  hideTitle?: boolean;
 }
 
 export default function Header({
@@ -26,11 +26,11 @@ export default function Header({
   to,
   leftonClick,
   rightonClick,
+  hideTitle = false,
 }: HeaderProps) {
-    const { isDark } = useDarkMode(); // 다크모드
+  const { isDark } = useDarkMode();
   const matches = useMatches();
 
-  // Find the last route match with a title
   const lastMatchWithTitle = [...matches]
     .reverse()
     .find((match) => (match.handle as RouteHandle)?.title);
@@ -40,28 +40,29 @@ export default function Header({
   return (
     <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
       <header className={`${styles["header"]} ${className}`}>
-      {leftIconVisible && (
-        <SVGIcon
-          width={20}
-          height={20}
-          name="left-icon"
-          iconId={leftIconId}
-          onClick={leftonClick}
-          to={to}
-        />
-      )}
-        <h1 className={classNames("body-md-bold", styles["title"])}>{title}</h1>
-
-      {rightIconVisible && (
-        <SVGIcon
-          width={20}
-          height={20}
-          name="right-icon"
-          iconId={rightIconId}
-          onClick={rightonClick}
-        />
-      )}
-    </header>
+        {leftIconVisible && (
+          <SVGIcon
+            width={20}
+            height={20}
+            name="left-icon"
+            iconId={leftIconId}
+            onClick={leftonClick}
+            to={to}
+          />
+        )}
+        <h1 className={classNames("body-md-bold", styles["title"], { 'sr-only': hideTitle })}>
+          {title}
+        </h1>
+        {rightIconVisible && (
+          <SVGIcon
+            width={20}
+            height={20}
+            name="right-icon"
+            iconId={rightIconId}
+            onClick={rightonClick}
+          />
+        )}
+      </header>
     </div>
   );
 }
