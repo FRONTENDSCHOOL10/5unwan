@@ -20,11 +20,11 @@ export type RouteHandle = {
   hideGnb?: boolean;
   title?: string;
 };
+
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
     {
       element: <SharedLayout />,
-
       children: [
         {
           path: "/start",
@@ -38,6 +38,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
           path: "/register",
           element: <Register />,
           handle: {
+            hideHeader: false,
             hideGnb: true,
             title: "회원가입",
           } satisfies RouteHandle,
@@ -46,6 +47,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
           path: "/login",
           element: <Login />,
           handle: {
+            hideHeader: false,
             hideGnb: true,
             title: "로그인",
           } satisfies RouteHandle,
@@ -88,7 +90,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   handle: {
                     title: "지도",
                     hideHeader: true,
-                    hideGnb: true,
+                    hideGnb: false,
                   } satisfies RouteHandle,
                 },
                 {
@@ -96,7 +98,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   element: <MyPage />,
                   handle: {
                     title: "마이페이지",
-                    hideHeader: true,
+                    hideHeader: false,
                   } satisfies RouteHandle,
                 },
                 {
@@ -132,6 +134,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
               path: "onboarding",
               element: <OnboardingRoute />,
               handle: {
+                hideHeader: false,
                 hideGnb: true,
                 title: "회원가입",
               } satisfies RouteHandle,
@@ -160,10 +163,16 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 {
                   path: "done",
                   lazy: () => import("@/routes/Onboarding/OnboardingDone"),
+                  handle: {
+                    hideHeader: true,
+                  },
                 },
                 {
                   path: "resume",
                   lazy: () => import("@/routes/Onboarding/OnboardingResume"),
+                  handle: {
+                    hideHeader: true,
+                  },
                 },
               ],
             },

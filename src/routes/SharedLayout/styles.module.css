@@ -6,11 +6,21 @@
 }
 
 .header {
-  height: var(--space-12-half);;
+  overflow: hidden;
+  /* height: var(--space-12-half);;
   width: 100%;
-  flex-shrink: 0;
-  flex-grow: 0;
   border-bottom: 0.125rem solid;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+
+  h1 {
+    word-break: keep-all;
+  }
+  
+  svg {
+    width: 20px;
+  } */
 }
 
 .outlet {

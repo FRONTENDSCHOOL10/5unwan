@@ -1,15 +1,20 @@
-import { useNavigate } from "react-router-dom";
-import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useState } from "react";
+import { useNavigate, useMatches } from "react-router-dom";
+import { RouteHandle } from "@/router";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
+import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
+
+import Header from "@/components/Header";
+import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
-import { useCurrentUser } from "@/hooks/user";
-import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
+  const matches = useMatches();
+  
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -50,10 +55,13 @@ export default function MyPage() {
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
-
   const profileImageUrl = user
     ? getPbImageUrl(user, user?.avatar || "")
     : "/default-profile.png";
+
+  const hideHeader = matches.some(
+    (match) => (match.handle as RouteHandle)?.hideHeader
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -65,33 +73,27 @@ export default function MyPage() {
 
   return (
     <div>
-      <div className={styles["mypage-header"]}>
-        {/* 뒤로가기 버튼 추가 */}
-        {isEditMode && (
-          <svg
-            width="20"
-            height="20"
-            className={styles["back-icon"]}
-            onClick={() => setIsEditMode(false)}
-          >
-            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconArrowsLeft"></use>
-          </svg>
-        )}
-        <span className={styles["mypage-title"]}>
-          {isEditMode ? "프로필 수정" : "마이페이지"}
-        </span>
-
-        {!isEditMode && (
-          <svg
-            width="20"
-            height="20"
-            className={styles["edit-icon"]}
-            onClick={() => setIsEditMode(true)}
-          >
-            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
-          </svg>
-        )}
-      </div>
+      {!hideHeader && (
+        <>
+          {!isEditMode ? (
+            <Header
+              className={styles.header}
+              leftIconVisible
+              rightIconId="iconEdit"
+              rightIconVisible
+              rightonClick={() => setIsEditMode(true)} // 편집 모드로 전환
+            />
+          ) : (
+            <Header
+              className={styles.header}
+              leftIconId="iconArrowsLeft"
+              leftIconVisible
+              leftonClick={() => setIsEditMode(false)} // 편집 모드 종료
+              rightIconVisible
+            />
+          )}
+        </>
+      )}
 
       {isEditMode ? (
         <div className={styles["edit-mode-container"]}>
@@ -100,9 +102,7 @@ export default function MyPage() {
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
-              className={`${styles.avatar} ${
-                isEditMode ? styles.hoverable : ""
-              }`}
+              className={`${styles.avatar} ${isEditMode ? styles.hoverable : ""}`}
             />
             <input
               type="file"
@@ -121,6 +121,7 @@ export default function MyPage() {
               className={styles["input-class"]}
             />
           </div>
+
           <div className={styles["input-disabled-container"]}>
             <label className={styles["label"]}>비밀번호</label>
             <input
@@ -148,17 +149,13 @@ export default function MyPage() {
             <div className={styles["gender-container"]}>
               <TertiaryMiniButton
                 onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${
-                  gender === "M" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
               >
                 남자
               </TertiaryMiniButton>
               <TertiaryMiniButton
                 onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${
-                  gender === "F" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
               >
                 여자
               </TertiaryMiniButton>
@@ -222,10 +219,11 @@ export default function MyPage() {
               className={styles.avatar}
             />
           </div>
-          \
+          
           <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
+          
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
@@ -233,6 +231,7 @@ export default function MyPage() {
             <div className={styles.divider}></div>
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
+
           <div className={styles.interests}>
             <h3>관심 운동</h3>
             <div className={styles.interestsList}>
@@ -247,8 +246,10 @@ export default function MyPage() {
               )}
             </div>
           </div>
+
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
+
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
