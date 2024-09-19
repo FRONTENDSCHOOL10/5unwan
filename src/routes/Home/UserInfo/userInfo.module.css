@@ -27,12 +27,9 @@
   align-items: center;
   width: 1.875rem;
   height: 1.875rem;
+  border: 1px solid var(--grayscale-400);
   border-radius: 50%;
   overflow: hidden;
-  background-image: url('/avatar-placeholder.webp');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
 
   img {
     width: 100%;
@@ -42,6 +39,6 @@
 
 .is-dark {
   &.wrapper {
-    color: red;
+    color: var(--white);
   }
 }

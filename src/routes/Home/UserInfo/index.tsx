@@ -1,4 +1,4 @@
-import { User } from '@/api/pocketbase';
+import { User, getPbImageUrl } from '@/api/pocketbase';
 import styles from './userInfo.module.css';
 import classNames from "classnames";
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
@@ -7,8 +7,9 @@ interface userProps {
   user: User;
 }
 
-export default function UserInfo({ user }: userProps) { 
-  const { isDark } = useDarkMode(); // DarkMode
+export default function UserInfo({ user }: userProps) {
+  const { isDark } = useDarkMode();
+  const getUserAvatar = getPbImageUrl(user, user.avatar) ?? undefined;
 
   return (
     <div className={classNames(styles.wrapper, { [styles["is-dark"]]: isDark })}>
@@ -17,7 +18,7 @@ export default function UserInfo({ user }: userProps) {
         <p>오늘도 <strong>득근득근!</strong></p>
       </div>
       <div className={styles["user-profile"]}>
-        {/* <img src="" alt="" /> 유저 프로필이 들어올 경우 추가?? */}
+        <img src={user.avatar ? getUserAvatar :'/avatar-placeholder.webp'} alt={`${user.nickname}님의 프로필`} />
       </div>
     </div>
   )
