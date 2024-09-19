@@ -1,5 +1,5 @@
 .container {
-  padding: 0 20px;
+  padding: 0 1.25rem;
   overflow: hidden;
 }
 
@@ -9,10 +9,10 @@
 }
 
 .attendance-container {
-  height: var(--space-12-half, 3.125rem);
+  height: var(--space-12-half);
   flex-shrink: 0;
   border-radius: 0.5rem;
-  box-shadow: 0 0.1875rem 0.75rem 0 rgba(0, 0, 0, 0.16);
+  box-shadow: var(--box-shadow);
   margin: 1rem 0;
   padding: 0.4375rem 0.625rem 0.375rem;
   display: flex;
@@ -46,12 +46,90 @@ span {
   transition: width 0.3s ease-in-out;
 }
 
-.progress-label {
-  padding: 5px;
-  color: white;
+.calendar {
+  margin: 1rem 0;
+}
+
+.calendar,
+.rdp {
+  --rdp-cell-size: calc((100vw - 2.5rem) / 7);
+  --rdp-caption-font-size: 0.75rem;
+  --rdp-accent-color: #0000ff;
+  --rdp-background-color: #e7edff;
+  --rdp-accent-color-dark: #3003e1;
+  --rdp-background-color-dark: #180270;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+  --rdp-selected-color: #fff;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.15625rem;
+}
+
+.month {
+  align-self: stretch;
+  color: #222b45;
+
+  text-align: center;
+}
+
+.year {
+  align-self: stretch;
+  color: #8f9bb3;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.week {
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-style: normal;
   font-weight: bold;
 }
 
-.calendar {
-  margin: 1rem 0;
+.week-weekdays {
+  color: #8f9bb3;
+}
+
+.week-weekend {
+  color: var(--primary);
+}
+
+.day-btn {
+  width: 1.875rem;
+  height: 1.875rem;
+  padding-bottom: 0.25rem;
+}
+
+.day-btn:hover {
+  border-radius: 0.625rem;
+  background-color: var(--grayscale-400);
+}
+
+.day-btn-selected {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.625rem;
+  background-color: var(--primary);
+  padding-bottom: 0.25rem;
+}
+
+.day {
+  display: contents;
+  color: #222b45;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  width: 1.75rem;
+}
+
+.day-btn-selected .day {
+  color: var(--white);
+  font-weight: bold;
 }
