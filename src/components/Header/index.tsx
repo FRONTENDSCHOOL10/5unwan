@@ -15,6 +15,7 @@ interface HeaderProps {
   leftonClick?: () => void;
   rightonClick?: () => void;
   hideTitle?: boolean;
+  background?: string;
 }
 
 export default function Header({
@@ -27,6 +28,7 @@ export default function Header({
   leftonClick,
   rightonClick,
   hideTitle = false,
+  background= '',
 }: HeaderProps) {
   const { isDark } = useDarkMode();
   const matches = useMatches();
@@ -39,7 +41,10 @@ export default function Header({
 
   return (
     <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
-      <header className={`${styles["header"]} ${className}`}>
+      <header
+        style={{ background }} // Apply the background as an inline style
+        className={`${styles["header"]} ${className}`}
+      >
         {leftIconVisible && (
           <SVGIcon
             width={20}
