@@ -1,35 +1,47 @@
 import useMapStore from '@/stores/mapStore';
 import { useEffect } from 'react';
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate, useMatches } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
+import { RouteHandle } from "@/router";
 import styles from './map.module.css';
 import SearchForm from './SearchForm';
 import MapBoard from './MapBoard';
 import SearchList from '@/routes/Maps/SearchList';
+import Header from "@/components/Header";
 
 interface MarkerTypes {
-  position: { lat: number, lng: number };
+  position: { lat: number; lng: number };
   content: string;
   address?: string;
 }
 
 export default function Maps() {
   const mapStore = useMapStore();
-  const showList = mapStore.showList;
-  const search = mapStore.search;
-  const setMarkers = mapStore.setMarkers;
-  const updateMarker = mapStore.updateMarker;
-  const map = mapStore.map;
+  const { showList, search, setMarkers, updateMarker, map } = mapStore;
   const { user } = useOutletContext<UserContext>();
+  
+  const navigate = useNavigate();
+  const matches = useMatches();
 
-  // 좌표로 상세 주소를 가져오는 함수
+  // Check if header should be hidden
+  const hideHeader = matches.some(
+    (match) => (match.handle as RouteHandle)?.hideHeader
+  );
+
+  // Navigate to home
+  const handleGoHome = () => {
+    navigate('/home');
+  };
+
+  // Function to get address from coordinates
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
     const geocoder = new kakao.maps.services.Geocoder();
-    // const coord = new (window as any).kakao.maps.LatLng(lat, lng);
-
-    geocoder.coord2Address(lng, lat, function(result: any, status: any) {
+    
+    geocoder.coord2Address(lng, lat, (result: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
-        const detailAddr = result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+        const detailAddr = result[0].road_address
+          ? result[0].road_address.address_name
+          : result[0].address.address_name;
         callback(detailAddr);
       }
     });
@@ -37,32 +49,28 @@ export default function Maps() {
 
   useEffect(() => {
     if (!map) return;
+
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(`${search}`, (data: any, status: any) => {
+    ps.keywordSearch(search, (data: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
         const bounds = new kakao.maps.LatLngBounds();
         const newMarkers: MarkerTypes[] = [];
 
         data.forEach((place: any, index: number) => {
-          const marker = {
+          const marker: MarkerTypes = {
             position: {
               lat: parseFloat(place.y),
               lng: parseFloat(place.x),
             },
             content: place.place_name,
-            address: ''  // 기본적으로 빈 값으로 설정
+            address: '', // Default to empty
           };
 
-          // 각 마커의 좌표로부터 주소를 가져오고, markers에 추가
+          // Fetch address for each marker
           getAddressFromCoords(marker.position.lat, marker.position.lng, (address) => {
             marker.address = address;
             updateMarker(index, marker);
-            // setMarkers((prevMarkers) => {
-            //   const updatedMarkers = [...prevMarkers];
-            //   updatedMarkers[index] = marker;  // 해당 마커 업데이트
-            //   return updatedMarkers;
-            // });
           });
 
           bounds.extend(new kakao.maps.LatLng(marker.position.lat, marker.position.lng));
@@ -70,22 +78,32 @@ export default function Maps() {
         });
 
         setMarkers(newMarkers);
-        map.setBounds(bounds);  // 지도 범위 설정
+        map.setBounds(bounds); // Set map bounds
       }
     });
   }, [map, search, setMarkers, updateMarker]);
-  
+
   return (
-    <div className={styles.container}>
-      <div className="sr-only">
-        <p>현재 사용자: {user?.nickname}</p>
-        <br />
+    <>
+      {!hideHeader && (
+        <Header
+          leftIconId="iconArrowsLeft"
+          leftIconVisible
+          leftonClick={handleGoHome}
+          rightIconVisible
+          hideTitle
+          background="none"
+        />
+      )}
+      <div className={styles.container}>
+        <div className="sr-only">
+          <p>현재 사용자: {user?.nickname}</p>
+          <br />
+        </div>
+        <SearchForm />
+        {showList && <SearchList />}
+        <MapBoard />
       </div>
-      <SearchForm />
-      {
-        showList && <SearchList />
-      }
-      <MapBoard />
-    </div>
-  )
+    </>
+  );
 }
