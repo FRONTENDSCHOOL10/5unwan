@@ -4,7 +4,7 @@ import SVGIcon from '@/components/SVGicon';
 import {PrimaryMiniButton} from "@/components/Buttons/PrimaryButton/index";
 
 interface InputProps {
-  type?: "text" | "search" | "email" | "password" | "checked" | "radio",
+  type?: "text" | "search" | "email" | "password" | "checked" | "radio" | "file",
   name?: string,
   disabled?: boolean,
   labelTitle?: string,
@@ -20,6 +20,8 @@ interface InputProps {
   button?: boolean,
   buttonName?: string,
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+  accept?: string,
+  checked?: boolean,
 }
 
 export default function Input({
@@ -39,6 +41,8 @@ export default function Input({
   button = false,
   buttonName = '버튼',
   onKeyDown,
+  accept,
+  checked,
 }: InputProps) {
   const inputId = useId();
 
@@ -59,6 +63,7 @@ export default function Input({
             onChange={onChange}
             onKeyDown={onKeyDown}
             disabled
+            accept={accept}
           />
         </div>
         <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
@@ -82,6 +87,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             onKeyDown={onKeyDown}
+            accept={accept}
           />
           <PrimaryMiniButton type="submit">{ buttonName }</PrimaryMiniButton>
         </div>
@@ -109,6 +115,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             onKeyDown={onKeyDown}
+            accept={accept}
           />
         </div>
         <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
@@ -131,6 +138,8 @@ export default function Input({
           value={value}
           onChange={onChange}
           onKeyDown={onKeyDown}
+          accept={accept}
+          checked={checked}
         />
       </div>
       <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
