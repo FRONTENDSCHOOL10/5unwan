@@ -1,5 +1,5 @@
 .container {
-  padding: 0 20px;
+  padding: 0 1.25rem;
   overflow: hidden;
 }
 
@@ -9,10 +9,10 @@
 }
 
 .attendance-container {
-  height: var(--space-12-half, 3.125rem);
+  height: var(--space-12-half);
   flex-shrink: 0;
   border-radius: 0.5rem;
-  box-shadow: 0 0.1875rem 0.75rem 0 rgba(0, 0, 0, 0.16);
+  box-shadow: var(--box-shadow);
   margin: 1rem 0;
   padding: 0.4375rem 0.625rem 0.375rem;
   display: flex;
@@ -46,12 +46,163 @@ span {
   transition: width 0.3s ease-in-out;
 }
 
-.progress-label {
-  padding: 5px;
-  color: white;
+/* 캘린더 관련 스타일링 */
+.calendar {
+  margin: 1rem 0;
+}
+
+.calendar,
+.rdp {
+  --rdp-cell-size: calc((100vw - 2.5rem) / 7);
+  --rdp-caption-font-size: 0.75rem;
+}
+
+/* 캘린더 < 날짜/연도 > */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.15625rem;
+}
+
+.month {
+  align-self: stretch;
+  color: #222b45;
+
+  text-align: center;
+}
+
+.year {
+  align-self: stretch;
+  color: #8f9bb3;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+/* 캘린더 주(월~일) */
+.week {
+  display: flex;
+  height: var(--rdp-cell-size);
+  width: var(--rdp-cell-size);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-style: normal;
   font-weight: bold;
 }
 
-.calendar {
-  margin: 1rem 0;
+.week-weekdays {
+  color: #8f9bb3;
+}
+
+.week-weekend {
+  color: var(--primary);
+}
+
+/* 캘린더 날짜 요소 */
+.day-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  margin-top: 0.375rem;
+}
+
+.day-btn {
+  width: 1.875rem;
+  height: 1.875rem;
+  padding-bottom: 0.25rem;
+}
+
+.day-btn:hover {
+  border-radius: 0.625rem;
+  background-color: var(--grayscale-400);
+}
+
+.day-btn-selected {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.625rem;
+  background-color: var(--primary);
+  padding-bottom: 0.25rem;
+}
+
+.day {
+  display: contents;
+  color: #222b45;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  width: 1.75rem;
+}
+
+.day-disabled {
+  display: contents;
+  color: #8f9bb3;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  width: 1.75rem;
+}
+
+.day-btn-selected .day {
+  color: var(--white);
+  font-weight: bold;
+}
+
+/* 운동기록 */
+.workout {
+  padding: 1.25rem 0;
+}
+
+.workout-label {
+  display: block;
+  width: fit-content;
+  padding: 0.0625rem 0.3125rem;
+  margin-bottom: 0.625rem;
+
+  color: #727272;
+  font-size: 0.5rem;
+  font-weight: bold;
+  line-height: 0.875rem;
+  letter-spacing: 0.046875rem;
+
+  border-radius: 0.1875rem;
+  background: var(--grayscale-400);
+}
+
+.workout-time {
+  display: inline-block;
+  color: #727272;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 0.875rem;
+  letter-spacing: 0.046875rem;
+
+  margin-bottom: 0.625rem;
+}
+
+.workout-title {
+  color: #222b45;
+  text-overflow: ellipsis;
+
+  margin-bottom: 0.625rem;
+}
+
+.workout-content {
+  color: var(--grayscale-800);
+  font-size: 0.8125rem;
+  font-weight: "medium";
+  line-height: 1.1875rem;
+  letter-spacing: 0.0625rem;
+
+  margin-bottom: 0.625rem;
+}
+
+.workout-image {
+  width: 100%;
 }
