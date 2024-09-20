@@ -58,7 +58,7 @@ export default function MapBoard() {
     <div className={styles.container}>
       <Map
         center={ {lat: defaultLocation.lat, lng: defaultLocation.lng }} 
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "calc(100vh - 60px)" }}
         level={3}
         onCreate={setMap}
       >
