@@ -14,7 +14,6 @@
   .input-wrapper {
     position: relative;
     display: flex;
-    gap: 0.5rem;
     width: 100%;
   }
 
@@ -23,16 +22,16 @@
   input::-webkit-search-results-button,
   input::-webkit-search-results-decoration{
     position: absolute;
-    right: 4px;
-    width: 20px; 
-    height: 20px; 
+    right: var(--space-1);
+    width: 1.25rem; 
+    height: 1.25rem; 
     cursor: pointer;
   }
 
   .search-icon {
     position: absolute;
     top: 50%;
-    left: 4px;
+    left: var(--space-1);
     transform: translateY(-50%);
     display: flex;
     justify-content: center;

@@ -45,7 +45,7 @@ export default function Input({
   if (disabled) {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
+        <label htmlFor={inputId} className={`${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
         <div className={styles["input-wrapper"]}>
           <input
             type={type}
@@ -69,7 +69,7 @@ export default function Input({
   if (button) {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
+        <label htmlFor={inputId} className={`${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
         <div className={styles["input-wrapper"]}>
           <input
             type={type}
@@ -93,7 +93,7 @@ export default function Input({
   if (type === "search") {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
+        <label htmlFor={inputId} className={`${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
         <div className={styles["input-wrapper"]}>
           <div className={styles["search-icon"]}>
             <SVGIcon iconId="iconSearch" width={14} height={14} />
@@ -118,7 +118,7 @@ export default function Input({
 
   return (
     <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-      <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
+      <label htmlFor={inputId} className={`${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
       <div className={styles["input-wrapper"]}>
         <input
           type={type}
