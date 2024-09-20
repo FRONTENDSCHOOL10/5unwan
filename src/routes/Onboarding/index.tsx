@@ -10,6 +10,7 @@ import { RouteHandle } from "@/router";
 import { UserContext } from "@/routes/PrivateRoute";
 import { getOnboardingStep, ONBOARDING_STEPS } from "@/utils/onboarding";
 import Header from "@/components/Header";
+import styles from "./style.module.css"
 
 export default function OnboardingRoute() {
   const location = useLocation();
@@ -38,7 +39,9 @@ export default function OnboardingRoute() {
             rightIconVisible
           />
         )}
-        <Outlet context={{ user }} />
+        <div className={styles["content-wrapper"]}>
+          <Outlet context={{ user }} />
+        </div>
       </>
     );
   } else {

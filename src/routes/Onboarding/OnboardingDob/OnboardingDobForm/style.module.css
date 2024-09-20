@@ -1,0 +1,16 @@
+.group {
+    justify-content: center;
+    margin-bottom: 1.875rem;
+    display: flex;
+    justify-content: space-between;
+    input {
+        width: 5.5rem;
+        gap: .5rem;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

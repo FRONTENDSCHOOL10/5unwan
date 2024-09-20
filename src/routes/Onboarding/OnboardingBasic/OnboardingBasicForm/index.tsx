@@ -2,7 +2,13 @@ import { getPbImageUrl, UpdateUser, User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { ChangeEvent, useEffect, useId, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import SVGIcon from "@/components/SVGicon";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
+import { SecondaryMiniButton } from '@/components/Buttons/SecondaryButton';
+import styles from "./style.module.css";
+import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
 
 export type OnboardingBasicFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -15,23 +21,19 @@ export function OnboardingBasicForm({
   user,
   currentStep,
 }: OnboardingBasicFormProps) {
-  const id = useId();
   const avatarImageRef = useRef<HTMLImageElement | null>(null);
 
   const [formData, setFormData] = useState<{
     newAvatarFile: File | null;
     nickname: string;
     gender: User["gender"];
-  }>(() => {
-    return {
-      newAvatarFile: null,
-      nickname: user.nickname || "",
-      gender: user.gender || "",
-    };
+  }>({
+    newAvatarFile: null,
+    nickname: user.nickname || "",
+    gender: user.gender || "",
   });
 
   const [newAvatarFileSrc, setNewAvatarFileSrc] = useState<string | null>(null);
-
   const { updateMutation } = useCurrentUser();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -42,12 +44,8 @@ export function OnboardingBasicForm({
     const userValues: UpdateUser = {
       nickname,
       gender,
+      ...(newAvatarFile && { avatar: await convertImageToWebP(newAvatarFile) }),
     };
-
-    if (newAvatarFile) {
-      const avatarWebP = await convertImageToWebP(newAvatarFile);
-      userValues.avatar = avatarWebP;
-    }
 
     await updateMutation.mutateAsync(
       { userId: user.id, userValues },
@@ -55,33 +53,31 @@ export function OnboardingBasicForm({
     );
   };
 
-  const handleUpdateFormData: React.ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
+  const handleUpdateFormData: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
 
-    setFormData((prevFormData) => {
-      return { ...prevFormData, [name]: value };
-    });
+  const handleUpdateAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files?.[0] ?? null;
+    setFormData((prevFormData) => ({ ...prevFormData, newAvatarFile: file }));
+  };
+
+  const handleGenderChange = (value: User["gender"], e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // 폼 제출 방지
+    setFormData((prevFormData) => ({ ...prevFormData, gender: value }));
   };
 
   useEffect(() => {
-    if (formData.newAvatarFile === null) {
+    if (!formData.newAvatarFile) {
       setNewAvatarFileSrc(null);
       return;
     }
 
     const objectUrl = URL.createObjectURL(formData.newAvatarFile);
-    let objectUrlRevoked = false;
     setNewAvatarFileSrc(objectUrl);
 
-    const handleLoad = () => {
-      if (!objectUrlRevoked) {
-        URL.revokeObjectURL(objectUrl);
-        objectUrlRevoked = true;
-      }
-    };
-
+    const handleLoad = () => URL.revokeObjectURL(objectUrl);
     const avatarImageElement = avatarImageRef.current;
     if (avatarImageElement) {
       avatarImageElement.addEventListener("load", handleLoad);
@@ -91,100 +87,121 @@ export function OnboardingBasicForm({
       if (avatarImageElement) {
         avatarImageElement.removeEventListener("load", handleLoad);
       }
-      if (!objectUrlRevoked) {
-        URL.revokeObjectURL(objectUrl);
-        objectUrlRevoked = true;
-      }
+      URL.revokeObjectURL(objectUrl);
     };
   }, [formData.newAvatarFile]);
 
-  function handleUpdateAvatar(e: ChangeEvent<HTMLInputElement>): void {
-    const file = e.target.files?.[0] ?? null;
-
-    setFormData((prevFormData) => {
-      return { ...prevFormData, newAvatarFile: file };
-    });
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div role="group">
-        <h3 className="sr-only">프로필 사진</h3>
-        <div>
-          <img
-            aria-hidden="true"
-            ref={avatarImageRef}
-            src={
-              newAvatarFileSrc ||
-              getPbImageUrl(user, user.avatar) ||
-              "/avatar-placeholder.webp"
-            }
-            alt="프로필 사진"
-          />
-
-          <label htmlFor={`${id}-newAvatarFile`} role="button">
-            <input
-              id={`${id}-newAvatarFile`}
-              type="file"
-              name="newAvatarFile"
-              accept=".jpg, .webp, .svg, .gif, .webp"
-              aria-label="프로필사진 업로드"
-              onChange={handleUpdateAvatar}
+    <>
+      <PageTitle text="프로필과 닉네임, 성별을 입력해주세요." />
+      <form onSubmit={handleSubmit}>
+        <ul className={styles["container"]}>
+          <li className={styles["list-profile"]}>
+            <figure className={styles["image-container"]}>
+              <img
+                aria-hidden="true"
+                ref={avatarImageRef}
+                src={
+                  newAvatarFileSrc ||
+                  getPbImageUrl(user, user.avatar) ||
+                  "/avatar-placeholder.webp"
+                }
+                alt="프로필 사진"
+              />
+            </figure>
+            <label className={styles["image-edit"]} role="button">
+              <span className="sr-only">
+                <Input
+                  name="newAvatarFile"
+                  type="file"
+                  onChange={handleUpdateAvatar}
+                  labelHide
+                  errorTextHide
+                  accept=".jpg, .webp, .svg, .gif"
+                  aria-label="프로필사진 업로드"
+                />
+              </span>
+              <span className={styles["icon-box"]}>
+                <SVGIcon width={20} height={20} iconId="iconAdd"/>
+              </span>
+            </label>
+          </li>
+          <li className={styles["list-nickname"]}>
+            <Input
+              type="text"
+              name="nickname"
+              value={formData.nickname}
+              onChange={handleUpdateFormData}
+              labelTitle="닉네임"
+              placeholder="닉네임을 입력해 주세요."
+              errorTextHide
             />
-          </label>
-        </div>
-      </div>
-      <div role="group">
-        <label htmlFor={`${id}-nickname`}>
-          <h2 className="sr-only">닉네임</h2>
-        </label>
-        <input
-          id={`${id}-nickname`}
-          name="nickname"
-          type="text"
-          placeholder="닉네임"
-          value={formData.nickname}
-          onChange={handleUpdateFormData}
-        />
-      </div>
-      <div role="radiogroup" aria-label="성별 선택">
-        <div>
-          <input
-            type="radio"
-            name="gender"
-            id={`${id}-male`}
-            value="M"
-            checked={formData.gender === "M"}
-            onChange={handleUpdateFormData}
-            // className="sr-only"
-          />
-          <label htmlFor={`${id}-male`}>남자</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="gender"
-            id={`${id}-female`}
-            value="F"
-            checked={formData.gender === "F"}
-            onChange={handleUpdateFormData}
-          />
-          <label htmlFor={`${id}-female`}>여자</label>
-        </div>
-      </div>
-      <button
-        type="submit"
-        disabled={
-          !formData.nickname.trim() ||
-          !formData.gender.trim() ||
-          updateMutation.isPending
-        }
-      >
-        {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-      </button>
-      {updateMutation.isError
-        ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
-        : null}
-    </form>
+          </li>
+          <li className={styles["list-gender"]} aria-label="성별 선택">
+            <title className="body-sm-medium">성별</title>
+            <ul className={styles["content"]}>
+              <li>
+                <span className="sr-only">
+                  <Input
+                    type="radio"
+                    name="gender"
+                    value="M"
+                    checked={formData.gender === "M"}
+                    onChange={handleUpdateFormData}
+                  />
+                </span>
+                <SecondaryMiniButton
+                  onClick={(e) => handleGenderChange("M", e)}
+                  aria-pressed={formData.gender === "M"}
+                  className={formData.gender === "M" ? styles["active-button"] : ""}
+                >
+                  남자
+                  {formData.gender === "M" && (
+                    <span className={styles["icon-box"]}>
+                      <SVGIcon width={20} height={20} iconId="iconCheck" />
+                    </span>
+                  )}
+                </SecondaryMiniButton>
+              </li>
+              <li>
+                <span className="sr-only">
+                  <Input
+                    type="radio"
+                    name="gender"
+                    value="F"
+                    checked={formData.gender === "F"}
+                    onChange={handleUpdateFormData}
+                  />
+                </span>
+                <SecondaryMiniButton
+                  onClick={(e) => handleGenderChange("F", e)}
+                  aria-pressed={formData.gender === "F"}
+                  className={formData.gender === "F" ? styles["active-button"] : ""}
+                >
+                  여자
+                  {formData.gender === "F" && (
+                    <span className={styles["icon-box"]}>
+                      <SVGIcon width={20} height={20} iconId="iconCheck" />
+                    </span>
+                  )}
+                </SecondaryMiniButton>
+              </li>
+            </ul>
+          </li>
+        <PrimaryLargeButton
+          type="submit"
+          disabled={
+            !formData.nickname.trim() ||
+            !formData.gender ||
+            updateMutation.isPending
+          }
+        >
+          {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
+        </PrimaryLargeButton>
+        </ul>
+        {updateMutation.isError && 
+          "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"}
+      </form>
+    </>
   );
 }

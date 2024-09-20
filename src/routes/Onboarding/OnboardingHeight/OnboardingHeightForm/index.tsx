@@ -1,7 +1,11 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useId, useState } from "react";
+import React, {  useState } from "react";
+import styles from "./style.module.css"
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
+import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
 
 export type OnboardingHeightFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,7 +18,6 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
-  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       height: user.height <= 0 ? "" : String(user.height),
@@ -51,31 +54,33 @@ export function OnboardingHeightForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div role="group">
-        <label htmlFor={`${id}-height`}>
-          <h2 className="sr-only">신장</h2>
-        </label>
-        <input
-          id={`${id}-height`}
-          name="height"
-          type="text"
-          placeholder="160"
-          value={formData.height}
-          onChange={handleUpdateFormData}
-        />
-        cm
-      </div>
+    <>
+      <PageTitle text="키를 입력해 주세요." />
+      <form onSubmit={handleSubmit}>
+        <div className={`${styles.group} ${styles["group-profile"]}`}>
+          <Input
+            name="height"
+            type="number"
+            placeholder="160"
+            onChange={handleUpdateFormData}
+            value={formData.height}
+            labelHide
+            errorTextHide
+          />
+          <p className={`body-sm-bold ${styles["desc"]}`}>cm</p>
+        </div>
 
-      <button
-        type="submit"
-        disabled={!formData.height || updateMutation.isPending}
-      >
-        {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-      </button>
-      {updateMutation.isError
-        ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
-        : null}
-    </form>
+        <PrimaryLargeButton
+            type="submit"
+            disabled={!formData.height || updateMutation.isPending}
+        >
+          {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
+        </PrimaryLargeButton>
+
+        {updateMutation.isError
+          ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
+          : null}
+      </form>
+    </>
   );
 }

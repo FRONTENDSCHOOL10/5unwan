@@ -1,7 +1,8 @@
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
-import Header from "@/components/Header"
+import Header from "@/components/Header";
+import styles from "./style.module.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,12 +25,13 @@ export default function Register() {
           rightIconVisible
         />)}
       <div>
-        <h1>이메일과 비밀번호를 입력해주세요.</h1>
-        <RegisterForm
-          onSuccess={() => {
-            navigate("/onboarding");
-          }}
-        />
+        <div className={styles["content-wrapper"]}>
+          <RegisterForm
+            onSuccess={() => {
+              navigate("/onboarding");
+            }}
+          />
+        </div>
       </div>
     </>
   );
