@@ -5,6 +5,8 @@
     display: flex;
     justify-content: space-between;
     padding: 0.9375rem 1.25rem;
+    max-width: 26rem;
+    margin: 0 auto;
 
     .title {
         word-break: keep-all;
