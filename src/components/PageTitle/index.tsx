@@ -2,12 +2,15 @@ import React from 'react';
 import styles from "./style.module.css"
 
 interface PageTitleProps {
-  text: string;
+  text: string  | { __html: string };
 }
 
 const PageTitle: React.FC<PageTitleProps> = ({ text }) => {
-  // return <h1 className={`${styles.title} ${styles['body-xl-bold']}`}>{text}</h1>;
-  return <h1 className={`${styles.title} body-xl-bold`}>{text}</h1>;
+  return typeof text === 'string' ? (
+    <h1 className={`${styles.title} body-xl-bold`}>{text}</h1>
+  ) : (
+    <h1 className={`${styles.title} body-xl-bold`} dangerouslySetInnerHTML={text} />
+  );
 };
 
 export default PageTitle;
