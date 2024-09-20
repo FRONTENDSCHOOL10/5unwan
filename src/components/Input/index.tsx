@@ -5,6 +5,7 @@ import {PrimaryMiniButton} from "@/components/Buttons/PrimaryButton/index";
 
 interface InputProps {
   type?: "text" | "search" | "email" | "password" | "checked" | "radio",
+  name?: string,
   disabled?: boolean,
   labelTitle?: string,
   labelHide?: boolean,
@@ -14,7 +15,6 @@ interface InputProps {
   min?: number,
   max?: number,
   value?: string | undefined,
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void,
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
   isDark?: boolean,
   button?: boolean,
@@ -24,6 +24,7 @@ interface InputProps {
 
 export default function Input({
   type = "text",
+  name,
   disabled = false,
   labelTitle = "타이틀",
   labelHide = false,
@@ -32,7 +33,6 @@ export default function Input({
   errorTextHide = false,
   min,
   max,
-  onSubmit,
   value,
   onChange,
   isDark = false,
@@ -45,24 +45,23 @@ export default function Input({
   if (disabled) {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <form onSubmit={onSubmit}>
-          <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
-          <div className={styles["input-wrapper"]}>
-            <input
-              type={type}
-              id={inputId}
-              className="body-sm-medium"
-              placeholder={placeholder}
-              minLength={min}
-              maxLength={max}
-              value={value}
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-              disabled
-            />
-          </div>
-          <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
-        </form>
+        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
+        <div className={styles["input-wrapper"]}>
+          <input
+            type={type}
+            name={name}
+            id={inputId}
+            className="body-sm-medium"
+            placeholder={placeholder}
+            minLength={min}
+            maxLength={max}
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            disabled
+          />
+        </div>
+        <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
       </div>
     )
   }
@@ -70,24 +69,23 @@ export default function Input({
   if (button) {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <form onSubmit={onSubmit}>
-          <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
-          <div className={styles["input-wrapper"]}>
-            <input
-              type={type}
-              id={inputId}
-              className="body-sm-medium"
-              placeholder={placeholder}
-              minLength={min}
-              maxLength={max}
-              value={value}
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-            />
-            <PrimaryMiniButton type="submit">{ buttonName }</PrimaryMiniButton>
-          </div>
-          <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
-        </form>
+        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
+        <div className={styles["input-wrapper"]}>
+          <input
+            type={type}
+            name={name}
+            id={inputId}
+            className="body-sm-medium"
+            placeholder={placeholder}
+            minLength={min}
+            maxLength={max}
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
+          <PrimaryMiniButton type="submit">{ buttonName }</PrimaryMiniButton>
+        </div>
+        <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
       </div>
     )
   }
@@ -95,37 +93,14 @@ export default function Input({
   if (type === "search") {
     return (
       <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-        <form onSubmit={onSubmit}>
-          <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
-          <div className={styles["input-wrapper"]}>
-            <button type="submit" className={styles["search-icon"]}>
-              <SVGIcon iconId="iconSearch" width={14} height={14} />
-            </button>
-            <input
-              type={type}
-              id={inputId}
-              className="body-sm-medium"
-              placeholder={placeholder}
-              minLength={min}
-              maxLength={max}
-              value={value}
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-            />
-          </div>
-          <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
-        </form>
-      </div>
-    )
-  }
-
-  return (
-    <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
-      <form onSubmit={onSubmit}>
-        <label htmlFor={inputId} className={labelHide ? "sr-only" : ""}>{labelTitle}</label>
+        <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : ""}`}>{labelTitle}</label>
         <div className={styles["input-wrapper"]}>
+          <div className={styles["search-icon"]}>
+            <SVGIcon iconId="iconSearch" width={14} height={14} />
+          </div>
           <input
             type={type}
+            name={name}
             id={inputId}
             className="body-sm-medium"
             placeholder={placeholder}
@@ -137,7 +112,28 @@ export default function Input({
           />
         </div>
         <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
-      </form>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`${styles["input"]} ${isDark ? styles["is-dark"] : ""}`}>
+      <label htmlFor={inputId} className={`body-sm-medium ${labelHide ? "sr-only" : "body-sm-medium"}`}>{labelTitle}</label>
+      <div className={styles["input-wrapper"]}>
+        <input
+          type={type}
+          name={name}
+          id={inputId}
+          className="body-sm-medium"
+          placeholder={placeholder}
+          minLength={min}
+          maxLength={max}
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+      </div>
+      <span className={errorTextHide ? "sr-only" : "body-xs"}>{errorText}</span>
     </div>
   );
 }
