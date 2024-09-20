@@ -1,9 +1,6 @@
-/* 마이페이지 */
-.mypage-header {
-	display: flex;
-	align-items: center;
-	justify-content: center; 
-	position: relative; 
+.container {
+	max-width: 26rem;
+    margin: 0 auto;
 }
 
 .mypage-title {
