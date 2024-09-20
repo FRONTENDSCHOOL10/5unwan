@@ -1,19 +1,20 @@
-import { useCurrentUserQuery } from "@/hooks/user";
-import { useNavigate } from "react-router-dom";
-import { getPbImageUrl, updateUserProfile, logout } from "@/api/pocketbase";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate, useMatches } from "react-router-dom";
+import { RouteHandle } from "@/router";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
+import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
-import {
-  PrimaryLargeButton,
-} from "@/components/Buttons/PrimaryButton/index";
-import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
+import Header from "@/components/Header";
+import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
+import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
+import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
+import Input from "@/components/Input/index";
 
 export default function MyPage() {
-  const { user, isLoading, isError } = useCurrentUserQuery();
+  const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
+  const matches = useMatches();
+  
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -24,16 +25,6 @@ export default function MyPage() {
   const [profilePreview, setProfilePreview] = useState(
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
-
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await logout();
-    },
-    onSuccess: () => {
-      queryClient.clear();
-      navigate("/logout-complete");
-    },
-  });
 
   const handleSaveChanges = () => {
     const updateData = {
@@ -64,10 +55,13 @@ export default function MyPage() {
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
-
   const profileImageUrl = user
     ? getPbImageUrl(user, user?.avatar || "")
     : "/default-profile.png";
+
+  const hideHeader = matches.some(
+    (match) => (match.handle as RouteHandle)?.hideHeader
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -79,33 +73,27 @@ export default function MyPage() {
 
   return (
     <div>
-      <div className={styles["mypage-header"]}>
-        {/* 뒤로가기 버튼 추가 */}
-        {isEditMode && (
-          <svg
-            width="20"
-            height="20"
-            className={styles["back-icon"]}
-            onClick={() => setIsEditMode(false)}
-          >
-            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconArrowsLeft"></use>
-          </svg>
-        )}
-        <span className={styles["mypage-title"]}>
-          {isEditMode ? "프로필 수정" : "마이페이지"}
-        </span>
-
-        {!isEditMode && (
-          <svg
-            width="20"
-            height="20"
-            className={styles["edit-icon"]}
-            onClick={() => setIsEditMode(true)}
-          >
-            <use xlinkHref="/src/components/SVGicon/svgSprites.svg#iconEdit"></use>
-          </svg>
-        )}
-      </div>
+      {!hideHeader && (
+        <>
+          {!isEditMode ? (
+            <Header
+              className={styles.header}
+              leftIconVisible
+              rightIconId="iconEdit"
+              rightIconVisible
+              rightonClick={() => setIsEditMode(true)} // 편집 모드로 전환
+            />
+          ) : (
+            <Header
+              className={styles.header}
+              leftIconId="iconArrowsLeft"
+              leftIconVisible
+              leftonClick={() => setIsEditMode(false)} // 편집 모드 종료
+              rightIconVisible
+            />
+          )}
+        </>
+      )}
 
       {isEditMode ? (
         <div className={styles["edit-mode-container"]}>
@@ -114,9 +102,7 @@ export default function MyPage() {
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
-              className={`${styles.avatar} ${
-                isEditMode ? styles.hoverable : ""
-              }`}
+              className={`${styles.avatar} ${isEditMode ? styles.hoverable : ""}`}
             />
             <input
               type="file"
@@ -128,31 +114,35 @@ export default function MyPage() {
 
           <div className={styles["input-disabled-container"]}>
             <label className={styles["label"]}>아이디</label>
-            <input
-              type="text"
-              value={user?.email || ""}
+            <Input 
+              value={user?.email || ""} 
               disabled
-              className={styles["input-class"]}
+              isDark={false}
+              labelHide={true}
+              errorTextHide={true}
             />
           </div>
+
           <div className={styles["input-disabled-container"]}>
-            <label className={styles["label"]}>비밀번호</label>
-            <input
-              type="text"
-              value="고객센터를 통해 변경해주세요."
+		  <label className={styles.label}>비밀번호</label>
+            <Input 
+              value="고객센터를 통해 변경해주세요." 
               disabled
-              className={styles["input-class"]}
+              isDark={false}
+              labelHide={true}
+              errorTextHide={true}
             />
           </div>
 
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>닉네임</label>
-            <input
-              type="text"
+		  <label className={styles["label"]}>닉네임</label>
+            <Input 
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
@@ -160,30 +150,25 @@ export default function MyPage() {
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>성별</label>
             <div className={styles["gender-container"]}>
-              <TertiaryMiniButton
+              <SecondaryMiniButton
                 onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${
-                  gender === "M" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
               >
                 남자
-              </TertiaryMiniButton>
-              <TertiaryMiniButton
+              </SecondaryMiniButton>
+              <SecondaryMiniButton
                 onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${
-                  gender === "F" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
               >
                 여자
-              </TertiaryMiniButton>
+              </SecondaryMiniButton>
             </div>
           </div>
 
           {/* 생년월일 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>생년월일</label>
-            <input
-              type="text"
+		  <label className={styles["label"]}>생년월일</label>
+			<Input 
               value={dob}
               onChange={(e) => {
                 const inputValue = e.target.value;
@@ -193,30 +178,37 @@ export default function MyPage() {
                 setDob(formattedValue);
               }}
               placeholder="yyyy-mm-dd"
-              maxLength={10}
-              className={styles["input-class"]}
+              max={10}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
           {/* 키 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>키</label>
-            <input
+		  <label className={styles["label"]}>키</label>
+			<Input 
               type="number"
               value={height.toString()}
               onChange={(e) => setHeight(Number(e.target.value))}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
           {/* 몸무게 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>몸무게</label>
-            <input
+		  <label className={styles["label"]}>몸무게</label>
+		  <Input 
               type="number"
               value={weight.toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelTitle="몸무게"
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
@@ -236,11 +228,11 @@ export default function MyPage() {
               className={styles.avatar}
             />
           </div>
-
+          
           <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
-
+          
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
@@ -270,11 +262,13 @@ export default function MyPage() {
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
-            <button onClick={() => logoutMutation.mutate()}>로그아웃</button>
+            <button onClick={logout}>로그아웃</button>
             <br />
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
             </button>
+            <br />
+            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
       )}

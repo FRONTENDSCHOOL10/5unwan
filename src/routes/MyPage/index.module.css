@@ -246,3 +246,14 @@
 	border-color: var(--grayscale-300);
 	color: var(--grayscale-500);
 	}
+
+	.mypage-label {
+		font-size: var(--basic);
+		font-weight: var(--font-weight-bold);
+		color: var(--primary);
+		width: 100%;
+	  }
+
+	  .button-container{
+		margin-top: var(--space-5);
+	  }

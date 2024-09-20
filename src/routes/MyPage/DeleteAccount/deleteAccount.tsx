@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCurrentUserQuery } from "@/hooks/user";
+import { useCurrentUser } from "@/hooks/user";
 import { deleteUser } from "@/api/pocketbase";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import styles from "./deleteAccount.module.css";
 
 export default function DeleteAccount() {
-  const { user } = useCurrentUserQuery();
+  const { user } = useCurrentUser();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [password, setPassword] = useState("");

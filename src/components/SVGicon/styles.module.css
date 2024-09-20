@@ -9,24 +9,9 @@
     background: var(--gradient-blue);
     border: none;
     border-radius: var(--rounded-full);
-    &:hover {
-      box-shadow: var(--box-shadow);
-    }
-}
-
-.gnb-icon-frame {
-    display: inline-flex;
-    width: 2.5rem;
-    height: 2.5rem;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: var(--rounded-full);
-    transition: 0.3s;
     
     &:hover {
-        background-color: var(--grayscale-300);
-        color: var(--primary);
+      box-shadow: var(--box-shadow);
     }
 }
 

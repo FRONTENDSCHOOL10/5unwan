@@ -1,7 +1,7 @@
-import { updateCurrentUser, User } from "@/api/pocketbase";
+import { User } from "@/api/pocketbase";
+import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 export type OnboardingHeightFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -14,20 +14,14 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
+  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       height: user.height <= 0 ? "" : String(user.height),
     };
   });
 
-  const queryClient = useQueryClient();
-
-  const onboardingHeightMutation = useMutation({
-    mutationFn: updateCurrentUser,
-    async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: ["current-user"] });
-    },
-  });
+  const { updateMutation } = useCurrentUser();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -38,7 +32,7 @@ export function OnboardingHeightForm({
       height,
     };
 
-    await onboardingHeightMutation.mutateAsync(
+    await updateMutation.mutateAsync(
       { userId: user.id, userValues },
       {
         onSuccess,
@@ -59,10 +53,11 @@ export function OnboardingHeightForm({
   return (
     <form onSubmit={handleSubmit}>
       <div role="group">
-        <label htmlFor="height">
+        <label htmlFor={`${id}-height`}>
           <h2 className="sr-only">신장</h2>
         </label>
         <input
+          id={`${id}-height`}
           name="height"
           type="text"
           placeholder="160"
@@ -74,11 +69,11 @@ export function OnboardingHeightForm({
 
       <button
         type="submit"
-        disabled={!formData.height || onboardingHeightMutation.isPending}
+        disabled={!formData.height || updateMutation.isPending}
       >
         {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
       </button>
-      {onboardingHeightMutation.isError
+      {updateMutation.isError
         ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
         : null}
     </form>

@@ -1,0 +1,82 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: var(--white);
+  border-top-left-radius: var(--rounded-lg);
+  border-top-right-radius: var(--rounded-lg);
+  z-index: 150;
+  overflow: scroll;
+}
+
+.result-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-items {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 3.75rem;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--grayscale-300);
+  gap: var(--space-2);
+  cursor: pointer;
+
+  &:last-child {
+    border: 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    gap: var(--space-1);
+
+    .title {
+      font-size: var(----medium);
+    }
+
+    p {
+      font-size: var(--basic);
+    }
+  }
+
+  .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    order: -1;
+    background-color: var(--secondary);
+    color: var(--white);
+  }
+
+  .favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    background-image: url('https://cdn.iconscout.com/icon/free/png-512/free-star-icon-download-in-svg-png-gif-file-formats--like-logo-favorite-award-rating-christmas-iconly-essential-icons-pack-user-interface-2036103.png?f=webp&w=256');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &.is-active {
+      background-image: url('https://cdn.iconscout.com/icon/free/png-256/free-star-bookmark-favorite-shape-rank-16-28621.png');
+    }
+  }
+}

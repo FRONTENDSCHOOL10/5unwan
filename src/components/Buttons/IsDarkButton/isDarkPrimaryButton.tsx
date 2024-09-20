@@ -8,6 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
   size: 'large' | 'medium' | 'mini';
   to?: string; 
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
 const IsDarkButton: React.FC<ButtonProps> = ({ children, onClick, disabled, size, to }) => {

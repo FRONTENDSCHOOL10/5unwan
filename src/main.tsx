@@ -10,6 +10,8 @@ import "@/styles/styles.css";
 // > components
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/router";
+// > dark mode
+import { DarkModeProvider } from '@/components/DarkModeContext/DarkModeContext'; // Import DarkModeProvider
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -19,9 +21,11 @@ const queryClient = new QueryClient({
 
 const rootNode = document.getElementById("react-app");
 createRoot(rootNode!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+<StrictMode>
+    <DarkModeProvider> {/* Wrap with DarkModeProvider */}
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </DarkModeProvider>
   </StrictMode>
 );

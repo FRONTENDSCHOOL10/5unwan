@@ -18,13 +18,13 @@
   .large-button-wrapper:hover {
 	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
-	color: var(--white);
+	color: var(--primary);
   }
   
   .large-button-wrapper:active {
 	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
-	color: var(--white);
+	color: var(--primary);
   }
   
   .large-button-wrapper:disabled {

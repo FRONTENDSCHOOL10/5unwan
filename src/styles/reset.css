@@ -17,6 +17,9 @@ html {
 body {
   font-family: var(--font-family-basic);
   font-size: var(--font-size-basic);
+  &.is-dark {
+    background-color: var(--primary);
+  }
 }
 html,
 body,

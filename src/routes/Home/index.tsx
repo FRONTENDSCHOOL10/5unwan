@@ -1,82 +1,44 @@
-import { useState, useEffect } from "react";
-import { getExercise, logout, Exercise } from "@/api/pocketbase";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getExercises } from "@/api/pocketbase";
+import { useExercisesQuery } from "@/hooks/useExercisesQuery";
 import styles from "./home.module.css";
+import homeStore from "@/stores/homeStore";
 // > components
 import UserInfo from "@/routes/Home/UserInfo";
-import Article from "@/components/Article";
-import ExerciseType from "@/components/ExerciseTypes";
-import { useExercisesQuery } from "@/hooks/useExercisesQuery";
+import Article from "@/routes/Home/Article";
+import ExerciseType from "@/routes/Home/ExerciseTypes";
 
 export default function Home() {
-  const [filtered, setFiltered] = useState<Exercise[] | string>("");
-  const [isActive, setIsActive] = useState<string>("");
+  const { setExercises } = homeStore();
   const { user } = useOutletContext<UserContext>();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      logout();
-    },
-    onSuccess() {
-      queryClient.clear();
-      navigate("/login");
-    },
-  });
-
   const { exercises, isLoading } = useExercisesQuery();
 
   // TODO: loading 보여주기,, spinner?  */
   if (!isLoading) {
     console.log(exercises);
   }
-
-  async function handleList(type: string) {
-    if (type) {
-      try {
-        const data = await getExercise(type);
-        setFiltered(data);
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      setFiltered("");
-    }
-  }
-
-  const handleClick = (type: string) => {
-    handleList(type);
-    setIsActive(type === "" ? "" : type);
-  };
-
+  
   useEffect(() => {
-    console.log(filtered);
-  }, [filtered]);
+    async function fetchExercises() {
+      try {
+        const data = await getExercises();
+        setExercises(data);  // Store exercises in Zustand
+      } catch (err) {
+        console.error("Error fetching exercises:", err);
+      }
+    }
+
+    fetchExercises();
+  }, [setExercises]); 
 
   return (
     <>
       <div className={styles.container}>
-        <div>
-          <p>현재 사용자: {user?.email}</p>
-          <br />
-          <button
-            onClick={async () => {
-              await logoutMutation.mutateAsync();
-            }}
-          >
-            로그아웃
-          </button>
-        </div>
         <UserInfo user={user} />
-        <ExerciseType
-          exercises={exercises}
-          handleClick={handleClick}
-          isActive={isActive}
-        />
-        <Article exercises={exercises} filtered={filtered} />
+        <ExerciseType />
+        <Article />
       </div>
     </>
   );

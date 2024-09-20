@@ -17,13 +17,11 @@
   }
   
   .large-button-wrapper:hover {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }
   
   .large-button-wrapper:active {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }
@@ -54,13 +52,11 @@
   }
   
   .medium-button-wrapper:hover {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }
   
   .medium-button-wrapper:active {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }
@@ -91,13 +87,11 @@
   }
   
   .mini-button-wrapper:hover {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }
   
   .mini-button-wrapper:active {
-	background-color: var(--white);
 	border: 0.0625rem solid var(--white);
 	color: var(--white);
   }

@@ -6,31 +6,25 @@ import Maps from "@/routes/Maps";
 import MyPage from "@/routes/MyPage";
 import OnboardedRoute from "@/routes/OnboardedRoute";
 import OnboardingRoute from "@/routes/Onboarding";
-import OnboardingBasic from "@/routes/Onboarding/OnboardingBasic";
-import OnboardingDob from "@/routes/Onboarding/OnboardingDob";
-import OnboardingHeight from "@/routes/Onboarding/OnboardingHeight";
-import OnboardingInterests from "@/routes/Onboarding/OnboardingInterests";
-import OnboardingWeight from "@/routes/Onboarding/OnboardingWeight";
 import PrivateRoute from "@/routes/PrivateRoute";
 import Register from "@/routes/Register";
 import SharedLayout from "@/routes/SharedLayout";
 import Start from "@/routes/Start";
 import NotFound from "@/routes/NotFound";
-import LogoutComplete from "@/routes/MyPage/LogoutComplete/index"; 
+import LogoutComplete from "@/routes/MyPage/LogoutComplete/index";
 import DeleteAccount from "@/routes/MyPage/DeleteAccount/deleteAccount";
 import DeleteComplete from "@/routes/MyPage/DeleteAccount/deleteComplete";
-
 
 export type RouteHandle = {
   hideHeader?: boolean;
   hideGnb?: boolean;
   title?: string;
 };
+
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
     {
       element: <SharedLayout />,
-
       children: [
         {
           path: "/start",
@@ -44,6 +38,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
           path: "/register",
           element: <Register />,
           handle: {
+            hideHeader: false,
             hideGnb: true,
             title: "회원가입",
           } satisfies RouteHandle,
@@ -52,6 +47,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
           path: "/login",
           element: <Login />,
           handle: {
+            hideHeader: false,
             hideGnb: true,
             title: "로그인",
           } satisfies RouteHandle,
@@ -94,6 +90,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   handle: {
                     title: "지도",
                     hideHeader: true,
+                    hideGnb: false,
                   } satisfies RouteHandle,
                 },
                 {
@@ -101,42 +98,43 @@ export const router: ReturnType<typeof createBrowserRouter> =
                   element: <MyPage />,
                   handle: {
                     title: "마이페이지",
-                    hideHeader: true,
+                    hideHeader: false,
                   } satisfies RouteHandle,
                 },
-				{
-					path: "logout-complete",
-					element: <LogoutComplete />,
-					handle: {
-					  title: "로그아웃 완료",
-					  hideHeader: true,
-					  hideGnb: true,
-					} satisfies RouteHandle,
-				  },
-				  {
-					path: "/delete-account",
-					element: <DeleteAccount />,
-					handle: {
-					  title: "회원 탈퇴",
-					  hideHeader: true,
-					  hideGnb: true,
-					},
-				  },
-				  {
-					path: "/delete-complete",
-					element: <DeleteComplete />,
-					handle: {
-					  title: "회원탈퇴 완료",
-					  hideHeader: true,
-					  hideGnb: true,
-					},
-				  },			  
+                {
+                  path: "logout-complete",
+                  element: <LogoutComplete />,
+                  handle: {
+                    title: "로그아웃 완료",
+                    hideHeader: true,
+                    hideGnb: true,
+                  } satisfies RouteHandle,
+                },
+                {
+                  path: "/delete-account",
+                  element: <DeleteAccount />,
+                  handle: {
+                    title: "회원 탈퇴",
+                    hideHeader: true,
+                    hideGnb: true,
+                  } satisfies RouteHandle,
+                },
+                {
+                  path: "/delete-complete",
+                  element: <DeleteComplete />,
+                  handle: {
+                    title: "회원탈퇴 완료",
+                    hideHeader: true,
+                    hideGnb: true,
+                  } satisfies RouteHandle,
+                },
               ],
             },
             {
               path: "onboarding",
               element: <OnboardingRoute />,
               handle: {
+                hideHeader: false,
                 hideGnb: true,
                 title: "회원가입",
               } satisfies RouteHandle,
@@ -144,31 +142,37 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 { index: true, element: <Navigate to="basic" replace /> },
                 {
                   path: "basic",
-                  element: <OnboardingBasic />,
+                  lazy: () => import("@/routes/Onboarding/OnboardingBasic"),
                 },
                 {
                   path: "dob",
-                  element: <OnboardingDob />,
+                  lazy: () => import("@/routes/Onboarding/OnboardingDob"),
                 },
                 {
                   path: "height",
-                  element: <OnboardingHeight />,
+                  lazy: () => import("@/routes/Onboarding/OnboardingHeight"),
                 },
                 {
                   path: "weight",
-                  element: <OnboardingWeight />,
+                  lazy: () => import("@/routes/Onboarding/OnboardingWeight"),
                 },
                 {
                   path: "interests",
-                  element: <OnboardingInterests />,
+                  lazy: () => import("@/routes/Onboarding/OnboardingInterests"),
                 },
                 {
                   path: "done",
                   lazy: () => import("@/routes/Onboarding/OnboardingDone"),
+                  handle: {
+                    hideHeader: true,
+                  },
                 },
                 {
                   path: "resume",
                   lazy: () => import("@/routes/Onboarding/OnboardingResume"),
+                  handle: {
+                    hideHeader: true,
+                  },
                 },
               ],
             },

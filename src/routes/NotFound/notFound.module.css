@@ -1,19 +1,25 @@
 .container {
   width: 100%;
   height: 100vh;
-  padding: 0 1.25rem;
+  padding: 0 var(--space-5);
 }
 
 .notFound-contents {
   position: relative;
-  top: 7.5rem;
+  top: 6.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2.625rem;
-}
+  gap: 4.0625rem;
 
-.title {
-  color: var(--grayscale-700);
+  .title {
+    color: var(--grayscale-700);
+  }
+
+  button {
+    width: 100%;
+    margin: 0;
+    background-color: var(--primary);
+  }
 }
