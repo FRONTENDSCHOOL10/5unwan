@@ -4,7 +4,7 @@ import SVGIcon from '@/components/SVGicon';
 import {PrimaryMiniButton} from "@/components/Buttons/PrimaryButton/index";
 
 interface InputProps {
-  type?: "text" | "search" | "email" | "password" | "checked" | "radio",
+  type?: "text" | "search" | "email" | "password" | "checked" | "radio" | "number",
   disabled?: boolean,
   labelTitle?: string,
   labelHide?: boolean,
