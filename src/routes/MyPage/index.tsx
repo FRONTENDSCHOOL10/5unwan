@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile, getAvailableInterests } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
-
 import Header from "@/components/Header";
 import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
-import { TertiaryMiniButton } from "@/components/Buttons/TertiaryButton/index";
+import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
+import Input from "@/components/Input/index";
+
+
+// 모달 관련 라이브러리 사용
+import Modal from "@/routes/MyPage/InterestModal/index";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
@@ -26,6 +30,18 @@ export default function MyPage() {
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
 
+    // 관심 운동 관련 상태 관리
+	const [availableInterests, setAvailableInterests] = useState<string[]>([]);
+	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+  
+	// 포켓베이스에서 관심 운동 목록 가져오기
+	useEffect(() => {
+	  getAvailableInterests().then((interests) => {
+		setAvailableInterests(interests);
+	  });
+	}, []);
+
   const handleSaveChanges = () => {
     const updateData = {
       nickname,
@@ -33,6 +49,7 @@ export default function MyPage() {
       height,
       dob,
       gender,
+	  interests: selectedInterests,  
       avatar: avatarFile || undefined,
     };
 
@@ -63,6 +80,15 @@ export default function MyPage() {
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
 
+    // 관심 운동 선택 처리 함수
+	const toggleInterest = (interest: string) => {
+		if (selectedInterests.includes(interest)) {
+		  setSelectedInterests(selectedInterests.filter((i) => i !== interest));
+		} else {
+		  setSelectedInterests([...selectedInterests, interest]);
+		}
+	  };
+	  
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -114,32 +140,35 @@ export default function MyPage() {
 
           <div className={styles["input-disabled-container"]}>
             <label className={styles["label"]}>아이디</label>
-            <input
-              type="text"
-              value={user?.email || ""}
+            <Input 
+              value={user?.email || ""} 
               disabled
-              className={styles["input-class"]}
+              isDark={false}
+              labelHide={true}
+              errorTextHide={true}
             />
           </div>
 
           <div className={styles["input-disabled-container"]}>
-            <label className={styles["label"]}>비밀번호</label>
-            <input
-              type="text"
-              value="고객센터를 통해 변경해주세요."
+		  <label className={styles.label}>비밀번호</label>
+            <Input 
+              value="고객센터를 통해 변경해주세요." 
               disabled
-              className={styles["input-class"]}
+              isDark={false}
+              labelHide={true}
+              errorTextHide={true}
             />
           </div>
 
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>닉네임</label>
-            <input
-              type="text"
+		  <label className={styles["label"]}>닉네임</label>
+            <Input 
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
@@ -147,26 +176,25 @@ export default function MyPage() {
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>성별</label>
             <div className={styles["gender-container"]}>
-              <TertiaryMiniButton
+              <SecondaryMiniButton
                 onClick={() => setGender("M")}
                 className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
               >
                 남자
-              </TertiaryMiniButton>
-              <TertiaryMiniButton
+              </SecondaryMiniButton>
+              <SecondaryMiniButton
                 onClick={() => setGender("F")}
                 className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
               >
                 여자
-              </TertiaryMiniButton>
+              </SecondaryMiniButton>
             </div>
           </div>
 
           {/* 생년월일 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>생년월일</label>
-            <input
-              type="text"
+		  <label className={styles["label"]}>생년월일</label>
+			<Input 
               value={dob}
               onChange={(e) => {
                 const inputValue = e.target.value;
@@ -176,30 +204,37 @@ export default function MyPage() {
                 setDob(formattedValue);
               }}
               placeholder="yyyy-mm-dd"
-              maxLength={10}
-              className={styles["input-class"]}
+              max={10}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
           {/* 키 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>키</label>
-            <input
+		  <label className={styles["label"]}>키</label>
+			<Input 
               type="number"
               value={height.toString()}
               onChange={(e) => setHeight(Number(e.target.value))}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
           {/* 몸무게 입력 */}
           <div className={styles["input-container"]}>
-            <label className={styles["label"]}>몸무게</label>
-            <input
+		  <label className={styles["label"]}>몸무게</label>
+		  <Input 
               type="number"
               value={weight.toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
-              className={styles["input-class"]}
+              isDark={false}
+			  labelTitle="몸무게"
+			  labelHide={true}    
+              errorTextHide={true}
             />
           </div>
 
@@ -232,20 +267,21 @@ export default function MyPage() {
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
 
-          <div className={styles.interests}>
-            <h3>관심 운동</h3>
-            <div className={styles.interestsList}>
-              {user?.interests && user.interests.length > 0 ? (
-                user.interests.map((interest: string, index: number) => (
-                  <div key={index} className={styles.interest}>
-                    <span>{interest}</span>
-                  </div>
-                ))
-              ) : (
-                <p>관심 운동이 없습니다.</p>
-              )}
-            </div>
-          </div>
+		  <div className={styles["interests-header"]}>
+  <h3 className={styles["interest-title"]}>관심 운동</h3>
+  <span className={styles["edit-interest"]}>수정</span>
+</div>
+<div className={styles.interestsList}>
+  {user?.interests && user.interests.length > 0 ? (
+    user.interests.map((interest: string, index: number) => (
+      <div key={index} className={styles.interest}>
+        <span>{interest}</span>
+      </div>
+    ))
+  ) : (
+    <p>관심 운동이 없습니다.</p>
+  )}
+</div>
 
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
@@ -262,6 +298,36 @@ export default function MyPage() {
             <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
+      )}
+    {/* 관심 운동 수정 모달 */}
+	{isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <div className={styles.modalContent}>
+            <h2>관심 운동 선택</h2>
+            <div className={styles.interestsList}>
+              {availableInterests.map((interest, index) => (
+                <div key={index} className={styles.interest}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedInterests.includes(interest)}
+                      onChange={() => toggleInterest(interest)}
+                    />
+                    {interest}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <PrimaryLargeButton
+              onClick={() => {
+                setIsModalOpen(false); // 모달 닫기
+                handleSaveChanges();    // 저장
+              }}
+            >
+              저장
+            </PrimaryLargeButton>
+          </div>
+        </Modal>
       )}
     </div>
   );

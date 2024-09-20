@@ -4,8 +4,7 @@ import SVGIcon from '@/components/SVGicon';
 import {PrimaryMiniButton} from "@/components/Buttons/PrimaryButton/index";
 
 interface InputProps {
-  type?: "text" | "search" | "email" | "password" | "checked" | "radio",
-  name?: string,
+  type?: "text" | "search" | "email" | "password" | "checked" | "radio" | "number",
   disabled?: boolean,
   labelTitle?: string,
   labelHide?: boolean,
@@ -20,6 +19,7 @@ interface InputProps {
   button?: boolean,
   buttonName?: string,
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+  labelClassName?: string,
 }
 
 export default function Input({
