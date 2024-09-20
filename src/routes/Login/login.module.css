@@ -1,8 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.25rem;
+  max-width: 48.75rem;
+  margin: 0 auto;
+}
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  padding: 0 var(--space-5);
+  gap: var(--space-2);
+  align-items: center;
   max-width: 26rem;
-  margin: 0 auto;
+  margin: 2.5rem auto 0 auto;
 }

@@ -57,9 +57,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-        <div className={styles.container}>
-          <section className={styles.content}>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit}>
+        <section className={styles.content}>
+          <span className={styles["input-group"]}>
             <Input
               type="email"
               name="email"
@@ -78,19 +79,20 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
               value={formData.password}
               onChange={handleUpdateFormData}
             />
-          </section>
-        <PrimaryLargeButton
-          type="submit"
-          disabled={
-            !formData.email.trim() ||
-            !formData.password.trim() ||
-            loginMutation.isPending
-          }
+          </span>
+          <PrimaryLargeButton
+            type="submit"
+            disabled={
+              !formData.email.trim() ||
+              !formData.password.trim() ||
+              loginMutation.isPending
+            }
           >로그인</PrimaryLargeButton>
+        </section>
         {
           showErrorMessage()
         }
-        </div>
       </form>
+    </div>
   )
 }

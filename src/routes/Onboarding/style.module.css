@@ -6,3 +6,11 @@
     margin-top: 2.5rem;
     overflow: hidden;
 }
+
+@media (min-width: 780px) {
+    .content-wrapper {
+        max-width: 780px;
+        margin: 0 auto;
+        margin-top: 2.5rem;
+    }
+}

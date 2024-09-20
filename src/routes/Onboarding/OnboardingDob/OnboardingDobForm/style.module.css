@@ -1,14 +1,23 @@
-.group {
-    justify-content: center;
-    margin-bottom: 1.875rem;
+.container {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
     justify-content: space-between;
-    gap: .5rem;
+    max-width: 26rem;
+    margin: 0 auto;
 
-    input {
-        width: 5.5rem;
+    .input-group {
+        gap: .5rem;
+        display: flex;
+        margin-bottom: 1.875rem;
+
+        input {
+            margin-bottom: var(--space-2);
+            width: 5.5rem;
+        }
     }
 }
+
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

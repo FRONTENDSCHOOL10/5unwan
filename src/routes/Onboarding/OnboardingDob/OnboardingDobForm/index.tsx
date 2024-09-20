@@ -57,53 +57,53 @@ export function OnboardingDobForm({
   };
 
   return (
-    <>
-      <PageTitle text="생년월일을 입력해주세요." />
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <div className={styles.group}>
-          <Input
-            name="year"
-            type="number"
-            placeholder="YYYY"
-            onChange={handleUpdateFormData}
-            value={formData.year}
-            labelHide
-            errorTextHide
-          />
-          <Input
-            name="month"
-            type="number"
-            placeholder="MM"
-            onChange={handleUpdateFormData}
-            value={formData.month}
-            labelHide
-            errorTextHide
-          />
-           <Input
-            name="day"
-            type="number"
-            placeholder="DD"
-            onChange={handleUpdateFormData}
-            value={formData.day}
-            labelHide
-            errorTextHide
-          />
-        </div>
-        <PrimaryLargeButton
-          type="submit"
-          disabled={
-            !formData.year.trim() ||
-            !formData.month.trim() ||
-            !formData.day.trim() ||
-            updateMutation.isPending
-          }
-        >
-          {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-        </PrimaryLargeButton>
+      <PageTitle text="생년월일을 입력해주세요." />
+          <section className={styles["input-group"]}>
+            <Input
+              name="year"
+              type="number"
+              placeholder="YYYY"
+              onChange={handleUpdateFormData}
+              value={formData.year}
+              labelHide
+              errorTextHide
+            />
+            <Input
+              name="month"
+              type="number"
+              placeholder="MM"
+              onChange={handleUpdateFormData}
+              value={formData.month}
+              labelHide
+              errorTextHide
+            />
+             <Input
+              name="day"
+              type="number"
+              placeholder="DD"
+              onChange={handleUpdateFormData}
+              value={formData.day}
+              labelHide
+              errorTextHide
+            />
+          </section>
+          <PrimaryLargeButton
+            type="submit"
+            disabled={
+              !formData.year.trim() ||
+              !formData.month.trim() ||
+              !formData.day.trim() ||
+              updateMutation.isPending
+            }
+          >
+            {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
+          </PrimaryLargeButton>
         {updateMutation.isError
           ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
           : null}
-      </form>
-    </>
+        </form>
+    </div>
   );
 }

@@ -1,15 +1,18 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-top: 2.5rem;
+  max-width: 48.75rem;
 
   .content {
     margin-bottom: 1.875rem;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
-
+    align-self: center;
+    
+    .input-group {
+      margin-bottom: var(--space-4);
+      > div {
+        margin-bottom: var(--space-2); 
+      }
+    }
   }
 }
 
