@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useId, useState } from "react";
+import React, {  useState } from "react";
 import styles from "./style.module.css"
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 import PageTitle from "@/components/PageTitle";
@@ -18,7 +18,6 @@ export function OnboardingHeightForm({
   user,
   currentStep,
 }: OnboardingHeightFormProps) {
-  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       height: user.height <= 0 ? "" : String(user.height),
