@@ -1,10 +1,15 @@
-form {
+.container {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  margin-top: 2.5rem;
 
-  button[type="submit"] {
-    padding-top: var(--space-1);
+  .content {
+    margin-bottom: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
   }
 }
 

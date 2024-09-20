@@ -57,26 +57,28 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   }
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          name="email"
-          labelTitle="이메일"
-          placeholder="이메일을 입력해 주세요."
-          errorText="내용을 입력해 주세요."
-          value={formData.email}
-          onChange={handleUpdateFormData}
-        />
-        <Input
-          type="password"
-          name="password"
-          labelTitle="비밀번호"
-          placeholder="비밀번호를 입력해 주세요."
-          errorText="내용을 입력해 주세요."
-          value={formData.password}
-          onChange={handleUpdateFormData}
-        />
+    <form onSubmit={handleSubmit}>
+        <div className={styles.container}>
+          <section className={styles.content}>
+            <Input
+              type="email"
+              name="email"
+              labelTitle="이메일"
+              placeholder="이메일을 입력해 주세요."
+              errorTextHide
+              value={formData.email}
+              onChange={handleUpdateFormData}
+            />
+            <Input
+              type="password"
+              name="password"
+              labelTitle="비밀번호"
+              placeholder="비밀번호를 입력해 주세요."
+              errorTextHide
+              value={formData.password}
+              onChange={handleUpdateFormData}
+            />
+          </section>
         <PrimaryLargeButton
           type="submit"
           disabled={
@@ -84,11 +86,11 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             !formData.password.trim() ||
             loginMutation.isPending
           }
-        >로그인</PrimaryLargeButton>
+          >로그인</PrimaryLargeButton>
         {
           showErrorMessage()
         }
+        </div>
       </form>
-    </div>
   )
 }

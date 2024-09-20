@@ -3,4 +3,6 @@
   flex-direction: column;
   gap: var(--space-5);
   padding: 0 var(--space-5);
+  max-width: 26rem;
+  margin: 0 auto;
 }
