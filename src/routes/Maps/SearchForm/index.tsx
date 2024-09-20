@@ -29,12 +29,16 @@ export default function SearchForm() {
 
   return (
     <div className={styles.container}>
-      <Input
-        type="search"
-        onChange={searchContent}
-        onSubmit={searchSubmit}
-        value={search}
-      />
+      <form onSubmit={searchSubmit}>
+        <Input
+          type="search"
+          name="search"
+          value={search}
+          onChange={searchContent}
+          labelHide={true}
+          errorTextHide={true}
+        />
+      </form>
     </div>
   )
 }

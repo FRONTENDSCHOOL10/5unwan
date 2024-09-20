@@ -195,3 +195,13 @@ export async function updateUserProfile(
   const updatedUser = await pb.collection("users").update(userId, formData);
   return updatedUser;
 }
+
+export async function getAvailableInterests(): Promise<string[]> {
+	try {
+	  const records = await pb.collection('interests').getFullList();
+	  return records.map(record => record.name); 
+	} catch (error) {
+	  console.error('Failed to fetch interests:', error);
+	  throw error;
+	}
+  }
