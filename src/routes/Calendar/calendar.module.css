@@ -1,6 +1,8 @@
 .container {
   padding: 0 1.25rem;
   overflow: hidden;
+  max-width: 26rem;
+  margin: 0 auto;
 }
 
 .title {
