@@ -1,18 +1,14 @@
-.group {
-    margin-top: var(--space-4);
-}
-
-.content {
-    margin-bottom: var(--space-3);
-}
-
-.group-profile {
-    .content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
+.container {
+    li {
+        margin-bottom: var(--space-2);
     }
+}
+
+.list-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 
     .image-container {
         width: 7.5rem;
@@ -32,7 +28,7 @@
     }
     
     .image-edit {
-        .icon-edit {
+        .icon-box {
             position: absolute;
             right: 10;
             bottom: 0;
@@ -59,16 +55,18 @@
                 align-items: center;
                 flex-shrink: 0;
             }
-        }
-        
+        }   
     }
-
 }
 
-.group-nickname {
+.list-gender {
+    .content{
+        display: flex;
+        gap: var(--space-2);
 
-}
-
-.group-gender {
-
+        .active-button {
+            border: 0.0625rem solid var(--grayscale-700);
+            color: var(--primary);
+        }
+    }
 }

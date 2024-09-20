@@ -1,7 +1,11 @@
-.group {
+.container {
     justify-content: center;
     margin-bottom: 1.875rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    input {
+        margin-bottom: var(--space-2);
+    }
 }

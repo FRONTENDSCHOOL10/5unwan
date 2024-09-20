@@ -1,5 +1,14 @@
 .group {
     justify-content: center;
-    display: flex;
     margin-bottom: 1.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
