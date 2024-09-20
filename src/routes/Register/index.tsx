@@ -3,7 +3,6 @@ import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
 import Header from "@/components/Header";
 import styles from "./style.module.css";
-import PageTitle from "@/components/PageTitle";
 
 export default function Register() {
   const navigate = useNavigate();
