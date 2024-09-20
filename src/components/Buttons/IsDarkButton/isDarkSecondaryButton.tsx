@@ -4,7 +4,8 @@ import styles from './isDarkSecondaryButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  // onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   size: 'large' | 'medium' | 'mini';
   to?: string; 
