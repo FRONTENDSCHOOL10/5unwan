@@ -2,18 +2,19 @@ import styles from "@/components/SVGicon/styles.module.css";
 import icons from "./svgSprites.svg";
 
 export type SvgIconId =
-  | 'iconHome'
-  | 'iconCalendar'
-  | 'iconMap'
-  | 'iconMyPage'
-  | 'iconSignatureSmall'
-  | 'iconArrowsLeft'
-  | 'iconEdit'
-  | 'iconCheck'
-  | 'iconArrowsRight'
-  | 'iconSearch'
-  | 'iconAdd'
-  | 'iconKakao'
+  | "iconHome"
+  | "iconCalendar"
+  | "iconMap"
+  | "iconMyPage"
+  | "iconSignatureSmall"
+  | "iconArrowsLeft"
+  | "iconEdit"
+  | "iconCheck"
+  | "iconArrowsRight"
+  | "iconSearch"
+  | "iconAdd"
+  | "iconKakao"
+  | "iconEllipse";
 
 interface SVGIconProps {
   iconId?: SvgIconId | string;
@@ -26,21 +27,36 @@ interface SVGIconProps {
   onChange?: () => void;
 }
 
-function SVGIcon({iconId, width, height, color='currentColor', name, to, onClick, onChange}: SVGIconProps) {
-    return (
-      <svg className={styles.icon}
+function SVGIcon({
+  iconId,
+  width,
+  height,
+  color = "currentColor",
+  name,
+  to,
+  onClick,
+  onChange,
+}: SVGIconProps) {
+  return (
+    <svg
+      className={styles.icon}
+      width={width}
+      height={height}
+      href={`${icons}#${iconId}`}
+      color={color}
+      name={name}
+      to={to}
+      onClick={onClick}
+      onChange={onChange}
+    >
+      <use
         width={width}
         height={height}
+        href={`${icons}#${iconId}`}
         color={color}
-        name={name}
-        to={to}
-        onClick={onClick}
-        onChange={onChange}
-      >
-        <use width={width} height={height} href={`${icons}#${iconId}`} color={color} />
-      </svg>
-      );
-
+      />
+    </svg>
+  );
 }
 
 export default SVGIcon;
