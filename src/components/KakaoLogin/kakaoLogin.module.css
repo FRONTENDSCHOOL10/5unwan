@@ -8,6 +8,7 @@
   align-items: center;
   padding-top: var(--space-6);
   border-top: 0.0625rem solid var(--disabled);
+  min-width: 17.5rem;
 
   span {
     font-size: 0.75rem;
