@@ -1,8 +1,6 @@
-// import { useOutletContext } from "react-router-dom";
-// import { UserContext } from "@/routes/PrivateRoute";
 import { useToday, useWorkouts } from "@/hooks/useWorkouts";
 import React, { useMemo, useState } from "react";
-import { endOfMonth, format, startOfMonth } from "date-fns";
+import { endOfMonth, format, getDay, startOfMonth } from "date-fns";
 import { Workout } from "@/api/pocketbaseWorkouts";
 import {
   DayContent,
@@ -12,11 +10,11 @@ import {
   useNavigation,
 } from "react-day-picker";
 import { ko } from "date-fns/locale";
-import styles from "./calendar.module.css";
 import { getPbImageUrl } from "@/api/pocketbase";
+import SVGIcon from "@/components/SVGicon";
+import styles from "./calendar.module.css";
 
 export default function Calendar() {
-  // const { user } = useOutletContext<UserContext>();
   const {
     now,
     currentMonthStart,
@@ -48,33 +46,48 @@ export default function Calendar() {
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
     const c = (props: DayContentProps) => {
-      // eslint-disable-next-line react/prop-types
-      const dateTime = format(props.date, "yyyy-MM-dd");
+      const date = props.date;
+      const dateTime = format(date, "yyyy-MM-dd");
       const dayWorkouts = workoutsByDay[dateTime] ?? [];
+      const isThisMonth = date.getMonth() === currentMonthStart.getMonth();
+
       return (
-        <time
-          dateTime={dateTime}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <DayContent {...props} />
-          {dayWorkouts.length > 0 ? (
-            <button
-              style={{ display: "contents" }}
-              onClick={() => setSelectedDay(dateTime)}
+        <div role="group" className={styles["day-group"]}>
+          <button
+            className={
+              selectedDay === dateTime
+                ? styles["day-btn-selected"]
+                : styles["day-btn"]
+            }
+            onClick={() => setSelectedDay(dateTime)}
+            disabled={dayWorkouts.length === 0 || !isThisMonth}
+          >
+            <time
+              className={`${isThisMonth ? styles.day : styles["day-disabled"]}`}
+              dateTime={dateTime}
             >
-              : {dayWorkouts.length}
-            </button>
-          ) : null}
-        </time>
+              <DayContent {...props} />
+            </time>
+          </button>
+          <div
+            style={{
+              display: "flex",
+              marginTop: "4px",
+              justifyContent: "center",
+            }}
+          >
+            {dayWorkouts.map((workout) => (
+              <div key={workout.id} style={{ margin: "0px 2px" }}>
+                <SVGIcon iconId="iconEllipse" width={4} height={4} />
+              </div>
+            ))}
+          </div>
+        </div>
       );
     };
     c.displayName = "CustomDayContent";
     return c;
-  }, [workoutsByDay]);
+  }, [selectedDay, workoutsByDay, currentMonthStart]);
 
   const progressPerMonth = Math.round(
     (Object.keys(workoutsByDay).length / currentMonthEnd.getDate()) * 100
@@ -90,7 +103,9 @@ export default function Calendar() {
       <div role="group" className={styles["attendance-container"]}>
         <span className="heading-6">
           {progressPerMonth}%{" "}
-          <span className={`${styles.attendance} heading-6`}>출석중</span>
+          <span className={`${styles.attendance} heading-6`}>
+            {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
+          </span>
         </span>
         <div className={styles["progress-container"]}>
           <div
@@ -101,15 +116,24 @@ export default function Calendar() {
       </div>
       <DayPicker
         className={styles.calendar}
-        // captionLayout="dropdown"
+        showOutsideDays
         fromYear={2024}
         toYear={now?.getFullYear()}
         weekStartsOn={1}
         locale={ko}
         formatters={{
-          // formatMonthCaption: (date: Date) => format(date, "MMM"),
           formatWeekdayName: (date: Date, options) => {
-            return <span>{format(date, "EEE", options)}</span>;
+            return (
+              <span
+                className={`${styles.week} ${
+                  getDay(date) === 0 || getDay(date) === 6
+                    ? styles["week-weekend"]
+                    : styles["week-weekdays"]
+                }`}
+              >
+                {format(date, "EEE", options)}
+              </span>
+            );
           },
         }}
         components={{
@@ -129,13 +153,22 @@ export default function Calendar() {
       {selectedDay && (
         <>
           {workoutsByDay[selectedDay].map((workout) => (
-            <div key={workout.id}>
-              <h2>{workout.title}</h2>
-              <p>{workout.content}</p>
-              {workout.photo ? (
-                <img src={getPbImageUrl(workout, workout.photo)!} />
-              ) : (
-                <span>no-photo</span>
+            <div key={workout.id} role="group" className={styles.workout}>
+              <span className={styles["workout-label"]}>
+                {workout.category}
+              </span>
+              <span className={styles["workout-time"]}>
+                {workout.start}-{workout.end}
+              </span>
+              <h2 className={`heading-6 ${styles["workout-title"]}`}>
+                {workout.title}
+              </h2>
+              <p className={styles["workout-content"]}>{workout.content}</p>
+              {workout.photo && (
+                <img
+                  className={styles["workout-image"]}
+                  src={getPbImageUrl(workout, workout.photo)!}
+                />
               )}
             </div>
           ))}
@@ -148,23 +181,27 @@ export default function Calendar() {
 export function CustomCaptionComponent(props: CaptionProps) {
   const { goToMonth, nextMonth, previousMonth } = useNavigation();
   return (
-    <h2 style={{ display: "flex", justifyContent: "space-between" }}>
+    <h2 className={styles["calendar-header"]}>
       <button
         disabled={!previousMonth}
         onClick={() => previousMonth && goToMonth(previousMonth)}
       >
-        Previous
+        <SVGIcon iconId="iconArrowsLeft" width={25} height={25} />
       </button>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <span>{format(props.displayMonth, "M")}</span>
-        <span>{format(props.displayMonth, "yyyy")}</span>
+        <span className={`${styles.month} heading-4`}>
+          {format(props.displayMonth, "M")}
+        </span>
+        <span className={styles.year}>
+          {format(props.displayMonth, "yyyy")}
+        </span>
       </div>
 
       <button
         disabled={!nextMonth}
         onClick={() => nextMonth && goToMonth(nextMonth)}
       >
-        Next
+        <SVGIcon iconId="iconArrowsRight" width={25} height={25} />
       </button>
     </h2>
   );
