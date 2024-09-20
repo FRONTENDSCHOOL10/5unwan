@@ -1,7 +1,7 @@
 import { User } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import styles from "./style.module.css"
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 import PageTitle from "@/components/PageTitle";
