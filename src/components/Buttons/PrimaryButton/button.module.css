@@ -1,5 +1,7 @@
 .large-button-wrapper {
-	width: 17.5rem; /* 280px */
+	width: 100%;
+	max-width: 26rem;
+	min-width: 17.5rem;
 	height: 3.375rem; /* 54px */
 	background-color: var(--grayscale-800);
 	color: var(--white);
@@ -9,7 +11,6 @@
 	border: none;
 	border-radius: 0.25rem; /* 4px */
 	cursor: pointer;
-	margin-bottom: 0.375rem; /* 6px */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -30,7 +31,9 @@
   }
   
   .medium-button-wrapper {
-	width: 8.75rem; /* 140px */
+	width: 100%;
+	max-width: 26rem;
+	min-width: 8.75rem;
 	height: 2.75rem; /* 44px */
 	background-color: var(--grayscale-800);
 	color:  var(--white);
@@ -40,7 +43,6 @@
 	border: none;
 	border-radius: 0.25rem; /* 4px */
 	cursor: pointer;
-	margin-bottom: 0.125rem; /* 2px */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -61,7 +63,9 @@
   }
   
   .mini-button-wrapper {
-	width: 3.9375rem; /* 63px */
+	width: 100%;
+	max-width: 26rem;
+	min-width: 3.9375rem;
 	height: 2.625rem; /* 42px */
 	background-color: var(--grayscale-800); 
 	color: var(--grayscale-50); 
@@ -71,7 +75,6 @@
 	border: none;
 	border-radius: 0.25rem; /* 4px */
 	cursor: pointer;
-	margin-bottom: 0.125rem; /* 2px */
 	display: flex;
 	align-items: center;
 	justify-content: center;
