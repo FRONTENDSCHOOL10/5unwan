@@ -5,6 +5,7 @@ import React, { useId, useState } from "react";
 import styles from "./style.module.css"
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
 
 export type OnboardingDobFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -17,7 +18,6 @@ export function OnboardingDobForm({
   user,
   currentStep,
 }: OnboardingDobFormProps) {
-  const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       // TODO: avatar,
@@ -61,38 +61,32 @@ export function OnboardingDobForm({
       <PageTitle text="생년월일을 입력해주세요." />
       <form onSubmit={handleSubmit}>
         <div className={styles.group}>
-          <label htmlFor={`${id}-year`}>
-            <h2 className="sr-only">연도</h2>
-          </label>
-          <input
-            id={`${id}-year`}
+          <Input
             name="year"
             type="number"
             placeholder="YYYY"
-            value={formData.year}
             onChange={handleUpdateFormData}
+            value={formData.year}
+            labelHide
+            errorTextHide
           />
-          <label htmlFor={`${id}-month`}>
-            <h2 className="sr-only">월</h2>
-          </label>
-          <input
-            id={`${id}-month`}
+          <Input
             name="month"
             type="number"
             placeholder="MM"
-            value={formData.month}
             onChange={handleUpdateFormData}
+            value={formData.month}
+            labelHide
+            errorTextHide
           />
-          <label htmlFor={`${id}-day`}>
-            <h2 className="sr-only">일</h2>
-          </label>
-          <input
-            id={`${id}-day`}
+           <Input
             name="day"
             type="number"
             placeholder="DD"
-            value={formData.day}
             onChange={handleUpdateFormData}
+            value={formData.day}
+            labelHide
+            errorTextHide
           />
         </div>
         <PrimaryLargeButton
