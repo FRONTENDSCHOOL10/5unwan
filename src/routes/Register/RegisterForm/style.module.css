@@ -4,6 +4,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-width: 26rem;
+    margin: 0 auto;
+
+    .content {
+        margin-bottom: 1.875rem;
+    }
 
     input {
         margin-bottom: var(--space-2);

@@ -1,13 +1,15 @@
-.group {
-    justify-content: center;
-    margin-bottom: 1.875rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-2);
+.container {
+    
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.875rem;
+        gap: var(--space-2);
 
-    input {
-        width: 6.25rem;
+        input {
+            width: 6.25rem;
+        }
     }
 }
 

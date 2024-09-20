@@ -3,9 +3,10 @@
     margin-bottom: 1.875rem;
     display: flex;
     justify-content: space-between;
+    gap: .5rem;
+
     input {
         width: 5.5rem;
-        gap: .5rem;
     }
 }
 
