@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile, getAvailableInterests } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
 import Header from "@/components/Header";
@@ -9,6 +9,10 @@ import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeTogg
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 import Input from "@/components/Input/index";
+
+
+// 모달 관련 라이브러리 사용
+import Modal from "@/routes/MyPage/InterestModal/index";
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
@@ -26,6 +30,18 @@ export default function MyPage() {
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
 
+    // 관심 운동 관련 상태 관리
+	const [availableInterests, setAvailableInterests] = useState<string[]>([]);
+	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+  
+	// 포켓베이스에서 관심 운동 목록 가져오기
+	useEffect(() => {
+	  getAvailableInterests().then((interests) => {
+		setAvailableInterests(interests);
+	  });
+	}, []);
+
   const handleSaveChanges = () => {
     const updateData = {
       nickname,
@@ -33,6 +49,7 @@ export default function MyPage() {
       height,
       dob,
       gender,
+	  interests: selectedInterests,  
       avatar: avatarFile || undefined,
     };
 
@@ -63,6 +80,15 @@ export default function MyPage() {
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
 
+    // 관심 운동 선택 처리 함수
+	const toggleInterest = (interest: string) => {
+		if (selectedInterests.includes(interest)) {
+		  setSelectedInterests(selectedInterests.filter((i) => i !== interest));
+		} else {
+		  setSelectedInterests([...selectedInterests, interest]);
+		}
+	  };
+	  
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -241,20 +267,21 @@ export default function MyPage() {
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
 
-          <div className={styles.interests}>
-            <h3>관심 운동</h3>
-            <div className={styles.interestsList}>
-              {user?.interests && user.interests.length > 0 ? (
-                user.interests.map((interest: string, index: number) => (
-                  <div key={index} className={styles.interest}>
-                    <span>{interest}</span>
-                  </div>
-                ))
-              ) : (
-                <p>관심 운동이 없습니다.</p>
-              )}
-            </div>
-          </div>
+		  <div className={styles["interests-header"]}>
+  <h3 className={styles["interest-title"]}>관심 운동</h3>
+  <span className={styles["edit-interest"]}>수정</span>
+</div>
+<div className={styles.interestsList}>
+  {user?.interests && user.interests.length > 0 ? (
+    user.interests.map((interest: string, index: number) => (
+      <div key={index} className={styles.interest}>
+        <span>{interest}</span>
+      </div>
+    ))
+  ) : (
+    <p>관심 운동이 없습니다.</p>
+  )}
+</div>
 
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
@@ -271,6 +298,36 @@ export default function MyPage() {
             <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
+      )}
+    {/* 관심 운동 수정 모달 */}
+	{isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <div className={styles.modalContent}>
+            <h2>관심 운동 선택</h2>
+            <div className={styles.interestsList}>
+              {availableInterests.map((interest, index) => (
+                <div key={index} className={styles.interest}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedInterests.includes(interest)}
+                      onChange={() => toggleInterest(interest)}
+                    />
+                    {interest}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <PrimaryLargeButton
+              onClick={() => {
+                setIsModalOpen(false); // 모달 닫기
+                handleSaveChanges();    // 저장
+              }}
+            >
+              저장
+            </PrimaryLargeButton>
+          </div>
+        </Modal>
       )}
     </div>
   );
