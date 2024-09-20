@@ -1,17 +1,18 @@
 import { createUser } from "@/api/pocketbase";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
 import { useMutation } from "@tanstack/react-query";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import styles from "./style.module.css"
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
 
 export type RegisterFormProps = {
   onSuccess: () => void | Promise<void>;
 };
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
-  const id = useId();
+  // const id = useId();
   const [formData, setFormData] = useState(() => {
     return {
       email: "",
@@ -57,45 +58,34 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
     <>
       <PageTitle text="이메일과 비밀번호를 입력해주세요." />
       <form onSubmit={handleSubmit}>
-        <div className={styles.group}>
-          <div role="group">
-            <label htmlFor={`${id}-email`}>
-              <h2>이메일</h2>
-            </label>
-            <input
-              id={`${id}-email`}
+        <div className={styles.container}>
+            <Input
               name="email"
               type="email"
-              placeholder="이메일을 입력"
+              placeholder="이메일을 입력해 주세요."
               value={formData.email}
               onChange={handleUpdateFormData}
+              labelTitle="이메일"
+              errorTextHide
             />
-          </div>
-          <div role="group">
-            <label htmlFor={`${id}-password`}>
-              <h2>비밀번호</h2>
-            </label>
-            <input
-              id={`${id}-password`}
+            <Input
               name="password"
               type="password"
-              placeholder="8문자 이상, 특수 문자 포함"
+              placeholder="8문자 이상, 특수 문자 포함해 주세요."
               value={formData.password}
               onChange={handleUpdateFormData}
+              labelTitle="비밀번호"
+              errorTextHide
             />
-          </div>
-          <div role="group">
-            <label htmlFor={`${id}-passwordConfirm`}>
-              <h2>비밀번호 확인</h2>
-            </label>
-            <input
-              id={`${id}-passwordConfirm`}
+            <Input
               name="passwordConfirm"
               type="password"
+              placeholder=""
               value={formData.passwordConfirm}
               onChange={handleUpdateFormData}
+              labelTitle="비밀번호 확인"
+              errorTextHide
             />
-          </div>
         </div>
         <PrimaryLargeButton
             type="submit"

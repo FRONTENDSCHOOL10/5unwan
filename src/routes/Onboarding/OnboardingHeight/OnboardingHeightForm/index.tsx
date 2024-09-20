@@ -5,6 +5,7 @@ import React, { useId, useState } from "react";
 import styles from "./style.module.css"
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
 
 export type OnboardingHeightFormProps = {
   onSuccess: () => void | Promise<void>;
@@ -58,18 +59,16 @@ export function OnboardingHeightForm({
       <PageTitle text="키를 입력해 주세요." />
       <form onSubmit={handleSubmit}>
         <div className={`${styles.group} ${styles["group-profile"]}`}>
-          <label htmlFor={`${id}-height`}>
-            <h2 className="sr-only">신장</h2>
-          </label>
-          <input
-            id={`${id}-height`}
+          <Input
             name="height"
             type="number"
             placeholder="160"
-            value={formData.height}
             onChange={handleUpdateFormData}
+            value={formData.height}
+            labelHide
+            errorTextHide
           />
-          <p className="body-md-bold">cm</p>
+          <p className={`body-sm-bold ${styles["desc"]}`}>cm</p>
         </div>
 
         <PrimaryLargeButton
