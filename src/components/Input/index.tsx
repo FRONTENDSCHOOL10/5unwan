@@ -20,7 +20,7 @@ interface InputProps {
   buttonName?: string,
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
   labelClassName?: string,
-  name: string,
+  name?: string,
 }
 
 export default function Input({
