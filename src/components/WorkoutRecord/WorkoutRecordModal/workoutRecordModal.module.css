@@ -10,8 +10,8 @@
   height: 37.5rem;
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
   margin-top: 6rem;
   position: fixed;
   bottom: 0;

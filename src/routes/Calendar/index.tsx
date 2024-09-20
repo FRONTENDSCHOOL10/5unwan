@@ -72,12 +72,12 @@ export default function Calendar() {
           <div
             style={{
               display: "flex",
-              marginTop: "4px",
+              marginTop: "0.25rem",
               justifyContent: "center",
             }}
           >
             {dayWorkouts.map((workout) => (
-              <div key={workout.id} style={{ margin: "0px 2px" }}>
+              <div key={workout.id} style={{ margin: "0px 0.125rem" }}>
                 <SVGIcon iconId="iconEllipse" width={4} height={4} />
               </div>
             ))}

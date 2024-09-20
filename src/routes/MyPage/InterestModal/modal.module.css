@@ -14,21 +14,21 @@
   
   .modalContent {
 	background-color: white;
-	padding: 20px;
-	border-radius: 8px;
-	max-width: 500px;
+	padding: 1.25rem;
+	border-radius: 0.5rem;
+	max-width: 31.25rem;
 	width: 100%;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
 	position: relative;
   }
   
   .closeButton {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 0.625rem;
+	right: 0.625rem;
 	background: none;
 	border: none;
-	font-size: 18px;
+	font-size: 1.125rem;
 	cursor: pointer;
   }
   
