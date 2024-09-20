@@ -1,0 +1,35 @@
+:root {
+  --kakao-color: rgba(254, 229, 0, 1);
+}
+
+.login-kakao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--disabled);
+
+  span {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-regular);
+    color: var(--grayscale-600);
+    text-align: left;
+  }
+}
+
+.login-kakao-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3.375rem;
+  padding: 0 0.875rem;
+  border-radius: var(--rounded-sm);
+  color: var(--black);
+  background-color: var(--kakao-color);
+  transition: opacity 300ms ease-in=out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
