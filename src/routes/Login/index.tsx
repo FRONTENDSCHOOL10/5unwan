@@ -1,9 +1,9 @@
-import { kakaoSignUpOrLogin } from "@/api/pocketbase";
-import { useMutation } from "@tanstack/react-query";
+import styles from "./login.module.css";
 import { useNavigate, useMatches } from "react-router-dom";
-import { LoginForm } from "@/routes/Login/LoginForm";
 import { RouteHandle } from "@/router";
 import Header from "@/components/Header";
+import { LoginForm } from './LoginForm';
+import KakaoLogin from '@/components/KakaoLogin';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,23 +13,12 @@ export default function Login() {
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
 
-  const kakaoSignUpOrLoginMutation = useMutation({
-    mutationFn: kakaoSignUpOrLogin,
-    onSuccess: () => {
-      navigate("/");
-    },
-  });
-
   const handleGoBack = () => {
     navigate(-1);
   };
 
-  async function kakaoLogin() {
-    await kakaoSignUpOrLoginMutation.mutateAsync();
-  }
-
   return (
-    <>
+    <div>
       {!hideHeader && (
         <Header
           leftIconId={"iconArrowsLeft"}
@@ -38,14 +27,12 @@ export default function Login() {
           rightIconVisible
         />
       )}
-      <div>
-        <LoginForm
-          onSuccess={() => {
-            navigate("/");
-          }}
+      
+      <div className={styles.container}>
+        <LoginForm onSuccess={() => { navigate("/") }}
         />
-        <button onClick={kakaoLogin}>카카오 로그인</button>
+        <KakaoLogin />
       </div>
-    </>
+    </div>
   );
 }

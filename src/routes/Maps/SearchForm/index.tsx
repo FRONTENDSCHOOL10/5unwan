@@ -32,7 +32,7 @@ export default function SearchForm() {
       <form onSubmit={searchSubmit}>
         <Input
           type="search"
-          name="place-search-input"
+          name="search"
           value={search}
           onChange={searchContent}
           labelHide={true}
