@@ -31,7 +31,9 @@ export default function Login() {
         <div className={styles.container}>
           <LoginForm onSuccess={() => { navigate("/") }}
           />
-          <KakaoLogin />
+          <span className={styles.kakao}>
+            <KakaoLogin />
+          </span>
         </div>
       </div>
     </>

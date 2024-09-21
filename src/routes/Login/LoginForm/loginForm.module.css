@@ -1,16 +1,17 @@
 .container {
-  max-width: 48.75rem;
-
+  padding: 0 1.25rem;
+  margin-top: 1.875rem;
+  
   .content {
-    margin-bottom: 1.875rem;
+    max-width: 26.25rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-self: center;
     
     .input-group {
       margin-bottom: var(--space-4);
       > div {
-        margin-bottom: var(--space-2); 
+        margin-bottom: var(--space-2);
       }
     }
   }
