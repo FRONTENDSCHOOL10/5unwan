@@ -1,6 +1,11 @@
 .container {
+  display: flex;
+  flex-direction: column;
   padding: 0 1.25rem;
-  overflow: hidden;
+  margin-top: 1.875rem;
+}
+
+.content {
   max-width: 26.25rem;
   margin: 0 auto;
 }
@@ -70,7 +75,6 @@ span {
 .month {
   align-self: stretch;
   color: #222b45;
-
   text-align: center;
 }
 
