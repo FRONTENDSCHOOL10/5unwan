@@ -1,7 +1,7 @@
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import { getPbImageUrl, updateUserProfile, getAvailableInterests } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile, getAvailableInterests  } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
 import Header from "@/components/Header";
@@ -9,10 +9,10 @@ import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeTogg
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 import Input from "@/components/Input/index";
-
-
-// 모달 관련 라이브러리 사용
+import SVGIcon from "@/components/SVGicon";
 import Modal from "@/routes/MyPage/InterestModal/index";
+import Checkbox from "@/routes/MyPage/Checkbox/index";
+
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
@@ -30,17 +30,15 @@ export default function MyPage() {
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
 
-    // 관심 운동 관련 상태 관리
-	const [availableInterests, setAvailableInterests] = useState<string[]>([]);
-	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+  // 관심 운동 수정 관련 상태 추가
+  const [showInterestModal, setShowInterestModal] = useState(false); // 모달 상태
+  const [availableInterests, setAvailableInterests] = useState<string[]>([]); // 선택 가능한 관심사 목록
+  const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사
   
-	// 포켓베이스에서 관심 운동 목록 가져오기
-	useEffect(() => {
-	  getAvailableInterests().then((interests) => {
-		setAvailableInterests(interests);
-	  });
-	}, []);
+  // 컴포넌트 마운트 시 관심사 목록 가져오기
+  useEffect(() => {
+    getAvailableInterests().then((data) => setAvailableInterests(data));
+  }, []);
 
   const handleSaveChanges = () => {
     const updateData = {
@@ -49,8 +47,8 @@ export default function MyPage() {
       height,
       dob,
       gender,
-	  interests: selectedInterests,  
       avatar: avatarFile || undefined,
+	  interests: selectedInterests,
     };
 
     if (user?.id) {
@@ -79,16 +77,27 @@ export default function MyPage() {
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
-
-    // 관심 운동 선택 처리 함수
-	const toggleInterest = (interest: string) => {
-		if (selectedInterests.includes(interest)) {
-		  setSelectedInterests(selectedInterests.filter((i) => i !== interest));
-		} else {
-		  setSelectedInterests([...selectedInterests, interest]);
-		}
-	  };
 	  
+
+    // 관심사 수정 모달 열기
+  const handleInterestModalOpen = () => {
+    setShowInterestModal(true);
+  };
+
+  // 관심사 수정 모달 닫기
+  const handleInterestModalClose = () => {
+    setShowInterestModal(false);
+  };
+
+  // 관심사 체크박스 상태 변경
+  const handleInterestChange = (interest: string) => {
+    setSelectedInterests((prev) =>
+      prev.includes(interest)
+        ? prev.filter((item) => item !== interest)
+        : [...prev, interest]
+    );
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -107,14 +116,14 @@ export default function MyPage() {
               leftIconVisible
               rightIconId="iconEdit"
               rightIconVisible
-              rightonClick={() => setIsEditMode(true)} // 편집 모드로 전환
+              rightonClick={() => setIsEditMode(true)} 
             />
           ) : (
             <Header
               className={styles.header}
               leftIconId="iconArrowsLeft"
               leftIconVisible
-              leftonClick={() => setIsEditMode(false)} // 편집 모드 종료
+              leftonClick={() => setIsEditMode(false)}
               rightIconVisible
             />
           )}
@@ -173,23 +182,33 @@ export default function MyPage() {
           </div>
 
           {/* 성별 선택 */}
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>성별</label>
-            <div className={styles["gender-container"]}>
-              <SecondaryMiniButton
-                onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
-              >
-                남자
-              </SecondaryMiniButton>
-              <SecondaryMiniButton
-                onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
-              >
-                여자
-              </SecondaryMiniButton>
-            </div>
-          </div>
+		  <div className={styles["input-container"]}>
+  <label className={styles["label"]}>성별</label>
+  <div className={styles["gender-container"]}>
+    <SecondaryMiniButton
+      onClick={() => setGender("M")}
+      className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+    >
+      남자
+      {gender === "M" && (
+        <span className={styles["icon-box"]}>
+          <SVGIcon width={20} height={20} iconId="iconCheck" />
+        </span>
+      )}
+    </SecondaryMiniButton>
+    <SecondaryMiniButton
+      onClick={() => setGender("F")}
+      className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+    >
+      여자
+      {gender === "F" && (
+        <span className={styles["icon-box"]}>
+          <SVGIcon width={20} height={20} iconId="iconCheck" />
+        </span>
+      )}
+    </SecondaryMiniButton>
+  </div>
+</div>
 
           {/* 생년월일 입력 */}
           <div className={styles["input-container"]}>
@@ -267,11 +286,12 @@ export default function MyPage() {
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
 
-		  <div className={styles["interests-header"]}>
-  <h3 className={styles["interest-title"]}>관심 운동</h3>
-  <span className={styles["edit-interest"]}>수정</span>
-</div>
-<div className={styles.interestsList}>
+    {/* 관심사 수정 기능 */}
+	<div className={styles["intersts-container"]}>
+	<h3 className={styles["interest-title"]}>관심 운동</h3>
+	<span className={styles["edit-interest"]} onClick={handleInterestModalOpen}>수정</span>
+          </div>
+		  <div className={styles.interestsList}>
   {user?.interests && user.interests.length > 0 ? (
     user.interests.map((interest: string, index: number) => (
       <div key={index} className={styles.interest}>
@@ -282,6 +302,23 @@ export default function MyPage() {
     <p>관심 운동이 없습니다.</p>
   )}
 </div>
+          {/* 관심사 수정 모달 */}
+          {showInterestModal && (
+            <Modal onClose={handleInterestModalClose}>
+              <h3>관심 운동 수정</h3>
+              <div className={styles["interest-list"]}>
+                {availableInterests.map((interest) => (
+                  <Checkbox
+                    key={interest}
+                    label={interest}
+                    checked={selectedInterests.includes(interest)}
+                    onChange={() => handleInterestChange(interest)}
+                  />
+                ))}
+              </div>
+              <button onClick={handleSaveChanges}>저장</button>
+            </Modal>
+          )}
 
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
@@ -289,7 +326,14 @@ export default function MyPage() {
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
-            <button onClick={logout}>로그아웃</button>
+<button
+  onClick={async () => {
+    await logout(); 
+    navigate("/logout-complete"); 
+  }}
+>
+  로그아웃
+</button>
             <br />
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
@@ -299,36 +343,7 @@ export default function MyPage() {
           </div>
         </div>
       )}
-    {/* 관심 운동 수정 모달 */}
-	{isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <div className={styles.modalContent}>
-            <h2>관심 운동 선택</h2>
-            <div className={styles.interestsList}>
-              {availableInterests.map((interest, index) => (
-                <div key={index} className={styles.interest}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedInterests.includes(interest)}
-                      onChange={() => toggleInterest(interest)}
-                    />
-                    {interest}
-                  </label>
-                </div>
-              ))}
-            </div>
-            <PrimaryLargeButton
-              onClick={() => {
-                setIsModalOpen(false); // 모달 닫기
-                handleSaveChanges();    // 저장
-              }}
-            >
-              저장
-            </PrimaryLargeButton>
-          </div>
-        </Modal>
-      )}
+
     </div>
   );
 }

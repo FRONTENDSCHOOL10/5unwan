@@ -1,20 +1,18 @@
-// C:/Users/82107/Desktop/fp/5unwan/src/components/Modal/index.tsx
+
 import React from "react";
 import styles from "./modal.module.css";
 
 interface ModalProps {
-  children: React.ReactNode;
   onClose: () => void;
+  children: React.ReactNode;
 }
 
-const Modal = ({ children, onClose }: ModalProps) => {
+const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={onClose}>
-          닫기
-        </button>
         {children}
+        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );

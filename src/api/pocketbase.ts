@@ -196,12 +196,7 @@ export async function updateUserProfile(
   return updatedUser;
 }
 
-export async function getAvailableInterests(): Promise<string[]> {
-	try {
-	  const records = await pb.collection('interests').getFullList();
-	  return records.map(record => record.name); 
-	} catch (error) {
-	  console.error('Failed to fetch interests:', error);
-	  throw error;
-	}
+export async function getAvailableInterests() {
+	const result = await pb.collection('interestOptions').getList();
+	return result.items.map((item: any) => item.name); 
   }

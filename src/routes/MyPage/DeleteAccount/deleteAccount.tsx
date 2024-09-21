@@ -52,6 +52,7 @@ export default function DeleteAccount() {
         <PrimaryLargeButton onClick={handleDeleteAccount}>
           탈퇴하기
         </PrimaryLargeButton>
+		<br></br>
         <PrimaryLargeButton
           onClick={() => navigate("/my-page")}
           className={styles.cancelButton}

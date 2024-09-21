@@ -258,7 +258,8 @@
 		margin-top: var(--space-5);
 	  }
 
-	  .interests-header {
+	  
+	  .intersts-container {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -282,3 +283,4 @@
 		color: var(--grayscale-500);
 		padding-right: var(--space-5);
 	  }
+
