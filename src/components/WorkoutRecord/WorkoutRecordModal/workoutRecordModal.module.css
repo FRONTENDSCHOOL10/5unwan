@@ -6,7 +6,7 @@
 
 .outer {
   background-color: var(--white);
-  max-height: 42.5rem;
+  max-height: 30rem;
   height: 37.5rem;
   display: flex;
   flex-direction: column;
@@ -22,8 +22,9 @@
 }
 
 .inner {
+  max-width: 26.25rem;
+  margin: 0 auto;
   overflow-y: scroll;
-  /* padding: 1rem; */
   border-top-left-radius: var(--rounded-md);
   border-top-right-radius: var(--rounded-md);
   flex: 1 1 0%;
