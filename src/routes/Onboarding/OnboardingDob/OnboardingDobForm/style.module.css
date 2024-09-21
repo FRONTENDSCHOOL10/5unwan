@@ -1,20 +1,21 @@
 .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 26rem;
+    max-width: 26.25rem;
     margin: 0 auto;
+}
 
-    .input-group {
-        gap: .5rem;
-        display: flex;
-        margin-bottom: 1.875rem;
+.content {
+    margin-bottom: 1.875rem;
+}
 
-        input {
-            margin-bottom: var(--space-2);
-            width: 5.5rem;
-        }
+.input-group {
+    gap: .5rem;
+    display: flex;
+    margin-bottom: 1.875rem;
+    justify-content: center;
+
+    input {
+        margin-bottom: var(--space-2);
+        width: 5.5rem;
     }
 }
 

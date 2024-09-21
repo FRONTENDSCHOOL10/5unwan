@@ -1,10 +1,11 @@
 .container {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 26rem;
+    max-width: 26.25rem;
     margin: 0 auto;
+}
+
+.content {
+    margin-bottom: 1.875rem;
+
     li {
         margin-bottom: var(--space-2);
     }
@@ -70,7 +71,7 @@
     align-items: start;
     flex-direction: column;
     
-    .content{
+    .gender-input{
         display: flex;
         gap: var(--space-2);
 

@@ -54,28 +54,29 @@ export function OnboardingHeightForm({
   };
 
   return (
-    <>
-      <PageTitle text="키를 입력해 주세요." />
       <form onSubmit={handleSubmit}>
-        <div className={styles["container"]}>
-          <section className={styles["content"]}>
-            <Input
-              name="height"
-              type="number"
-              placeholder="160"
-              onChange={handleUpdateFormData}
-              value={formData.height}
-              labelHide
-              errorTextHide
-            />
-            <p className={`body-sm-bold ${styles["desc"]}`}>cm</p>
+        <div className={styles.container}>
+          <section className={styles.content}>
+            <PageTitle text="키를 입력해 주세요." />
+            <section className={styles["input-group"]}>
+              <Input
+                name="height"
+                type="number"
+                placeholder="160"
+                onChange={handleUpdateFormData}
+                value={formData.height}
+                labelHide
+                errorTextHide
+              />
+              <p className={`body-sm-bold ${styles["desc"]}`}>cm</p>
+            </section>
           </section>
-        <PrimaryLargeButton
-            type="submit"
-            disabled={!formData.height || updateMutation.isPending}
-        >
-          {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-        </PrimaryLargeButton>
+          <PrimaryLargeButton
+              type="submit"
+              disabled={!formData.height || updateMutation.isPending}
+          >
+            {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
+          </PrimaryLargeButton>
         </div>
 
 
@@ -83,6 +84,5 @@ export function OnboardingHeightForm({
           ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
           : null}
       </form>
-    </>
   );
 }

@@ -1,14 +1,19 @@
 .container {
-    justify-content: center;
-    margin-bottom: 1.875rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 26rem;
-    margin: 0 auto;
+    padding: 0 1.25rem;
+    margin-top: 1.875rem;
 
     .content {
-        margin-bottom: 1.875rem;
+        max-width: 26.25rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        .input-group {
+            margin-bottom: var(--space-4);
+            > div {
+              margin-bottom: var(--space-2); 
+            }
+          }
     }
 
     input {

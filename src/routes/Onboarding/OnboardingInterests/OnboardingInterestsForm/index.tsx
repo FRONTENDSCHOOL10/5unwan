@@ -59,41 +59,43 @@ export function OnboardingInterestsForm({
   };
 
   return (
-    <>
-      <PageTitle text="관심있는 운동을 선택해 주세요." />
-      <form onSubmit={handleSubmit}>
-        <div className={styles.group}>
-          {interestOptions.map((interestOption) => {
-            return (
-              <div key={interestOption}>
-                <label htmlFor={`${id}-${interestOption}`}>
-                  <h2 className="sr-only">관심 운동</h2>
-                </label>
-                <input
-                  id={`${id}-${interestOption}`}
-                  key={interestOption}
-                  name={interestOption}
-                  type="checkbox"
-                  value={interestOption}
-                  checked={formData[interestOption]}
-                  onChange={handleUpdateFormData}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <PrimaryLargeButton
-          type="submit"
-          disabled={
-            Object.keys(formData).length === 0 || updateMutation.isPending
-          }
-        >
-          {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
-        </PrimaryLargeButton>
-        {updateMutation.isError
-          ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
-          : null}
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <div className={styles.container}>
+        <section className={styles.content}>
+          <PageTitle text="관심있는 운동을 선택해 주세요." />
+          <section className={styles["input-group"]}>
+            {interestOptions.map((interestOption) => {
+              return (
+                <div key={interestOption}>
+                  <label htmlFor={`${id}-${interestOption}`}>
+                    <h2 className="sr-only">관심 운동</h2>
+                  </label>
+                  <input
+                    id={`${id}-${interestOption}`}
+                    key={interestOption}
+                    name={interestOption}
+                    type="checkbox"
+                    value={interestOption}
+                    checked={formData[interestOption]}
+                    onChange={handleUpdateFormData}
+                  />
+                </div>
+              );
+            })}
+          </section>
+          <PrimaryLargeButton
+            type="submit"
+            disabled={
+              Object.keys(formData).length === 0 || updateMutation.isPending
+            }
+          >
+            {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
+          </PrimaryLargeButton>
+          {updateMutation.isError
+            ? "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"
+            : null}
+        </section>
+      </div>
+    </form>
   );
 }

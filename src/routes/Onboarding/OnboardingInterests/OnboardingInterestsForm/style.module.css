@@ -1,4 +1,14 @@
-.group {
+.container {
+    max-width: 26.25rem;
+    margin: 0 auto;
+}
+
+.content {
+    margin-bottom: 1.875rem;
+}
+
+
+.input-group {
     justify-content: center;
     display: flex;
     margin-bottom: 1.875rem;
