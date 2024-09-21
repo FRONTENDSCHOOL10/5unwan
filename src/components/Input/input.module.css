@@ -16,7 +16,6 @@
     display: flex;
     width: 100%;
     max-width: 26rem;
-    /* min-width: 17.5rem; */
   }
 
   input::-webkit-search-decoration,

@@ -1,7 +1,7 @@
 .large-button-wrapper {
 	width: 100%;
 	/* max-width: 26rem; */
-	min-width: 17.5rem;
+	
 	height: 3.375rem; /* 54px */
 	background-color: transparent;
 	color: var(--grayscale-600);

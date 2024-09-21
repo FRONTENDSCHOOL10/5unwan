@@ -8,7 +8,7 @@
   align-items: center;
   padding-top: var(--space-6);
   border-top: 0.0625rem solid var(--disabled);
-  min-width: 17.5rem;
+  
 
   span {
     font-size: 0.75rem;
@@ -27,7 +27,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-width: 17.5rem;
+  
   height: 3.375rem;
   padding: 0 0.875rem;
   border-radius: var(--rounded-sm);
