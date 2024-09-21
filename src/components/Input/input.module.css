@@ -15,7 +15,6 @@
     position: relative;
     display: flex;
     width: 100%;
-    max-width: 26rem;
   }
 
   input::-webkit-search-decoration,
