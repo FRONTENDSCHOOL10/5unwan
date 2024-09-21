@@ -1,5 +1,11 @@
 import { create } from "zustand";
 
+interface Marker {
+  position: { lat: number; lng: number };
+  content: string;
+  address?: string;
+}
+
 interface Store {
   defaultLocation: { lat: number, lng: number };
   showList: boolean;
@@ -17,6 +23,9 @@ interface Store {
   }[];
   selectedMarkerContent: string,
   map: any,
+  // bookmarkList: [], // 북마크된 아이템 저장
+  // bookmarkToggle: boolean,
+  bookmarkedMarkers: Marker[];
 }
 
 interface Action {
@@ -27,13 +36,15 @@ interface Action {
   updateMarker: (index: number, marker: Store["markers"][number]) => void;
   setSelectedMarkerContent: (content: string) => void;
   setMap: (map: kakao.maps.Map) => void;
-}
+  toggleBookmark: (marker: Marker) => void;
+} 
 
 const useStore = create<Store & Action>((set) => {
   const defaultLocation = {
     lat: 37.5709958592808,
     lng: 126.978914477333
   };
+  
 
   return {
     defaultLocation,
@@ -69,6 +80,16 @@ const useStore = create<Store & Action>((set) => {
   
     map: null,
     setMap: (map) => set(() => ({ map })),
+
+    bookmarkedMarkers: [], // 북마크 상태를 저장하는 배열
+    toggleBookmark: (marker: Marker) =>
+      set((state) => ({
+        bookmarkedMarkers: state.bookmarkedMarkers.some(
+          (bm) => bm.content === marker.content
+        )
+          ? state.bookmarkedMarkers.filter((bm) => bm.content !== marker.content) // 이미 있으면 제거
+          : [...state.bookmarkedMarkers, marker], // 없으면 추가
+    })),
   };
 });
 
