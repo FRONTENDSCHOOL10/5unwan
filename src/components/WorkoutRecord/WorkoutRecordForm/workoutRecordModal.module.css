@@ -172,7 +172,7 @@ input, textarea {
     }
 
     &:hover, &:focus, &:active {
-      border: 1px solid var(--grayscale-300);
+      border: 0.0625rem solid var(--grayscale-300);
       color: var(--white);
 
       &::placeholder {
@@ -183,7 +183,7 @@ input, textarea {
 
     &:disabled {
       background-color: var(--grayscale-500);
-      border: 1px solid var(--grayscale-800);
+      border: 0.0625rem solid var(--grayscale-800);
       color: var(--grayscale-700);
       
       &::placeholder {

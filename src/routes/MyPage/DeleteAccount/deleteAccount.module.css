@@ -36,7 +36,7 @@
 	width: 100%;
 	height: var(--space-10-half); 
 	padding: 0 var(--space-5); 
-	border: 1px solid var(--grayscale-400);
+	border: 0.0625rem solid var(--grayscale-400);
 	border-radius: var(--rounded-sm); 
 	overflow: hidden;
 	text-overflow: ellipsis;

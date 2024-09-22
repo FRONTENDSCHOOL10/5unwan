@@ -72,12 +72,12 @@ export default function Calendar() {
           <div
             style={{
               display: "flex",
-              marginTop: "4px",
+              marginTop: "0.25rem",
               justifyContent: "center",
             }}
           >
             {dayWorkouts.map((workout) => (
-              <div key={workout.id} style={{ margin: "0px 2px" }}>
+              <div key={workout.id} style={{ margin: "0px 0.125rem" }}>
                 <SVGIcon iconId="iconEllipse" width={4} height={4} />
               </div>
             ))}
@@ -95,59 +95,60 @@ export default function Calendar() {
 
   return (
     <div className={styles.container}>
-      <h1 className={`${styles.title} body-xl-bold`}>
-        운동기록과
-        <br />
-        출석률을 확인해보세요.
-      </h1>
-      <div role="group" className={styles["attendance-container"]}>
-        <span className="heading-6">
-          {progressPerMonth}%{" "}
-          <span className={`${styles.attendance} heading-6`}>
-            {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
+      <div className={styles.content}>
+        <h1 className={`${styles.title} body-xl-bold`}>
+          운동기록과
+          <br />
+          출석률을 확인해보세요.
+        </h1>
+        <div role="group" className={styles["attendance-container"]}>
+          <span className="heading-6">
+            {progressPerMonth}%{" "}
+            <span className={`${styles.attendance} heading-6`}>
+              {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
+            </span>
           </span>
-        </span>
-        <div className={styles["progress-container"]}>
-          <div
-            className={styles["progress-bar"]}
-            style={{ width: `${progressPerMonth}%` }}
-          ></div>
+          <div className={styles["progress-container"]}>
+            <div
+              className={styles["progress-bar"]}
+              style={{ width: `${progressPerMonth}%` }}
+            ></div>
+          </div>
         </div>
-      </div>
-      <DayPicker
-        className={styles.calendar}
-        showOutsideDays
-        fromYear={2024}
-        toYear={now?.getFullYear()}
-        weekStartsOn={1}
-        locale={ko}
-        formatters={{
-          formatWeekdayName: (date: Date, options) => {
-            return (
-              <span
-                className={`${styles.week} ${
-                  getDay(date) === 0 || getDay(date) === 6
-                    ? styles["week-weekend"]
-                    : styles["week-weekdays"]
-                }`}
-              >
-                {format(date, "EEE", options)}
-              </span>
-            );
-          },
-        }}
-        components={{
-          Caption: CustomCaptionComponent,
+        <DayPicker
+          className={styles.calendar}
+          showOutsideDays
+          fromYear={2024}
+          toYear={now?.getFullYear()}
+          weekStartsOn={1}
+          locale={ko}
+          formatters={{
+            formatWeekdayName: (date: Date, options) => {
+              return (
+                <span
+                  className={`${styles.week} ${
+                    getDay(date) === 0 || getDay(date) === 6
+                      ? styles["week-weekend"]
+                      : styles["week-weekdays"]
+                  }`}
+                >
+                  {format(date, "EEE", options)}
+                </span>
+              );
+            },
+          }}
+          components={{
+            Caption: CustomCaptionComponent,
 
-          DayContent: CustomDayContent as
-            | ((props: DayContentProps) => JSX.Element | null)
-            | undefined,
-        }}
-        month={currentMonthStart}
-        onMonthChange={(month) => {
-          setCurrentMonthStart(startOfMonth(month));
-          setCurrentMonthEnd(endOfMonth(month));
-        }}
+            DayContent: CustomDayContent as
+              | ((props: DayContentProps) => JSX.Element | null)
+              | undefined,
+          }}
+          month={currentMonthStart}
+          onMonthChange={(month) => {
+            setCurrentMonthStart(startOfMonth(month));
+            setCurrentMonthEnd(endOfMonth(month));
+          }}
       />
 
       {selectedDay && (
@@ -174,6 +175,7 @@ export default function Calendar() {
           ))}
         </>
       )}
+      </div>
     </div>
   );
 }

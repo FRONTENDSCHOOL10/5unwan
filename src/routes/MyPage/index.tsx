@@ -98,7 +98,7 @@ export default function MyPage() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       {!hideHeader && (
         <>
           {!isEditMode ? (

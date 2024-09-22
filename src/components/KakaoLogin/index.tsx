@@ -32,7 +32,7 @@ export default function KakaoLogin({type} :kakaoType) {
 
   return (
     <div className={styles["login-kakao"]}>
-      <span className="">카카오로 간편하게<br />시작하기</span>
+      <span className="body-sm-regular">카카오로 간편하게<br />시작하기</span>
       <button type="button" onClick={kakaoLogin}>
         <SVGIcon iconId="iconKakao" width="36" height="36" />
       </button>

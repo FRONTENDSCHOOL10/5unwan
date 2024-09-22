@@ -1,7 +1,7 @@
 .large-button-wrapper {
 	width: 100%;
-	max-width: 26rem;
-	min-width: 17.5rem;
+	/* max-width: 26rem; */
+	
 	height: 3.375rem; /* 54px */
 	background-color: transparent;
 	color: var(--grayscale-600);
@@ -36,7 +36,7 @@
 }
 .medium-button-wrapper {
 	width: 100%;
-	max-width: 26rem;
+	/* max-width: 26rem; */
 	min-width: 8.75rem;
 	height: 2.75rem; /* 44px */
 	background-color: transparent;
@@ -72,7 +72,7 @@
 }
 .mini-button-wrapper {
 	width: 100%;
-	max-width: 26rem;
+	/* max-width: 26rem; */
 	min-width: 3.9375rem;
 	height: 2.625rem; /* 42px */
 	background-color: transparent;

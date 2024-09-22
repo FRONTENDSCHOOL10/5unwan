@@ -5,29 +5,11 @@
   box-sizing: border-box;
 }
 
-.header {
-  overflow: hidden;
-  /* height: var(--space-12-half);;
-  width: 100%;
-  border-bottom: 0.125rem solid;
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 20px;
-
-  h1 {
-    word-break: keep-all;
-  }
-  
-  svg {
-    width: 20px;
-  } */
-}
-
 .outlet {
-  height: 0;
-  min-height: 15rem;
+  height: 100vh;
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .gnb-nav {
@@ -47,6 +29,8 @@
     align-items: center;
     flex-shrink: 0;
     align-self: stretch;
+    max-width: 26.25rem;
+    margin: 0 auto;
   }
 }
 

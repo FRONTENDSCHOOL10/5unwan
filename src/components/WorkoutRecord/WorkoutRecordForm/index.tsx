@@ -229,16 +229,6 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             value={formData.title}
             onChange={handleUpdateFormData}
           />
-          {/* Input 컴포넌트 사용 시 onChange가 안먹히는지
-              버튼 disabled가 풀리지 않아요.  */}
-          {/* <Input
-            title="Test Input"
-            isDark={isDark}
-            placeholder="제목을 입력해 주세요"
-            onChange={handleUpdateFormData}
-            textHide
-            titleHide
-          /> */}
         </li>
 
         <li className={styles["list-content"]}>

@@ -2,7 +2,6 @@ import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
 import Header from "@/components/Header";
-import styles from "./style.module.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -25,13 +24,11 @@ export default function Register() {
           rightIconVisible
         />)}
       <div>
-        <div className={styles["content-wrapper"]}>
-          <RegisterForm
-            onSuccess={() => {
-              navigate("/onboarding");
-            }}
-          />
-        </div>
+        <RegisterForm
+          onSuccess={() => {
+            navigate("/onboarding");
+          }}
+        />
       </div>
     </>
   );

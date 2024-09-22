@@ -55,50 +55,52 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   };
 
   return (
-    <>
-      <PageTitle text="이메일과 비밀번호를 입력해주세요." />
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <div className={styles.container}>
-            <Input
-              name="email"
-              type="email"
-              placeholder="이메일을 입력해 주세요."
-              value={formData.email}
-              onChange={handleUpdateFormData}
-              labelTitle="이메일"
-              errorTextHide
-            />
-            <Input
-              name="password"
-              type="password"
-              placeholder="8문자 이상, 특수 문자 포함해 주세요."
-              value={formData.password}
-              onChange={handleUpdateFormData}
-              labelTitle="비밀번호"
-              errorTextHide
-            />
-            <Input
-              name="passwordConfirm"
-              type="password"
-              placeholder=""
-              value={formData.passwordConfirm}
-              onChange={handleUpdateFormData}
-              labelTitle="비밀번호 확인"
-              errorTextHide
-            />
-        </div>
-        <PrimaryLargeButton
-            type="submit"
-            disabled={
-              !formData.email.trim() ||
-              !formData.password.trim() ||
-              !formData.passwordConfirm.trim() ||
-              registerMutation.isPending
-            }
-          >
-          {`다음 1/${ONBOARDING_STEPS.length + 1}`}
-          </PrimaryLargeButton>
+          <section className={styles.content}>
+          <PageTitle text="이메일과 비밀번호를 입력해주세요." />
+              <span className={styles["input-group"]}>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="이메일을 입력해 주세요."
+                  value={formData.email}
+                  onChange={handleUpdateFormData}
+                  labelTitle="이메일"
+                  errorTextHide
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="8문자 이상, 특수 문자 포함해 주세요."
+                  value={formData.password}
+                  onChange={handleUpdateFormData}
+                  labelTitle="비밀번호"
+                  errorTextHide
+                />
+                <Input
+                  name="passwordConfirm"
+                  type="password"
+                  placeholder=""
+                  value={formData.passwordConfirm}
+                  onChange={handleUpdateFormData}
+                  labelTitle="비밀번호 확인"
+                  errorTextHide
+                />
+              </span>
+            <PrimaryLargeButton
+                type="submit"
+                disabled={
+                  !formData.email.trim() ||
+                  !formData.password.trim() ||
+                  !formData.passwordConfirm.trim() ||
+                  registerMutation.isPending
+                }
+                >
+              {`다음 1/${ONBOARDING_STEPS.length + 1}`}
+            </PrimaryLargeButton>
+            </section>
       </form>
-    </>
+    </div>
   );
 }

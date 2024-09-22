@@ -1,11 +1,19 @@
-.group {
+.container {
+    max-width: 26.25rem;
+    margin: 0 auto;
+}
+
+.content {
+    margin-bottom: 1.875rem;
+}
+
+.input-group {
     justify-content: center;
     margin-bottom: 1.875rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--space-2);
-    
     input {
         width: 6.25rem;
     }

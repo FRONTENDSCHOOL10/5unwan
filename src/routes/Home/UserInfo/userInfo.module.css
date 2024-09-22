@@ -4,6 +4,7 @@
   align-items: center;
   padding: var(--space-3) 0 var(--space-5) 0;
   gap: var(--space-2);
+  margin-top: 2.375rem;
 }
 
 .user-info {
@@ -37,7 +38,7 @@
 
     &.is-active {
       height: 2.5rem;
-      border: 1px solid var(--grayscale-400);
+      border: 0.0625rem solid var(--grayscale-400);
     }
   }
 
@@ -49,7 +50,7 @@
     text-align: center;
     white-space: nowrap;
     padding: var(--space-half) var(--space-2);
-    border-bottom: 1px solid var(--grayscale-400);
+    border-bottom: 0.0625rem solid var(--grayscale-400);
     cursor: pointer;
     transition: background-color 300ms ease-in-out, font-weight 300ms ease-in-out;
 
@@ -70,13 +71,13 @@
   align-items: center;
   width: 1.875rem;
   height: 1.875rem;
-  outline: 1px solid var(--grayscale-400);
+  outline: 0.0625rem solid var(--grayscale-400);
   border-radius: 50%;
   overflow: hidden;
   transition: border-width 300ms ease-in-out;
 
   &:hover, &:focus {
-    outline: 3px solid var(--grayscale-400);
+    outline: 0.1875rem solid var(--grayscale-400);
   }
 
   img {
