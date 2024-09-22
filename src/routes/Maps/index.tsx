@@ -1,4 +1,4 @@
-import useMapStore from '@/stores/mapStore';
+import mapStore from '@/stores/mapStore';
 import { useEffect } from 'react';
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
@@ -14,8 +14,7 @@ interface MarkerTypes {
 }
 
 export default function Maps() {
-  const mapStore = useMapStore();
-  const { showList, search, setMarkers, updateMarker, map } = mapStore;
+  const { showList, search, setMarkers, updateMarker, map } = mapStore();
   const { user } = useOutletContext<UserContext>();
   
   // Function to get address from coordinates

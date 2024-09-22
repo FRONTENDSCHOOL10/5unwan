@@ -1,13 +1,10 @@
-import useMapStore from '@/stores/mapStore';
+import mapStore from '@/stores/mapStore';
 import styles from './searchForm.module.css';
 import { FormEvent, ChangeEvent } from 'react';
 import Input from '@/components/Input';
 
 export default function SearchForm() {
-  const mapStore = useMapStore();
-  const search = mapStore.search;
-  const setSearch = mapStore.setSearch;
-  const setShowList = mapStore.setShowList;
+  const { search, setSearch, setShowList } = mapStore();
 
   function handleSearchList() {
     setShowList(true);

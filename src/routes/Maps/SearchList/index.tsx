@@ -1,15 +1,12 @@
-import useMapStore from "@/stores/mapStore";
+import mapStore from "@/stores/mapStore";
 import styles from "./searchList.module.css";
 
 export default function SearchList() {
-  const mapStore = useMapStore();
-  const markers = mapStore.markers;
-  const bookmarkedMarkers = mapStore.bookmarkedMarkers;
-  const toggleBookmark = mapStore.toggleBookmark;
-  console.log(bookmarkedMarkers);
+  const { markers, bookmarkList, toggleBookmark } = mapStore();
+  console.log(bookmarkList);
 
   return (
-    <div className={`${styles.container} no-scroll`}>
+    <div className={`${styles.container}`}>
       <ul className={styles["result-list"]}>
         {markers.length > 0 ? (
           markers.map((marker, index) => (
@@ -22,7 +19,7 @@ export default function SearchList() {
               <button
                 type="button"
                 className={`${styles.favorite} ${
-                  bookmarkedMarkers.some((bm) => bm.content === marker.content) ? styles["is-active"] : ""
+                  bookmarkList.some((bm) => bm.content === marker.content) ? styles["is-active"] : ""
                 }`}
                 onClick={() => toggleBookmark(marker)}  // 마커 객체를 전달
               ></button>

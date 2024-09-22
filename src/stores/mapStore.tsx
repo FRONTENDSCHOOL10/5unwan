@@ -15,17 +15,17 @@ interface Store {
     isLoading?: boolean;
   };
   search: string;
-  markers: {
-    position: { lat: number, lng: number };
-    content: string;
-    address?: string;
-    setMap?: any;
-  }[];
+  // markers: {
+  //   position: { lat: number, lng: number };
+  //   content: string;
+  //   address?: string;
+  //   setMap?: any;
+  // }[];
+  markers: Marker[];
   selectedMarkerContent: string,
   map: any,
-  // bookmarkList: [], // 북마크된 아이템 저장
   // bookmarkToggle: boolean,
-  bookmarkedMarkers: Marker[];
+  bookmarkList: Marker[];
 }
 
 interface Action {
@@ -81,14 +81,14 @@ const useStore = create<Store & Action>((set) => {
     map: null,
     setMap: (map) => set(() => ({ map })),
 
-    bookmarkedMarkers: [], // 북마크 상태를 저장하는 배열
+    bookmarkList: [], // 북마크 상태를 저장하는 배열
     toggleBookmark: (marker: Marker) =>
       set((state) => ({
-        bookmarkedMarkers: state.bookmarkedMarkers.some(
+        bookmarkList: state.bookmarkList.some(
           (bm) => bm.content === marker.content
         )
-          ? state.bookmarkedMarkers.filter((bm) => bm.content !== marker.content) // 이미 있으면 제거
-          : [...state.bookmarkedMarkers, marker], // 없으면 추가
+          ? state.bookmarkList.filter((bm) => bm.content !== marker.content) // 이미 있으면 제거
+          : [...state.bookmarkList, marker], // 없으면 추가
     })),
   };
 });

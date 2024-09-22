@@ -1,4 +1,4 @@
-import useMapStore from "@/stores/mapStore";
+import mapStore from "@/stores/mapStore";
 import styles from "./mapBoard.module.css";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
@@ -9,14 +9,7 @@ declare global {
 }
 
 export default function MapBoard() {
-  const mapStore = useMapStore();
-  const defaultLocation = mapStore.defaultLocation;
-  const state = mapStore.state;
-  const setState = mapStore.setState;
-  const selectedMarkerContent = mapStore.selectedMarkerContent;
-  const setSelectedMarkerContent = mapStore.setSelectedMarkerContent;
-  const map = mapStore.map;
-  const setMap = mapStore.setMap;
+  const { defaultLocation, state, setState, selectedMarkerContent, setSelectedMarkerContent, map, setMap } = mapStore();
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -36,7 +29,6 @@ export default function MapBoard() {
         }));
         setSelectedMarkerContent("현재위치");
         map.panTo(currentPos);
-        
       },
       (err: GeolocationPositionError) => {
         setState((prev) => ({
@@ -58,7 +50,7 @@ export default function MapBoard() {
     <div className={styles.container}>
       <Map
         center={ {lat: defaultLocation.lat, lng: defaultLocation.lng }} 
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "calc(100vh - 60px)" }}
         level={3}
         onCreate={setMap}
       >
