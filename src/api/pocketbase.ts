@@ -173,28 +173,34 @@ export async function deleteUser(password: string) {
   }
 }
 
-export async function updateUserProfile(
-  userId: string,
-  userValues: UpdateUser
-) {
-  const formData = new FormData();
-
-  Object.entries(userValues).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
-      if (Array.isArray(value)) {
-        formData.append(key, value.join(","));
-      } else {
-        formData.append(
-          key,
-          typeof value === "number" ? value.toString() : value
-        );
-      }
-    }
-  });
-
-  const updatedUser = await pb.collection("users").update(userId, formData);
-  return updatedUser;
-}
+export async function updateUserProfile(userId: string, userValues: UpdateUser) {
+	const formData = new FormData();
+  
+	Object.entries(userValues).forEach(([key, value]) => {
+	  if (value !== undefined && value !== null) {
+		if (Array.isArray(value)) {
+		  // 배열인 경우 각 항목을 개별적으로 추가
+		  value.forEach((item) => formData.append(`${key}[]`, item));
+		} else {
+		  // 숫자일 경우 문자열로 변환하여 추가
+		  formData.append(key, typeof value === "number" ? value.toString() : value);
+		}
+	  }
+	});
+  
+	console.log("Sending formData:", [...formData]);  // 전송하는 formData 출력
+  
+	try {
+	  const updatedUser = await pb.collection("users").update(userId, formData);
+	  console.log("Profile update response:", updatedUser);  // 응답 로그 추가
+	  return updatedUser;
+	} catch (error) {
+	  console.error("Error in updateUserProfile:", error);  // 에러 로그 출력
+	  throw error;
+	}
+  }
+  
+  
 
 export async function getAvailableInterests() {
 	const result = await pb.collection('interestOptions').getList();

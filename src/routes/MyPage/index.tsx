@@ -29,29 +29,35 @@ export default function MyPage() {
   );
 
 
-    // 관심사 모달을 위한 상태
 	const [showInterestModal, setShowInterestModal] = useState(false); // 관심사 모달 상태 추가
 	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사 상태
 
 	
-  const handleSaveChanges = () => {
-    const updateData = {
-      nickname,
-      weight,
-      height,
-      dob,
-      gender,
-      avatar: avatarFile || undefined,
-	  interests: selectedInterests,
-    };
-
-    if (user?.id) {
-      updateUserProfile(user.id, updateData).then(() => {
-        setIsEditMode(false);
-        navigate("/my-page");
-      });
-    }
-  };
+	const handleSaveChanges = async () => {
+		try {
+		  const updateData = {
+			nickname,
+			weight,
+			height,
+			dob,
+			gender,
+			avatar: avatarFile || undefined,
+			interests: selectedInterests,
+		  };
+	  
+		  if (user?.id) {
+			console.log("User ID found:", user.id); // 로그 추가
+			await updateUserProfile(user.id, updateData);  
+			setIsEditMode(false);
+			console.log("Profile updated successfully");
+			navigate("/my-page");
+		  } else {
+			console.error("User ID is undefined or null");  // 에러 로그 추가
+		  }
+		} catch (error) {
+		  console.error("Error updating profile: ", error);  
+		}
+	  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -232,12 +238,11 @@ export default function MyPage() {
               errorTextHide={true}
             />
           </div>
+			  <br></br>
+			  <PrimaryLargeButton onClick={handleSaveChanges}>
+            수정완료
+          </PrimaryLargeButton>
 
-          <div className={styles["button-container"]}>
-            <PrimaryLargeButton onClick={handleSaveChanges}>
-              수정완료
-            </PrimaryLargeButton>
-          </div>
         </div>
       ) : (
         <div>
@@ -264,14 +269,23 @@ export default function MyPage() {
 
     {/* 관심사 수정 기능 */}
 	<div className={styles["interests-container"]}>
-	<h3 className={styles["interest-title"]}>관심 운동</h3>
-	<span className={styles["edit-interest"]} onClick={() => setShowInterestModal(true)}>수정</span>
-  {/* 선택된 관심사 목록 표시 */}
-  <ul>
+	<div className={styles["interest-header"]}>
+    <h3 className={styles["interest-title"]}>관심 운동</h3>
+    <span className={styles["edit-interest"]} onClick={() => setShowInterestModal(true)}>수정</span>
+  </div>
+   
+  <div className={styles["interest-list"]}>
     {selectedInterests.map((interest) => (
-      <li key={interest}>{interest}</li>
+      <div key={interest} className={styles["interest-item"]}>
+        <img 
+          src={`/image/interests-img-${interest}.jpg`} 
+          alt={interest} 
+          className={styles["interest-image"]}
+        />
+        <span>{interest}</span>
+      </div>
     ))}
-  </ul>
+  </div>
 </div>
 
           {/* 구분선 추가 */}
@@ -293,7 +307,7 @@ export default function MyPage() {
               회원 탈퇴
             </button>
             <br />
-            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
+            <DarkModeToggleButton />
           </div>
         </div>
       )}
