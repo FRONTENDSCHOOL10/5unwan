@@ -26,7 +26,7 @@ export default function MyPage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState(
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
-  );
+  );  
 
 
 	const [showInterestModal, setShowInterestModal] = useState(false); // 관심사 모달 상태 추가
@@ -59,14 +59,81 @@ export default function MyPage() {
 		}
 	  };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setAvatarFile(file);
-      const previewUrl = URL.createObjectURL(file);
-      setProfilePreview(previewUrl);
-    }
+	  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+		  // 1MB 이상일 경우 리사이징
+		  if (file.size > 1024 * 1024) {
+			const resizedFile = await resizeImage(file);
+			setAvatarFile(resizedFile);
+			const previewUrl = URL.createObjectURL(resizedFile);
+			setProfilePreview(previewUrl);
+		  } else {
+			setAvatarFile(file);
+			const previewUrl = URL.createObjectURL(file);
+			setProfilePreview(previewUrl);
+		  }
+		}
+	  };
+// 이미지 리사이징 함수
+const resizeImage = (file: File): Promise<File> => {
+	// const MAX_SIZE = 1024 * 1024; // 1MB
+	const MAX_WIDTH = 800;  // 원하는 최대 너비 (픽셀)
+	const MAX_HEIGHT = 800; // 원하는 최대 높이 (픽셀)
+  
+	return new Promise((resolve, reject) => {
+	  const img = document.createElement("img");
+	  const canvas = document.createElement("canvas");
+	  const reader = new FileReader();
+  
+	  reader.onload = (e) => {
+		img.src = e.target?.result as string;
+  
+		img.onload = () => {
+		  let width = img.width;
+		  let height = img.height;
+  
+		  // 너비/높이를 유지하면서 비율에 맞게 크기 조정
+		  if (width > height) {
+			if (width > MAX_WIDTH) {
+			  height *= MAX_WIDTH / width;
+			  width = MAX_WIDTH;
+			}
+		  } else {
+			if (height > MAX_HEIGHT) {
+			  width *= MAX_HEIGHT / height;
+			  height = MAX_HEIGHT;
+			}
+		  }
+  
+		  canvas.width = width;
+		  canvas.height = height;
+  
+		  const ctx = canvas.getContext("2d");
+		  if (ctx) {
+			ctx.drawImage(img, 0, 0, width, height);
+  
+			canvas.toBlob((blob) => {
+			  if (blob) {
+				// Blob을 다시 File 객체로 변환
+				const resizedFile = new File([blob], file.name, {
+				  type: file.type,
+				  lastModified: Date.now(),
+				});
+				resolve(resizedFile);
+			  } else {
+				reject(new Error("Canvas 블롭 생성 실패"));
+			  }
+			}, file.type, 0.8); // 품질 설정 (0.8은 80% 품질)
+		  }
+		};
+	  };
+  
+	  reader.onerror = (error) => reject(error);
+	  reader.readAsDataURL(file);
+	});
   };
+	  
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
@@ -239,10 +306,11 @@ export default function MyPage() {
             />
           </div>
 			  <br></br>
+			  <br></br>
+			  <br></br>
 			  <PrimaryLargeButton onClick={handleSaveChanges}>
             수정완료
           </PrimaryLargeButton>
-
         </div>
       ) : (
         <div>

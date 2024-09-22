@@ -179,14 +179,17 @@ export async function updateUserProfile(userId: string, userValues: UpdateUser) 
 	Object.entries(userValues).forEach(([key, value]) => {
 	  if (value !== undefined && value !== null) {
 		if (Array.isArray(value)) {
-		  // 배열인 경우 각 항목을 개별적으로 추가
 		  value.forEach((item) => formData.append(`${key}[]`, item));
-		} else {
-		  // 숫자일 경우 문자열로 변환하여 추가
+		} else if (key !== 'avatar') {  // avatar는 나중에 처리
 		  formData.append(key, typeof value === "number" ? value.toString() : value);
 		}
 	  }
 	});
+  
+	// avatarFile이 있을 때만 추가
+	if (userValues.avatar instanceof File) {
+	  formData.append("avatar", userValues.avatar);
+	}
   
 	console.log("Sending formData:", [...formData]);  // 전송하는 formData 출력
   
@@ -199,6 +202,7 @@ export async function updateUserProfile(userId: string, userValues: UpdateUser) 
 	  throw error;
 	}
   }
+  
   
   
 
