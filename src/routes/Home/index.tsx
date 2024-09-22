@@ -34,17 +34,11 @@ export function Component() {
   }, [setExercises]);
 
   return (
-    <>
-      <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <UserInfo user={user} />
-            <ExerciseType />
-            <Article />
-          </div>
-        </div>
-      </div>
-    </>
+    <div className={styles.container}>
+      <UserInfo user={user} />
+      <ExerciseType user={user} />
+      <Article />
+    </div>
   );
 }
 
