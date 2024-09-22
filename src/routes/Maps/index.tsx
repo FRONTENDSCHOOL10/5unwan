@@ -14,13 +14,13 @@ interface MarkerTypes {
   address?: string;
 }
 
-export default function Maps() {
+export function Component() {
   const { showList, search, setMarkers, updateMarker, map, setHasSearchResults } = mapStore();
   const { user } = useOutletContext<UserContext>();
 
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
     const geocoder = new kakao.maps.services.Geocoder();
-    
+
     geocoder.coord2Address(lng, lat, (result: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
         const detailAddr = result[0].road_address
@@ -51,6 +51,7 @@ export default function Maps() {
               content: place.place_name,
               address: '',
             };
+
 
             getAddressFromCoords(marker.position.lat, marker.position.lng, (address) => {
               marker.address = address;
@@ -88,3 +89,5 @@ export default function Maps() {
     </div>
   );
 }
+
+Component.displayName = "MapsRoute";

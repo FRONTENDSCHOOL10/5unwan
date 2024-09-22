@@ -1,0 +1,58 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	padding: var(--space-4);
+	text-align: left; 
+}
+
+.title {
+	font-size: var(--title-medium);
+	font-weight: var(--font-weight-extraBold); 
+	color: var(--grayscale-700); 
+	margin-bottom: var(--space-5);
+	line-height: 1.5;
+	padding: var(--large) var(--medium); 
+}
+
+.nickname {
+	color: var(--primary); 
+	font-weight: var(--font-weight-extraBold); 
+}
+
+.label {
+	margin-bottom: var(--space-2);
+	text-align: left; 
+	width: 100%; 
+}
+
+.input {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	max-width: 17.5rem;
+	width: 100%;
+	height: var(--space-10-half); 
+	padding: 0 var(--space-5); 
+	border: 0.0625rem solid var(--grayscale-400);
+	border-radius: var(--rounded-sm); 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: var(--space-6);
+	transition: all 300ms ease-in-out;
+}
+
+.input::placeholder {
+	color: var(--grayscale-600);
+}
+
+.input:hover, .input:focus, .input:active {
+	border-color: var(--grayscale-700);
+}
+
+.input:hover::placeholder, .input:focus::placeholder, .input:active::placeholder {
+	color: var(--grayscale-900);
+}
+
