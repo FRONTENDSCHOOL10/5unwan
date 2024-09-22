@@ -36,6 +36,7 @@ export default function MapBoard() {
           ...prev,
           errMsg: err.message,
           isLoading: false,
+          showCurrentLocationOnly: false,
         }));
       })
     } else {
@@ -43,6 +44,7 @@ export default function MapBoard() {
         ...prev,
         errMsg: "geolocation을 사용할 수 없어요.",
         isLoading: false,
+        showCurrentLocationOnly: false,
       }));
     }
   }

@@ -23,7 +23,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 6rem;
-  height: 0.3125rem;
+  height: 0.4rem;
   background-color: var(--grayscale-300);
   border-radius: var(--rounded-md);
 }
