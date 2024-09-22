@@ -34,12 +34,10 @@ export function Component() {
               navigate("/");
             }}
           />
-          <span className={styles["kakao-wrapper"]}>
-            <span className={styles["kakao-container"]}>
-                <KakaoLogin />
-            </span>
-          </span>
         </div>
+        <span className={styles["kakao-container"]}>
+            <KakaoLogin />
+        </span>
       </div>
     </>
   );
