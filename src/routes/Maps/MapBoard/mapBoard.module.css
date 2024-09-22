@@ -10,7 +10,7 @@
   z-index: 100;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid var(--primary);
+  border: 0.0625rem solid var(--primary);
   border-radius: 50%;
   background-image: url('https://cdn-icons-png.flaticon.com/512/5055/5055654.png');
   background-position: center center;

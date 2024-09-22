@@ -2,6 +2,8 @@ import { UserContext } from "@/routes/PrivateRoute";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { OnboardingHeightForm } from "@/routes/Onboarding/OnboardingHeight/OnboardingHeightForm";
 import { ONBOARDING_STEPS } from "@/utils/onboarding";
+import styles from "./style.module.css"
+
 
 export function Component() {
   const { user } = useOutletContext<UserContext>();
@@ -9,7 +11,7 @@ export function Component() {
   const currentStep = ONBOARDING_STEPS.indexOf(currentRoute);
   const navigate = useNavigate();
   return (
-    <div>
+    <div className={styles["content-wrapper"]}>
       <OnboardingHeightForm
         onSuccess={() => {
           if (currentStep === ONBOARDING_STEPS.length - 1) {

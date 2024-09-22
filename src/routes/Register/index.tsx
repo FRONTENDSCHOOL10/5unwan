@@ -2,9 +2,8 @@ import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
 import Header from "@/components/Header";
-import styles from "./style.module.css";
 
-export default function Register() {
+export function Component() {
   const navigate = useNavigate();
   const matches = useMatches();
   const hideHeader = matches.some(
@@ -17,22 +16,23 @@ export default function Register() {
   return (
     <>
       {!hideHeader && (
-      <Header
+        <Header
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
           leftonClick={handleGoBack}
           // rightIconId={"iconArrowsRight"}
           rightIconVisible
-        />)}
+        />
+      )}
       <div>
-        <div className={styles["content-wrapper"]}>
-          <RegisterForm
-            onSuccess={() => {
-              navigate("/onboarding");
-            }}
-          />
-        </div>
+        <RegisterForm
+          onSuccess={() => {
+            navigate("/onboarding");
+          }}
+        />
       </div>
     </>
   );
 }
+
+Component.displayName = "RegisterRoute";

@@ -1,19 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Calendar from "@/routes/Calendar";
-import Home from "@/routes/Home";
-import Login from "@/routes/Login";
-import Maps from "@/routes/Maps";
-import MyPage from "@/routes/MyPage";
-import OnboardedRoute from "@/routes/OnboardedRoute";
-import OnboardingRoute from "@/routes/Onboarding";
-import PrivateRoute from "@/routes/PrivateRoute";
-import Register from "@/routes/Register";
 import SharedLayout from "@/routes/SharedLayout";
-import Start from "@/routes/Start";
-import NotFound from "@/routes/NotFound";
-import LogoutComplete from "@/routes/MyPage/LogoutComplete/index";
-import DeleteAccount from "@/routes/MyPage/DeleteAccount/deleteAccount";
-import DeleteComplete from "@/routes/MyPage/DeleteAccount/deleteComplete";
 
 export type RouteHandle = {
   hideHeader?: boolean;
@@ -28,7 +14,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
       children: [
         {
           path: "/start",
-          element: <Start />,
+          lazy: () => import("@/routes/Start"),
           handle: {
             hideHeader: true,
             hideGnb: true,
@@ -36,7 +22,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
         },
         {
           path: "/register",
-          element: <Register />,
+          lazy: () => import("@/routes/Register"),
           handle: {
             hideHeader: false,
             hideGnb: true,
@@ -45,7 +31,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
         },
         {
           path: "/login",
-          element: <Login />,
+          lazy: () => import("@/routes/Login"),
           handle: {
             hideHeader: false,
             hideGnb: true,
@@ -54,7 +40,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
         },
         {
           path: "/*",
-          element: <NotFound />,
+          lazy: () => import("@/routes/NotFound"),
           handle: {
             hideGnb: true,
             hideHeader: true,
@@ -62,15 +48,15 @@ export const router: ReturnType<typeof createBrowserRouter> =
         },
         {
           path: "/",
-          element: <PrivateRoute />,
+          lazy: () => import("@/routes/PrivateRoute"),
           children: [
             {
-              element: <OnboardedRoute />,
+              lazy: () => import("@/routes/OnboardedRoute"),
               children: [
                 { index: true, element: <Navigate to="home" replace /> },
                 {
                   path: "home",
-                  element: <Home />,
+                  lazy: () => import("@/routes/Home"),
                   handle: {
                     title: "홈",
                     hideHeader: true,
@@ -78,7 +64,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "calendar",
-                  element: <Calendar />,
+                  lazy: () => import("@/routes/Calendar"),
                   handle: {
                     title: "캘린더",
                     hideHeader: true,
@@ -86,7 +72,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "maps",
-                  element: <Maps />,
+                  lazy: () => import("@/routes/Maps"),
                   handle: {
                     title: "지도",
                     hideHeader: true,
@@ -95,7 +81,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "my-page",
-                  element: <MyPage />,
+                  lazy: () => import("@/routes/MyPage"),
                   handle: {
                     title: "마이페이지",
                     hideHeader: false,
@@ -103,7 +89,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "logout-complete",
-                  element: <LogoutComplete />,
+                  lazy: () => import("@/routes/LogoutComplete"),
                   handle: {
                     title: "로그아웃 완료",
                     hideHeader: true,
@@ -112,7 +98,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "/delete-account",
-                  element: <DeleteAccount />,
+                  lazy: () => import("@/routes/DeleteAccount"),
                   handle: {
                     title: "회원 탈퇴",
                     hideHeader: true,
@@ -121,7 +107,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
                 },
                 {
                   path: "/delete-complete",
-                  element: <DeleteComplete />,
+                  lazy: () => import("@/routes/DeleteComplete"),
                   handle: {
                     title: "회원탈퇴 완료",
                     hideHeader: true,
@@ -132,7 +118,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
             },
             {
               path: "onboarding",
-              element: <OnboardingRoute />,
+              lazy: () => import("@/routes/Onboarding"),
               handle: {
                 hideHeader: false,
                 hideGnb: true,

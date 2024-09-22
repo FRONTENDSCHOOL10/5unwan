@@ -14,27 +14,31 @@ export function Component() {
     return <Navigate to={ONBOARDING_STEPS[currentStep]} />;
   } else {
     return (
-      <div>
-        <span className={styles["icon-box"]}>
-          <SVGIcon
-            iconId="iconSignatureSmall"
-            width={90}
-            height={90}
-            color="var(--grayscale-700)"
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <section className={styles.content}>
+            <span className={styles["icon-box"]}>
+              <SVGIcon
+                iconId="iconSignatureSmall"
+                width={90}
+                height={90}
+                color="var(--grayscale-700)"
+                />
+            </span>
+            <PageTitle
+              text={{ __html: `${user?.nickname }의
+              <br />
+              회원가입이 완료되었습니다.
+              <br />
+              오늘도 득근득근!
+              ` }}
             />
-        </span>
-        <PageTitle
-          text={{ __html: `${user?.nickname }의
-          <br />
-          회원가입이 완료되었습니다.
-          <br />
-          오늘도 득근득근!
-          ` }}
-        />
-        {/* <Link to="/">홈으로 가기</Link> */}
-        <SecondaryLargeButton to="/">
-          홈으로 가기
-        </SecondaryLargeButton>
+            {/* <Link to="/">홈으로 가기</Link> */}
+            <SecondaryLargeButton to="/">
+              홈으로 가기
+            </SecondaryLargeButton>
+          </section>
+        </div>
       </div>
     );
   }
