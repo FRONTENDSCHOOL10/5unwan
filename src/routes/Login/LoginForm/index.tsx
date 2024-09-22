@@ -64,7 +64,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           name="email"
           labelTitle="이메일"
           placeholder="이메일을 입력해 주세요."
-          errorText="내용을 입력해 주세요."
+          errorText={formData.email ? "" : "내용을 입력해 주세요."}
           value={formData.email}
           onChange={handleUpdateFormData}
         />
@@ -72,8 +72,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           type="password"
           name="password"
           labelTitle="비밀번호"
-          placeholder="비밀번호를 입력해 주세요."
-          errorText="내용을 입력해 주세요."
+          placeholder="내용을 입력해 주세요."
+          errorText={formData.password ? "" : "비밀번호를 입력해 주세요."}
           value={formData.password}
           onChange={handleUpdateFormData}
         />
