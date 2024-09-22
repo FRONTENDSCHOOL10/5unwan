@@ -9,7 +9,7 @@ declare global {
 }
 
 export default function MapBoard() {
-  const { defaultLocation, state, setState, currentPositionMarker, setCurrentPositionMarker, map, setMap } = mapStore();
+  const { defaultLocation, state, setState, currentPositionMarker, setCurrentPositionMarker, map, setMap, markers, hasSearchResults } = mapStore();
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -26,6 +26,7 @@ export default function MapBoard() {
             lng: position.coords.longitude,
           },
           isLoading: false,
+          showCurrentLocationOnly: true,
         }));
         setCurrentPositionMarker("현재위치");
         map.panTo(currentPos);
@@ -46,17 +47,25 @@ export default function MapBoard() {
     }
   }
 
-  return (
-    <div className={styles.container}>
-      <Map
-        center={ {lat: defaultLocation.lat, lng: defaultLocation.lng }} 
-        style={{ width: "100vw", height: "calc(100vh - 60px)" }}
-        level={3}
-        onCreate={setMap}
-      >
-        {
-          state.isLoading
-            ?
+  function showMarkers() {
+    if (state.showCurrentLocationOnly) {
+      return (
+        <>
+          <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }} />
+          <CustomOverlayMap
+            position={{ lat: state.center.lat, lng: state.center.lng }}
+            yAnchor={1}
+          >
+            <div className={styles["speech-bubble"]}>
+              <span>📍 {currentPositionMarker}</span>
+            </div>
+          </CustomOverlayMap>
+        </>
+      );
+    }
+
+    if (!hasSearchResults) {
+      return (
           <>
             <MapMarker position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }} />
             <CustomOverlayMap
@@ -68,18 +77,37 @@ export default function MapBoard() {
               </div>
             </CustomOverlayMap>
           </>
-            :
-          <>
-            <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }} />
+      );
+    } else if (hasSearchResults) {
+      return (
+        markers.map((marker, index) => (
+          <div key={index}>
+            <MapMarker position={marker.position} />
             <CustomOverlayMap
-              position={{ lat: state.center.lat, lng: state.center.lng }}
+              position={marker.position}
               yAnchor={1}
             >
               <div className={styles["speech-bubble"]}>
-                <span>📍 {currentPositionMarker}</span>
+                <span>📍 {marker.content}</span>
               </div>
             </CustomOverlayMap>
-          </>
+          </div>
+        ))
+      );
+    }
+  }
+
+
+  return (
+    <div className={styles.container}>
+      <Map
+        center={ {lat: defaultLocation.lat, lng: defaultLocation.lng }} 
+        style={{ width: "100vw", height: "calc(100vh - 60px)" }}
+        level={3}
+        onCreate={setMap}
+      >
+        {
+          showMarkers()
         }
         <button className={styles["button-current"]} type="button" onClick={getCurrentLocation}></button>
       </Map>

@@ -2,10 +2,24 @@ import mapStore from "@/stores/mapStore";
 import styles from "./searchList.module.css";
 
 export default function SearchList() {
-  const { markers, bookmarkList, toggleBookmark, isDropDown, setIsDropDown } = mapStore();
+  const { markers, bookmarkList, toggleBookmark, isDropDown, setIsDropDown, setState, map } = mapStore();
 
   function handleClickBar() {
     setIsDropDown(!isDropDown);
+  }
+
+  function handleMapMarker(position: { lat: number, lng: number }) {
+    const currentPos = new window.kakao.maps.LatLng(
+      position.lat,
+      position.lng
+    );
+    setState(() => ({
+      center: position,
+      errMsg: null,
+      isLoading: false,
+      showCurrentLocationOnly: false,
+    }));
+    map.panTo(currentPos);
   }
 
   return (
@@ -15,7 +29,7 @@ export default function SearchList() {
         {markers.length > 0 ? (
           markers.map((marker, index) => (
             <li key={index} className={styles["result-items"]}>
-              <div className={styles.content}>
+              <div className={styles.content} onClick={() => handleMapMarker(marker.position) }>
                 <h2 className={styles.title}>{marker.content}</h2>
                 <p className="ellipsis">{marker.address || "주소를 가져오는 중..."}</p>
               </div>

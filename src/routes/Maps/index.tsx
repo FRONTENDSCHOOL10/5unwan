@@ -15,7 +15,7 @@ interface MarkerTypes {
 }
 
 export default function Maps() {
-  const { showList, search, setMarkers, updateMarker, map } = mapStore();
+  const { showList, search, setMarkers, updateMarker, map, setHasSearchResults } = mapStore();
   const { user } = useOutletContext<UserContext>();
 
   function getAddressFromCoords(lat: number, lng: number, callback: (address: string) => void) {
@@ -62,7 +62,10 @@ export default function Maps() {
           });
 
           setMarkers(newMarkers);
+          setHasSearchResults(true);
           map.setBounds(bounds);
+        } else {
+          setHasSearchResults(false);
         }
       });
     }, 500),

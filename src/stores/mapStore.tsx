@@ -13,6 +13,7 @@ interface Store {
     center: { lat: number, lng: number };
     errMsg?: string | null;
     isLoading?: boolean;
+    showCurrentLocationOnly: boolean;
   };
   search: string;
   markers: Marker[];
@@ -20,6 +21,7 @@ interface Store {
   map: any,
   bookmarkList: Marker[];
   isDropDown: boolean,
+  hasSearchResults: boolean,
 }
 
 interface Action {
@@ -32,6 +34,7 @@ interface Action {
   setMap: (map: kakao.maps.Map) => void;
   toggleBookmark: (marker: Marker) => void;
   setIsDropDown: (value: boolean) => void;
+  setHasSearchResults: (value: boolean) => void;
 } 
 
 const useStore = create<Store & Action>((set) => {
@@ -54,6 +57,7 @@ const useStore = create<Store & Action>((set) => {
       },
       errMsg: null,
       isLoading: true,
+      showCurrentLocationOnly: false,
     },
     setState: (newState) => set((state) => ({
       state: newState(state.state),
@@ -76,18 +80,21 @@ const useStore = create<Store & Action>((set) => {
     map: null,
     setMap: (map) => set(() => ({ map })),
 
-    bookmarkList: [], // 북마크 상태를 저장하는 배열
+    bookmarkList: [],
     toggleBookmark: (marker: Marker) =>
       set((state) => ({
         bookmarkList: state.bookmarkList.some(
           (bm) => bm.content === marker.content
         )
-          ? state.bookmarkList.filter((bm) => bm.content !== marker.content) // 이미 있으면 제거
-          : [...state.bookmarkList, marker], // 없으면 추가
+          ? state.bookmarkList.filter((bm) => bm.content !== marker.content)
+          : [...state.bookmarkList, marker],
       })),
     
     isDropDown: false,
     setIsDropDown: (value) => set(() => ({ isDropDown: value })),
+    
+    hasSearchResults: false,
+    setHasSearchResults: (value) => set(() => ({ hasSearchResults: value })),
   };
 });
 
