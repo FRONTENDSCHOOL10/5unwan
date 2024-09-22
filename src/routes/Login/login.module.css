@@ -1,7 +1,11 @@
-.kakao {
+.kakao-wrapper {
   max-width: 26.25rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  margin-top: 1.875rem;
+}
+
+.kakao-container {
+  margin-top: 1.25rem;
+  padding: 0 1.25rem;
 }
