@@ -1,6 +1,6 @@
 import mapStore from "@/stores/mapStore";
 import styles from "./mapBoard.module.css";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 
 declare global {
   interface Window {
@@ -9,7 +9,7 @@ declare global {
 }
 
 export default function MapBoard() {
-  const { defaultLocation, state, setState, selectedMarkerContent, setSelectedMarkerContent, map, setMap } = mapStore();
+  const { defaultLocation, state, setState, currentPositionMarker, setCurrentPositionMarker, map, setMap } = mapStore();
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -27,7 +27,7 @@ export default function MapBoard() {
           },
           isLoading: false,
         }));
-        setSelectedMarkerContent("현재위치");
+        setCurrentPositionMarker("현재위치");
         map.panTo(currentPos);
       },
       (err: GeolocationPositionError) => {
@@ -57,13 +57,29 @@ export default function MapBoard() {
         {
           state.isLoading
             ?
-          <MapMarker position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }}>
-            <div style={{ color: "#000" }}>📍 멋쟁이사자처럼</div> 
-          </MapMarker>
+          <>
+            <MapMarker position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }} />
+            <CustomOverlayMap
+              position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }}
+              yAnchor={1}
+            >
+              <div className={styles["speech-bubble"]}>
+                <span>📍 멋쟁이사자처럼</span>
+              </div>
+            </CustomOverlayMap>
+          </>
             :
-          <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }}>
-            <div style={{ color: "#000", width: "100%", whiteSpace: "nowrap", overflow: "hidden"}}>📍 {selectedMarkerContent}</div>
-          </MapMarker>
+          <>
+            <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }} />
+            <CustomOverlayMap
+              position={{ lat: state.center.lat, lng: state.center.lng }}
+              yAnchor={1}
+            >
+              <div className={styles["speech-bubble"]}>
+                <span>📍 {currentPositionMarker}</span>
+              </div>
+            </CustomOverlayMap>
+          </>
         }
         <button className={styles["button-current"]} type="button" onClick={getCurrentLocation}></button>
       </Map>

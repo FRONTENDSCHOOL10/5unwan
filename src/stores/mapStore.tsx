@@ -22,7 +22,7 @@ interface Store {
   //   setMap?: any;
   // }[];
   markers: Marker[];
-  selectedMarkerContent: string,
+  currentPositionMarker: string,
   map: any,
   // bookmarkToggle: boolean,
   bookmarkList: Marker[];
@@ -34,7 +34,7 @@ interface Action {
   setSearch: (value: string) => void;
   setMarkers: (newMarkers: Store["markers"]) => void;
   updateMarker: (index: number, marker: Store["markers"][number]) => void;
-  setSelectedMarkerContent: (content: string) => void;
+  setCurrentPositionMarker: (content: string) => void;
   setMap: (map: kakao.maps.Map) => void;
   toggleBookmark: (marker: Marker) => void;
 } 
@@ -75,8 +75,8 @@ const useStore = create<Store & Action>((set) => {
       return { markers: updatedMarkers };
     }),
 
-    selectedMarkerContent: "",
-    setSelectedMarkerContent: (content: string) => set(() => ({ selectedMarkerContent: content })),
+    currentPositionMarker: "",
+    setCurrentPositionMarker: (content: string) => set(() => ({ currentPositionMarker: content })),
   
     map: null,
     setMap: (map) => set(() => ({ map })),
