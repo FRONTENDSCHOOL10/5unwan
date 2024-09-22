@@ -12,6 +12,7 @@
   height: 2.5rem;
   border: 1px solid var(--primary);
   border-radius: 50%;
+  background-color: var(--white);
   background-image: url('https://cdn-icons-png.flaticon.com/512/5055/5055654.png');
   background-position: center center;
   background-repeat: no-repeat;
