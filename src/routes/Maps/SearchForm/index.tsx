@@ -4,9 +4,10 @@ import { FormEvent, ChangeEvent } from 'react';
 import Input from '@/components/Input';
 
 export default function SearchForm() {
-  const { search, setSearch, setShowList } = mapStore();
+  const { search, setSearch, setShowList, setIsDropDown } = mapStore();
 
   function handleSearchList() {
+    setIsDropDown(false);
     setShowList(true);
 
     if (search === '') {
