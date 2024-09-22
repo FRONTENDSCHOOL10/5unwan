@@ -34,12 +34,10 @@ export default function Home() {
   }, [setExercises]); 
 
   return (
-    <>
-      <div className={styles.container}>
-        <UserInfo user={user} />
-        <ExerciseType />
-        <Article />
-      </div>
-    </>
+    <div className={styles.container}>
+      <UserInfo user={user} />
+      <ExerciseType user={user} />
+      <Article />
+    </div>
   );
 }
