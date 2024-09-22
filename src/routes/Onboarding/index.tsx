@@ -10,9 +10,9 @@ import { RouteHandle } from "@/router";
 import { UserContext } from "@/routes/PrivateRoute";
 import { getOnboardingStep, ONBOARDING_STEPS } from "@/utils/onboarding";
 import Header from "@/components/Header";
-import styles from "./style.module.css"
+import styles from "./style.module.css";
 
-export default function OnboardingRoute() {
+export function Component() {
   const location = useLocation();
   const targetRoute = location.pathname.toLowerCase();
   const targetStep = ONBOARDING_STEPS.indexOf(targetRoute);
@@ -48,3 +48,5 @@ export default function OnboardingRoute() {
     return <Navigate to={ONBOARDING_STEPS[currentStep]} />;
   }
 }
+
+Component.displayName = "OnboardingRouteRoute";

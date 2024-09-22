@@ -2,7 +2,7 @@ import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
 import { getOnboardingStep } from "@/utils/onboarding";
 
-export default function OnboardedRoute() {
+export function Component() {
   const { user } = useOutletContext<UserContext>();
   const currentStep = getOnboardingStep(user);
 
@@ -12,3 +12,5 @@ export default function OnboardedRoute() {
     return <Navigate to="/onboarding/resume" />;
   }
 }
+
+Component.displayName = "OnboardedRouteRoute";

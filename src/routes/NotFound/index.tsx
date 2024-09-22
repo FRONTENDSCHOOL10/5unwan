@@ -2,8 +2,7 @@ import styles from "./notFound.module.css";
 import { useNavigate } from "react-router-dom";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton";
 
-
-export default function NotFound() {
+export function Component() {
   const navigate = useNavigate();
   function handleGoHome() {
     navigate("/");
@@ -26,3 +25,5 @@ export default function NotFound() {
     </>
   );
 }
+
+Component.displayName = "NotFoundRoute";
