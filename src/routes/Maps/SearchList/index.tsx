@@ -2,11 +2,15 @@ import mapStore from "@/stores/mapStore";
 import styles from "./searchList.module.css";
 
 export default function SearchList() {
-  const { markers, bookmarkList, toggleBookmark } = mapStore();
-  console.log(bookmarkList);
+  const { markers, bookmarkList, toggleBookmark, isDropDown, setIsDropDown } = mapStore();
+
+  function handleClickBar() {
+    setIsDropDown(!isDropDown);
+  }
 
   return (
-    <div className={`${styles.container}`}>
+    <div className={`no-scroll ${styles.container} ${isDropDown ? styles["is-hide"] : ""}`}>
+      <span className={styles.bar} onClick={handleClickBar}></span>
       <ul className={styles["result-list"]}>
         {markers.length > 0 ? (
           markers.map((marker, index) => (
@@ -21,7 +25,7 @@ export default function SearchList() {
                 className={`${styles.favorite} ${
                   bookmarkList.some((bm) => bm.content === marker.content) ? styles["is-active"] : ""
                 }`}
-                onClick={() => toggleBookmark(marker)}  // 마커 객체를 전달
+                onClick={() => toggleBookmark(marker)}
               ></button>
             </li>
           ))

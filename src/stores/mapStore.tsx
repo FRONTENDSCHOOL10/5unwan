@@ -15,17 +15,11 @@ interface Store {
     isLoading?: boolean;
   };
   search: string;
-  // markers: {
-  //   position: { lat: number, lng: number };
-  //   content: string;
-  //   address?: string;
-  //   setMap?: any;
-  // }[];
   markers: Marker[];
   currentPositionMarker: string,
   map: any,
-  // bookmarkToggle: boolean,
   bookmarkList: Marker[];
+  isDropDown: boolean,
 }
 
 interface Action {
@@ -37,6 +31,7 @@ interface Action {
   setCurrentPositionMarker: (content: string) => void;
   setMap: (map: kakao.maps.Map) => void;
   toggleBookmark: (marker: Marker) => void;
+  setIsDropDown: (value: boolean) => void;
 } 
 
 const useStore = create<Store & Action>((set) => {
@@ -89,7 +84,10 @@ const useStore = create<Store & Action>((set) => {
         )
           ? state.bookmarkList.filter((bm) => bm.content !== marker.content) // 이미 있으면 제거
           : [...state.bookmarkList, marker], // 없으면 추가
-    })),
+      })),
+    
+    isDropDown: false,
+    setIsDropDown: (value) => set(() => ({ isDropDown: value })),
   };
 });
 

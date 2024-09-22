@@ -8,7 +8,24 @@
   border-top-left-radius: var(--rounded-lg);
   border-top-right-radius: var(--rounded-lg);
   z-index: 150;
+  padding-top: 2.5rem;
   overflow: scroll;
+  transition: height 300ms ease-in-out;
+
+  &.is-hide {
+    height: 0;
+  }
+}
+
+.bar {
+  position: absolute;
+  top: calc(2.5rem / 2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6rem;
+  height: 0.3125rem;
+  background-color: var(--grayscale-300);
+  border-radius: var(--rounded-md);
 }
 
 .result-list {
