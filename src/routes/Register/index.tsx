@@ -3,7 +3,7 @@ import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
 import Header from "@/components/Header";
 
-export default function Register() {
+export function Component() {
   const navigate = useNavigate();
   const matches = useMatches();
   const hideHeader = matches.some(
@@ -16,13 +16,14 @@ export default function Register() {
   return (
     <>
       {!hideHeader && (
-      <Header
+        <Header
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
           leftonClick={handleGoBack}
           // rightIconId={"iconArrowsRight"}
           rightIconVisible
-        />)}
+        />
+      )}
       <div>
         <RegisterForm
           onSuccess={() => {
@@ -33,3 +34,5 @@ export default function Register() {
     </>
   );
 }
+
+Component.displayName = "RegisterRoute";

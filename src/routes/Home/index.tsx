@@ -10,7 +10,7 @@ import UserInfo from "@/routes/Home/UserInfo";
 import Article from "@/routes/Home/Article";
 import ExerciseType from "@/routes/Home/ExerciseTypes";
 
-export default function Home() {
+export function Component() {
   const { setExercises } = homeStore();
   const { user } = useOutletContext<UserContext>();
   const { exercises, isLoading } = useExercisesQuery();
@@ -19,19 +19,19 @@ export default function Home() {
   if (!isLoading) {
     console.log(exercises);
   }
-  
+
   useEffect(() => {
     async function fetchExercises() {
       try {
         const data = await getExercises();
-        setExercises(data);  // Store exercises in Zustand
+        setExercises(data); // Store exercises in Zustand
       } catch (err) {
         console.error("Error fetching exercises:", err);
       }
     }
 
     fetchExercises();
-  }, [setExercises]); 
+  }, [setExercises]);
 
   return (
     <>
@@ -47,3 +47,5 @@ export default function Home() {
     </>
   );
 }
+
+Component.displayName = "HomeRoute";
