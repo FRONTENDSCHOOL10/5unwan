@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import { getPbImageUrl, updateUserProfile, getAvailableInterests  } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
 import Header from "@/components/Header";
@@ -10,9 +10,7 @@ import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
 import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 import Input from "@/components/Input/index";
 import SVGIcon from "@/components/SVGicon";
-import Modal from "@/routes/MyPage/InterestModal/index";
-import Checkbox from "@/routes/MyPage/Checkbox/index";
-
+import InterestModal from "@/routes/MyPage/InterestModal/index"; 
 
 export default function MyPage() {
   const { user, isLoading, isError, logout } = useCurrentUser();
@@ -30,16 +28,12 @@ export default function MyPage() {
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );
 
-  // 관심 운동 수정 관련 상태 추가
-  const [showInterestModal, setShowInterestModal] = useState(false); // 모달 상태
-  const [availableInterests, setAvailableInterests] = useState<string[]>([]); // 선택 가능한 관심사 목록
-  const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사
-  
-  // 컴포넌트 마운트 시 관심사 목록 가져오기
-  useEffect(() => {
-    getAvailableInterests().then((data) => setAvailableInterests(data));
-  }, []);
 
+    // 관심사 모달을 위한 상태
+	const [showInterestModal, setShowInterestModal] = useState(false); // 관심사 모달 상태 추가
+	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사 상태
+
+	
   const handleSaveChanges = () => {
     const updateData = {
       nickname,
@@ -79,24 +73,6 @@ export default function MyPage() {
   );
 	  
 
-    // 관심사 수정 모달 열기
-  const handleInterestModalOpen = () => {
-    setShowInterestModal(true);
-  };
-
-  // 관심사 수정 모달 닫기
-  const handleInterestModalClose = () => {
-    setShowInterestModal(false);
-  };
-
-  // 관심사 체크박스 상태 변경
-  const handleInterestChange = (interest: string) => {
-    setSelectedInterests((prev) =>
-      prev.includes(interest)
-        ? prev.filter((item) => item !== interest)
-        : [...prev, interest]
-    );
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -107,7 +83,7 @@ export default function MyPage() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       {!hideHeader && (
         <>
           {!isEditMode ? (
@@ -287,38 +263,16 @@ export default function MyPage() {
           </div>
 
     {/* 관심사 수정 기능 */}
-	<div className={styles["intersts-container"]}>
+	<div className={styles["interests-container"]}>
 	<h3 className={styles["interest-title"]}>관심 운동</h3>
-	<span className={styles["edit-interest"]} onClick={handleInterestModalOpen}>수정</span>
-          </div>
-		  <div className={styles.interestsList}>
-  {user?.interests && user.interests.length > 0 ? (
-    user.interests.map((interest: string, index: number) => (
-      <div key={index} className={styles.interest}>
-        <span>{interest}</span>
-      </div>
-    ))
-  ) : (
-    <p>관심 운동이 없습니다.</p>
-  )}
+	<span className={styles["edit-interest"]} onClick={() => setShowInterestModal(true)}>수정</span>
+  {/* 선택된 관심사 목록 표시 */}
+  <ul>
+    {selectedInterests.map((interest) => (
+      <li key={interest}>{interest}</li>
+    ))}
+  </ul>
 </div>
-          {/* 관심사 수정 모달 */}
-          {showInterestModal && (
-            <Modal onClose={handleInterestModalClose}>
-              <h3>관심 운동 수정</h3>
-              <div className={styles["interest-list"]}>
-                {availableInterests.map((interest) => (
-                  <Checkbox
-                    key={interest}
-                    label={interest}
-                    checked={selectedInterests.includes(interest)}
-                    onChange={() => handleInterestChange(interest)}
-                  />
-                ))}
-              </div>
-              <button onClick={handleSaveChanges}>저장</button>
-            </Modal>
-          )}
 
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
@@ -342,6 +296,16 @@ export default function MyPage() {
             <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
+      )}
+      {/* 관심사 선택 모달 */}
+      {showInterestModal && (
+        <InterestModal 
+          userInterests={selectedInterests} 
+          onSave={(newInterests) => {
+            setSelectedInterests(newInterests);
+            setShowInterestModal(false);
+          }}
+        />
       )}
 
     </div>

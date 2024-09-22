@@ -1,9 +1,6 @@
-/* 마이페이지 */
-.mypage-header {
-	display: flex;
-	align-items: center;
-	justify-content: center; 
-	position: relative; 
+.container {
+	max-width: 26.25rem;
+    margin: 0 auto;
 }
 
 .mypage-title {
@@ -130,7 +127,7 @@
 	width: 100%; 
 	height: var(--space-10-half); 
 	padding: 0 var(--space-5); 
-	border: 1px solid var(--grayscale-400);
+	border: 0.0625rem solid var(--grayscale-400);
 	border-radius: var(--rounded-sm); 
 	overflow: hidden;
 	text-overflow: ellipsis; 
@@ -236,7 +233,7 @@
 	width: 100%;
 	height: var(--space-10-half);
 	padding: 0 var(--space-5);
-	border: 1px solid var(--grayscale-400);
+	border: 0.0625rem solid var(--grayscale-400);
 	border-radius: var(--rounded-sm);
 	text-overflow: ellipsis;
 	margin: var(--space-3);

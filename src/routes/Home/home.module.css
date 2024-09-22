@@ -1,4 +1,10 @@
-.container {
-  padding: 0 20px;
-  overflow: hidden;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.25rem;
+}
+
+.content {
+  max-width: 26.25rem;
+  margin: 0 auto;
 }

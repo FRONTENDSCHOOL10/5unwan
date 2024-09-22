@@ -18,8 +18,8 @@ export default function Login() {
   };
 
   return (
-    <div>
-      {!hideHeader && (
+    <>
+    {!hideHeader && (
         <Header
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
@@ -27,12 +27,15 @@ export default function Login() {
           rightIconVisible
         />
       )}
-      
-      <div className={styles.container}>
-        <LoginForm onSuccess={() => { navigate("/") }}
-        />
-        <KakaoLogin />
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <LoginForm onSuccess={() => { navigate("/") }}
+          />
+          <span className={styles.kakao}>
+            <KakaoLogin />
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
