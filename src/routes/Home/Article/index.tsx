@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./article.module.css";
 import homeStore from "@/stores/homeStore";
+import classNames from "classnames";
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 export default function Article() {
   const { filtered, exercises } = homeStore();
+  const { isDark } = useDarkMode();
 
   const displayExercises =
     typeof filtered === "object" && "items" in filtered
@@ -11,8 +14,8 @@ export default function Article() {
       : exercises;
   
     return (
-      <section className={styles.container}>
-        {
+      <section className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
+      {
           displayExercises.map((article) => (
             <div key={article.id} className={styles.article}>
               <Link to={article.link} key={article.id} className={styles.article}>

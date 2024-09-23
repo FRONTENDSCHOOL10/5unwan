@@ -46,7 +46,7 @@ export function Component() {
 
   const [selectedDay, setSelectedDay] = useState<string | null>();
 
-  const { isDark } = useDarkMode(); // 3다크모드
+  const { isDark } = useDarkMode(); // 다크모드
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
     const c = (props: DayContentProps) => {
