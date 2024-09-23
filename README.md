@@ -37,10 +37,93 @@
 <img src="https://github.com/user-attachments/assets/18b81a66-eefd-460a-8ad6-11510a4f012c" width="500px">
 
 <br />
+
+* 기술 스택
+
+<table>
+  <tbody>
+    <tr>
+      <td>Language</td>
+      <td>
+        <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+        <img src="https://img.shields.io/badge/Html5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+      </td>
+      <td>Package Manager</td>
+      <td><img src="https://img.shields.io/badge/pnpm-F69220?style=for-the-badge&logo=pnpm&logoColor=white"></td>
+    </tr>
+    <tr>
+      <td>DB</td>
+      <td>
+        <img src="https://img.shields.io/badge/pocketbase-B8DBE4?style=for-the-badge&logo=pocketbase&logoColor=white">
+      </td>
+      <td>Project Management</td>
+      <td>
+        <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+        <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+      </td>
+    </tr>
+    <tr>
+      <td>Styling</td>
+      <td>
+        <img src="https://img.shields.io/badge/cssmodules-000?style=for-the-badge&logo=cssmodules&logoColor=white">
+      </td>
+      <td>Design</td>
+      <td>
+        <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+      </td>
+    </tr>
+    <tr>
+      <td>Library</td>
+      <td>
+        <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+        <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
+        <img width="80px"src=https://miro.medium.com/v2/resize:fit:1400/0*XH2TqZCW2n_nsNDR>
+      </td>
+      <td>Build</td>
+      <td>
+        <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+      </td>
+    </tr>
+    <tr>
+      <td>Routing</td>
+      <td>
+        <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
+      </td>
+      <td>Deployment</td>
+      <td>
+        <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
+      </td>
+    </tr>
+    <tr>
+      <td>Code Analysis Tool</td>
+      <td>
+        <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+        <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
+      </td>
+      <td>Team Collaboration</td>
+      <td>
+        <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+        <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+        <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+      </td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td>
+        <img src="https://img.shields.io/badge/kakaomap-FFCD00?style=for-the-badge&logo=kakao&logoColor=white">
+      </td>
+      <td>IDE</td>
+      <td>
+        <img src="https://img.shields.io/badge/visualstudiocode-29A7DF?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <br />
 
 <a name='팀원-소개'></a>
-# 팀원소개
+# 팀원 소개
 <table>
   <tbody>
     <tr>
@@ -54,6 +137,7 @@
 
 <br />
 
+<a name='프로젝트-구현'></a>
 # 프로젝트 구현
 ## 1. 시작페이지
 
@@ -75,6 +159,7 @@
 
 <br />
 
+<a name='프로젝트-실행-방법'></a>
 # 프로젝트 실행 방법
 ```
 > git clone https://github.com/FRONTENDSCHOOL10/5unwan.git
