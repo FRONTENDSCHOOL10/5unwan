@@ -1,34 +1,73 @@
 .modal {
-	padding: 1rem;
 	position: relative;
   }
   
   .input-group {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 16px;
-	margin-top: 15px;
-	margin-bottom: 15px;
-  }
+	gap: 1.25rem;
+	margin-top: 1.25rem;
+	height: 20rem;
+	overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+	width: 0.375rem;
+	height: 0.375rem;
+}
+
+/* 스크롤바의 배경 */
+::-webkit-scrollbar-track {
+	background: var(--grayscale-200);
+	border-radius: var(--rounded-full);
+}
+
+/* 스크롤바의 슬라이더 */
+::-webkit-scrollbar-thumb {
+	background: var(--grayscale-400);
+	border-radius: var(--rounded-full);
+	cursor: pointer;
+}
+
+/* 슬라이더에 마우스를 올렸을 때의 색상 */
+::-webkit-scrollbar-thumb:hover {
+	background: var(--grayscale-700);
+}
+
+  .interest-option {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
   
   .hiddenInput {
 	display: none;
   }
+
+  .interests-tit {
+	color: var(--grayscale-700);
+  }
   
   .image-box {
-	width: 112px;
-	height: 112px;
+	max-width: 7rem;
+	max-height: 7rem;
 	position: relative;
 	border-radius: var(--rounded-full);
 	overflow: hidden;
-	border: 1px solid transparent;
+	border: 0.0625rem solid transparent;
 	cursor: pointer;
 	display: flex; 
-	justify-content: center; 
+	justify-content: center;
+	margin-bottom: .5rem;
+	
+	img {
+		object-fit: contain;
+	}
   }
   
-  .image-box.selected {
-	border: 1px solid var(--primary);
+  .image-box.selected { /* 선택된 관심사 스타일 */
+	border: 0.0625rem solid var(--primary);
 	box-shadow: var(--box-shadow);
   }
   .image-box:hover {
@@ -64,20 +103,46 @@
   
   .modal {
 	background-color: white;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	border-radius: 0.5rem;
+	box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
 	width: 90%; 
-	max-width: 500px; 
-	padding: 1.5rem;
+	max-width: 31.25rem; 
 	position: relative;
-
+	padding: 1.25rem 1rem;
   }
 
 .button-group {
 	display: flex;
-	justify-content: center;
-	gap: 16px;
+	justify-content: center; /* 버튼들을 가운데로 정렬 */
+	gap: 1rem; /* 버튼들 사이 간격 */
 	margin-top: var(--space-5);
 	padding: var(--space-3);
   }
   
+.is-dark {
+	.modal {
+		background-color: var(--grayscale-900);
+	}
+
+	.interests-tit {
+		color: var(--grayscale-300);
+	}
+
+	/* 스크롤바의 배경 */
+	::-webkit-scrollbar-track {
+		background: var(--grayscale-800);
+		border-radius: var(--rounded-full);
+	}
+
+	/* 스크롤바의 슬라이더 */
+	::-webkit-scrollbar-thumb {
+		background: var(--grayscale-600);
+		border-radius: var(--rounded-full);
+		cursor: pointer;
+	}
+
+	/* 슬라이더에 마우스를 올렸을 때의 색상 */
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--grayscale-400);
+	}
+}
