@@ -1,7 +1,5 @@
-// https://codesandbox.io/p/devbox/drawer-without-scale-forked-kxh9j5?file=%2Fapp%2Fmy-drawer.tsx%3A14%2C22
-
 import { Drawer } from "vaul";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WorkoutRecordForm } from "@/components/WorkoutRecord/WorkoutRecordForm";
 import styles from "@/components/WorkoutRecord/WorkoutRecordModal/workoutRecordModal.module.css";
 import SVGIcon from "@/components/SVGicon";
@@ -22,6 +20,22 @@ export function WorkoutRecordModal() {
 
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+
+  // useEffect to handle Escape key
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <Drawer.Root dismissible={false} open={modalOpen}>
