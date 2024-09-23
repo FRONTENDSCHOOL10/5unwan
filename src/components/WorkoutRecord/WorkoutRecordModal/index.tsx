@@ -21,7 +21,6 @@ export function WorkoutRecordModal() {
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
 
-  // useEffect to handle Escape key
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -31,7 +30,6 @@ export function WorkoutRecordModal() {
 
     window.addEventListener("keydown", handleKeyDown);
     
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
