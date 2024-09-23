@@ -79,6 +79,7 @@
 	display: flex;
 	justify-content: center; /* 버튼들을 가운데로 정렬 */
 	gap: 16px; /* 버튼들 사이 간격 */
-	margin-top: 20px; /* 버튼 그룹 상단 여백 */
+	margin-top: var(--space-5);
+	padding: var(--space-3);
   }
   

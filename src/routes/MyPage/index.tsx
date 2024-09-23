@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef  } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
@@ -17,6 +17,7 @@ import InterestModal from "@/routes/MyPage/InterestModal/index";
 export function Component() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
+  const avatarImageRef = useRef<HTMLImageElement | null>(null);
   const handleLogout = () => {
     logout();
     navigate("/logout-complete");
@@ -31,9 +32,15 @@ export function Component() {
   const [dob, setDob] = useState(user?.dob || "");
   const [gender, setGender] = useState<"" | "M" | "F">(user?.gender || "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [profilePreview, setProfilePreview] = useState(
-    user?.avatar ? getPbImageUrl(user, user.avatar) : ""
-  );  
+
+  // 기본 이미지 URL을 설정하고, 없으면 기본 이미지를 사용할 수 있도록 수정
+  const defaultAvatarUrl = "/avatar-placeholder.webp"; // 기본 이미지 경로
+  const profileImageUrl = user?.avatar ? getPbImageUrl(user, user.avatar) : defaultAvatarUrl;
+
+  // profilePreview도 기본 이미지로 초기화
+  const [profilePreview, setProfilePreview] = useState<string>(profileImageUrl);
+
+  
 
 	const [showInterestModal, setShowInterestModal] = useState(false); // 관심사 모달 상태 추가
 	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사 상태
@@ -144,9 +151,7 @@ const resizeImage = (file: File): Promise<File> => {
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
-  const profileImageUrl = user
-    ? getPbImageUrl(user, user?.avatar || "")
-    : "/default-profile.png";
+
 
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
@@ -188,13 +193,12 @@ const resizeImage = (file: File): Promise<File> => {
         <div className={styles["edit-mode-container"]}>
           {/* 프로필 이미지 선택 기능 */}
           <label>
-            <img
-              src={profilePreview || profileImageUrl || "/default-profile.png"}
-              alt="프로필 이미지"
-              className={`${styles.avatar} ${
-                isEditMode ? styles.hoverable : ""
-              }`}
-            />
+          <img
+            ref={avatarImageRef} // ref 추가
+            src={profilePreview || "/default-profile.png"}
+            className={`${styles.avatar}`}
+            alt="프로필 이미지"
+          />
             <input
               type="file"
               accept="image/*"
