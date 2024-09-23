@@ -302,6 +302,17 @@ export function Component() {
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
 
+          {/* 다크모드 */}
+          <div className={styles["interests-header"]}>
+            <h3 className={styles["interest-title"]}>다크 모드</h3>
+          </div>
+          <div className={styles.interestsList}>
+            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
+          </div>
+
+          {/* 구분선 추가 */}
+          <div className={styles["divider-line"]}></div>
+
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
@@ -310,8 +321,6 @@ export function Component() {
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
             </button>
-            <br />
-            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
         </div>
       )}
