@@ -10,7 +10,6 @@ import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimary
 import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
-// import Input from '@/components/Input';
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import SVGIcon from "@/components/SVGicon";
 
