@@ -1,12 +1,15 @@
 .container {
   position: absolute;
-  top: 1.25rem;
+  top: 4.8125rem;
   right: 50%;
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 100;
-  width: 100%;
   padding: 0 var(--space-5);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   max-width: 26rem;
   margin: 0 auto;
+  gap: var(--space-2);
 }

@@ -90,7 +90,8 @@ export default function MapBoard() {
               yAnchor={1}
             >
               <div className={styles["speech-bubble"]}>
-                <span>📍 {marker.content}</span>
+                <span className={styles.number}>{index + 1}</span>
+                {marker.content}
               </div>
             </CustomOverlayMap>
           </div>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { User, getPbImageUrl, logout } from '@/api/pocketbase';
-import styles from './userInfo.module.css';
+import { User, getPbImageUrl, logout } from "@/api/pocketbase";
+import homeStore from "@/stores/homeStore";
+import styles from "./userInfo.module.css";
 import classNames from "classnames";
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ interface userProps {
 export default function UserInfo({ user }: userProps) {
   const { isDark } = useDarkMode();
   const getUserAvatar = getPbImageUrl(user, user.avatar) ?? undefined;
-  const [show, setShow] = useState(false);
+  const { show, setShow } = homeStore();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -32,17 +32,17 @@ export default function UserInfo({ user }: userProps) {
   }
 
   return (
-    <div className={classNames(styles.wrapper, { [styles["is-dark"]]: isDark })}>
+    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
       <div className={styles["user-info"]}>
         <h1><strong className={styles["user-name"]}>{user.nickname}</strong>님 안녕하세요!</h1>
         <p>오늘도 <strong>득근득근!</strong></p>
       </div>
       <div className={styles["user-profile-wrapper"]}>
         <button type="button" className={styles["user-profile"]} onClick={handleMenuClick}>
-          <img src={user.avatar ? getUserAvatar :'/avatar-placeholder.webp'} alt={`${user.nickname}님의 프로필`} />
+          <img src={user.avatar ? getUserAvatar : "/avatar-placeholder.webp"} alt={`${user.nickname}님의 프로필`} />
         </button>
-        <ul className={show ? styles["is-active"] : ''}>
-          <li className="body-sm-regular"onClick={() => navigate('/my-page')}>마이페이지</li>
+        <ul className={show ? styles["is-active"] : ""}>
+          <li className="body-sm-regular"onClick={() => navigate("/my-page")}>마이페이지</li>
           <li className="body-sm-regular" onClick={async () => { await logoutMutation.mutateAsync() }}>로그아웃</li>
         </ul>
       </div>

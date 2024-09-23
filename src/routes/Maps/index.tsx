@@ -1,12 +1,12 @@
-import mapStore from '@/stores/mapStore';
-import { useEffect, useCallback } from 'react';
+import mapStore from "@/stores/mapStore";
+import { useEffect, useCallback } from "react";
 import { useOutletContext } from "react-router-dom";
 import { UserContext } from "@/routes/PrivateRoute";
-import styles from './map.module.css';
-import SearchForm from './SearchForm';
-import MapBoard from './MapBoard';
-import SearchList from '@/routes/Maps/SearchList';
-import { debounce } from 'lodash-es';
+import styles from "./map.module.css";
+import SearchForm from "./SearchForm";
+import MapBoard from "./MapBoard";
+import SearchList from "@/routes/Maps/SearchList";
+import { debounce } from "lodash-es";
 
 interface MarkerTypes {
   position: { lat: number; lng: number };
@@ -49,7 +49,7 @@ export function Component() {
                 lng: parseFloat(place.x),
               },
               content: place.place_name,
-              address: '',
+              address: "",
             };
 
 
