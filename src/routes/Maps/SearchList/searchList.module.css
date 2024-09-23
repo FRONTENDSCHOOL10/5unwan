@@ -56,6 +56,7 @@
   gap: var(--space-2);
   cursor: pointer;
   padding: 1.25rem 0;
+  
 
   &:last-child {
     border: 0;
@@ -97,6 +98,10 @@
     height: 1.25rem;
     flex-shrink: 0;
 
+    &:focus {
+    border: .0625rem solid var(--secondary);
+  }
+
     svg {
       &:hover {
         color: var(--primary);
@@ -133,7 +138,6 @@
 
     p {
       color: var(--grayscale-400);
-
     }
   }
 
