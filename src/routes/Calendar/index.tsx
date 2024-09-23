@@ -14,7 +14,7 @@ import { getPbImageUrl } from "@/api/pocketbase";
 import SVGIcon from "@/components/SVGicon";
 import styles from "./calendar.module.css";
 
-export default function Calendar() {
+export function Component() {
   const {
     now,
     currentMonthStart,
@@ -39,8 +39,6 @@ export default function Calendar() {
     },
     {} as Record<string, Workout[]>
   );
-
-  console.log(workoutsByDay);
 
   const [selectedDay, setSelectedDay] = useState<string | null>();
 
@@ -149,32 +147,32 @@ export default function Calendar() {
             setCurrentMonthStart(startOfMonth(month));
             setCurrentMonthEnd(endOfMonth(month));
           }}
-      />
+        />
 
-      {selectedDay && (
-        <>
-          {workoutsByDay[selectedDay].map((workout) => (
-            <div key={workout.id} role="group" className={styles.workout}>
-              <span className={styles["workout-label"]}>
-                {workout.category}
-              </span>
-              <span className={styles["workout-time"]}>
-                {workout.start}-{workout.end}
-              </span>
-              <h2 className={`heading-6 ${styles["workout-title"]}`}>
-                {workout.title}
-              </h2>
-              <p className={styles["workout-content"]}>{workout.content}</p>
-              {workout.photo && (
-                <img
-                  className={styles["workout-image"]}
-                  src={getPbImageUrl(workout, workout.photo)!}
-                />
-              )}
-            </div>
-          ))}
-        </>
-      )}
+        {selectedDay && (
+          <>
+            {workoutsByDay[selectedDay].map((workout) => (
+              <div key={workout.id} role="group" className={styles.workout}>
+                <span className={styles["workout-label"]}>
+                  {workout.category}
+                </span>
+                <span className={styles["workout-time"]}>
+                  {workout.start}-{workout.end}
+                </span>
+                <h2 className={`heading-6 ${styles["workout-title"]}`}>
+                  {workout.title}
+                </h2>
+                <p className={styles["workout-content"]}>{workout.content}</p>
+                {workout.photo && (
+                  <img
+                    className={styles["workout-image"]}
+                    src={getPbImageUrl(workout, workout.photo)!}
+                  />
+                )}
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
@@ -208,3 +206,5 @@ export function CustomCaptionComponent(props: CaptionProps) {
     </h2>
   );
 }
+
+Component.displayName = "CalendarRoute";

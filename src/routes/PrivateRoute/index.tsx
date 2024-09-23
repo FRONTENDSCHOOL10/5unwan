@@ -7,7 +7,7 @@ export type UserContext = {
   user: User;
 };
 
-export default function PrivateRoute() {
+export function Component() {
   const { isLoading, user } = useCurrentUser();
   return isLoading ? (
     <Spinner />
@@ -17,3 +17,5 @@ export default function PrivateRoute() {
     <Navigate to="/start" />
   );
 }
+
+Component.displayName = "PrivateRouteRoute";

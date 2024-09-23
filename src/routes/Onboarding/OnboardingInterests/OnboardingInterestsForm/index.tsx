@@ -66,39 +66,64 @@ export function OnboardingInterestsForm({
         <section className={styles.content}>
           <PageTitle text="관심있는 운동을 선택해 주세요." />
           <section className={styles["input-group"]}>
-            {interestOptions.map((interestOption) => {
-              return (
-                <div key={interestOption}>
-                  <input
-                    id={`${id}-${interestOption}`}
-                    name={interestOption}
-                    type="checkbox"
-                    checked={formData[interestOption] || false}
-                    onChange={(e) => handleUpdateFormData(interestOption, e.target.checked)}
-                    className={styles.hiddenInput}
-                  />
-                  <div
-                    className={styles["image-box"]}
-                    onClick={() => handleUpdateFormData(interestOption, !formData[interestOption])}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleUpdateFormData(interestOption, !formData[interestOption]);
+          {interestOptions.map((interestOption) => {
+            return (
+              <div key={interestOption}>
+                <input
+                  id={`${id}-${interestOption}`}
+                  name={interestOption}
+                  type="checkbox"
+                  checked={formData[interestOption] || false}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    handleUpdateFormData(interestOption, checked);
+                  }}
+                  className={styles.hiddenInput}
+                />
+                <div
+                  className={styles["image-box"]}
+                  onClick={() => {
+                    const newCheckedState = !formData[interestOption];
+                    handleUpdateFormData(interestOption, newCheckedState);
+
+                    // 다른 체크박스 비활성화
+                    if (newCheckedState) {
+                      interestOptions.forEach(option => {
+                        if (option !== interestOption) {
+                          handleUpdateFormData(option, false);
+                        }
+                      });
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const newCheckedState = !formData[interestOption];
+                      handleUpdateFormData(interestOption, newCheckedState);
+
+                      // 다른 체크박스 비활성화
+                      if (newCheckedState) {
+                        interestOptions.forEach(option => {
+                          if (option !== interestOption) {
+                            handleUpdateFormData(option, false);
+                          }
+                        });
                       }
-                    }}
-                  >
-                    <img src={`/image/interests-img-${interestOption}.jpg`} alt={interestLabels[interestOption]} />
-                    {formData[interestOption] && (
-                      <span className={styles["icon-box"]}>
-                        <SVGIcon width={50} height={50} iconId="iconCheck" />
-                      </span>
-                    )}
-                  </div>
-                  <p className={"body-md-medium"}>{interestLabels[interestOption]}</p>
+                    }
+                  }}
+                >
+                  <img src={`/image/interests-img-${interestOption}.jpg`} alt={interestLabels[interestOption]} />
+                  {formData[interestOption] && (
+                    <span className={styles["icon-box"]}>
+                      <SVGIcon width={50} height={50} iconId="iconCheck" />
+                    </span>
+                  )}
                 </div>
-              );
-            })}
+                <p className={"body-md-medium"}>{interestLabels[interestOption]}</p>
+              </div>
+            );
+          })}
           </section>
 
           <PrimaryLargeButton

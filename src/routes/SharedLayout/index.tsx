@@ -118,7 +118,7 @@ export default function SharedLayout() {
           </ul>
         </nav>
       )}
-      <main className={styles.outlet}>
+      <main className={`${styles.outlet} no-scroll`}>
         <Outlet />
       </main>
     </div>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
@@ -12,11 +13,17 @@ import Input from "@/components/Input/index";
 import SVGIcon from "@/components/SVGicon";
 import InterestModal from "@/routes/MyPage/InterestModal/index"; 
 
-export default function MyPage() {
+
+export function Component() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/logout-complete");
+  };
+
   const matches = useMatches();
-  
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -27,7 +34,6 @@ export default function MyPage() {
   const [profilePreview, setProfilePreview] = useState(
     user?.avatar ? getPbImageUrl(user, user.avatar) : ""
   );  
-
 
 	const [showInterestModal, setShowInterestModal] = useState(false); // 관심사 모달 상태 추가
 	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []); // 선택된 관심사 상태
@@ -132,6 +138,7 @@ const resizeImage = (file: File): Promise<File> => {
 	  reader.onerror = (error) => reject(error);
 	  reader.readAsDataURL(file);
 	});
+
   };
 	  
 
@@ -144,8 +151,6 @@ const resizeImage = (file: File): Promise<File> => {
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
-	  
-
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -186,7 +191,9 @@ const resizeImage = (file: File): Promise<File> => {
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
-              className={`${styles.avatar} ${isEditMode ? styles.hoverable : ""}`}
+              className={`${styles.avatar} ${
+                isEditMode ? styles.hoverable : ""
+              }`}
             />
             <input
               type="file"
@@ -198,8 +205,8 @@ const resizeImage = (file: File): Promise<File> => {
 
           <div className={styles["input-disabled-container"]}>
             <label className={styles["label"]}>아이디</label>
-            <Input 
-              value={user?.email || ""} 
+            <Input
+              value={user?.email || ""}
               disabled
               isDark={false}
               labelHide={true}
@@ -208,9 +215,9 @@ const resizeImage = (file: File): Promise<File> => {
           </div>
 
           <div className={styles["input-disabled-container"]}>
-		  <label className={styles.label}>비밀번호</label>
-            <Input 
-              value="고객센터를 통해 변경해주세요." 
+            <label className={styles.label}>비밀번호</label>
+            <Input
+              value="고객센터를 통해 변경해주세요."
               disabled
               isDark={false}
               labelHide={true}
@@ -220,12 +227,12 @@ const resizeImage = (file: File): Promise<File> => {
 
           {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>닉네임</label>
-            <Input 
+            <label className={styles["label"]}>닉네임</label>
+            <Input
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               isDark={false}
-			  labelHide={true}    
+              labelHide={true}
               errorTextHide={true}
             />
           </div>
@@ -261,8 +268,8 @@ const resizeImage = (file: File): Promise<File> => {
 
           {/* 생년월일 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>생년월일</label>
-			<Input 
+            <label className={styles["label"]}>생년월일</label>
+            <Input
               value={dob}
               onChange={(e) => {
                 const inputValue = e.target.value;
@@ -274,34 +281,34 @@ const resizeImage = (file: File): Promise<File> => {
               placeholder="yyyy-mm-dd"
               max={10}
               isDark={false}
-			  labelHide={true}    
+              labelHide={true}
               errorTextHide={true}
             />
           </div>
 
           {/* 키 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>키</label>
-			<Input 
+            <label className={styles["label"]}>키</label>
+            <Input
               type="number"
               value={height.toString()}
               onChange={(e) => setHeight(Number(e.target.value))}
               isDark={false}
-			  labelHide={true}    
+              labelHide={true}
               errorTextHide={true}
             />
           </div>
 
           {/* 몸무게 입력 */}
           <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>몸무게</label>
-		  <Input 
+            <label className={styles["label"]}>몸무게</label>
+            <Input
               type="number"
               value={weight.toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
               isDark={false}
-			  labelTitle="몸무게"
-			  labelHide={true}    
+              labelTitle="몸무게"
+              labelHide={true}
               errorTextHide={true}
             />
           </div>
@@ -322,11 +329,11 @@ const resizeImage = (file: File): Promise<File> => {
               className={styles.avatar}
             />
           </div>
-          
+
           <h1 className={styles["main-nickname"]}>
             {user?.nickname || "사용자 이름"}
           </h1>
-          
+
           <div className={styles["profile-stats-container"]}>
             <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
             <div className={styles.divider}></div>
@@ -356,20 +363,16 @@ const resizeImage = (file: File): Promise<File> => {
   </div>
 </div>
 
+
           {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
 
           {/* 계정 관련 섹션 */}
           <div className={styles["account-section"]}>
             <h3>계정</h3>
-<button
-  onClick={async () => {
-    await logout(); 
-    navigate("/logout-complete"); 
-  }}
->
-  로그아웃
-</button>
+
+            <button onClick={handleLogout}>로그아웃</button>
+
             <br />
             <button onClick={() => navigate("/delete-account")}>
               회원 탈퇴
@@ -379,6 +382,7 @@ const resizeImage = (file: File): Promise<File> => {
           </div>
         </div>
       )}
+
       {/* 관심사 선택 모달 */}
 	  {showInterestModal && (
   <InterestModal
@@ -394,3 +398,5 @@ const resizeImage = (file: File): Promise<File> => {
     </div>
   );
 }
+
+Component.displayName = "MyPageRoute";

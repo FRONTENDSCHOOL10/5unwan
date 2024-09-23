@@ -51,6 +51,7 @@
             box-shadow: var(--box-shadow);
             border-radius: var(--rounded-full);
             cursor: pointer;
+            transition: 0.3s;
             
             &:hover {
                 background-color: var(--grayscale-200);
