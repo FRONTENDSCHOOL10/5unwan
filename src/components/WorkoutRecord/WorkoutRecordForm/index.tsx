@@ -12,6 +12,7 @@ import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import SVGIcon from "@/components/SVGicon";
+import Input from "@/components/Input/index";
 
 const categories = [
   "헬스",
@@ -159,7 +160,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // 파일 선택 창 열기
+      fileInputRef.current.click();
     }
   };
 
@@ -195,39 +196,75 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         <li className={styles["list-time"]}>
           <title className="body-md-bold">운동 시간</title>
           <section>
-            <input
-              className="body-sm-medium"
-              id={`${id}-start`}
-              type="time"
-              name="start"
-              value={formData.start}
-              onChange={handleUpdateFormData}
-              required
+            {isDark ? (
+              <Input
+                type="time"
+                name="start"
+                value={formData.start}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
+                isDark
+              />
+            ) : (
+              <Input
+                type="time"
+                name="start"
+                value={formData.start}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
             />
+            )}
             <p className="body-sm-bold">부터</p>
-            <input
-              className="body-sm-medium"
-              id={`${id}-end`}
+            {isDark ? (
+              <Input
               type="time"
               name="end"
               value={formData.end}
               onChange={handleUpdateFormData}
-              required
+              labelHide
+              errorTextHide
+              isDark
             />
+            ) : (
+              <Input
+              type="time"
+              name="end"
+              value={formData.end}
+              onChange={handleUpdateFormData}
+              labelHide
+              errorTextHide
+            />
+            )}
             <p className="body-sm-bold">까지</p>
           </section>
         </li>
 
         <li className={styles["list-title"]}>
           <title className="body-md-bold">운동 제목</title>
-          <input
-            id={`${id}-title`}
-            type="text"
-            name="title"
-            placeholder="운동 제목"
-            value={formData.title}
-            onChange={handleUpdateFormData}
-          />
+          {isDark ? (
+            <Input
+              type="text"
+              name="title"
+              placeholder="운동 제목"
+              value={formData.title}
+              onChange={handleUpdateFormData}
+              labelHide
+              errorTextHide
+              isDark
+            />
+            ) : (
+              <Input
+                type="text"
+                name="title"
+                placeholder="운동 제목"
+                value={formData.title}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
+              />
+            )}
         </li>
 
         <li className={styles["list-content"]}>
@@ -268,6 +305,30 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               onChange={handleUpdatePhoto}
               style={{ display: "none" }}
             />
+            {isDark ? (
+              <Input
+              ref={fileInputRef}
+              type="file"
+              name="newPhotoFile"
+              accept=".jpg, .webp, .svg, .gif"
+              aria-label="운동기록 사진 업로드"
+              onChange={handleUpdatePhoto}
+              labelHide
+              errorTextHide
+              isDark
+            />
+            ) : (
+              <Input
+                ref={fileInputRef}
+                type="file"
+                name="newPhotoFile"
+                accept=".jpg, .webp, .svg, .gif"
+                aria-label="운동기록 사진 업로드"
+                onChange={handleUpdatePhoto}
+                labelHide
+                errorTextHide
+              />
+            )}
           </section>
         </li>
       </ul>
