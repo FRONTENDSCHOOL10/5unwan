@@ -1,12 +1,16 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start; 
-	height: 100vh;
-	text-align: left;
-	padding: var(--large) var(--medium);
-	padding-top: var(--space-15-half);
+	padding: 0 1.25rem;
+}
+
+.wrapper {
+	margin-top: 1.875rem;
+}
+
+.content {
+	max-width: 26.25rem;
+    margin: 0 auto;
 }
 
 .message {
@@ -15,4 +19,5 @@
 	color: var(--grayscale-700); 
 	line-height: 1.4;
 	margin-bottom: var(--space-10);
+	word-break: keep-all;
 }
