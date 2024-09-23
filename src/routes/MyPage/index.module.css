@@ -282,13 +282,12 @@
 
 /* 관심사 섹션 */
 .interests-container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	margin-bottom: var(--space-4);
-	margin-top: var(--space-10);
-	padding-left: 1.5rem;
+  display: block; 
+  width: 100%;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }
+
 
 .interest-header {
 	display: flex;
@@ -336,4 +335,3 @@
 	object-fit: cover;
 	margin-bottom: var(--space-2);
 }
-
