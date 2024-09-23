@@ -17,8 +17,19 @@ const DarkModeToggleButton: React.FC = () => {
         id="darkModeToggle" 
         checked={isDark} 
         onChange={toggleDarkMode}
+        aria-label="Toggle dark mode" // 접근성을 위한 aria-label 추가
       />
-      <label className={styles.label} htmlFor="darkModeToggle">
+      <label 
+        className={styles.label} 
+        htmlFor="darkModeToggle" 
+        tabIndex={0} // 키보드 탐색을 위해 tabIndex 추가
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            toggleDarkMode();
+            e.preventDefault(); // 기본 스페이스바 동작 방지
+          }
+        }}
+      >
         <span className={styles.switch} />
       </label>
     </div>
