@@ -13,7 +13,10 @@ import { ko } from "date-fns/locale";
 import { getPbImageUrl } from "@/api/pocketbase";
 import SVGIcon from "@/components/SVGicon";
 import styles from "./calendar.module.css";
+import classNames from "classnames";
 import { SpinnerPortal } from "@/components/SpinnerPortal";
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
+import PageTitle from "@/components/PageTitle";
 
 export function Component() {
   const {
@@ -42,6 +45,8 @@ export function Component() {
   );
 
   const [selectedDay, setSelectedDay] = useState<string | null>();
+
+  const { isDark } = useDarkMode(); // 다크모드
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
     const c = (props: DayContentProps) => {
@@ -95,88 +100,99 @@ export function Component() {
   if (isLoading) {
     return <SpinnerPortal />;
   }
+
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={`${styles.title} body-xl-bold`}>
-          운동기록과
-          <br />
-          출석률을 확인해보세요.
-        </h1>
-        <div role="group" className={styles["attendance-container"]}>
-          <span className="heading-6">
-            {progressPerMonth}%{" "}
-            <span className={`${styles.attendance} heading-6`}>
-              {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
-            </span>
-          </span>
-          <div className={styles["progress-container"]}>
-            <div
-              className={styles["progress-bar"]}
-              style={{ width: `${progressPerMonth}%` }}
-            ></div>
-          </div>
-        </div>
-        <DayPicker
-          className={styles.calendar}
-          showOutsideDays
-          fromYear={2024}
-          toYear={now?.getFullYear()}
-          weekStartsOn={1}
-          locale={ko}
-          formatters={{
-            formatWeekdayName: (date: Date, options) => {
-              return (
-                <span
-                  className={`${styles.week} ${
-                    getDay(date) === 0 || getDay(date) === 6
-                      ? styles["week-weekend"]
-                      : styles["week-weekdays"]
-                  }`}
-                >
-                  {format(date, "EEE", options)}
+    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+          <PageTitle
+                large
+                text={{ __html: `운동기록과
+                <br />
+                출석률을 확인해보세요.
+                ` }}
+              />
+            <div role="group" className={styles["attendance-container"]}>
+              <span className={`${styles.number} heading-6`}>
+                  {progressPerMonth}%{" "}
+                  <span className={`${styles.attendance} heading-6`}>
+                    {progressPerMonth < 100 ? "출석 중" : "당신은 출석의 왕!"}
+                  </span>
                 </span>
-              );
-            },
-          }}
-          components={{
-            Caption: CustomCaptionComponent,
-
-            DayContent: CustomDayContent as
-              | ((props: DayContentProps) => JSX.Element | null)
-              | undefined,
-          }}
-          month={currentMonthStart}
-          onMonthChange={(month) => {
-            setCurrentMonthStart(startOfMonth(month));
-            setCurrentMonthEnd(endOfMonth(month));
-          }}
-        />
-
-        {selectedDay && (
-          <>
-            {workoutsByDay[selectedDay].map((workout) => (
-              <div key={workout.id} role="group" className={styles.workout}>
-                <span className={styles["workout-label"]}>
-                  {workout.category}
-                </span>
-                <span className={styles["workout-time"]}>
-                  {workout.start}-{workout.end}
-                </span>
-                <h2 className={`heading-6 ${styles["workout-title"]}`}>
-                  {workout.title}
-                </h2>
-                <p className={styles["workout-content"]}>{workout.content}</p>
-                {workout.photo && (
-                  <img
-                    className={styles["workout-image"]}
-                    src={getPbImageUrl(workout, workout.photo)!}
-                  />
-                )}
+              <div className={styles["progress-container"]}>
+                <div
+                  className={styles["progress-bar"]}
+                  style={{ width: `${progressPerMonth}%` }}
+                ></div>
               </div>
-            ))}
-          </>
-        )}
+            </div>
+          </div>
+
+          <div className={styles["calendar-container"]}>
+            <DayPicker
+              className={styles.calendar}
+              showOutsideDays
+              fromYear={2024}
+              toYear={now?.getFullYear()}
+              weekStartsOn={1}
+              locale={ko}
+              formatters={{
+                formatWeekdayName: (date: Date, options) => {
+                  return (
+                    <span
+                      className={`${styles.week} ${
+                        getDay(date) === 0 || getDay(date) === 6
+                          ? styles["week-weekend"]
+                          : styles["week-weekdays"]
+                      }`}
+                    >
+                      {format(date, "EEE", options)}
+                    </span>
+                  );
+                },
+              }}
+              components={{
+                Caption: CustomCaptionComponent,
+                DayContent: CustomDayContent as
+                  | ((props: DayContentProps) => JSX.Element | null)
+                  | undefined,
+              }}
+              month={currentMonthStart}
+              onMonthChange={(month) => {
+                setCurrentMonthStart(startOfMonth(month));
+                setCurrentMonthEnd(endOfMonth(month));
+              }}
+            />
+          </div>
+
+          {selectedDay && (
+            <>
+              {workoutsByDay[selectedDay].map((workout) => (
+                <div className={styles["workout-container"]}>
+                <div className={styles["workout-wrapper"]}>
+                    <div key={workout.id} role="group" className={styles.workout}>
+                      <span className={styles["workout-label"]}>
+                        {workout.category}
+                      </span>
+                      <span className={styles["workout-time"]}>
+                        {workout.start}-{workout.end}
+                      </span>
+                      <h2 className={`heading-6 ${styles["workout-title"]}`}>
+                        {workout.title}
+                      </h2>
+                      <p className={styles["workout-content"]}>{workout.content}</p>
+                      {workout.photo && (
+                        <img
+                          className={styles["workout-image"]}
+                          src={getPbImageUrl(workout, workout.photo)!}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
       </div>
     </div>
   );

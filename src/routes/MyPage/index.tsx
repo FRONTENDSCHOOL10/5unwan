@@ -4,9 +4,13 @@ import { RouteHandle } from "@/router";
 import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
+import classNames from "classnames";
 import Header from "@/components/Header";
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
+import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimaryButton";
+import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import Input from "@/components/Input/index";
 import SVGIcon from "@/components/SVGicon";
 import InterestModal from "@/routes/MyPage/InterestModal/index";
@@ -77,6 +81,8 @@ export function Component() {
       }
     }
   };
+
+  const { isDark } = useDarkMode();
 
   const resizeImage = (file: File): Promise<File> => {
     const MAX_WIDTH = 800;
@@ -149,160 +155,260 @@ export function Component() {
   }
 
   return (
-    <div className={styles.container}>
-      {!hideHeader && (
-        <>
-          {!isEditMode ? (
-            <Header
-              className={styles.header}
-              leftIconVisible
-              rightIconId="iconEdit"
-              rightIconVisible
-              rightonClick={() => setIsEditMode(true)}
-            />
-          ) : (
-            <Header
-              className={styles.header}
-              leftIconId="iconArrowsLeft"
-              leftIconVisible
-              leftonClick={() => setIsEditMode(false)}
-              rightIconVisible
-            />
-          )}
-        </>
-      )}
+    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+        {!hideHeader && (
+          <>
+            {!isEditMode ? (
+              <Header
+                className={styles.header}
+                leftIconVisible
+                rightIconId="iconEdit"
+                rightIconVisible
+                rightonClick={() => setIsEditMode(true)}
+              />
+            ) : (
+              <Header
+                className={styles.header}
+                leftIconId="iconArrowsLeft"
+                leftIconVisible
+                leftonClick={() => setIsEditMode(false)}
+                rightIconVisible
+              />
+            )}
+          </>
+        )}
 
-      {isEditMode ? (
-        <div className={styles["edit-mode-container"]}>
-          <label>
-            <img
-              ref={avatarImageRef}
-              src={profilePreview || "/default-profile.png"}
-              className={styles.avatar}
-              alt="프로필 이미지"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-          </label>
+        {isEditMode ? (
 
-          <div className={styles["input-disabled-container"]}>
-            <label className={styles.label}>아이디</label>
-            <Input
-              value={user?.email || ""}
-              disabled
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
+              <div className={styles["edit-mode-container"]}>
+                <div className={styles["avatar-box"]}>
+                  <img
+                    ref={avatarImageRef}
+                    src={profilePreview || "/default-profile.png"}
+                    className={styles.avatar}
+                    alt="프로필 이미지"
+                  />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    labelHide
+                    errorTextHide
+                  />
+                </div>
 
-          <div className={styles["input-disabled-container"]}>
-            <label className={styles.label}>비밀번호</label>
-            <Input
-              value="고객센터를 통해 변경해주세요."
-              disabled
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
+                <div className={styles["input-container"]}>
+                  <div className={styles["input-wrapper"]}>
+                  <div className={`${styles["input-content"]} ${styles["input-disabled"]}`}>
+                      <label className={styles.label}>아이디</label>
+                      {isDark ? (
+                        <Input
+                          value={user?.email || ""}
+                          disabled
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value={user?.email || ""}
+                          disabled
+                          labelHide
+                          errorTextHide
+                      />
+                      )}
+                    </div>
+                    <div className={`${styles["input-content"]} ${styles["input-disabled"]}`}>
+                      <label className={styles.label}>비밀번호</label>
+                      {isDark ? (
+                        <Input
+                          value="고객센터를 통해 변경해주세요."
+                          disabled
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value="고객센터를 통해 변경해주세요."
+                          disabled
+                          labelHide
+                          errorTextHide
+                      />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>닉네임</label>
+                      {isDark ? (
+                        <Input
+                          value={nickname}
+                          onChange={(e) => setNickname(e.target.value)}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value={nickname}
+                          onChange={(e) => setNickname(e.target.value)}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>성별</label>
+                      <div className={styles["gender-content"]}>
+                        {isDark ? (
+                          <IsDarkSecondaryButton
+                            size="medium"
+                            onClick={() => setGender("M")}
+                            className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+                          >
+                            남자
+                            {gender === "M" && (
+                            <span className={styles["icon-box"]}>
+                              <SVGIcon width={20} height={20} iconId="iconCheck" />
+                            </span>
+                          )}
+                          </IsDarkSecondaryButton>
+                        ) : (
+                          <SecondaryMiniButton
+                            onClick={() => setGender("M")}
+                            className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+                          >
+                            취소하기
+                          </SecondaryMiniButton>
+                        )}
+                        {isDark ? (
+                          <IsDarkSecondaryButton
+                            size="medium"
+                            onClick={() => setGender("F")}
+                            className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+                          >
+                            여자
+                            {gender === "F" && (
+                              <span className={styles["icon-box"]}>
+                                <SVGIcon width={20} height={20} iconId="iconCheck" />
+                              </span>
+                            )}
+                          </IsDarkSecondaryButton>
+                        ) : (
+                          <SecondaryMiniButton
+                            onClick={() => setGender("F")}
+                            className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+                          >
+                            여자
+                            {gender === "F" && (
+                              <span className={styles["icon-box"]}>
+                                <SVGIcon width={20} height={20} iconId="iconCheck" />
+                              </span>
+                            )}
+                          </SecondaryMiniButton>
+                        )}
+                      </div>
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>생년월일</label>
+                      {isDark ? (
+                        <Input
+                          value={dob}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const formattedValue = inputValue
+                              .replace(/[^0-9]/g, "")
+                              .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                            setDob(formattedValue);
+                          }}
+                          placeholder="yyyy-mm-dd"
+                          max={10}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                        value={dob}
+                        onChange={(e) => {
+                          const inputValue = e.target.value;
+                          const formattedValue = inputValue
+                            .replace(/[^0-9]/g, "")
+                            .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                          setDob(formattedValue);
+                        }}
+                        placeholder="yyyy-mm-dd"
+                        max={10}
+                        labelHide
+                        errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>키</label>
+                      {isDark ? (
+                        <Input
+                          type="number"
+                          value={height.toString()}
+                          onChange={(e) => setHeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          type="number"
+                          value={height.toString()}
+                          onChange={(e) => setHeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>몸무게</label>
+                      {isDark ? (
+                        <Input
+                          type="number"
+                          value={weight.toString()}
+                          onChange={(e) => setWeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          type="number"
+                          value={weight.toString()}
+                          onChange={(e) => setWeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
 
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>닉네임</label>
-            <Input
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
+                {isDark ? (
+                    <IsDarkPrimaryButton
+                      size="large"
+                      onClick={handleSaveChanges}
+                    >
+                    수정완료
+                    </IsDarkPrimaryButton>
+                  ) : (
+                    <PrimaryLargeButton
+                    onClick={handleSaveChanges}
+                    >
+                    수정완료
+                    </PrimaryLargeButton>
+                  )}
+              </div>
 
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>성별</label>
-            <div className={styles["gender-container"]}>
-              <SecondaryMiniButton
-                onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
-              >
-                남자
-                {gender === "M" && (
-                  <span className={styles["icon-box"]}>
-                    <SVGIcon width={20} height={20} iconId="iconCheck" />
-                  </span>
-                )}
-              </SecondaryMiniButton>
-
-              <SecondaryMiniButton
-                onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
-              >
-                여자
-                {gender === "F" && (
-                  <span className={styles["icon-box"]}>
-                    <SVGIcon width={20} height={20} iconId="iconCheck" />
-                  </span>
-                )}
-              </SecondaryMiniButton>
-            </div>
-          </div>
-
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>생년월일</label>
-            <Input
-              value={dob}
-              onChange={(e) => {
-                const inputValue = e.target.value;
-                const formattedValue = inputValue
-                  .replace(/[^0-9]/g, "")
-                  .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-                setDob(formattedValue);
-              }}
-              placeholder="yyyy-mm-dd"
-              max={10}
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
-
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>키</label>
-            <Input
-              type="number"
-              value={height.toString()}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
-
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>몸무게</label>
-            <Input
-              type="number"
-              value={weight.toString()}
-              onChange={(e) => setWeight(Number(e.target.value))}
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
-
-          <br />
-          <br />
-          <br />
-
-          <PrimaryLargeButton onClick={handleSaveChanges}>수정완료</PrimaryLargeButton>
-        </div>
       ) : (
         <div>
-          <div className={styles["avatar-container"]}>
+          <div className={styles["avatar-box"]}>
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
@@ -310,22 +416,28 @@ export function Component() {
             />
           </div>
 
-          <h1 className={styles["main-nickname"]}>
+          <h1 className={`body-xl-bold ${styles["main-nickname"]}`}>
             {user?.nickname || "사용자 이름"}
           </h1>
 
           <div className={styles["profile-stats-container"]}>
-            <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
+            <div className={styles["stat-item"]}>{user?.weight || 0}
+              <span className={`body-sm-bold ${styles["desc"]}`}>kg</span>
+            </div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>{user?.height || 0}cm</div>
+            <div className={styles["stat-item"]}>{user?.height || 0}
+              <span className={`body-sm-bold ${styles["desc"]}`}>cm</span>
+            </div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
+            <div className={styles["stat-item"]}>{age || "알 수 없음"}
+              <span className={`body-sm-bold ${styles["desc"]}`}>세</span>
+            </div>
           </div>
 
           <div className={styles["interests-container"]}>
             <div className={styles["interest-header"]}>
-              <h3 className={styles["interest-title"]}>관심 운동</h3>
-              <span className={styles["edit-interest"]} onClick={() => setShowInterestModal(true)}>수정</span>
+              <h3 className={`body-md-bold ${styles["interest-title"]}`}>관심 운동</h3>
+              <span className={`body-sm-bold ${styles["edit-interest"]}`} onClick={() => setShowInterestModal(true)}>수정하기</span>
             </div>
             <div className={styles["interest-list"]}>
               {selectedInterests.map((interest) => (
@@ -335,7 +447,7 @@ export function Component() {
                     alt={interest} 
                     className={styles["interest-image"]}
                   />
-                  <span>{interest}</span>
+                  <span className={`body-sm-bold ${styles["interest-tit"]}`}>{interest}</span>
                 </div>
               ))}
             </div>
@@ -343,13 +455,12 @@ export function Component() {
 
           <div className={styles["divider-line"]}></div>
 
-
           {/* 다크모드 */}
  
-            <h3 className={styles["interest-title"]}>다크 모드</h3>
+          <h3 className={`body-md-bold ${styles["interest-title"]}`}>다크 모드</h3>
          
           <div className={styles["darkmode-toggle"]}>
-            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
+            <DarkModeToggleButton />
           </div>
 
           {/* 구분선 추가 */}
@@ -358,26 +469,29 @@ export function Component() {
           {/* 계정 관련 섹션 */}
 
           <div className={styles["account-section"]}>
-            <h3>계정</h3>
-            <button onClick={handleLogout}>로그아웃</button>
+            <h3 className={`body-md-bold ${styles["interest-title"]}`}>계정</h3>
+            <button onClick={handleLogout} className="body-sm-bold">로그아웃</button>
             <br />
-            <button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
+            <button onClick={() => navigate("/delete-account")} className="body-sm-bold">회원 탈퇴</button>
             <br />
           </div>
         </div>
-      )}
+        
+        )}
 
-      {showInterestModal && (
-        <InterestModal
-          userInterests={selectedInterests}
-          onSave={(newInterests) => {
-            setSelectedInterests(newInterests);
-            setShowInterestModal(false);
-          }}
-          onCancel={() => setShowInterestModal(false)}
-        />
-      )}
+        {showInterestModal && (
+            <InterestModal
+              userInterests={selectedInterests}
+              onSave={(newInterests) => {
+                setSelectedInterests(newInterests);
+                setShowInterestModal(false);
+              }}
+              onCancel={() => setShowInterestModal(false)}
+            />
+          )}
+      </div>
     </div>
+  </div>
   );
 }
 
