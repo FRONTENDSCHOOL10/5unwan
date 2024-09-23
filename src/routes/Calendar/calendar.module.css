@@ -14,7 +14,6 @@
   }
 }
 
-
 .calendar-container {
   margin: 0 auto;
   max-width: 26.25rem;
@@ -64,26 +63,32 @@
 /* 캘린더 관련 스타일링 */
 .calendar {
   margin: 1.875rem 0;
+  table {
+    /* min-width: 280px; */
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
-.calendar,
+/* .calendar,
 .rdp {
   --rdp-cell-size: calc((100vw - 2.5rem) / 7);
   --rdp-caption-font-size: 0.75rem;
-}
+} */
 
 /* 캘린더 < 날짜/연도 > */
 .calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.15625rem;
+  margin-bottom: .75rem;
 }
 
 .month {
   align-self: stretch;
   color: var(--grayscale-700);
   text-align: center;
+  margin-bottom: .75rem;
 }
 
 .year {
@@ -92,6 +97,7 @@
   text-align: center;
   font-size: 0.75rem;
   line-height: 1rem;
+  margin-bottom: .75rem;
 }
 
 /* 캘린더 주(월~일) */
@@ -106,6 +112,7 @@
   line-height: 1rem;
   font-style: normal;
   font-weight: bold;
+  margin-bottom: .75rem;
 }
 
 .week-weekdays {
@@ -191,7 +198,7 @@
     line-height: 0.875rem;
     letter-spacing: 0.046875rem;
     border-radius: 0.1875rem;
-    background: var(--grayscale-400);
+    background: var(--grayscale-300);
   }
   
   .workout-time {
@@ -201,7 +208,6 @@
     font-weight: bold;
     line-height: 0.875rem;
     letter-spacing: 0.046875rem;
-  
     margin-bottom: 0.625rem;
   }
   
@@ -209,33 +215,43 @@
     color: var(--grayscale-800);
     text-overflow: ellipsis;
     margin-bottom: 0.625rem;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    overflow: hidden;
   }
   
   .workout-content {
     color: var(--grayscale-800);
     font-size: 0.8125rem;
-    font-weight: "medium";
     line-height: 1.1875rem;
     letter-spacing: 0.0625rem;
     margin-bottom: 0.625rem;
+    word-break: break-all;
+  }
+
+  .workout-box {
+    object-fit: cover;
+    overflow: hidden
+    widh
+    ;
   }
   
   .workout-image {
     width: 100%;
+
     border-radius: var(--rounded-md);
   }
 }
 
 
 /* 다크모드 스타일링 */
-
-svg {
-  color: var(--white);
-}
-
 .is-dark {
   .attendance-container {
     background-color: var(--grayscale-800);
+  }
+
+  svg {
+    color: var(--white);
   }
 
   .number {

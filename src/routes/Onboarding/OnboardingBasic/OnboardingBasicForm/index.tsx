@@ -64,7 +64,7 @@ export function OnboardingBasicForm({
   };
 
   const handleGenderChange = (value: User["gender"], e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault(); // 폼 제출 방지
+    e.preventDefault();
     setFormData((prevFormData) => ({ ...prevFormData, gender: value }));
   };
 
