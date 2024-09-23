@@ -10,7 +10,7 @@ export function Component() {
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
   const handleGoBack = () => {
-    navigate(-1);
+    navigate(-1); // 이전 페이지로 돌아감
   };
 
   return (
@@ -20,6 +20,7 @@ export function Component() {
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
           leftonClick={handleGoBack}
+          // rightIconId={"iconArrowsRight"}
           rightIconVisible
         />
       )}

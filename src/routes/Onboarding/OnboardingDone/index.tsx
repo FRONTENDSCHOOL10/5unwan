@@ -33,6 +33,7 @@ export function Component() {
               오늘도 득근득근!
               ` }}
             />
+            {/* <Link to="/">홈으로 가기</Link> */}
             <SecondaryLargeButton to="/">
               홈으로 가기
             </SecondaryLargeButton>

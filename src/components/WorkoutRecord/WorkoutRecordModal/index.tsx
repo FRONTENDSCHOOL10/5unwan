@@ -11,7 +11,7 @@ import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import { useToday, useWorkouts } from "@/hooks/useWorkouts";
 
 export function WorkoutRecordModal() {
-  const { isDark } = useDarkMode(); // Use DarkMode context
+  const { isDark } = useDarkMode();
   const [modalOpen, setModalOpen] = useState(false);
 
   const { today } = useToday();
