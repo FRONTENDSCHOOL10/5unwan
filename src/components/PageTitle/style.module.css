@@ -3,3 +3,7 @@
     margin-bottom: 2.5rem;
     word-break: keep-all;
 }
+
+.is-dark {
+    color: var(--white);
+}
