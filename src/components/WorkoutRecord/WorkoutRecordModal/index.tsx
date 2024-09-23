@@ -42,7 +42,7 @@ export function WorkoutRecordModal() {
           onClick={handleOpen}
           type="button"
           disabled={workouts.length >= 3}
-          className={iconstyles["gnb-icon-edit"]}
+          className={`${iconstyles["gnb-icon-edit"]} ${workouts.length >= 3 ? styles["button-disabled"] : ""}`}
         >
           <SVGIcon
             iconId="iconSignatureSmall"
