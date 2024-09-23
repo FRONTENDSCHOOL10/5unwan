@@ -1,20 +1,13 @@
-.wrapper {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
 .container {
-  padding: 0 1.25rem;
+  padding: 0 var(--space-5);
 }
 
 .logo {
-  margin: 0 auto;
   max-width: 26.25rem;
-  margin-bottom: 10.3125rem;
-  margin-top: 2.5rem;
+  margin: 0 auto;
+  padding: 5.125rem 0 10.3125rem 0;
   
-  figure {
+  .logo-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,11 +15,17 @@
     gap: var(--space-3);
 
     img {
+      display: block;
+      background-image: url('/favicon.webp');
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
       width: 5rem;
       height: 5rem;
+      border-radius: var(--rounded-lg);
     }
 
-    figcaption {
+    span {
       color: var(--black);
     }
   }

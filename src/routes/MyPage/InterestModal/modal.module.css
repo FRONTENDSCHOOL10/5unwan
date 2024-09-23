@@ -16,20 +16,16 @@
 	height: 0.375rem;
 }
 
-/* 스크롤바의 배경 */
 ::-webkit-scrollbar-track {
 	background: var(--grayscale-200);
 	border-radius: var(--rounded-full);
 }
 
-/* 스크롤바의 슬라이더 */
 ::-webkit-scrollbar-thumb {
 	background: var(--grayscale-400);
 	border-radius: var(--rounded-full);
 	cursor: pointer;
 }
-
-/* 슬라이더에 마우스를 올렸을 때의 색상 */
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--grayscale-700);
 }
@@ -66,7 +62,7 @@
 	}
   }
   
-  .image-box.selected { /* 선택된 관심사 스타일 */
+  .image-box.selected {
 	border: 0.0625rem solid var(--primary);
 	box-shadow: var(--box-shadow);
   }
@@ -113,8 +109,8 @@
 
 .button-group {
 	display: flex;
-	justify-content: center; /* 버튼들을 가운데로 정렬 */
-	gap: 1rem; /* 버튼들 사이 간격 */
+	justify-content: center; 
+	gap: 1rem;
 	margin-top: var(--space-5);
 	padding: var(--space-3);
   }
@@ -128,20 +124,20 @@
 		color: var(--grayscale-300);
 	}
 
-	/* 스크롤바의 배경 */
+
 	::-webkit-scrollbar-track {
 		background: var(--grayscale-800);
 		border-radius: var(--rounded-full);
 	}
 
-	/* 스크롤바의 슬라이더 */
+
 	::-webkit-scrollbar-thumb {
 		background: var(--grayscale-600);
 		border-radius: var(--rounded-full);
 		cursor: pointer;
 	}
 
-	/* 슬라이더에 마우스를 올렸을 때의 색상 */
+
 	::-webkit-scrollbar-thumb:hover {
 		background: var(--grayscale-400);
 	}
