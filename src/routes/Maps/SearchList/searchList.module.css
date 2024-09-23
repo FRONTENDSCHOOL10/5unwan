@@ -31,6 +31,11 @@
 .result-list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  height: auto;
+  padding: 0 var(--space-5);
 }
 
 .result-items {
@@ -39,7 +44,6 @@
   align-items: center;
   width: 100%;
   height: 3.75rem;
-  padding: 0 1.25rem;
   border-bottom: 0.0625rem solid var(--grayscale-300);
   gap: var(--space-2);
   cursor: pointer;
@@ -74,6 +78,7 @@
     flex-grow: 0;
     width: 1.875rem;
     height: 1.875rem;
+    font-size: var(--medium);
     border-radius: 50%;
     order: -1;
     background-color: var(--secondary);

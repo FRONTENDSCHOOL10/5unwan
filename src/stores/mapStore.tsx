@@ -22,6 +22,7 @@ interface Store {
   bookmarkList: Marker[];
   isDropDown: boolean,
   hasSearchResults: boolean,
+  searchTypes: string[];
 }
 
 interface Action {
@@ -95,6 +96,8 @@ const useStore = create<Store & Action>((set) => {
     
     hasSearchResults: false,
     setHasSearchResults: (value) => set(() => ({ hasSearchResults: value })),
+
+    searchTypes: ["헬스장", "수영장", "필라테스", "요가", "배드민턴", "클라이밍", "테니스", "런닝"],
   };
 });
 

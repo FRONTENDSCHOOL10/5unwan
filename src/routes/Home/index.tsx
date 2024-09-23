@@ -5,7 +5,6 @@ import { getExercises } from "@/api/pocketbase";
 import { useExercisesQuery } from "@/hooks/useExercisesQuery";
 import styles from "./home.module.css";
 import homeStore from "@/stores/homeStore";
-// > components
 import UserInfo from "@/routes/Home/UserInfo";
 import Article from "@/routes/Home/Article";
 import ExerciseType from "@/routes/Home/ExerciseTypes";
@@ -35,9 +34,11 @@ export function Component() {
 
   return (
     <div className={styles.container}>
-      <UserInfo user={user} />
-      <ExerciseType user={user} />
-      <Article />
+      <div className={styles.content}>
+        <UserInfo user={user} />
+        <ExerciseType user={user} />
+        <Article />
+      </div>
     </div>
   );
 }
