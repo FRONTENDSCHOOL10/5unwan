@@ -13,6 +13,7 @@ import { ko } from "date-fns/locale";
 import { getPbImageUrl } from "@/api/pocketbase";
 import SVGIcon from "@/components/SVGicon";
 import styles from "./calendar.module.css";
+import { SpinnerPortal } from "@/components/SpinnerPortal";
 
 export function Component() {
   const {
@@ -22,7 +23,7 @@ export function Component() {
     currentMonthEnd,
     setCurrentMonthEnd,
   } = useToday();
-  const { workouts } = useWorkouts({
+  const { workouts, isLoading } = useWorkouts({
     startDay: currentMonthStart
       ? format(currentMonthStart, "yyyy-MM-dd")
       : "2024-08-01",
@@ -91,6 +92,9 @@ export function Component() {
     (Object.keys(workoutsByDay).length / currentMonthEnd.getDate()) * 100
   );
 
+  if (isLoading) {
+    return <SpinnerPortal />;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.content}>

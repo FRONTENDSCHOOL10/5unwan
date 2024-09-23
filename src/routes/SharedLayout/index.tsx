@@ -31,10 +31,12 @@ export default function SharedLayout() {
   // const handleGoBack = () => {
   //   navigate(-1); // 이전 페이지로 돌아감
   // };
-  
+
   return (
-    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
-    {/* header */}
+    <div
+      className={classNames(styles.container, { [styles["is-dark"]]: isDark })}
+    >
+      {/* header */}
       {/* {!hideHeader && 
         <Header
           className={styles.header}
@@ -57,8 +59,12 @@ export default function SharedLayout() {
                     height={20}
                     color={
                       matches.some((match) => match.pathname === "/home")
-                        ? isDark ? "#ffffff" : "#212121"
-                        : isDark ? "#757575" : "#9E9E9E"
+                        ? isDark
+                          ? "#ffffff"
+                          : "#212121"
+                        : isDark
+                        ? "#757575"
+                        : "#9E9E9E"
                     }
                   />
                 </figure>
@@ -73,8 +79,12 @@ export default function SharedLayout() {
                     height={20}
                     color={
                       matches.some((match) => match.pathname === "/calendar")
-                        ? isDark ? "#ffffff" : "#212121"
-                        : isDark ? "#757575" : "#9E9E9E"
+                        ? isDark
+                          ? "#ffffff"
+                          : "#212121"
+                        : isDark
+                        ? "#757575"
+                        : "#9E9E9E"
                     }
                   />
                 </figure>
@@ -92,8 +102,12 @@ export default function SharedLayout() {
                     height={20}
                     color={
                       matches.some((match) => match.pathname === "/maps")
-                        ? isDark ? "#ffffff" : "#212121"
-                        : isDark ? "#757575" : "#9E9E9E"
+                        ? isDark
+                          ? "#ffffff"
+                          : "#212121"
+                        : isDark
+                        ? "#757575"
+                        : "#9E9E9E"
                     }
                   />
                 </figure>
@@ -108,8 +122,12 @@ export default function SharedLayout() {
                     height={20}
                     color={
                       matches.some((match) => match.pathname === "/my-page")
-                        ? isDark ? "#ffffff" : "#212121"
-                        : isDark ? "#757575" : "#9E9E9E"
+                        ? isDark
+                          ? "#ffffff"
+                          : "#212121"
+                        : isDark
+                        ? "#757575"
+                        : "#9E9E9E"
                     }
                   />
                 </figure>

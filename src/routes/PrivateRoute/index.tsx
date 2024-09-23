@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { Spinner } from "@/components/Spinner";
 import { useCurrentUser } from "@/hooks/user";
 import { User } from "@/api/pocketbase";
+import { SpinnerPortal } from "@/components/SpinnerPortal";
 
 export type UserContext = {
   user: User;
@@ -10,7 +10,7 @@ export type UserContext = {
 export function Component() {
   const { isLoading, user } = useCurrentUser();
   return isLoading ? (
-    <Spinner />
+    <SpinnerPortal />
   ) : user ? (
     <Outlet context={{ user }} />
   ) : (
