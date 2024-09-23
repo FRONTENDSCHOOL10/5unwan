@@ -70,21 +70,8 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     const day = today;
     const { category, start, end, title, content, newPhotoFile } = formData;
 
-    if (
-      !user ||
-      !day ||
-      !category.length ||
-      !start ||
-      !end ||
-      !title ||
-      !content
-    ) {
-      alert("모든 내용을 입력해주세요.");
-      return;
-    }
-
     const newWorkout: NewWorkout = {
-      user,
+      user: user!,
       day,
       category: category.join(", "),
       start,
