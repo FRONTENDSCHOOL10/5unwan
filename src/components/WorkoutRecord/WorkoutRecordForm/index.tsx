@@ -349,7 +349,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             !formData.end ||
             !formData.title ||
             !formData.content ||
-            !formData.content ||
+            !formData.newPhotoFile ||
             createWorkoutMutation.isPending
           }
         >
