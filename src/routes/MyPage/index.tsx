@@ -463,7 +463,10 @@ export function Component() {
             <DarkModeToggleButton />
           </div>
 
+          {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
+
+          {/* 계정 관련 섹션 */}
 
           <div className={styles["account-section"]}>
             <h3 className={`body-md-bold ${styles["interest-title"]}`}>계정</h3>
