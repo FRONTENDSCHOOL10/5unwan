@@ -16,7 +16,7 @@
 
     img {
       display: block;
-      background-image: url('/public/favicon.webp');
+      background-image: url('/favicon.webp');
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
