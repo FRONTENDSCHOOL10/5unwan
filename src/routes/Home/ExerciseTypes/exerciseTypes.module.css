@@ -39,13 +39,13 @@
     border: 0.0625rem solid var(--grayscale-700);
     
     &.is-active {
-      background-color: var(--primary);
+      background-color: var(--white);
       border: 0.0625rem solid var(--grayscale-800);
-      color: var(--white);
+      color: var(---grayscale-800);
     }
 
     &:hover, &:focus, &:active {
-      background-color: var(--primary);
+      background-color: var(--grayscale-600);
       color: var(--white);
     }
   }
