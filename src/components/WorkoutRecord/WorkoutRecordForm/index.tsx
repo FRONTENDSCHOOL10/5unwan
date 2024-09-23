@@ -295,16 +295,6 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               )}
             </figure>
 
-            <input
-              ref={fileInputRef}
-              id={`${id}-newPhotoFile`}
-              type="file"
-              name="newPhotoFile"
-              accept=".jpg, .webp, .svg, .gif, .webp"
-              aria-label="운동기록 사진 업로드"
-              onChange={handleUpdatePhoto}
-              style={{ display: "none" }}
-            />
             {isDark ? (
               <Input
               ref={fileInputRef}
