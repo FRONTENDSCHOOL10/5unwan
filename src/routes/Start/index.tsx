@@ -7,12 +7,12 @@ export function Component() {
   return (
     <section className={styles.container}>
       <h1 className={styles.logo}>
-        <div className={styles["logo-wrapper"]}>
+        <div className={styles["logo-wrapper"]} role="group">
           <img rel="preload" alt="" />
           <span className="body-md-bold">나만의 득근기록</span>
         </div>
       </h1>
-      <div className={styles["login-group"]}>
+      <div className={styles["login-group"]} role="group">
         <KakaoLogin type="button" />
         <PrimaryLargeButton to="/login" type="button">
           로그인
