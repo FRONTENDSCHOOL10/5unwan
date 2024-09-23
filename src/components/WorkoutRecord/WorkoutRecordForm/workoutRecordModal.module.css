@@ -108,6 +108,10 @@ input, textarea {
   }
 
   .list-photo {
+    input {
+      display: none;
+    }
+
     section {
       .image-container {
         background-color: var(--grayscale-200);
@@ -264,14 +268,15 @@ input, textarea {
 
   .list-photo {
     section {
+      
       .image-container {
         background-color: var(--grayscale-800);
         border: .0625rem solid var(--grayscale-800);
-
+        
         svg {
           color: var(--grayscale-600);
         }
-
+        
         &:hover, &:focus, &:active {
           background-color: var(--grayscale-600);
           border: .0625rem solid var(--grayscale-700);
