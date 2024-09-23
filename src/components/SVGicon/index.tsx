@@ -14,7 +14,8 @@ export type SvgIconId =
   | "iconSearch"
   | "iconAdd"
   | "iconKakao"
-  | "iconEllipse";
+  | "iconEllipse"
+  | "iconFavorite";
 
 interface SVGIconProps {
   iconId?: SvgIconId | string;
