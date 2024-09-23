@@ -18,7 +18,6 @@ export default function SearchForm() {
   function searchSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     handleSearchList();
-    console.log('검색어 :', search);
   }
   
   function searchContent(e: ChangeEvent<HTMLInputElement>) {
@@ -26,7 +25,7 @@ export default function SearchForm() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.wrapper}>
       <form onSubmit={searchSubmit}>
         <Input
           type="search"

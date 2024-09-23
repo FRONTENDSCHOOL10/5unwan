@@ -1,6 +1,6 @@
-.container {
+.wrapper {
   position: absolute;
-  top: 1.25rem;
+  top: 4.8125rem;
   right: 50%;
   left: 50%;
   transform: translate(-50%, 0);
