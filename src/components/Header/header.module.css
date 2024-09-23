@@ -1,10 +1,13 @@
+.container {
+    padding: 0.9375rem 1.25rem;
+}
+
 .header {
     height: var(--space-12-half);
     width: 100%;
     background-color: var(--white);
     display: flex;
     justify-content: space-between;
-    padding: 0.9375rem 1.25rem;
     max-width: 26.25rem;
     margin: 0 auto;
 
