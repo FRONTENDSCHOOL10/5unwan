@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { interestOptions } from "@/utils/onboarding";
 import styles from "./modal.module.css";
-import classNames from "classnames";
 import { PrimaryMediumButton } from "@/components/Buttons/PrimaryButton";
-import { SecondaryMediumButton } from "@/components/Buttons/SecondaryButton";
-import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimaryButton";
-import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
-import PageTitle from "@/components/PageTitle";
 import SVGIcon from "@/components/SVGicon";
-import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 export type InterestModalProps = {
   onSave: (selectedInterests: string[]) => void;
@@ -17,24 +11,16 @@ export type InterestModalProps = {
 };
 
 export default function InterestModal({ onSave, onCancel, userInterests }: InterestModalProps) {
-	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || ""); // 1개 제한
+	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || "");
   
 	const handleSave = () => {
-	  onSave([selectedInterest]); // 하나만 저장
+	  onSave([selectedInterest]);
 	};
 
-	const { isDark } = useDarkMode(); // 다크모드
-
 	return (
-		<div className={classNames(styles["modal-overlay"], { [styles["is-dark"]]: isDark })}>
+		<div className={styles["modal-overlay"]}>
 		  <div className={styles["modal"]}>
-			<PageTitle
-                large
-                text={{ __html: `관심있는 운동을
-                <br />
-                선택해 주세요.
-                ` }}
-              />
+			<h2>관심있는 운동을 선택해 주세요.</h2>
 			<div className={styles["input-group"]}>
 			  {interestOptions.map((interestOption) => (
 				<div key={interestOption} className={styles["interest-option"]}>
@@ -59,41 +45,14 @@ export default function InterestModal({ onSave, onCancel, userInterests }: Inter
 					  </span>
 					)}
 				  </div>
-				  <p className={`body-md-medium ${styles["interests-tit"]}`}>{interestOption}</p>
+				  <p className={"body-md-medium"}>{interestOption}</p>
 				</div>
 			  ))}
 			</div>
 			<div className={styles["button-group"]}>
-				{isDark ? (
-					<IsDarkPrimaryButton
-						size="medium"
-						onClick={handleSave}
-					>
-					저장
-					</IsDarkPrimaryButton>
-				) : (
-					<PrimaryMediumButton
-						onClick={handleSave}
-					>
-					저장
-					</PrimaryMediumButton>
-				)}
-
-				{isDark ? (
-					<IsDarkSecondaryButton
-						size="medium"
-						onClick={onCancel}
-					>
-					취소
-					</IsDarkSecondaryButton>
-				) : (
-					<SecondaryMediumButton
-						onClick={onCancel}
-					>
-					취소
-					</SecondaryMediumButton>
-				)}
-			</div>
+  <PrimaryMediumButton onClick={handleSave}>저장</PrimaryMediumButton>
+  <PrimaryMediumButton onClick={onCancel}>취소</PrimaryMediumButton>
+</div>
 		  </div>
 		</div>
 	  );

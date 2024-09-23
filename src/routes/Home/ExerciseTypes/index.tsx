@@ -2,8 +2,6 @@ import homeStore from '@/stores/homeStore';
 import styles from "./exerciseTypes.module.css";
 import { User, getExercise } from '@/api/pocketbase';
 import { useState, useEffect } from 'react';
-import classNames from "classnames";
-import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 
 interface userProps {
   user: User;
@@ -17,7 +15,7 @@ function getTypes(type: string) {
       return "요가";
     case "badminton":
       return "배드민턴";
-    case "climbing":
+    case "sport-climbing":
       return "클라이밍";
     case "tennis":
       return "테니스";
@@ -31,7 +29,6 @@ function getTypes(type: string) {
 export default function ExerciseType({ user }: userProps) {
   const { isActive, setIsActive, exercises, setFiltered } = homeStore();
   const [newTypeList, setNewTypeList] = useState<string[]>([]);
-  const { isDark } = useDarkMode();
 
   function sortTypeList() {
     const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
@@ -42,7 +39,7 @@ export default function ExerciseType({ user }: userProps) {
     }
     setNewTypeList(typeList);
   }
-
+  
   useEffect(() => {
     sortTypeList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,19 +64,17 @@ export default function ExerciseType({ user }: userProps) {
   }
 
   return (
-    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
-      <ul className={`${styles["exercise-type-list"]} no-scroll`}>
-        <li className={`${styles["exercise-type-item"]} ${isActive === "" ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick("")}>
-          전체
-        </li>
-        {
-          newTypeList.map((type, index) => (
-            <li key={index} className={`${styles["exercise-type-item"]} ${isActive === type ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick(type)}>
-              { getTypes(type) }
-            </li>
-          ))
-        }   
-      </ul>
-    </div>
+    <ul className={`${styles["exercise-type-list"]} no-scroll`}>
+      <li className={`${styles["exercise-type-item"]} ${isActive === "" ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick("")}>
+        전체
+      </li>
+      {
+        newTypeList.map((type, index) => (
+          <li key={index} className={`${styles["exercise-type-item"]} ${isActive === type ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick(type)}>
+            { getTypes(type) }
+          </li>
+        ))
+      }   
+    </ul>
   );
 }

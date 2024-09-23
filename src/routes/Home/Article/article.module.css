@@ -41,9 +41,3 @@
   line-height: 120%;
   color: var(--primary);
 }
-
-.is-dark {
-  .title {
-    color: var(--white);
-  }
-}

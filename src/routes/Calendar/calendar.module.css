@@ -1,23 +1,13 @@
 .container {
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  
-  .wrapper {
-    padding: 0 1.25rem;
-  }
-  
-  .content {
-    margin: 0 auto;
-    max-width: 26.25rem;
-    margin-top: 2.5rem;
-  }
+  padding: 0 1.25rem;
+  margin-top: 1.875rem;
 }
 
-
-.calendar-container {
-  margin: 0 auto;
+.content {
   max-width: 26.25rem;
+  margin: 0 auto;
 }
 
 .title {
@@ -37,7 +27,8 @@
   justify-content: space-between;
 }
 
-.attendance-container {
+.attendance-container,
+span {
   text-align: right;
 }
 
@@ -48,6 +39,7 @@
 .progress-container {
   height: 0.1875rem;
   flex-shrink: 0;
+
   width: 100%;
   border-radius: 0.1875rem;
   background: var(--grayscale-400);
@@ -63,7 +55,7 @@
 
 /* 캘린더 관련 스타일링 */
 .calendar {
-  margin: 1.875rem 0;
+  margin: 1rem 0;
 }
 
 .calendar,
@@ -82,13 +74,13 @@
 
 .month {
   align-self: stretch;
-  color: var(--grayscale-700);
+  color: #222b45;
   text-align: center;
 }
 
 .year {
   align-self: stretch;
-  color: var(--grayscale-500);
+  color: #8f9bb3;
   text-align: center;
   font-size: 0.75rem;
   line-height: 1rem;
@@ -109,7 +101,7 @@
 }
 
 .week-weekdays {
-  color: var(--grayscale-500);
+  color: #8f9bb3;
 }
 
 .week-weekend {
@@ -142,12 +134,12 @@
   height: 1.875rem;
   border-radius: 0.625rem;
   background-color: var(--primary);
-  padding-bottom: .375rem;
+  padding-bottom: 0.25rem;
 }
 
 .day {
   display: contents;
-  color: var(--grayscale-700);
+  color: #222b45;
   text-align: center;
   font-size: 0.75rem;
   line-height: 1.25rem;
@@ -156,7 +148,7 @@
 
 .day-disabled {
   display: contents;
-  color: var(--grayscale-400);
+  color: #8f9bb3;
   text-align: center;
   font-size: 0.75rem;
   line-height: 1.25rem;
@@ -169,138 +161,54 @@
 }
 
 /* 운동기록 */
-.workout-container {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  
-  .workout-wrapper {
-    margin: 0 auto;
-    max-width: 26.25rem;
-    margin-bottom: 1.875rem;
-  }
-  
-  .workout-label {
-    display: block;
-    width: fit-content;
-    padding: 0.125rem 0.375rem;
-    margin-bottom: 0.625rem;
-    color: var(--grayscale-700);
-    font-size: 0.5rem;
-    font-weight: bold;
-    line-height: 0.875rem;
-    letter-spacing: 0.046875rem;
-    border-radius: 0.1875rem;
-    background: var(--grayscale-400);
-  }
-  
-  .workout-time {
-    display: inline-block;
-    color: var(--grayscale-700);
-    font-size: 0.75rem;
-    font-weight: bold;
-    line-height: 0.875rem;
-    letter-spacing: 0.046875rem;
-  
-    margin-bottom: 0.625rem;
-  }
-  
-  .workout-title {
-    color: var(--grayscale-800);
-    text-overflow: ellipsis;
-    margin-bottom: 0.625rem;
-  }
-  
-  .workout-content {
-    color: var(--grayscale-800);
-    font-size: 0.8125rem;
-    font-weight: "medium";
-    line-height: 1.1875rem;
-    letter-spacing: 0.0625rem;
-    margin-bottom: 0.625rem;
-  }
-  
-  .workout-image {
-    width: 100%;
-    border-radius: var(--rounded-md);
-  }
+.workout {
+  padding: 1.25rem 0;
 }
 
+.workout-label {
+  display: block;
+  width: fit-content;
+  padding: 0.0625rem 0.3125rem;
+  margin-bottom: 0.625rem;
 
-/* 다크모드 스타일링 */
+  color: #727272;
+  font-size: 0.5rem;
+  font-weight: bold;
+  line-height: 0.875rem;
+  letter-spacing: 0.046875rem;
 
-svg {
-  color: var(--white);
+  border-radius: 0.1875rem;
+  background: var(--grayscale-400);
 }
 
-.is-dark {
-  .attendance-container {
-    background-color: var(--grayscale-800);
-  }
+.workout-time {
+  display: inline-block;
+  color: #727272;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 0.875rem;
+  letter-spacing: 0.046875rem;
 
-  .number {
-    color: var(--white);
-  }
-  
-  .attendance {
-    color: var(--grayscale-500);
-  }
-  
-  .progress-container {
-    background: var(--grayscale-700);
-  }
-  
-  .progress-bar {
-    background-color: var(--white);
-  }
-  
-  .month {
-    color: var(--white);
-  }
+  margin-bottom: 0.625rem;
+}
 
-  .week-weekdays {
-    color: var(--grayscale-400);
-  }
-  
-  .week-weekend {
-    color: var(--white);
-  }
+.workout-title {
+  color: #222b45;
+  text-overflow: ellipsis;
 
-  .day-btn:hover {
-    background-color: var(--grayscale-800);
-  }
-  
-  .day-btn-selected {
-    background-color: var(--white);
-  }
-  
-  .day {
-    color: var(--white);
-  }
-  
-  .day-disabled {
-    color: var(--grayscale-700);
-  }
-  
-  .day-btn-selected .day {
-    color: var(--primary);
-  }
+  margin-bottom: 0.625rem;
+}
 
-  .workout-label {
-    color: var(--grayscale-300);
-    background: var(--grayscale-800);
-  }
+.workout-content {
+  color: var(--grayscale-800);
+  font-size: 0.8125rem;
+  font-weight: "medium";
+  line-height: 1.1875rem;
+  letter-spacing: 0.0625rem;
 
-  .workout-time {
-    color: var(--grayscale-400);
-  }
+  margin-bottom: 0.625rem;
+}
 
-  .workout-title {
-    color: var(--white);
-  }
-
-  .workout-content {
-    color: var(--white);
-  }
-
+.workout-image {
+  width: 100%;
 }

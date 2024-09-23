@@ -31,7 +31,7 @@
 }
 
 .checkbox:checked + .label {
-  background-color: var(--secondary);
+  background-color: var(--success); /* 활성 상태 색상 */
 }
 
 .checkbox:checked + .label .switch {
