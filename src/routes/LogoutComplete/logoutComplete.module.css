@@ -1,0 +1,18 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start; 
+	height: 100vh;
+	text-align: left;
+	padding: var(--large) var(--medium);
+	padding-top: var(--space-15-half);
+}
+
+.message {
+	font-weight: var(--font-weight-extraBold); 
+	font-size: var(--title-medium); 
+	color: var(--grayscale-700); 
+	line-height: 1.4;
+	margin-bottom: var(--space-10);
+}

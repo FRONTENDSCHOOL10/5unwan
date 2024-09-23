@@ -1,6 +1,11 @@
 import homeStore from '@/stores/homeStore';
 import styles from "./exerciseTypes.module.css";
-import { getExercise } from '@/api/pocketbase';
+import { User, getExercise } from '@/api/pocketbase';
+import { useState, useEffect } from 'react';
+
+interface userProps {
+  user: User;
+}
 
 function getTypes(type: string) {
   switch (type) {
@@ -21,9 +26,25 @@ function getTypes(type: string) {
   }
 }
 
-export default function ExerciseType() {
+export default function ExerciseType({ user } :userProps) {
+  console.log(user);
   const { isActive, setIsActive, exercises, setFiltered } = homeStore();
-  const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+  // const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+  const [newTypeList, setNewTypeList] = useState<string[]>([]);
+  // types을 정렬하여 interests[0]이 있는 경우 맨 앞으로 이동
+  function sortTypeList() {
+    const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+    if (user.interests[0] && typeList.includes(user.interests[0])) {
+      const index = typeList.indexOf(user.interests[0]);
+      const [interestType] = typeList.splice(index, 1); // 해당 타입을 제거하고 반환
+      typeList.unshift(interestType); // 해당 타입을 맨 앞에 추가
+    }
+    setNewTypeList(typeList); // 정렬된 리스트를 상태에 저장
+  }
+
+  useEffect(() => {
+    sortTypeList();
+  }, [exercises]);
 
   async function handleList(type: string) {
     if (type) {
@@ -53,7 +74,7 @@ export default function ExerciseType() {
         >
           전체
         </li>
-        {typeList.map((type, index) => (
+        {newTypeList.map((type, index) => (
           <li
             key={index}
             className={`${styles["exercise-type-item"]} ${

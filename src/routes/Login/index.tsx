@@ -2,13 +2,13 @@ import styles from "./login.module.css";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import Header from "@/components/Header";
-import { LoginForm } from './LoginForm';
-import KakaoLogin from '@/components/KakaoLogin';
+import { LoginForm } from "./LoginForm";
+import KakaoLogin from "@/components/KakaoLogin";
 
-export default function Login() {
+export function Component() {
   const navigate = useNavigate();
   const matches = useMatches();
-  
+
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
@@ -19,7 +19,7 @@ export default function Login() {
 
   return (
     <>
-    {!hideHeader && (
+      {!hideHeader && (
         <Header
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
@@ -29,13 +29,18 @@ export default function Login() {
       )}
       <div className={styles.wrapper}>
         <div className={styles.container}>
-          <LoginForm onSuccess={() => { navigate("/") }}
+          <LoginForm
+            onSuccess={() => {
+              navigate("/");
+            }}
           />
-          <span className={styles.kakao}>
-            <KakaoLogin />
-          </span>
         </div>
+        <span className={styles["kakao-container"]}>
+            <KakaoLogin />
+        </span>
       </div>
     </>
   );
 }
+
+Component.displayName = "LoginRoute";
