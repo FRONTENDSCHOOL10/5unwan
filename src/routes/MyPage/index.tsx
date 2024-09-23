@@ -32,7 +32,7 @@ export function Component() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const defaultAvatarUrl = "/avatar-placeholder.webp";
   const profileImageUrl = user?.avatar ? getPbImageUrl(user, user.avatar) : defaultAvatarUrl;
-  const [profilePreview, setProfilePreview] = useState<string>(profileImageUrl);
+  const [profilePreview, setProfilePreview] = useState<string | null>(profileImageUrl);
   const [showInterestModal, setShowInterestModal] = useState(false);
   const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
 
@@ -343,13 +343,26 @@ export function Component() {
 
           <div className={styles["divider-line"]}></div>
 
+
+          {/* 다크모드 */}
+ 
+            <h3 className={styles["interest-title"]}>다크 모드</h3>
+         
+          <div className={styles["darkmode-toggle"]}>
+            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
+          </div>
+
+          {/* 구분선 추가 */}
+          <div className={styles["divider-line"]}></div>
+
+          {/* 계정 관련 섹션 */}
+
           <div className={styles["account-section"]}>
             <h3>계정</h3>
             <button onClick={handleLogout}>로그아웃</button>
             <br />
             <button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
             <br />
-            <DarkModeToggleButton />
           </div>
         </div>
       )}

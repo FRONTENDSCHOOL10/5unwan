@@ -155,7 +155,7 @@
 }
 
 .account-section {
-	padding-left: 1.5rem;
+	padding-left: var(--space-6);
 }
 
 .account-section h3 {
@@ -191,6 +191,7 @@
 	font-weight: var(--font-weight-bold);
 	color: var(--primary);
 	margin-bottom: var(--space-3);
+	padding-left: var(--space-6); 
 }
 
 .interests {
@@ -293,6 +294,7 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	margin-top: var(--space-10);
 }
 
 .interest-title {
@@ -334,4 +336,17 @@
 	border-radius: 50%;
 	object-fit: cover;
 	margin-bottom: var(--space-2);
+}
+
+.darkmode-toggle{
+margin-top: var(--space-4);
+padding-left: var(--space-6); 
+}
+
+.interests,
+.interest-list,
+.interest-title,
+.darkmode-toggle,
+.darkmode-toggle h3 {
+    padding-left: var(--space-6);
 }
