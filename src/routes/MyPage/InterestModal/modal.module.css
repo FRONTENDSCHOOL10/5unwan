@@ -27,6 +27,10 @@
 	justify-content: center; 
   }
   
+  .image-box.selected { /* 선택된 관심사 스타일 */
+	border: 1px solid var(--primary);
+	box-shadow: var(--box-shadow);
+  }
   .image-box:hover {
 	border: 1px solid var(--primary);
 	box-shadow: var(--box-shadow);
@@ -68,3 +72,13 @@
 	position: relative;
 
   }
+
+  /* src\routes\MyPage\InterestModal\modal.module.css */
+
+.button-group {
+	display: flex;
+	justify-content: center; /* 버튼들을 가운데로 정렬 */
+	gap: 16px; /* 버튼들 사이 간격 */
+	margin-top: 20px; /* 버튼 그룹 상단 여백 */
+  }
+  

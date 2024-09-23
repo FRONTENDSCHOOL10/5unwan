@@ -380,15 +380,16 @@ const resizeImage = (file: File): Promise<File> => {
         </div>
       )}
       {/* 관심사 선택 모달 */}
-      {showInterestModal && (
-        <InterestModal 
-          userInterests={selectedInterests} 
-          onSave={(newInterests) => {
-            setSelectedInterests(newInterests);
-            setShowInterestModal(false);
-          }}
-        />
-      )}
+	  {showInterestModal && (
+  <InterestModal
+    userInterests={selectedInterests}
+    onSave={(newInterests) => {
+      setSelectedInterests(newInterests);
+      setShowInterestModal(false);
+    }}
+    onCancel={() => setShowInterestModal(false)}
+  />
+)}
 
     </div>
   );
