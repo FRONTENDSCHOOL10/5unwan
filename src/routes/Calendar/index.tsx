@@ -40,8 +40,6 @@ export function Component() {
     {} as Record<string, Workout[]>
   );
 
-  console.log(workoutsByDay);
-
   const [selectedDay, setSelectedDay] = useState<string | null>();
 
   const CustomDayContent: React.FC<DayContentProps> = useMemo(() => {
