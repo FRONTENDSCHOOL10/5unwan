@@ -5,6 +5,8 @@
     "tsbuildinfo", 
     "pocketbase",
     "lefton",
-    "righton"
+    "righton",
+    "tanstack",
+    "webp"
   ]
 }
