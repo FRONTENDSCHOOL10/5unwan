@@ -27,7 +27,7 @@
 	justify-content: center; 
   }
   
-  .image-box.selected { /* 선택된 관심사 스타일 */
+  .image-box.selected {
 	border: 1px solid var(--primary);
 	box-shadow: var(--box-shadow);
   }
@@ -73,12 +73,10 @@
 
   }
 
-  /* src\routes\MyPage\InterestModal\modal.module.css */
-
 .button-group {
 	display: flex;
-	justify-content: center; /* 버튼들을 가운데로 정렬 */
-	gap: 16px; /* 버튼들 사이 간격 */
+	justify-content: center;
+	gap: 16px;
 	margin-top: var(--space-5);
 	padding: var(--space-3);
   }

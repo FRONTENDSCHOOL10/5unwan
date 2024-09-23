@@ -11,10 +11,10 @@ export type InterestModalProps = {
 };
 
 export default function InterestModal({ onSave, onCancel, userInterests }: InterestModalProps) {
-	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || ""); // 1개 제한
+	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || "");
   
 	const handleSave = () => {
-	  onSave([selectedInterest]); // 하나만 저장
+	  onSave([selectedInterest]);
 	};
 
 	return (

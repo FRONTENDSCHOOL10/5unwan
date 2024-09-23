@@ -21,7 +21,6 @@
 	cursor: pointer;
 }
 
-/* 프로필 사진 */
 .avatar-container {
 	display: flex;
 	justify-content: center;
@@ -39,7 +38,6 @@
 	margin-bottom: var(--space-8);
 }
 
-/* 유저 닉네임 */
 .main-nickname {
 	font-size: var(--xlarge);
 	font-weight: var(--font-weight-bold);
@@ -52,7 +50,6 @@
 	text-align: center;
 }
 
-/* 내 정보 */
 .profile-stats-container {
 	width: 17.5rem;
 	height: var(--space-12-half);
@@ -89,7 +86,6 @@
 	background-color: var(--grayscale-400);
 }
 
-/* 성별 버튼 컨테이너 */
 .gender-container {
 	display: flex;
 	justify-content: flex-start;
@@ -105,7 +101,6 @@
 	border-color: var(--primary) !important;
 }
 
-/* 편집 모드 콘텐츠 중앙 정렬 */
 .edit-mode-container {
 	display: flex;
 	flex-direction: column;
@@ -281,7 +276,6 @@
 	margin: 0 auto;
 }
 
-/* 관심사 섹션 */
 .interests-container {
   display: block; 
   width: 100%;
@@ -312,7 +306,6 @@
 	color: var(--grayscale-500);
 }
 
-/* 관심사 목록 */
 .interest-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -322,7 +315,6 @@
 	padding-left: 0.5rem;
 }
 
-/* 관심사 항목 */
 .interest-item {
 	display: flex;
 	flex-direction: column;

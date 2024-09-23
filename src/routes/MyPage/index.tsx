@@ -344,18 +344,13 @@ export function Component() {
           <div className={styles["divider-line"]}></div>
 
 
-          {/* 다크모드 */}
- 
-            <h3 className={styles["interest-title"]}>다크 모드</h3>
-         
+          <h3 className={styles["interest-title"]}>다크 모드</h3>
+
           <div className={styles["darkmode-toggle"]}>
-            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
+            <DarkModeToggleButton />
           </div>
 
-          {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
-
-          {/* 계정 관련 섹션 */}
 
           <div className={styles["account-section"]}>
             <h3>계정</h3>
