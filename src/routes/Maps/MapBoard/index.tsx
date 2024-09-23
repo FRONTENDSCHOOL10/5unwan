@@ -89,8 +89,9 @@ export default function MapBoard() {
               position={marker.position}
               yAnchor={1}
             >
-              <div className={styles["speech-bubble"]}>
-                <span className={styles.number}>{index + 1}</span>
+              {/* <div className={styles["speech-bubble"]}> */}
+              <div className={`${styles["speech-bubble"]} body-sm-medium`}>
+                <span className={`${styles.number} body-xm-bold`}>{index + 1}</span>
                 {marker.content}
               </div>
             </CustomOverlayMap>
