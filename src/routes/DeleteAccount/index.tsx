@@ -4,7 +4,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "@/hooks/user";
 import { deleteUser } from "@/api/pocketbase";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
-import styles from "./deleteAccount.module.css";
+import { SecondaryLargeButton } from "@/components/Buttons/SecondaryButton";
+import PageTitle from "@/components/PageTitle";
+import Input from "@/components/Input";
+import styles from "./deleteAccount.module.css"
 
 export function Component() {
   const { user } = useCurrentUser();
@@ -32,32 +35,39 @@ export function Component() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>
-          <span className={styles.nickname}>{user?.nickname}</span>님 회원탈퇴를
-          위해 <br />
-          비밀번호를 입력해주세요.
-        </h1>
-        <label htmlFor="password" className={styles.label}>
-          비밀번호
-        </label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호를 입력해주세요."
-          className={styles.input}
-        />
-        <PrimaryLargeButton onClick={handleDeleteAccount}>
-          탈퇴하기
-        </PrimaryLargeButton>
-        <PrimaryLargeButton
-          onClick={() => navigate("/my-page")}
-          className={styles.cancelButton}
-        >
-          취소
-        </PrimaryLargeButton>
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+          <PageTitle
+              large
+              text={{ __html: `${user?.nickname }님 회원탈퇴를 위해
+              <br />
+              비밀번호를 입력해주세요.
+              ` }}
+            />
+          <Input
+              type="password"
+              value={password}
+              labelTitle="비밀번호"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="비밀번호를 입력해주세요."
+              errorTextHide
+            />
+          <div className={styles.btn}>
+            <PrimaryLargeButton
+              onClick={handleDeleteAccount}
+              disabled={
+                !password
+              }>
+              탈퇴하기
+            </PrimaryLargeButton>
+            <SecondaryLargeButton
+              onClick={() => navigate("/my-page")}
+              className={styles.cancelButton}
+            >
+              취소
+            </SecondaryLargeButton>
+          </div>
+        </div>
       </div>
     </div>
   );
