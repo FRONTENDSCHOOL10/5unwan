@@ -17,7 +17,7 @@ function getTypes(type: string) {
       return "요가";
     case "badminton":
       return "배드민턴";
-    case "climbing":
+    case "sport-climbing":
       return "클라이밍";
     case "tennis":
       return "테니스";

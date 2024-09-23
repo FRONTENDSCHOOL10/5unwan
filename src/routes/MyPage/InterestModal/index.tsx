@@ -17,13 +17,13 @@ export type InterestModalProps = {
 };
 
 export default function InterestModal({ onSave, onCancel, userInterests }: InterestModalProps) {
-	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || ""); // 1개 제한
+	const [selectedInterest, setSelectedInterest] = useState(userInterests[0] || "");
   
 	const handleSave = () => {
-	  onSave([selectedInterest]); // 하나만 저장
+	  onSave([selectedInterest]);
 	};
 
-	const { isDark } = useDarkMode(); // 다크모드
+	const { isDark } = useDarkMode();
 
 	return (
 		<div className={classNames(styles["modal-overlay"], { [styles["is-dark"]]: isDark })}>
