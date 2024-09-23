@@ -1,7 +1,8 @@
-import mapStore from '@/stores/mapStore';
-import styles from './searchForm.module.css';
+import mapStore from "@/stores/mapStore";
+import styles from "./searchForm.module.css";
 import { FormEvent, ChangeEvent } from 'react';
-import Input from '@/components/Input';
+import { SearchTypes } from "@/routes/Maps/SearchTypes";
+import Input from "@/components/Input";
 
 export default function SearchForm() {
   const { search, setSearch, setShowList, setIsDropDown } = mapStore();
@@ -10,7 +11,7 @@ export default function SearchForm() {
     setIsDropDown(false);
     setShowList(true);
 
-    if (search === '') {
+    if (search === "") {
       setShowList(false);
     }
   }  
@@ -25,7 +26,7 @@ export default function SearchForm() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       <form onSubmit={searchSubmit}>
         <Input
           type="search"
@@ -36,6 +37,7 @@ export default function SearchForm() {
           errorTextHide={true}
         />
       </form>
+      <SearchTypes />
     </div>
   )
 }
