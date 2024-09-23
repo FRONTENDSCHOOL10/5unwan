@@ -173,35 +173,40 @@ export async function deleteUser(password: string) {
   }
 }
 
-export async function updateUserProfile(
-  userId: string,
-  userValues: UpdateUser
-) {
-  const formData = new FormData();
-
-  Object.entries(userValues).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
-      if (Array.isArray(value)) {
-        formData.append(key, value.join(","));
-      } else {
-        formData.append(
-          key,
-          typeof value === "number" ? value.toString() : value
-        );
-      }
-    }
-  });
-
-  const updatedUser = await pb.collection("users").update(userId, formData);
-  return updatedUser;
-}
-
-export async function getAvailableInterests(): Promise<string[]> {
+export async function updateUserProfile(userId: string, userValues: UpdateUser) {
+	const formData = new FormData();
+  
+	Object.entries(userValues).forEach(([key, value]) => {
+	  if (value !== undefined && value !== null) {
+		if (Array.isArray(value)) {
+		  value.forEach((item) => formData.append(`${key}[]`, item));
+		} else if (key !== 'avatar') {  // avatar는 나중에 처리
+		  formData.append(key, typeof value === "number" ? value.toString() : value);
+		}
+	  }
+	});
+  
+	// avatarFile이 있을 때만 추가
+	if (userValues.avatar instanceof File) {
+	  formData.append("avatar", userValues.avatar);
+	}
+  
+	console.log("Sending formData:", [...formData]);  // 전송하는 formData 출력
+  
 	try {
-	  const records = await pb.collection('interests').getFullList();
-	  return records.map(record => record.name); 
+	  const updatedUser = await pb.collection("users").update(userId, formData);
+	  console.log("Profile update response:", updatedUser);  // 응답 로그 추가
+	  return updatedUser;
 	} catch (error) {
-	  console.error('Failed to fetch interests:', error);
+	  console.error("Error in updateUserProfile:", error);  // 에러 로그 출력
 	  throw error;
 	}
+  }
+  
+  
+  
+
+export async function getAvailableInterests() {
+	const result = await pb.collection('interestOptions').getList();
+	return result.items.map((item: any) => item.name); 
   }

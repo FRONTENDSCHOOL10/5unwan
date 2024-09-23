@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -68,9 +69,11 @@ export function Component() {
             </SecondaryLargeButton>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
 
 Component.displayName = "DeleteAccountRoute";
+

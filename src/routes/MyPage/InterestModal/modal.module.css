@@ -1,34 +1,85 @@
-
-.modalOverlay {
+.modal {
+	padding: 1rem;
+	position: relative;
+  }
+  
+  .input-group {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+  }
+  
+  .hiddenInput {
+	display: none;
+  }
+  
+  .image-box {
+	width: 112px;
+	height: 112px;
+	position: relative;
+	border-radius: var(--rounded-full);
+	overflow: hidden;
+	border: 1px solid transparent;
+	cursor: pointer;
+	display: flex; 
+	justify-content: center; 
+  }
+  
+  .image-box.selected { /* 선택된 관심사 스타일 */
+	border: 1px solid var(--primary);
+	box-shadow: var(--box-shadow);
+  }
+  .image-box:hover {
+	border: 1px solid var(--primary);
+	box-shadow: var(--box-shadow);
+  }
+  
+  .icon-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .modal-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.5); 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
   }
   
-  .modalContent {
+  .modal {
 	background-color: white;
-	padding: 1.25rem;
-	border-radius: 0.5rem;
-	max-width: 31.25rem;
-	width: 100%;
-	box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	width: 90%; 
+	max-width: 500px; 
+	padding: 1.5rem;
 	position: relative;
+
   }
-  
-  .closeButton {
-	position: absolute;
-	top: 0.625rem;
-	right: 0.625rem;
-	background: none;
-	border: none;
-	font-size: 1.125rem;
-	cursor: pointer;
+
+  /* src\routes\MyPage\InterestModal\modal.module.css */
+
+.button-group {
+	display: flex;
+	justify-content: center; /* 버튼들을 가운데로 정렬 */
+	gap: 16px; /* 버튼들 사이 간격 */
+	margin-top: var(--space-5);
+	padding: var(--space-3);
   }
   

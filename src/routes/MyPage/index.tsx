@@ -1,32 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import {
-  getPbImageUrl,
-  updateUserProfile,
-  getAvailableInterests,
-} from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
 import Header from "@/components/Header";
 import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
-import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 import Input from "@/components/Input/index";
-
-// 모달 관련 라이브러리 사용
-import Modal from "@/routes/MyPage/InterestModal/index";
+import SVGIcon from "@/components/SVGicon";
+import InterestModal from "@/routes/MyPage/InterestModal/index";
+import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 
 export function Component() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
+  const avatarImageRef = useRef<HTMLImageElement | null>(null);
+  
   const handleLogout = () => {
     logout();
     navigate("/logout-complete");
   };
 
   const matches = useMatches();
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -34,70 +30,115 @@ export function Component() {
   const [dob, setDob] = useState(user?.dob || "");
   const [gender, setGender] = useState<"" | "M" | "F">(user?.gender || "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [profilePreview, setProfilePreview] = useState(
-    user?.avatar ? getPbImageUrl(user, user.avatar) : ""
-  );
+  const defaultAvatarUrl = "/avatar-placeholder.webp";
+  const profileImageUrl = user?.avatar ? getPbImageUrl(user, user.avatar) : defaultAvatarUrl;
+  const [profilePreview, setProfilePreview] = useState<string | null>(profileImageUrl);
+  const [showInterestModal, setShowInterestModal] = useState(false);
+  const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
 
-  // 관심 운동 관련 상태 관리
-  const [availableInterests, setAvailableInterests] = useState<string[]>([]);
-  const [selectedInterests, setSelectedInterests] = useState<string[]>(
-    user?.interests || []
-  );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleSaveChanges = async () => {
+    try {
+      const updateData = {
+        nickname,
+        weight,
+        height,
+        dob,
+        gender,
+        avatar: avatarFile || undefined,
+        interests: selectedInterests,
+      };
 
-  // 포켓베이스에서 관심 운동 목록 가져오기
-  useEffect(() => {
-    getAvailableInterests().then((interests) => {
-      setAvailableInterests(interests);
-    });
-  }, []);
-
-  const handleSaveChanges = () => {
-    const updateData = {
-      nickname,
-      weight,
-      height,
-      dob,
-      gender,
-      interests: selectedInterests,
-      avatar: avatarFile || undefined,
-    };
-
-    if (user?.id) {
-      updateUserProfile(user.id, updateData).then(() => {
+      if (user?.id) {
+        console.log("User ID found:", user.id);
+        await updateUserProfile(user.id, updateData);
         setIsEditMode(false);
+        console.log("Profile updated successfully");
         navigate("/my-page");
-      });
+      } else {
+        console.error("User ID is undefined or null");
+      }
+    } catch (error) {
+      console.error("Error updating profile: ", error);
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setAvatarFile(file);
-      const previewUrl = URL.createObjectURL(file);
-      setProfilePreview(previewUrl);
+      if (file.size > 1024 * 1024) {
+        const resizedFile = await resizeImage(file);
+        setAvatarFile(resizedFile);
+        const previewUrl = URL.createObjectURL(resizedFile);
+        setProfilePreview(previewUrl);
+      } else {
+        setAvatarFile(file);
+        const previewUrl = URL.createObjectURL(file);
+        setProfilePreview(previewUrl);
+      }
     }
+  };
+
+  const resizeImage = (file: File): Promise<File> => {
+    const MAX_WIDTH = 800;
+    const MAX_HEIGHT = 800;
+
+    return new Promise((resolve, reject) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+              if (blob) {
+                const resizedFile = new File([blob], file.name, {
+                  type: file.type,
+                  lastModified: Date.now(),
+                });
+                resolve(resizedFile);
+              } else {
+                reject(new Error("Canvas blob creation failed"));
+              }
+            }, file.type, 0.8);
+          }
+        };
+      };
+
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
-  const profileImageUrl = user
-    ? getPbImageUrl(user, user?.avatar || "")
-    : "/default-profile.png";
 
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
-
-  // 관심 운동 선택 처리 함수
-  const toggleInterest = (interest: string) => {
-    if (selectedInterests.includes(interest)) {
-      setSelectedInterests(selectedInterests.filter((i) => i !== interest));
-    } else {
-      setSelectedInterests([...selectedInterests, interest]);
-    }
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -117,14 +158,14 @@ export function Component() {
               leftIconVisible
               rightIconId="iconEdit"
               rightIconVisible
-              rightonClick={() => setIsEditMode(true)} // 편집 모드로 전환
+              rightonClick={() => setIsEditMode(true)}
             />
           ) : (
             <Header
               className={styles.header}
               leftIconId="iconArrowsLeft"
               leftIconVisible
-              leftonClick={() => setIsEditMode(false)} // 편집 모드 종료
+              leftonClick={() => setIsEditMode(false)}
               rightIconVisible
             />
           )}
@@ -133,14 +174,12 @@ export function Component() {
 
       {isEditMode ? (
         <div className={styles["edit-mode-container"]}>
-          {/* 프로필 이미지 선택 기능 */}
           <label>
             <img
-              src={profilePreview || profileImageUrl || "/default-profile.png"}
+              ref={avatarImageRef}
+              src={profilePreview || "/default-profile.png"}
+              className={styles.avatar}
               alt="프로필 이미지"
-              className={`${styles.avatar} ${
-                isEditMode ? styles.hoverable : ""
-              }`}
             />
             <input
               type="file"
@@ -151,7 +190,7 @@ export function Component() {
           </label>
 
           <div className={styles["input-disabled-container"]}>
-            <label className={styles["label"]}>아이디</label>
+            <label className={styles.label}>아이디</label>
             <Input
               value={user?.email || ""}
               disabled
@@ -172,7 +211,6 @@ export function Component() {
             />
           </div>
 
-          {/* 닉네임 입력 */}
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>닉네임</label>
             <Input
@@ -184,30 +222,35 @@ export function Component() {
             />
           </div>
 
-          {/* 성별 선택 */}
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>성별</label>
             <div className={styles["gender-container"]}>
               <SecondaryMiniButton
                 onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${
-                  gender === "M" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
               >
                 남자
+                {gender === "M" && (
+                  <span className={styles["icon-box"]}>
+                    <SVGIcon width={20} height={20} iconId="iconCheck" />
+                  </span>
+                )}
               </SecondaryMiniButton>
+
               <SecondaryMiniButton
                 onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${
-                  gender === "F" ? styles.selected : ""
-                }`}
+                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
               >
                 여자
+                {gender === "F" && (
+                  <span className={styles["icon-box"]}>
+                    <SVGIcon width={20} height={20} iconId="iconCheck" />
+                  </span>
+                )}
               </SecondaryMiniButton>
             </div>
           </div>
 
-          {/* 생년월일 입력 */}
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>생년월일</label>
             <Input
@@ -227,7 +270,6 @@ export function Component() {
             />
           </div>
 
-          {/* 키 입력 */}
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>키</label>
             <Input
@@ -240,7 +282,6 @@ export function Component() {
             />
           </div>
 
-          {/* 몸무게 입력 */}
           <div className={styles["input-container"]}>
             <label className={styles["label"]}>몸무게</label>
             <Input
@@ -248,22 +289,20 @@ export function Component() {
               value={weight.toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
               isDark={false}
-              labelTitle="몸무게"
               labelHide={true}
               errorTextHide={true}
             />
           </div>
 
-          <div className={styles["button-container"]}>
-            <PrimaryLargeButton onClick={handleSaveChanges}>
-              수정완료
-            </PrimaryLargeButton>
-          </div>
+          <br />
+          <br />
+          <br />
+
+          <PrimaryLargeButton onClick={handleSaveChanges}>수정완료</PrimaryLargeButton>
         </div>
       ) : (
         <div>
           <div className={styles["avatar-container"]}>
-            {/* 프로필 이미지 미리보기 */}
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
@@ -283,30 +322,33 @@ export function Component() {
             <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
           </div>
 
-          <div className={styles["interests-header"]}>
-            <h3 className={styles["interest-title"]}>관심 운동</h3>
-            <span className={styles["edit-interest"]}>수정</span>
-          </div>
-          <div className={styles.interestsList}>
-            {user?.interests && user.interests.length > 0 ? (
-              user.interests.map((interest: string, index: number) => (
-                <div key={index} className={styles.interest}>
+          <div className={styles["interests-container"]}>
+            <div className={styles["interest-header"]}>
+              <h3 className={styles["interest-title"]}>관심 운동</h3>
+              <span className={styles["edit-interest"]} onClick={() => setShowInterestModal(true)}>수정</span>
+            </div>
+            <div className={styles["interest-list"]}>
+              {selectedInterests.map((interest) => (
+                <div key={interest} className={styles["interest-item"]}>
+                  <img 
+                    src={`/image/interests-img-${interest}.jpg`} 
+                    alt={interest} 
+                    className={styles["interest-image"]}
+                  />
                   <span>{interest}</span>
                 </div>
-              ))
-            ) : (
-              <p>관심 운동이 없습니다.</p>
-            )}
+              ))}
+            </div>
           </div>
 
-          {/* 구분선 추가 */}
           <div className={styles["divider-line"]}></div>
 
+
           {/* 다크모드 */}
-          <div className={styles["interests-header"]}>
+ 
             <h3 className={styles["interest-title"]}>다크 모드</h3>
-          </div>
-          <div className={styles.interestsList}>
+         
+          <div className={styles["darkmode-toggle"]}>
             <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
           </div>
 
@@ -314,45 +356,26 @@ export function Component() {
           <div className={styles["divider-line"]}></div>
 
           {/* 계정 관련 섹션 */}
+
           <div className={styles["account-section"]}>
             <h3>계정</h3>
             <button onClick={handleLogout}>로그아웃</button>
             <br />
-            <button onClick={() => navigate("/delete-account")}>
-              회원 탈퇴
-            </button>
+            <button onClick={() => navigate("/delete-account")}>회원 탈퇴</button>
+            <br />
           </div>
         </div>
       )}
-      {/* 관심 운동 수정 모달 */}
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <div className={styles.modalContent}>
-            <h2>관심 운동 선택</h2>
-            <div className={styles.interestsList}>
-              {availableInterests.map((interest, index) => (
-                <div key={index} className={styles.interest}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedInterests.includes(interest)}
-                      onChange={() => toggleInterest(interest)}
-                    />
-                    {interest}
-                  </label>
-                </div>
-              ))}
-            </div>
-            <PrimaryLargeButton
-              onClick={() => {
-                setIsModalOpen(false); // 모달 닫기
-                handleSaveChanges(); // 저장
-              }}
-            >
-              저장
-            </PrimaryLargeButton>
-          </div>
-        </Modal>
+
+      {showInterestModal && (
+        <InterestModal
+          userInterests={selectedInterests}
+          onSave={(newInterests) => {
+            setSelectedInterests(newInterests);
+            setShowInterestModal(false);
+          }}
+          onCancel={() => setShowInterestModal(false)}
+        />
       )}
     </div>
   );
