@@ -46,6 +46,12 @@
   background-color: var(--grayscale-300);
 }
 
+.button-disabled {
+    background-color: var(--gradient-disabled);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 /* 다크모드 스타일링 */
 .is-dark {
   .outer {

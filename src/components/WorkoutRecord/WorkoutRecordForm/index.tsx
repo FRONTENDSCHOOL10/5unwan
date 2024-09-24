@@ -70,21 +70,8 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     const day = today;
     const { category, start, end, title, content, newPhotoFile } = formData;
 
-    if (
-      !user ||
-      !day ||
-      !category.length ||
-      !start ||
-      !end ||
-      !title ||
-      !content
-    ) {
-      alert("모든 내용을 입력해주세요.");
-      return;
-    }
-
     const newWorkout: NewWorkout = {
-      user,
+      user: user!,
       day,
       category: category.join(", "),
       start,
@@ -295,16 +282,6 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               )}
             </figure>
 
-            <input
-              ref={fileInputRef}
-              id={`${id}-newPhotoFile`}
-              type="file"
-              name="newPhotoFile"
-              accept=".jpg, .webp, .svg, .gif, .webp"
-              aria-label="운동기록 사진 업로드"
-              onChange={handleUpdatePhoto}
-              style={{ display: "none" }}
-            />
             {isDark ? (
               <Input
               ref={fileInputRef}
@@ -359,7 +336,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             !formData.end ||
             !formData.title ||
             !formData.content ||
-            !formData.content ||
+            !formData.newPhotoFile ||
             createWorkoutMutation.isPending
           }
         >

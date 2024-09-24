@@ -182,10 +182,12 @@ export function Component() {
                       </h2>
                       <p className={styles["workout-content"]}>{workout.content}</p>
                       {workout.photo && (
-                        <img
-                          className={styles["workout-image"]}
-                          src={getPbImageUrl(workout, workout.photo)!}
-                        />
+                        <div className={styles["workout-box"]}>
+                          <img
+                            className={styles["workout-image"]}
+                            src={getPbImageUrl(workout, workout.photo)!}
+                          />
+                        </div>
                       )}
                     </div>
                   </div>

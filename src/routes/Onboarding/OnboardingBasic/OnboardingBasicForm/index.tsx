@@ -95,7 +95,7 @@ export function OnboardingBasicForm({
       <form onSubmit={handleSubmit}>
         <div className={styles["container"]}>
           <ul className={styles["content"]}>
-            <PageTitle text="프로필과 닉네임, 성별을 입력해주세요." />
+            <PageTitle text="프로필 등록과 닉네임, 성별을 입력해주세요." />
             <li className={styles["list-profile"]}>
               <figure className={styles["image-container"]}>
                 <img
@@ -126,6 +126,7 @@ export function OnboardingBasicForm({
                 </span>
               </label>
             </li>
+            
             <li className={styles["list-nickname"]}>
               <Input
                 type="text"
@@ -199,9 +200,9 @@ export function OnboardingBasicForm({
           >
             {`다음 ${currentStep + 2}/${ONBOARDING_STEPS.length + 1}`}
           </PrimaryLargeButton>
+          {updateMutation.isError && 
+            <p className="error">"알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"</p>}
         </div>
-        {updateMutation.isError && 
-          "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요"}
       </form>
   );
 }

@@ -1,6 +1,10 @@
 .container {
     max-width: 26.25rem;
     margin: 0 auto;
+
+    .error {
+        margin-top: 1.25rem;
+    }
 }
 
 .content {
@@ -39,7 +43,7 @@
             position: absolute;
             right: 10;
             bottom: 0;
-            transform: translate(-50%, -50%);
+            transform: translate(-80%, -30%);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -71,6 +75,10 @@
     display: flex;
     align-items: start;
     flex-direction: column;
+
+    button {
+        min-width: 5rem;
+    }
     
     .gender-input{
         display: flex;
