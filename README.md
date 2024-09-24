@@ -142,23 +142,68 @@
 <a name='프로젝트-구현'></a>
 
 ## 1. 시작페이지
+<img src="https://github.com/user-attachments/assets/2405b25b-e945-47d6-9214-072ff5030f77" alt="시작페이지" width="200px" />
 
+## 2. 회원가입 페이지
+<img src="https://github.com/user-attachments/assets/8f63df40-0c02-42cc-9640-c62d46ceb1ef" alt="회원가입" width="200px" />
 
-## 2. 로그인 페이지
+## 2-1. 회원가입 온보딩
+<img src="https://github.com/user-attachments/assets/d60ea397-b343-4592-9936-7628b2598d8b" alt="유저프로필" width="200px" />
+<img src="https://github.com/user-attachments/assets/ba0f72b0-a1a1-4bbb-adbc-bffaf6beba45" alt="생년월일" width="200px" />
+<img src="https://github.com/user-attachments/assets/d9787782-7b38-4a00-9171-27c5fce7381d" alt="키몸무게" width="200px" />
+<img src="https://github.com/user-attachments/assets/0d0f4ef2-9007-4138-8f58-522ca40ba159" alt="관심운동" width="200px" />
 
-## 3. 회원가입 페이지
+## 2-2. 회원가입 중 창을 닫을 경우 Redirect
+<img src="https://github.com/user-attachments/assets/935d53b3-1668-4dae-9aa3-f322abc052b6" alt="redirect" width="200px" />
+
+## 3. 로그인 / 로그아웃
+<img src="https://github.com/user-attachments/assets/41a3ca50-b40d-459f-99ee-4a40ad720e8d" alt="카카오로그인" width="200px" />
+<img src="https://github.com/user-attachments/assets/1555e5ce-5efa-40f1-8db5-303a1d293dc8" alt="일반로그인" width="200px" />
+
+## 3-1. 로그인 오류
+<img src="https://github.com/user-attachments/assets/522745ef-b2e7-411a-b0a7-73ebabdc96ed" alt="로그인에러" width="200px" />
+
 
 ## 4. 홈(메인) 페이지
+<img src="https://github.com/user-attachments/assets/c7aaceed-b748-4765-ab29-0cc0c84c2b51" alt="메인페이지" width="200px" />
+<img src="https://github.com/user-attachments/assets/78d895f8-d36b-4d26-a48c-97824c2eed06" alt="메인페이지" width="200px" />
 
 ## 5. 캘린더 페이지
 
-## 6. 운동기록 기능
+## 5-1. 운동 기록 모달
+<img src="https://github.com/user-attachments/assets/32b36bb1-3ccd-48f3-b8b2-86936d5d6d48" alt="운동기록모달" width="200px" />
 
-## 7. 지도 페이지
+## 5-2. 운동 기록 입력
+<img src="https://github.com/user-attachments/assets/c4deef4a-4f10-4d03-b900-d5e93be42187" alt="운동기록입력" width="200px" />
 
-## 8. 마이 페이지
+## 5-3. 운동 기록 확인(+출석률)
+<img src="https://github.com/user-attachments/assets/485ebc53-cf20-4824-a54d-7cc1604d3912" alt="운동기록확인" width="200px" />
+<img src="https://github.com/user-attachments/assets/46c4ecce-6d75-471c-9cff-64905246b8d8" alt="운동기록확인" width="200px" />
 
+## 6. 지도 페이지
 
+## 6-1. 검색 및 카테고리
+<img src="https://github.com/user-attachments/assets/921a7232-cd19-4189-a40d-653917769753" alt="검색기능" width="200px" />
+
+## 6-2. 검색 리스트, 즐겨찾기 기능
+<img src="https://github.com/user-attachments/assets/deb4d282-6666-46e8-99ef-5b0bd30305b6" alt="검색리스트" width="200px" />
+
+## 6-3. 현재 위치
+<img src="https://github.com/user-attachments/assets/b987626f-d7be-4edb-89ae-feeee8914cac" alt="현재위치" width="200px" />
+
+## 7. 마이 페이지
+
+## 7-1. 수정기능
+<img src="https://github.com/user-attachments/assets/cc9b9aa0-85a2-4aa5-a7a0-acbdaa72dc05" alt="수정기능" width="200px" />
+
+## 7-2. 로그아웃 기능
+<img src="https://github.com/user-attachments/assets/e983cc85-f88c-487a-986c-b4a633b11021" alt="회원탈퇴" width="200px" />
+
+## 7-3. 회원탈퇴 기능
+<img src="https://github.com/user-attachments/assets/7e9c4ed3-30bd-4513-97a1-c3b07e5250af" alt="회원탈퇴" width="200px" />
+
+## 7-4. 다크모드
+<img src="https://github.com/user-attachments/assets/7b48611a-64fb-43bd-a9cf-751c106512a5" alt="다크모드" width="200px" />
 
 <br />
 
