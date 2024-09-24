@@ -2,12 +2,11 @@ import mapStore from "@/stores/mapStore";
 import styles from "./searchList.module.css";
 import classNames from "classnames";
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
-import SVGIcon from "@/components/SVGicon";
 
 export default function SearchList() {
   const { isDark } = useDarkMode();
   const { markers, bookmarkList, toggleBookmark, isDropDown, setIsDropDown, setState, map } = mapStore();
-
+  
   function handleClickBar() {
     setIsDropDown(!isDropDown);
   }
@@ -48,7 +47,7 @@ export default function SearchList() {
                       }`}
                       onClick={() => toggleBookmark(marker)}
                     >
-                      <SVGIcon iconId="iconFavorite" width={20} height={20}/>
+                      {/* <SVGIcon iconId="iconFavorite" width={20} height={20} /> */}
                     </button>
                   </li>
                 ))
