@@ -4,11 +4,13 @@ import styles from './isDarkTertiaryButton.module.css';
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  // onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   size: 'large' | 'medium' | 'mini';
   to?: string;
   type?: "button" | "submit" | "reset" | undefined;
+  className?: string;
 };
 
 const IsDarkButton: React.FC<ButtonProps> = ({ children, onClick, disabled, size, to }) => {

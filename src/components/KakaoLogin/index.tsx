@@ -23,7 +23,7 @@ export default function KakaoLogin({type} :kakaoType) {
 
   if (type === "button") {
     return (
-      <button type="button" className={`body-md-bold ${styles["login-kakao-button"]}`} onClick={kakaoLogin}>
+      <button type="button" className={`body-md-bold ${styles["login-kakao-button"]}`} onClick={kakaoLogin} aria-label="카카오 로그인">
         <SVGIcon iconId="iconKakao" width="36" height="36" />
         카카오 로그인
       </button>
@@ -31,9 +31,9 @@ export default function KakaoLogin({type} :kakaoType) {
   }
 
   return (
-    <div className={styles["login-kakao"]}>
-      <span className="">카카오로 간편하게<br />시작하기</span>
-      <button type="button" onClick={kakaoLogin}>
+    <div className={styles["login-kakao"]} role="group">
+      <span className="body-sm-regular">카카오로 간편하게<br />시작하기</span>
+      <button type="button" onClick={kakaoLogin} aria-label="카카오 로그인">
         <SVGIcon iconId="iconKakao" width="36" height="36" />
       </button>
     </div>

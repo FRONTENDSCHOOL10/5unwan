@@ -1,0 +1,22 @@
+.container {
+    padding: 0 1.25rem;
+    margin-top: 1.875rem;
+
+    .content {
+        max-width: 26.25rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        .input-group {
+            margin-bottom: var(--space-4);
+            > div {
+              margin-bottom: var(--space-2); 
+            }
+          }
+    }
+
+    input {
+        margin-bottom: var(--space-2);
+    }
+}

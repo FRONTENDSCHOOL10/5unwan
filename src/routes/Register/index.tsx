@@ -1,30 +1,29 @@
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
 import { RegisterForm } from "@/routes/Register/RegisterForm";
-import Header from "@/components/Header"
+import Header from "@/components/Header";
 
-export default function Register() {
+export function Component() {
   const navigate = useNavigate();
   const matches = useMatches();
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
   const handleGoBack = () => {
-    navigate(-1); // 이전 페이지로 돌아감
+    navigate(-1);
   };
 
   return (
     <>
       {!hideHeader && (
-      <Header
+        <Header
           leftIconId={"iconArrowsLeft"}
           leftIconVisible
           leftonClick={handleGoBack}
-          // rightIconId={"iconArrowsRight"}
           rightIconVisible
-        />)}
+        />
+      )}
       <div>
-        <h1>이메일과 비밀번호를 입력해주세요.</h1>
         <RegisterForm
           onSuccess={() => {
             navigate("/onboarding");
@@ -34,3 +33,5 @@ export default function Register() {
     </>
   );
 }
+
+Component.displayName = "RegisterRoute";

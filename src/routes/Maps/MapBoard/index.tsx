@@ -1,6 +1,6 @@
-import useMapStore from "@/stores/mapStore";
+import mapStore from "@/stores/mapStore";
 import styles from "./mapBoard.module.css";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 
 declare global {
   interface Window {
@@ -9,14 +9,7 @@ declare global {
 }
 
 export default function MapBoard() {
-  const mapStore = useMapStore();
-  const defaultLocation = mapStore.defaultLocation;
-  const state = mapStore.state;
-  const setState = mapStore.setState;
-  const selectedMarkerContent = mapStore.selectedMarkerContent;
-  const setSelectedMarkerContent = mapStore.setSelectedMarkerContent;
-  const map = mapStore.map;
-  const setMap = mapStore.setMap;
+  const { defaultLocation, state, setState, currentPositionMarker, setCurrentPositionMarker, map, setMap, markers, hasSearchResults } = mapStore();
 
   function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -33,16 +26,17 @@ export default function MapBoard() {
             lng: position.coords.longitude,
           },
           isLoading: false,
+          showCurrentLocationOnly: true,
         }));
-        setSelectedMarkerContent("현재위치");
+        setCurrentPositionMarker("현재위치");
         map.panTo(currentPos);
-        
       },
       (err: GeolocationPositionError) => {
         setState((prev) => ({
           ...prev,
           errMsg: err.message,
           isLoading: false,
+          showCurrentLocationOnly: false,
         }));
       })
     } else {
@@ -50,9 +44,63 @@ export default function MapBoard() {
         ...prev,
         errMsg: "geolocation을 사용할 수 없어요.",
         isLoading: false,
+        showCurrentLocationOnly: false,
       }));
     }
   }
+
+  function showMarkers() {
+    if (state.showCurrentLocationOnly) {
+      return (
+        <>
+          <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }} />
+          <CustomOverlayMap
+            position={{ lat: state.center.lat, lng: state.center.lng }}
+            yAnchor={1}
+          >
+            <div className={styles["speech-bubble"]}>
+              <span>📍 {currentPositionMarker}</span>
+            </div>
+          </CustomOverlayMap>
+        </>
+      );
+    }
+
+    if (!hasSearchResults) {
+      return (
+          <>
+            <MapMarker position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }} />
+            <CustomOverlayMap
+              position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }}
+              yAnchor={1}
+            >
+              <div className={styles["speech-bubble"]}>
+                <span>📍 멋쟁이사자처럼</span>
+              </div>
+            </CustomOverlayMap>
+          </>
+      );
+    } else if (hasSearchResults) {
+      return (
+        markers.map((marker, index) => (
+          <div key={index}>
+            <MapMarker position={marker.position} />
+            <CustomOverlayMap
+              position={marker.position}
+              yAnchor={1}
+            >
+              {/* <div className={styles["speech-bubble"]}> */}
+              <div className={`${styles["speech-bubble"]} body-sm-medium`}>
+                <span className={`${styles.number} body-xm-bold`}>{index + 1}</span>
+                {marker.content}
+              </div>
+            </CustomOverlayMap>
+          </div>
+        ))
+      );
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -63,15 +111,7 @@ export default function MapBoard() {
         onCreate={setMap}
       >
         {
-          state.isLoading
-            ?
-          <MapMarker position={{ lat: defaultLocation.lat, lng: defaultLocation.lng }}>
-            <div style={{ color: "#000" }}>📍 멋쟁이사자처럼</div> 
-          </MapMarker>
-            :
-          <MapMarker position={{ lat: state.center.lat, lng: state.center.lng }}>
-            <div style={{ color: "#000", width: "100%", whiteSpace: "nowrap", overflow: "hidden"}}>📍 {selectedMarkerContent}</div>
-          </MapMarker>
+          showMarkers()
         }
         <button className={styles["button-current"]} type="button" onClick={getCurrentLocation}></button>
       </Map>

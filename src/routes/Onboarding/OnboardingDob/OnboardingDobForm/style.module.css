@@ -1,0 +1,26 @@
+.container {
+    max-width: 26.25rem;
+    margin: 0 auto;
+}
+
+.content {
+    margin-bottom: 1.875rem;
+}
+
+.input-group {
+    gap: .5rem;
+    display: flex;
+    margin-bottom: 1.875rem;
+    justify-content: center;
+
+    input {
+        margin-bottom: var(--space-2);
+    }
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

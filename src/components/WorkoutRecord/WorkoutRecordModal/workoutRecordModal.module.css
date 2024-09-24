@@ -6,12 +6,12 @@
 
 .outer {
   background-color: var(--white);
-  max-height: 42.5rem;
+  max-height: 30rem;
   height: 37.5rem;
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
   margin-top: 6rem;
   position: fixed;
   bottom: 0;
@@ -22,8 +22,9 @@
 }
 
 .inner {
+  max-width: 26.25rem;
+  margin: 0 auto;
   overflow-y: scroll;
-  /* padding: 1rem; */
   border-top-left-radius: var(--rounded-md);
   border-top-right-radius: var(--rounded-md);
   flex: 1 1 0%;
@@ -43,6 +44,12 @@
   flex-shrink: 0;
   border-radius: var(--rounded-full);
   background-color: var(--grayscale-300);
+}
+
+.button-disabled {
+    background-color: var(--gradient-disabled);
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
 /* 다크모드 스타일링 */

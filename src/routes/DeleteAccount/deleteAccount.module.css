@@ -1,0 +1,53 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	padding: 0 1.25rem;
+}
+
+.wrapper {
+	margin-top: 1.875rem;
+}
+
+.content {
+	max-width: 26.25rem;
+    margin: 0 auto;
+}
+
+.title {
+	font-size: var(--title-medium);
+	font-weight: var(--font-weight-extraBold); 
+	color: var(--grayscale-700); 
+	margin-bottom: var(--space-5);
+	line-height: 1.5;
+	word-break: keep-all;
+}
+
+.label {
+	margin-bottom: var(--space-2);
+	text-align: left; 
+	width: 100%; 
+}
+
+input {
+
+	margin-bottom: var(--space-6);
+}
+
+.input::placeholder {
+	color: var(--grayscale-600);
+}
+
+.input:hover, .input:focus, .input:active {
+	border-color: var(--grayscale-700);
+}
+
+.input:hover::placeholder, .input:focus::placeholder, .input:active::placeholder {
+	color: var(--grayscale-900);
+}
+
+.btn {
+	>:nth-child(1) {
+		margin-bottom: var(--space-2);
+	}
+}
+

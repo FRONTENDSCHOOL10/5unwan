@@ -1,10 +1,18 @@
-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-
-  button[type="submit"] {
-    padding-top: var(--space-1);
+.container {
+  margin-top: 1.875rem;
+  
+  .content {
+    max-width: 26.25rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
+    .input-group {
+      margin-bottom: var(--space-4);
+      > div {
+        margin-bottom: var(--space-2);
+      }
+    }
   }
 }
 

@@ -1,9 +1,10 @@
-.wrapper {
+.container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: var(--space-3) 0 var(--space-5) 0;
   gap: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 .user-info {
@@ -14,7 +15,7 @@
   color: var(--Primary);
   font-size: 0.75rem;
   font-weight: var(--font-weight-medium);
-  line-height: 160%; /* 19.2px */
+  line-height: 160%;
 
   strong {
     font-weight: var(--font-weight-bold);
@@ -33,11 +34,11 @@
     border-radius: var(--rounded-sm);
     z-index: 101;
     overflow: hidden;
-    transition: height 300ms ease-in-out; /* 높이에 대한 전환 추가 */
+    transition: height 300ms ease-in-out;
 
     &.is-active {
       height: 2.5rem;
-      border: 1px solid var(--grayscale-400);
+      border: 0.0625rem solid var(--grayscale-400);
     }
   }
 
@@ -49,7 +50,7 @@
     text-align: center;
     white-space: nowrap;
     padding: var(--space-half) var(--space-2);
-    border-bottom: 1px solid var(--grayscale-400);
+    border-bottom: 0.0625rem solid var(--grayscale-400);
     cursor: pointer;
     transition: background-color 300ms ease-in-out, font-weight 300ms ease-in-out;
 
@@ -70,13 +71,13 @@
   align-items: center;
   width: 1.875rem;
   height: 1.875rem;
-  outline: 1px solid var(--grayscale-400);
+  outline: 0.0625rem solid var(--grayscale-400);
   border-radius: 50%;
   overflow: hidden;
   transition: border-width 300ms ease-in-out;
 
   &:hover, &:focus {
-    outline: 3px solid var(--grayscale-400);
+    outline: 0.1875rem solid var(--grayscale-400);
   }
 
   img {
@@ -87,7 +88,5 @@
 }
 
 .is-dark {
-  &.wrapper {
-    color: var(--white);
-  }
+  color: var(--white);
 }

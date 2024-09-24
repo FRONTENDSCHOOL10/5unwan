@@ -7,13 +7,22 @@
   justify-content: space-between;
   align-items: center;
   padding-top: var(--space-6);
-  border-top: 1px solid var(--disabled);
+  border-top: 0.0625rem solid var(--disabled);
+  max-width: 26.25rem;
+  margin: 0 auto;
 
   span {
     font-size: 0.75rem;
     font-weight: var(--font-weight-regular);
     color: var(--grayscale-600);
     text-align: left;
+  }
+
+  button {
+    &:hover, &:active, &:focus {
+      outline: 1px solid var(--grayscale-900);
+      border-radius: 50%;
+    }
   }
 }
 
@@ -27,9 +36,13 @@
   border-radius: var(--rounded-sm);
   color: var(--black);
   background-color: var(--kakao-color);
-  transition: opacity 300ms ease-in=out;
+  transition: opacity 300ms ease-in-out;
 
   &:hover {
     opacity: 0.8;
+  }
+
+  &:hover, &:active, &:focus {
+    border: 1px solid var(--grayscale-900);
   }
 }

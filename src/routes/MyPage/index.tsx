@@ -1,24 +1,32 @@
-import { useState, useEffect  } from "react";
+import { useState, useRef } from "react";
 import { useNavigate, useMatches } from "react-router-dom";
 import { RouteHandle } from "@/router";
-import { getPbImageUrl, updateUserProfile, getAvailableInterests } from "@/api/pocketbase";
+import { getPbImageUrl, updateUserProfile } from "@/api/pocketbase";
 import { useCurrentUser } from "@/hooks/user";
 import styles from "./index.module.css";
+import classNames from "classnames";
 import Header from "@/components/Header";
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import DarkModeToggleButton from "@/components/DarkModeToggleButton/DarkModeToggleButton";
 import { PrimaryLargeButton } from "@/components/Buttons/PrimaryButton/index";
-import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
+import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimaryButton";
+import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import Input from "@/components/Input/index";
+import SVGIcon from "@/components/SVGicon";
+import InterestModal from "@/routes/MyPage/InterestModal/index";
+import { SecondaryMiniButton } from "@/components/Buttons/SecondaryButton/index";
 
-
-// 모달 관련 라이브러리 사용
-import Modal from "@/routes/MyPage/InterestModal/index";
-
-export default function MyPage() {
+export function Component() {
   const { user, isLoading, isError, logout } = useCurrentUser();
   const navigate = useNavigate();
-  const matches = useMatches();
+  const avatarImageRef = useRef<HTMLImageElement | null>(null);
   
+  const handleLogout = () => {
+    logout();
+    navigate("/logout-complete");
+  };
+
+  const matches = useMatches();
   const [isEditMode, setIsEditMode] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [weight, setWeight] = useState(user?.weight || 0);
@@ -26,69 +34,118 @@ export default function MyPage() {
   const [dob, setDob] = useState(user?.dob || "");
   const [gender, setGender] = useState<"" | "M" | "F">(user?.gender || "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [profilePreview, setProfilePreview] = useState(
-    user?.avatar ? getPbImageUrl(user, user.avatar) : ""
-  );
+  const defaultAvatarUrl = "/avatar-placeholder.webp";
+  const profileImageUrl = user?.avatar ? getPbImageUrl(user, user.avatar) : defaultAvatarUrl;
+  const [profilePreview, setProfilePreview] = useState<string | null>(profileImageUrl);
+  const [showInterestModal, setShowInterestModal] = useState(false);
+  const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
 
-    // 관심 운동 관련 상태 관리
-	const [availableInterests, setAvailableInterests] = useState<string[]>([]);
-	const [selectedInterests, setSelectedInterests] = useState<string[]>(user?.interests || []);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-  
-	// 포켓베이스에서 관심 운동 목록 가져오기
-	useEffect(() => {
-	  getAvailableInterests().then((interests) => {
-		setAvailableInterests(interests);
-	  });
-	}, []);
+  const handleSaveChanges = async () => {
+    try {
+      const updateData = {
+        nickname,
+        weight,
+        height,
+        dob,
+        gender,
+        avatar: avatarFile || undefined,
+        interests: selectedInterests,
+      };
 
-  const handleSaveChanges = () => {
-    const updateData = {
-      nickname,
-      weight,
-      height,
-      dob,
-      gender,
-	  interests: selectedInterests,  
-      avatar: avatarFile || undefined,
-    };
-
-    if (user?.id) {
-      updateUserProfile(user.id, updateData).then(() => {
+      if (user?.id) {
+        console.log("User ID found:", user.id);
+        await updateUserProfile(user.id, updateData);
         setIsEditMode(false);
+        console.log("Profile updated successfully");
         navigate("/my-page");
-      });
+      } else {
+        console.error("User ID is undefined or null");
+      }
+    } catch (error) {
+      console.error("Error updating profile: ", error);
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setAvatarFile(file);
-      const previewUrl = URL.createObjectURL(file);
-      setProfilePreview(previewUrl);
+      if (file.size > 1024 * 1024) {
+        const resizedFile = await resizeImage(file);
+        setAvatarFile(resizedFile);
+        const previewUrl = URL.createObjectURL(resizedFile);
+        setProfilePreview(previewUrl);
+      } else {
+        setAvatarFile(file);
+        const previewUrl = URL.createObjectURL(file);
+        setProfilePreview(previewUrl);
+      }
     }
+  };
+
+  const { isDark } = useDarkMode();
+
+  const resizeImage = (file: File): Promise<File> => {
+    const MAX_WIDTH = 800;
+    const MAX_HEIGHT = 800;
+
+    return new Promise((resolve, reject) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+              if (blob) {
+                const resizedFile = new File([blob], file.name, {
+                  type: file.type,
+                  lastModified: Date.now(),
+                });
+                resolve(resizedFile);
+              } else {
+                reject(new Error("Canvas blob creation failed"));
+              }
+            }, file.type, 0.8);
+          }
+        };
+      };
+
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
 
   const birthDate = user?.dob ? new Date(user.dob) : new Date();
   const age = new Date().getFullYear() - birthDate.getFullYear();
-  const profileImageUrl = user
-    ? getPbImageUrl(user, user?.avatar || "")
-    : "/default-profile.png";
 
   const hideHeader = matches.some(
     (match) => (match.handle as RouteHandle)?.hideHeader
   );
 
-    // 관심 운동 선택 처리 함수
-	const toggleInterest = (interest: string) => {
-		if (selectedInterests.includes(interest)) {
-		  setSelectedInterests(selectedInterests.filter((i) => i !== interest));
-		} else {
-		  setSelectedInterests([...selectedInterests, interest]);
-		}
-	  };
-	  
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -98,237 +155,344 @@ export default function MyPage() {
   }
 
   return (
-    <div>
-      {!hideHeader && (
-        <>
-          {!isEditMode ? (
-            <Header
-              className={styles.header}
-              leftIconVisible
-              rightIconId="iconEdit"
-              rightIconVisible
-              rightonClick={() => setIsEditMode(true)} // 편집 모드로 전환
-            />
-          ) : (
-            <Header
-              className={styles.header}
-              leftIconId="iconArrowsLeft"
-              leftIconVisible
-              leftonClick={() => setIsEditMode(false)} // 편집 모드 종료
-              rightIconVisible
-            />
-          )}
-        </>
-      )}
+    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+        {!hideHeader && (
+          <>
+            {!isEditMode ? (
+              <Header
+                className={styles.header}
+                leftIconVisible
+                rightIconId="iconEdit"
+                rightIconVisible
+                rightonClick={() => setIsEditMode(true)}
+              />
+            ) : (
+              <Header
+                className={styles.header}
+                leftIconId="iconArrowsLeft"
+                leftIconVisible
+                leftonClick={() => setIsEditMode(false)}
+                rightIconVisible
+              />
+            )}
+          </>
+        )}
 
-      {isEditMode ? (
-        <div className={styles["edit-mode-container"]}>
-          {/* 프로필 이미지 선택 기능 */}
-          <label>
-            <img
-              src={profilePreview || profileImageUrl || "/default-profile.png"}
-              alt="프로필 이미지"
-              className={`${styles.avatar} ${isEditMode ? styles.hoverable : ""}`}
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-          </label>
+        {isEditMode ? (
 
-          <div className={styles["input-disabled-container"]}>
-            <label className={styles["label"]}>아이디</label>
-            <Input 
-              value={user?.email || ""} 
-              disabled
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
+              <div className={styles["edit-mode-container"]}>
+                <div className={styles["avatar-box"]}>
+                  <img
+                    ref={avatarImageRef}
+                    src={profilePreview || "/default-profile.png"}
+                    className={styles.avatar}
+                    alt="프로필 이미지"
+                  />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    labelHide
+                    errorTextHide
+                  />
+                </div>
 
-          <div className={styles["input-disabled-container"]}>
-		  <label className={styles.label}>비밀번호</label>
-            <Input 
-              value="고객센터를 통해 변경해주세요." 
-              disabled
-              isDark={false}
-              labelHide={true}
-              errorTextHide={true}
-            />
-          </div>
+                <div className={styles["input-container"]}>
+                  <div className={styles["input-wrapper"]}>
+                  <div className={`${styles["input-content"]} ${styles["input-disabled"]}`}>
+                      <label className={styles.label}>아이디</label>
+                      {isDark ? (
+                        <Input
+                          value={user?.email || ""}
+                          disabled
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value={user?.email || ""}
+                          disabled
+                          labelHide
+                          errorTextHide
+                      />
+                      )}
+                    </div>
+                    <div className={`${styles["input-content"]} ${styles["input-disabled"]}`}>
+                      <label className={styles.label}>비밀번호</label>
+                      {isDark ? (
+                        <Input
+                          value="고객센터를 통해 변경해주세요."
+                          disabled
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value="고객센터를 통해 변경해주세요."
+                          disabled
+                          labelHide
+                          errorTextHide
+                      />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>닉네임</label>
+                      {isDark ? (
+                        <Input
+                          value={nickname}
+                          onChange={(e) => setNickname(e.target.value)}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          value={nickname}
+                          onChange={(e) => setNickname(e.target.value)}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>성별</label>
+                      <div className={styles["gender-content"]}>
+                        {isDark ? (
+                          <IsDarkSecondaryButton
+                            size="medium"
+                            onClick={() => setGender("M")}
+                            className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+                          >
+                            남자
+                            {gender === "M" && (
+                            <span className={styles["icon-box"]}>
+                              <SVGIcon width={20} height={20} iconId="iconCheck" />
+                            </span>
+                          )}
+                          </IsDarkSecondaryButton>
+                        ) : (
+                          <SecondaryMiniButton
+                            onClick={() => setGender("M")}
+                            className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
+                          >
+                            취소하기
+                          </SecondaryMiniButton>
+                        )}
+                        {isDark ? (
+                          <IsDarkSecondaryButton
+                            size="medium"
+                            onClick={() => setGender("F")}
+                            className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+                          >
+                            여자
+                            {gender === "F" && (
+                              <span className={styles["icon-box"]}>
+                                <SVGIcon width={20} height={20} iconId="iconCheck" />
+                              </span>
+                            )}
+                          </IsDarkSecondaryButton>
+                        ) : (
+                          <SecondaryMiniButton
+                            onClick={() => setGender("F")}
+                            className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
+                          >
+                            여자
+                            {gender === "F" && (
+                              <span className={styles["icon-box"]}>
+                                <SVGIcon width={20} height={20} iconId="iconCheck" />
+                              </span>
+                            )}
+                          </SecondaryMiniButton>
+                        )}
+                      </div>
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>생년월일</label>
+                      {isDark ? (
+                        <Input
+                          value={dob}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            const formattedValue = inputValue
+                              .replace(/[^0-9]/g, "")
+                              .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                            setDob(formattedValue);
+                          }}
+                          placeholder="yyyy-mm-dd"
+                          max={10}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                        value={dob}
+                        onChange={(e) => {
+                          const inputValue = e.target.value;
+                          const formattedValue = inputValue
+                            .replace(/[^0-9]/g, "")
+                            .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                          setDob(formattedValue);
+                        }}
+                        placeholder="yyyy-mm-dd"
+                        max={10}
+                        labelHide
+                        errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>키</label>
+                      {isDark ? (
+                        <Input
+                          type="number"
+                          value={height.toString()}
+                          onChange={(e) => setHeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          type="number"
+                          value={height.toString()}
+                          onChange={(e) => setHeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                    <div className={styles["input-content"]}>
+                      <label className={styles["label"]}>몸무게</label>
+                      {isDark ? (
+                        <Input
+                          type="number"
+                          value={weight.toString()}
+                          onChange={(e) => setWeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                          isDark
+                        />
+                      ) : (
+                        <Input
+                          type="number"
+                          value={weight.toString()}
+                          onChange={(e) => setWeight(Number(e.target.value))}
+                          labelHide
+                          errorTextHide
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
 
-          {/* 닉네임 입력 */}
-          <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>닉네임</label>
-            <Input 
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              isDark={false}
-			  labelHide={true}    
-              errorTextHide={true}
-            />
-          </div>
+                {isDark ? (
+                    <IsDarkPrimaryButton
+                      size="large"
+                      onClick={handleSaveChanges}
+                    >
+                    수정완료
+                    </IsDarkPrimaryButton>
+                  ) : (
+                    <PrimaryLargeButton
+                    onClick={handleSaveChanges}
+                    >
+                    수정완료
+                    </PrimaryLargeButton>
+                  )}
+              </div>
 
-          {/* 성별 선택 */}
-          <div className={styles["input-container"]}>
-            <label className={styles["label"]}>성별</label>
-            <div className={styles["gender-container"]}>
-              <SecondaryMiniButton
-                onClick={() => setGender("M")}
-                className={`${styles["gender-button"]} ${gender === "M" ? styles.selected : ""}`}
-              >
-                남자
-              </SecondaryMiniButton>
-              <SecondaryMiniButton
-                onClick={() => setGender("F")}
-                className={`${styles["gender-button"]} ${gender === "F" ? styles.selected : ""}`}
-              >
-                여자
-              </SecondaryMiniButton>
-            </div>
-          </div>
-
-          {/* 생년월일 입력 */}
-          <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>생년월일</label>
-			<Input 
-              value={dob}
-              onChange={(e) => {
-                const inputValue = e.target.value;
-                const formattedValue = inputValue
-                  .replace(/[^0-9]/g, "")
-                  .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-                setDob(formattedValue);
-              }}
-              placeholder="yyyy-mm-dd"
-              max={10}
-              isDark={false}
-			  labelHide={true}    
-              errorTextHide={true}
-            />
-          </div>
-
-          {/* 키 입력 */}
-          <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>키</label>
-			<Input 
-              type="number"
-              value={height.toString()}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              isDark={false}
-			  labelHide={true}    
-              errorTextHide={true}
-            />
-          </div>
-
-          {/* 몸무게 입력 */}
-          <div className={styles["input-container"]}>
-		  <label className={styles["label"]}>몸무게</label>
-		  <Input 
-              type="number"
-              value={weight.toString()}
-              onChange={(e) => setWeight(Number(e.target.value))}
-              isDark={false}
-			  labelTitle="몸무게"
-			  labelHide={true}    
-              errorTextHide={true}
-            />
-          </div>
-
-          <div className={styles["button-container"]}>
-            <PrimaryLargeButton onClick={handleSaveChanges}>
-              수정완료
-            </PrimaryLargeButton>
-          </div>
-        </div>
       ) : (
         <div>
-          <div className={styles["avatar-container"]}>
-            {/* 프로필 이미지 미리보기 */}
+          <div className={styles["avatar-box"]}>
             <img
               src={profilePreview || profileImageUrl || "/default-profile.png"}
               alt="프로필 이미지"
               className={styles.avatar}
             />
           </div>
-          
-          <h1 className={styles["main-nickname"]}>
+
+          <h1 className={`body-xl-bold ${styles["main-nickname"]}`}>
             {user?.nickname || "사용자 이름"}
           </h1>
-          
+
           <div className={styles["profile-stats-container"]}>
-            <div className={styles["stat-item"]}>{user?.weight || 0}kg</div>
+            <div className={styles["stat-item"]}>{user?.weight || 0}
+              <span className={`body-sm-bold ${styles["desc"]}`}>kg</span>
+            </div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>{user?.height || 0}cm</div>
+            <div className={styles["stat-item"]}>{user?.height || 0}
+              <span className={`body-sm-bold ${styles["desc"]}`}>cm</span>
+            </div>
             <div className={styles.divider}></div>
-            <div className={styles["stat-item"]}>{age || "알 수 없음"}세</div>
+            <div className={styles["stat-item"]}>{age || "알 수 없음"}
+              <span className={`body-sm-bold ${styles["desc"]}`}>세</span>
+            </div>
           </div>
 
-		  <div className={styles["interests-header"]}>
-  <h3 className={styles["interest-title"]}>관심 운동</h3>
-  <span className={styles["edit-interest"]}>수정</span>
-</div>
-<div className={styles.interestsList}>
-  {user?.interests && user.interests.length > 0 ? (
-    user.interests.map((interest: string, index: number) => (
-      <div key={index} className={styles.interest}>
-        <span>{interest}</span>
-      </div>
-    ))
-  ) : (
-    <p>관심 운동이 없습니다.</p>
-  )}
-</div>
-
-          {/* 구분선 추가 */}
-          <div className={styles["divider-line"]}></div>
-
-          {/* 계정 관련 섹션 */}
-          <div className={styles["account-section"]}>
-            <h3>계정</h3>
-            <button onClick={logout}>로그아웃</button>
-            <br />
-            <button onClick={() => navigate("/delete-account")}>
-              회원 탈퇴
-            </button>
-            <br />
-            <DarkModeToggleButton /> {/* Use DarkModeToggleButton */}
-          </div>
-        </div>
-      )}
-    {/* 관심 운동 수정 모달 */}
-	{isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <div className={styles.modalContent}>
-            <h2>관심 운동 선택</h2>
-            <div className={styles.interestsList}>
-              {availableInterests.map((interest, index) => (
-                <div key={index} className={styles.interest}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedInterests.includes(interest)}
-                      onChange={() => toggleInterest(interest)}
-                    />
-                    {interest}
-                  </label>
+          <div className={styles["interests-container"]}>
+            <div className={styles["interest-header"]}>
+              <h3 className={`body-md-bold ${styles["interest-title"]}`}>관심 운동</h3>
+              <span className={`body-sm-bold ${styles["edit-interest"]}`} onClick={() => setShowInterestModal(true)}>수정하기</span>
+            </div>
+            <div className={styles["interest-list"]}>
+              {selectedInterests.map((interest) => (
+                <div key={interest} className={styles["interest-item"]}>
+                  <img 
+                    src={`/image/interests-img-${interest}.jpg`} 
+                    alt={interest} 
+                    className={styles["interest-image"]}
+                  />
+                  <span className={`body-sm-bold ${styles["interest-tit"]}`}>{interest}</span>
                 </div>
               ))}
             </div>
-            <PrimaryLargeButton
-              onClick={() => {
-                setIsModalOpen(false); // 모달 닫기
-                handleSaveChanges();    // 저장
-              }}
-            >
-              저장
-            </PrimaryLargeButton>
           </div>
-        </Modal>
-      )}
+
+          <div className={styles["divider-line"]}></div>
+
+
+ 
+          <h3 className={`body-md-bold ${styles["interest-title"]}`}>다크 모드</h3>
+         
+          <div className={styles["darkmode-toggle"]}>
+            <DarkModeToggleButton />
+          </div>
+
+
+          <div className={styles["divider-line"]}></div>
+
+
+
+          <div className={styles["account-section"]}>
+            <h3 className={`body-md-bold ${styles["interest-title"]}`}>계정</h3>
+            <button onClick={handleLogout} className="body-sm-bold">로그아웃</button>
+            <br />
+            <button onClick={() => navigate("/delete-account")} className="body-sm-bold">회원 탈퇴</button>
+            <br />
+          </div>
+        </div>
+        
+        )}
+
+        {showInterestModal && (
+            <InterestModal
+              userInterests={selectedInterests}
+              onSave={(newInterests) => {
+                setSelectedInterests(newInterests);
+                setShowInterestModal(false);
+              }}
+              onCancel={() => setShowInterestModal(false)}
+            />
+          )}
+      </div>
     </div>
+  </div>
   );
 }
+
+Component.displayName = "MyPageRoute";

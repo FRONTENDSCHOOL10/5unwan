@@ -25,4 +25,5 @@
 
   /* gradients */
   --gradient-blue: linear-gradient(286deg, var(--secondary) 0%, #6F9EFF 100%);
+  --gradient-disabled: linear-gradient(286deg, var(--grayscale-800) 0%, var(--grayscale-900) 100%);
 }

@@ -1,19 +1,50 @@
 .container {
+  &.is-hide {
+    height: 0;
+  }
+}
+
+.wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 50%;
+  padding: 1.25rem;
+  border-top-left-radius: var(--rounded-md);
+  border-top-right-radius: var(--rounded-md);
   background-color: var(--white);
-  border-top-left-radius: var(--rounded-lg);
-  border-top-right-radius: var(--rounded-lg);
   z-index: 150;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: height 300ms ease-in-out;
+  background-color: var(--white);
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 26.25rem;
+}
+
+.bar {
+  position: absolute;
+  top: calc(2.5rem / 2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6rem;
+  height: 0.4rem;
+  background-color: var(--grayscale-300);
+  border-radius: var(--rounded-md);
 }
 
 .result-list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  height: auto;
+  margin-top: 1.5rem;
 }
 
 .result-items {
@@ -21,11 +52,11 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 3.75rem;
-  padding: 0 20px;
-  border-bottom: 1px solid var(--grayscale-300);
+  border-bottom: 0.0625rem solid var(--grayscale-300);
   gap: var(--space-2);
   cursor: pointer;
+  padding: 1.25rem 0;
+  
 
   &:last-child {
     border: 0;
@@ -40,10 +71,6 @@
     height: 100%;
     gap: var(--space-1);
 
-    .title {
-      font-size: var(----medium);
-    }
-
     p {
       font-size: var(--basic);
     }
@@ -55,28 +82,78 @@
     align-items: center;
     flex-shrink: 0;
     flex-grow: 0;
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     order: -1;
-    background-color: var(--secondary);
+    background-color: var(--primary);
     color: var(--white);
+    margin-right: var(--space-1);
   }
 
   .favorite {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     width: 1.25rem;
     height: 1.25rem;
     flex-shrink: 0;
-    background-image: url('https://cdn.iconscout.com/icon/free/png-512/free-star-icon-download-in-svg-png-gif-file-formats--like-logo-favorite-award-rating-christmas-iconly-essential-icons-pack-user-interface-2036103.png?f=webp&w=256');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+    &:focus {
+    border: .0625rem solid var(--secondary);
+  }
+
+    svg {
+      &:hover {
+        color: var(--primary);
+      }
+    }
 
     &.is-active {
-      background-image: url('https://cdn.iconscout.com/icon/free/png-256/free-star-bookmark-favorite-shape-rank-16-28621.png');
+      svg {
+        color: var(--primary);
+      }
+    }
+  }
+}
+
+
+.is-dark {
+  .wrapper {
+    background-color: var(--grayscale-900);
+  }
+
+  .bar {
+    background-color: var(--white);
+
+  }
+  .number {
+    background-color: var(--white);
+    color: var(--primary);
+  }
+
+  .content {
+    .title {
+      color: var(--white);
+    }
+
+    p {
+      color: var(--grayscale-400);
+    }
+  }
+
+  .favorite {
+    svg {
+      color: var(--grayscale-700);
+
+      &:hover {
+        color:  var(--white);
+      
+      }
+    }
+    &.is-active {
+      svg {
+        color: var(--white);
+      }
     }
   }
 }

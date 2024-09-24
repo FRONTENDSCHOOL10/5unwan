@@ -5,12 +5,14 @@ interface Store {
   isActive: string;
   filtered: Exercise[] | { items: Exercise[] } | string;
   exercises: Exercise[];
+  show: boolean;
 }
 
 interface Action {
   setIsActive: (isActive: string) => void;
   setFiltered: (filtered: Exercise[] | string) => void;
   setExercises: (exercises: Exercise[]) => void;
+  setShow: (show: boolean) => void;
 }
 
 const useStore = create<Store & Action>((set) => ({
@@ -22,6 +24,9 @@ const useStore = create<Store & Action>((set) => ({
 
   exercises: [],
   setExercises: (exercises) => set({ exercises }),
+
+  show: false,
+  setShow: (show) => set({ show }),
 }));
 
 export default useStore;

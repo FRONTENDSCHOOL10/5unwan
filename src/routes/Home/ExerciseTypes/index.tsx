@@ -1,6 +1,13 @@
 import homeStore from '@/stores/homeStore';
 import styles from "./exerciseTypes.module.css";
-import { getExercise } from '@/api/pocketbase';
+import { User, getExercise } from '@/api/pocketbase';
+import { useState, useEffect } from 'react';
+import classNames from "classnames";
+import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
+
+interface userProps {
+  user: User;
+}
 
 function getTypes(type: string) {
   switch (type) {
@@ -10,7 +17,7 @@ function getTypes(type: string) {
       return "요가";
     case "badminton":
       return "배드민턴";
-    case "climbing":
+    case "sport-climbing":
       return "클라이밍";
     case "tennis":
       return "테니스";
@@ -21,9 +28,25 @@ function getTypes(type: string) {
   }
 }
 
-export default function ExerciseType() {
+export default function ExerciseType({ user }: userProps) {
   const { isActive, setIsActive, exercises, setFiltered } = homeStore();
-  const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+  const [newTypeList, setNewTypeList] = useState<string[]>([]);
+  const { isDark } = useDarkMode();
+
+  function sortTypeList() {
+    const typeList = [...new Set(exercises.map((exercise) => exercise.type))];
+    if (user.interests[0] && typeList.includes(user.interests[0])) {
+      const index = typeList.indexOf(user.interests[0]);
+      const [interestType] = typeList.splice(index, 1);
+      typeList.unshift(interestType);
+    }
+    setNewTypeList(typeList);
+  }
+
+  useEffect(() => {
+    sortTypeList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exercises]);
 
   async function handleList(type: string) {
     if (type) {
@@ -37,34 +60,26 @@ export default function ExerciseType() {
       setFiltered("");
     }
   }
-  const handleClick = (type: string) => {
+
+  function handleTypeAllClick(type: string) {
     handleList(type);
     setIsActive(type === "" ? "" : type);
-  };
+  }
 
   return (
-    <>
+    <div className={classNames(styles.container, { [styles["is-dark"]]: isDark })}>
       <ul className={`${styles["exercise-type-list"]} no-scroll`}>
-        <li
-          className={`${styles["exercise-type-item"]} ${
-            isActive === "" ? styles["is-active"] : ""
-          }`}
-          onClick={() => handleClick("")}
-        >
+        <li className={`${styles["exercise-type-item"]} ${isActive === "" ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick("")}>
           전체
         </li>
-        {typeList.map((type, index) => (
-          <li
-            key={index}
-            className={`${styles["exercise-type-item"]} ${
-              isActive === type ? styles["is-active"] : ""
-            }`}
-            onClick={() => handleClick(type)}
-          >
-            {getTypes(type)}
-          </li>
-        ))}
+        {
+          newTypeList.map((type, index) => (
+            <li key={index} className={`${styles["exercise-type-item"]} ${isActive === type ? styles["is-active"] : ""}`} onClick={() => handleTypeAllClick(type)}>
+              { getTypes(type) }
+            </li>
+          ))
+        }   
       </ul>
-    </>
+    </div>
   );
 }

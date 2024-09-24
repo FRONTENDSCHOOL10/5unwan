@@ -61,5 +61,17 @@
     <symbol id="iconEllipse" width="4" height="4" fill="none" viewBox="0 0 4 4">
       <circle cx="2" cy="2" r="2" fill="currentColor" />
     </symbol>
+
+    <svg id="iconFavorite" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+      <g clip-path="url(#a)">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M8.571 1.5a1.686 1.686 0 0 1 2.857 0L14.2 5.886l3.614.443a1.657 1.657 0 0 1 1.072 2.728l-3.015 3.457.972 4.786a1.671 1.671 0 0 1-.657 1.671 1.7 1.7 0 0 1-1.8.1L10 16.671l-4.386 2.4a1.7 1.7 0 0 1-1.8-.1 1.671 1.671 0 0 1-.657-1.671l.971-4.786-3.014-3.457A1.657 1.657 0 0 1 2.186 6.33L5.8 5.886 8.57 1.5Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path fill="#fff" d="M0 0h20v20H0z"/>
+        </clipPath>
+      </defs>
+    </svg>
+
   </defs>
 </svg>

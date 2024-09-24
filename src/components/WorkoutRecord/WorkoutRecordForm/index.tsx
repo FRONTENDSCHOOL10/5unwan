@@ -10,9 +10,9 @@ import IsDarkPrimaryButton from "@/components/Buttons/IsDarkButton/isDarkPrimary
 import IsDarkSecondaryButton from "@/components/Buttons/IsDarkButton/isDarkSecondaryButton";
 import { useToday } from "@/hooks/useWorkouts";
 import { convertImageToWebP } from "@/utils/convertImageToWebP";
-// import Input from '@/components/Input';
 import { useDarkMode } from "@/components/DarkModeContext/DarkModeContext";
 import SVGIcon from "@/components/SVGicon";
+import Input from "@/components/Input/index";
 
 const categories = [
   "헬스",
@@ -70,21 +70,8 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
     const day = today;
     const { category, start, end, title, content, newPhotoFile } = formData;
 
-    if (
-      !user ||
-      !day ||
-      !category.length ||
-      !start ||
-      !end ||
-      !title ||
-      !content
-    ) {
-      alert("모든 내용을 입력해주세요.");
-      return;
-    }
-
     const newWorkout: NewWorkout = {
-      user,
+      user: user!,
       day,
       category: category.join(", "),
       start,
@@ -160,7 +147,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // 파일 선택 창 열기
+      fileInputRef.current.click();
     }
   };
 
@@ -196,49 +183,75 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
         <li className={styles["list-time"]}>
           <title className="body-md-bold">운동 시간</title>
           <section>
-            <input
-              className="body-sm-medium"
-              id={`${id}-start`}
-              type="time"
-              name="start"
-              value={formData.start}
-              onChange={handleUpdateFormData}
-              required
+            {isDark ? (
+              <Input
+                type="time"
+                name="start"
+                value={formData.start}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
+                isDark
+              />
+            ) : (
+              <Input
+                type="time"
+                name="start"
+                value={formData.start}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
             />
+            )}
             <p className="body-sm-bold">부터</p>
-            <input
-              className="body-sm-medium"
-              id={`${id}-end`}
+            {isDark ? (
+              <Input
               type="time"
               name="end"
               value={formData.end}
               onChange={handleUpdateFormData}
-              required
+              labelHide
+              errorTextHide
+              isDark
             />
+            ) : (
+              <Input
+              type="time"
+              name="end"
+              value={formData.end}
+              onChange={handleUpdateFormData}
+              labelHide
+              errorTextHide
+            />
+            )}
             <p className="body-sm-bold">까지</p>
           </section>
         </li>
 
         <li className={styles["list-title"]}>
           <title className="body-md-bold">운동 제목</title>
-          <input
-            id={`${id}-title`}
-            type="text"
-            name="title"
-            placeholder="운동 제목"
-            value={formData.title}
-            onChange={handleUpdateFormData}
-          />
-          {/* Input 컴포넌트 사용 시 onChange가 안먹히는지
-              버튼 disabled가 풀리지 않아요.  */}
-          {/* <Input
-            title="Test Input"
-            isDark={isDark}
-            placeholder="제목을 입력해 주세요"
-            onChange={handleUpdateFormData}
-            textHide
-            titleHide
-          /> */}
+          {isDark ? (
+            <Input
+              type="text"
+              name="title"
+              placeholder="운동 제목"
+              value={formData.title}
+              onChange={handleUpdateFormData}
+              labelHide
+              errorTextHide
+              isDark
+            />
+            ) : (
+              <Input
+                type="text"
+                name="title"
+                placeholder="운동 제목"
+                value={formData.title}
+                onChange={handleUpdateFormData}
+                labelHide
+                errorTextHide
+              />
+            )}
         </li>
 
         <li className={styles["list-content"]}>
@@ -269,16 +282,30 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
               )}
             </figure>
 
-            <input
+            {isDark ? (
+              <Input
               ref={fileInputRef}
-              id={`${id}-newPhotoFile`}
               type="file"
               name="newPhotoFile"
-              accept=".jpg, .webp, .svg, .gif, .webp"
+              accept=".jpg, .webp, .svg, .gif"
               aria-label="운동기록 사진 업로드"
               onChange={handleUpdatePhoto}
-              style={{ display: "none" }}
+              labelHide
+              errorTextHide
+              isDark
             />
+            ) : (
+              <Input
+                ref={fileInputRef}
+                type="file"
+                name="newPhotoFile"
+                accept=".jpg, .webp, .svg, .gif"
+                aria-label="운동기록 사진 업로드"
+                onChange={handleUpdatePhoto}
+                labelHide
+                errorTextHide
+              />
+            )}
           </section>
         </li>
       </ul>
@@ -309,7 +336,7 @@ export function WorkoutRecordForm({ onSuccess, onCancel }: WorkoutRecordFormProp
             !formData.end ||
             !formData.title ||
             !formData.content ||
-            !formData.content ||
+            !formData.newPhotoFile ||
             createWorkoutMutation.isPending
           }
         >

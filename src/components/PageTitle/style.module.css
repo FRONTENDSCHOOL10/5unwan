@@ -1,0 +1,9 @@
+.title {
+    color: var(--grayscale-700);
+    margin-bottom: 1.875rem;
+    word-break: keep-all;
+}
+
+.is-dark {
+    color: var(--white);
+}
