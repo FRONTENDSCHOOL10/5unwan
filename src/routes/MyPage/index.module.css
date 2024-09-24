@@ -1,335 +1,380 @@
 .container {
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	  
-	.wrapper {
-		padding: 0 1.25rem;
-	}
-	
-	.content {
-		margin: 0 auto;
-		max-width: 26.25rem;
-		margin-bottom: 2.5rem;
-	}
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  .wrapper {
+    padding: 0 1.25rem;
+  }
+
+  .content {
+    margin: 0 auto;
+    max-width: 26.25rem;
+    margin-bottom: 2.5rem;
+  }
 }
 
 .edit-icon {
-	position: absolute;
-	cursor: pointer;
+  position: absolute;
+  cursor: pointer;
 }
 
 /* 프로필 사진 */
 .avatar-box {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.image-container {
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  object-fit: cover;
+  justify-content: center;
+  border: 0.0625rem solid var(--grayscale-200);
+  border-radius: var(--rounded-full);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .avatar {
-	border: 0.0625rem solid var(--grayscale-300);
-	width: 7.5rem;
-	height: 7.5rem;
-	border-radius: var(--rounded-full);
-	object-fit: cover;
-	transition: all 0.3s ease;
-	margin-top: var(--space-8);
+  border: 0.0625rem solid var(--grayscale-300);
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: var(--rounded-full);
+  object-fit: cover;
+  transition: all 0.3s ease;
+  /* margin-top: var(--space-8); */
+}
+
+.icon-box {
+  position: absolute;
+  right: 10;
+  bottom: 0;
+  transform: translate(-80%, -30%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  object-fit: cover;
+  justify-content: center;
+  width: var(--space-9);
+  height: var(--space-9);
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--rounded-full);
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--grayscale-200);
+  }
+
+  svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
 }
 
 /* 유저 닉네임 */
 .main-nickname {
-	color: var(--grayscale-900);
-	margin-top: var(--space-5);
-	margin-bottom: var(--space-5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+  color: var(--grayscale-900);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 /* 내 정보 */
 .profile-stats-container {
-	height: var(--space-15-half);
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: var(--white);
-	border-radius: var(--rounded-md);
-	box-shadow: var(--box-shadow);
-	width: 100%;
+  height: var(--space-15-half);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: var(--rounded-md);
+  box-shadow: var(--box-shadow);
+  width: 100%;
 }
 
 .stat-item {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 5rem;
-	font-size: var(--large);
-	font-weight: var(--font-weight-medium);
-	color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  font-size: var(--large);
+  font-weight: var(--font-weight-medium);
+  color: var(--black);
 
-	.desc {
-		margin-left: var(--space-1);
-		color: var(--grayscale-600);
-		transform: translateY(0.0625rem);
-	}
+  .desc {
+    margin-left: var(--space-1);
+    color: var(--grayscale-600);
+    transform: translateY(0.0625rem);
+  }
 }
 
 .divider {
-	width: var(--space-half);
-	height: var(--space-5);
-	background-color: var(--grayscale-400);
+  width: var(--space-half);
+  height: var(--space-5);
+  background-color: var(--grayscale-400);
 }
 
 /* 성별 버튼 컨테이너 */
 .gender-content {
-	display: flex;
-	justify-content: flex-start;
-	gap: var(--space-2);
-	align-items: center;
-	margin-top: var(--space-3);
-	margin-bottom: var(--space-3);
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  align-items: center;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .selected {
-	color: var(--primary) !important;
-	border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 .input-container {
-	margin-bottom: 1.875rem;
-	margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
+  margin-top: 1.875rem;
 }
 
 /* 편집 모드 */
 .input-content input {
-	height: var(--space-10-half);
-	border: 0.0625rem solid var(--grayscale-400);
-	border-radius: var(--rounded-sm);
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin-top: var(--space-3);
-	margin-bottom: var(--space-3);
+  height: var(--space-10-half);
+  border: 0.0625rem solid var(--grayscale-400);
+  border-radius: var(--rounded-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .avatar-box {
-	div {
-		display: none;
-	}
+  div {
+    display: none;
+  }
 }
 
 .edit-profile {
-	display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .input-content {
-	margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .input-content input::placeholder {
-	color: var(--grayscale-600);
+  color: var(--grayscale-600);
 }
 
 .input-content input:hover,
 .input-content input:focus,
 .input-content input:active {
-	border-color: var(--grayscale-700);
+  border-color: var(--grayscale-700);
 }
 
 .input-content input:hover::placeholder,
 .input-content input:focus::placeholder,
 .input-content input:active::placeholder {
-	color: var(--grayscale-900);
+  color: var(--grayscale-900);
 }
 
 .label {
-	font-size: var(--basic);
-	font-weight: var(--font-weight-bold);
-	color: var(--primary);
-	width: 100%;
+  font-size: var(--basic);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  width: 100%;
 }
 
 .account-section button {
-	margin-top: var(--space-2);
-	border: none;
-	cursor: pointer;
-	color: var(--grayscale-500);
+  margin-top: var(--space-2);
+  border: none;
+  cursor: pointer;
+  color: var(--grayscale-500);
 }
 
 .account-section button:hover {
-	color: var(--primary);
+  color: var(--primary);
 }
 
 .divider-line {
-	height: var(--space-2);
-	background-color: var(--grayscale-100);
-	margin: var(--space-7) 0;
+  height: var(--space-2);
+  background-color: var(--grayscale-100);
+  margin: var(--space-7) 0;
 }
 
 .interests {
-	padding-left: 1.5rem;
-	margin-bottom: var(--space-3);
-	margin-top: var(--space-10);
+  padding-left: 1.5rem;
+  margin-bottom: var(--space-3);
+  margin-top: var(--space-10);
 }
 
 .back-icon {
-	position: absolute;
-	cursor: pointer;
-	left: 0;
+  position: absolute;
+  cursor: pointer;
+  left: 0;
 }
 
 .hoverable:hover,
 .hoverable:active {
-	border: var(--primary);
-	box-shadow: var(--gnb-shadow);
-	transform: scale(1.05);
-	cursor: pointer;
+  border: var(--primary);
+  box-shadow: var(--gnb-shadow);
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .input-disabled input {
-	width: 100%;
-	height: var(--space-10-half);
-	padding: 0 var(--space-5);
-	border: 0.0625rem solid var(--grayscale-400);
-	border-radius: var(--rounded-sm);
-	text-overflow: ellipsis;
-	margin-top: var(--space-3);
-	color: var(--grayscale-500);
-	pointer-events: none;
+  width: 100%;
+  height: var(--space-10-half);
+  padding: 0 var(--space-5);
+  border: 0.0625rem solid var(--grayscale-400);
+  border-radius: var(--rounded-sm);
+  text-overflow: ellipsis;
+  margin-top: var(--space-3);
+  color: var(--grayscale-500);
+  pointer-events: none;
 }
 
 .mypage-label {
-	font-size: var(--basic);
-	font-weight: var(--font-weight-bold);
-	color: var(--primary);
-	width: 100%;
+  font-size: var(--basic);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  width: 100%;
 }
 
 .interest-title {
-	color: var(--grayscale-900);
+  color: var(--grayscale-900);
 }
 
 .edit-interest {
-	cursor: pointer;
-	color: var(--grayscale-500);
+  cursor: pointer;
+  color: var(--grayscale-500);
 }
 
 .interest-tit {
-	color: var(--grayscale-600);
+  color: var(--grayscale-600);
 }
 
 .container {
-	max-width: 100%;
-	margin: 0 auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* 관심사 섹션 */
 .interests-content {
-  display: block; 
+  display: block;
   width: 100%;
   margin-top: var(--space-3);
   margin-bottom: var(--space-3);
 }
 
 .interest-header {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin-top: var(--space-10);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: var(--space-10);
 }
 
 /* 관심사 목록 */
 .interest-list {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-5);
-	margin-top: var(--space-4);
-	width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+  width: 100%;
 }
 
 /* 관심사 항목 */
 .interest-item {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .interest-image {
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	object-fit: cover;
-	margin-bottom: var(--space-2);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: var(--space-2);
 }
 
 .darkmode-toggle {
-	margin-top: var(--space-4);
-	cursor: pointer;
+  margin-top: var(--space-4);
+  cursor: pointer;
 }
-
 
 /* 다크모드 스타일링 */
 
 .is-dark {
-	.avatar {
-		border: 0.0625rem solid var(--grayscale-700);
-	}
+  .avatar {
+    border: 0.0625rem solid var(--grayscale-700);
+  }
 
-	.main-nickname {
-		color: var(--white);
-	}
+  .main-nickname {
+    color: var(--white);
+  }
 
-	.divider-line {
-		background-color: var(--grayscale-800);
-	}
+  .divider-line {
+    background-color: var(--grayscale-800);
+  }
 
-	.interest-title {
-		color: var(--white);
-	}
-	
-	.edit-interest {
-		cursor: pointer;
-		color: var(--grayscale-400);
-	}
+  .interest-title {
+    color: var(--white);
+  }
 
-	.interest-tit {
-		color: var(--grayscale-400);
-	}
+  .edit-interest {
+    cursor: pointer;
+    color: var(--grayscale-400);
+  }
 
-	.profile-stats-container {
-		background-color: var(--grayscale-800);
-		box-shadow: var(--gnb-shadow);
-	}
-	
-	.stat-item {
-		color: var(--white);
-	
-		.desc {
-			color: var(--grayscale-400);
-		}
-	}
-	.divider {
-		background-color: var(--grayscale-700);
-	}
+  .interest-tit {
+    color: var(--grayscale-400);
+  }
 
-	.label {
-		color: var(--white);
-	}
+  .profile-stats-container {
+    background-color: var(--grayscale-800);
+    box-shadow: var(--gnb-shadow);
+  }
 
-	.gender-content {
-		display: flex;
-		justify-content: flex-start;
-		gap: var(--space-2);
-		align-items: center;
-		margin-top: var(--space-3);
-		margin-bottom: var(--space-3);
-	}
-	
-	.selected {
-		color: var(--primary) !important;
-		border-color: var(--primary) !important;
-	}
+  .stat-item {
+    color: var(--white);
 
-	
+    .desc {
+      color: var(--grayscale-400);
+    }
+  }
+  .divider {
+    background-color: var(--grayscale-700);
+  }
+
+  .label {
+    color: var(--white);
+  }
+
+  .gender-content {
+    display: flex;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    align-items: center;
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .selected {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+  }
 }
